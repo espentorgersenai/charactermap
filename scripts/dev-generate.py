@@ -24,6 +24,8 @@ except ImportError:
 from app.config import settings
 from app.worker.pipeline import call_and_validate, RefusalError, _load_prompt_template, REFUSAL_MESSAGES
 from app.llm.anthropic_client import AnthropicClient
+from app.llm.gemini_client import GeminiClient
+from app.llm.openai_client import OpenAIClient
 
 
 async def _run(args) -> str:
@@ -49,8 +51,17 @@ async def _run(args) -> str:
 
     if args.model.startswith("claude-"):
         client = AnthropicClient(model=args.model, api_key=settings.anthropic_api_key)
+    elif args.model.startswith("gpt-"):
+        client = OpenAIClient(model=args.model, api_key=settings.openai_api_key)
+    elif args.model.startswith("gemini-"):
+        client = GeminiClient(
+            model=args.model,
+            api_key=settings.google_api_key,
+            project=settings.google_cloud_project or None,
+            location=settings.google_cloud_location,
+        )
     else:
-        print(f"[dev-generate] Model {args.model!r} not yet wired (Phase 5)", file=sys.stderr)
+        print(f"[dev-generate] Model {args.model!r} not yet wired", file=sys.stderr)
         sys.exit(1)
 
     try:
@@ -93,7 +104,11 @@ Examples:
     parser.add_argument(
         "--model",
         default="claude-sonnet-4-6",
-        choices=["claude-sonnet-4-6", "claude-opus-4-7", "claude-haiku-4-5-20251001", "gpt-5.5", "gemini-2.5-pro"],
+        choices=[
+            "claude-sonnet-4-6", "claude-opus-4-7", "claude-haiku-4-5-20251001",
+            "gpt-5.5", "gpt-5", "gpt-5-mini",
+            "gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite",
+        ],
     )
     parser.add_argument("--prompt-file", type=Path)
     parser.add_argument("--save", type=Path)

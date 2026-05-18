@@ -113,3 +113,53 @@ async def test_spoiler_level_none_survives_validation():
     client = _make_client(json.dumps(map_without_spoiler))
     char_map, _ = await call_and_validate(client, "system", "user")
     assert char_map.characters[0].spoiler_level is None  # sweep happens in run_pipeline
+
+
+@pytest.mark.asyncio
+async def test_fenced_json_parses_on_first_try():
+    """Haiku 4.5 wraps JSON in ```json fences — strip and parse without retry."""
+    fenced = f"```json\n{VALID_MAP_JSON}\n```"
+    client = _make_client(fenced)
+    char_map, _ = await call_and_validate(client, "system", "user")
+    assert char_map.title == "Congo"
+    assert client.generate_character_map.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_fenced_json_no_language_tag():
+    """Fence without `json` language hint should also be stripped."""
+    fenced = f"```\n{VALID_MAP_JSON}\n```"
+    client = _make_client(fenced)
+    char_map, _ = await call_and_validate(client, "system", "user")
+    assert char_map.title == "Congo"
+    assert client.generate_character_map.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_fenced_refusal_raises_refusal_not_validation():
+    """A fenced refusal must surface as RefusalError, not invalid_json."""
+    fenced = '```json\n{"refusal": "unknown_work"}\n```'
+    client = _make_client(fenced)
+    with pytest.raises(RefusalError) as exc_info:
+        await call_and_validate(client, "system", "user")
+    assert exc_info.value.refusal_code == "unknown_work"
+    assert client.generate_character_map.call_count == 1
+
+
+@pytest.mark.asyncio
+async def test_fenced_invalid_then_unfenced_valid_retries():
+    """Fenced *invalid* JSON should still trigger the retry path."""
+    fenced_invalid = f"```json\n{INVALID_JSON}\n```"
+    client = _make_client(fenced_invalid, VALID_MAP_JSON)
+    char_map, _ = await call_and_validate(client, "system", "user")
+    assert char_map.title == "Congo"
+    assert client.generate_character_map.call_count == 2
+
+
+@pytest.mark.asyncio
+async def test_unfenced_output_unchanged():
+    """Strip is a no-op for fence-free output (Sonnet/Opus path)."""
+    client = _make_client(VALID_MAP_JSON)
+    char_map, _ = await call_and_validate(client, "system", "user")
+    assert char_map.title == "Congo"
+    assert client.generate_character_map.call_count == 1

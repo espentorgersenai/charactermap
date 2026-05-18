@@ -1,4 +1,5 @@
 import json
+import re
 import structlog
 from datetime import datetime, timezone
 from decimal import Decimal
@@ -10,6 +11,8 @@ from app.config import settings
 from app.db.session import async_session_factory
 from app.db.tables import Artifact, Job
 from app.llm.anthropic_client import AnthropicClient
+from app.llm.gemini_client import GeminiClient
+from app.llm.openai_client import OpenAIClient
 from app.metadata.enrichment import match_cast_to_characters, set_creator
 from app.metadata.tmdb import get_credits
 from app.renderers.markdown import render_markdown
@@ -36,6 +39,19 @@ class RefusalError(Exception):
     def __init__(self, refusal_code: str) -> None:
         self.refusal_code = refusal_code
         super().__init__(refusal_code)
+
+
+# Haiku 4.5 (and likely future small-tier models / other providers) ignores the
+# prompt's "no markdown fences" instruction and wraps JSON in ```json fences.
+# Pydantic's JSON parser is strict — first non-whitespace must be `{` — so we
+# strip a single outer fence defensively before validating. Provider-agnostic.
+_FENCE_RE = re.compile(r"^```(?:json)?\s*\n?(.*?)\n?```\s*$", re.DOTALL)
+
+
+def _strip_fences(text: str) -> str:
+    stripped = text.strip()
+    m = _FENCE_RE.match(stripped)
+    return m.group(1) if m else stripped
 
 
 def _check_refusal(text: str) -> None:
@@ -94,7 +110,12 @@ async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
 
     if tmdb_id is not None and media_type in ("movie", "tv"):
         try:
-            cast, director_credit = await get_credits(tmdb_id, media_type)
+            # aggregate_collection only matters for movies in a TMDB collection
+            # (Hobbit trilogy, LOTR, Star Wars). Single-film movies and TV fall
+            # back to single-cast inside fetch_collection_cast.
+            cast, director_credit = await get_credits(
+                tmdb_id, media_type, aggregate_collection=True
+            )
             matched = match_cast_to_characters(char_map.characters, cast)
             log.info(
                 "enrichment_cast_matched",
@@ -146,20 +167,23 @@ async def call_and_validate(
     can observe the raw None values.
     """
     raw = await client.generate_character_map(system_prompt, user_message, max_tokens)
-    _check_refusal(raw.text)
+    text = _strip_fences(raw.text)
+    _check_refusal(text)
     try:
-        result = CharacterMap.model_validate_json(raw.text)
+        result = CharacterMap.model_validate_json(text)
         return result, raw
     except ValidationError as first_error:
         log.warning("llm_output_invalid_retrying", error=str(first_error))
         retry_message = (
             user_message
             + f"\n\nYour previous output was invalid. Validation error:\n{first_error}"
-            + "\n\nFix the output and return only valid JSON conforming to the schema."
+            + "\n\nReturn only the raw JSON object — no ```json fences, no preamble,"
+              " no trailing prose. The response must start with `{` and end with `}`."
         )
         raw2 = await client.generate_character_map(system_prompt, retry_message, max_tokens)
-        _check_refusal(raw2.text)
-        result2 = CharacterMap.model_validate_json(raw2.text)  # raises if still invalid
+        text2 = _strip_fences(raw2.text)
+        _check_refusal(text2)
+        result2 = CharacterMap.model_validate_json(text2)  # raises if still invalid
         return result2, raw2
 
 
@@ -196,7 +220,16 @@ def _render_user_message(job: Job) -> str:
 def get_llm_client(model: str) -> LLMClient:
     if model.startswith("claude-"):
         return AnthropicClient(model=model, api_key=settings.anthropic_api_key)
-    raise NotImplementedError(f"Model {model!r} not yet wired (Phase 5 adds OpenAI + Google)")
+    if model.startswith("gpt-"):
+        return OpenAIClient(model=model, api_key=settings.openai_api_key)
+    if model.startswith("gemini-"):
+        return GeminiClient(
+            model=model,
+            api_key=settings.google_api_key,
+            project=settings.google_cloud_project or None,
+            location=settings.google_cloud_location,
+        )
+    raise NotImplementedError(f"Model {model!r} not yet wired")
 
 
 async def run_pipeline(job_id: str) -> None:
