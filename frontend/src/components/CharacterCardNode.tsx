@@ -19,10 +19,14 @@ export function CharacterCardNode({ data }: NodeProps) {
 
   return (
     <>
-      <Handle type="target" position={Position.Left}  style={{ opacity: 0 }} />
-      <Handle type="target" position={Position.Top}   style={{ opacity: 0 }} />
-      <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
-      <Handle type="source" position={Position.Bottom} style={{ opacity: 0 }} />
+      <Handle id="src-right"  type="source" position={Position.Right}  style={{ opacity: 0 }} />
+      <Handle id="src-bottom" type="source" position={Position.Bottom} style={{ opacity: 0 }} />
+      <Handle id="src-left"   type="source" position={Position.Left}   style={{ opacity: 0 }} />
+      <Handle id="src-top"    type="source" position={Position.Top}    style={{ opacity: 0 }} />
+      <Handle id="tgt-left"   type="target" position={Position.Left}   style={{ opacity: 0 }} />
+      <Handle id="tgt-top"    type="target" position={Position.Top}    style={{ opacity: 0 }} />
+      <Handle id="tgt-right"  type="target" position={Position.Right}  style={{ opacity: 0 }} />
+      <Handle id="tgt-bottom" type="target" position={Position.Bottom} style={{ opacity: 0 }} />
 
       <div
         style={{ borderColor: colour }}

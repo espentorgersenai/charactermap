@@ -108,6 +108,7 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
 
   const nodes: Node[] = []
   const nodeIdSet = new Set<string>()
+  const nodeCenters = new Map<string, { x: number; y: number }>()
 
   nonEmpty.forEach((faction, idx) => {
     const gridCol = idx % GRID_COLS
@@ -119,13 +120,14 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
     const groupX = colX[gridCol]
     const groupY = rowY[gridRow]
 
+    const factionNodeId = `__faction_${faction.id}`
     nodes.push({
-      id: `__faction_${faction.id}`,
+      id: factionNodeId,
       type: 'factionGroup',
       position: { x: groupX, y: groupY },
       style: { width: groupW, height: groupH },
       data: { label: faction.label, colour, description: faction.description },
-      draggable: false,
+      draggable: true,
       selectable: false,
       zIndex: 0,
     })
@@ -135,30 +137,59 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
       nodes.push({
         id: char.id,
         type: 'characterCard',
+        // Position is relative to parent faction group
         position: {
-          x: groupX + FACTION_PADDING + pos.x,
-          y: groupY + FACTION_LABEL_H + FACTION_PADDING + pos.y,
+          x: FACTION_PADDING + pos.x,
+          y: FACTION_LABEL_H + FACTION_PADDING + pos.y,
         },
+        parentId: factionNodeId,
+        extent: 'parent' as const,
         data: { character: char, colour, showBadges: false },
+        draggable: false,
         zIndex: 2,
+      })
+      // Store absolute center for edge handle selection
+      nodeCenters.set(char.id, {
+        x: groupX + FACTION_PADDING + pos.x + NODE_WIDTH / 2,
+        y: groupY + FACTION_LABEL_H + FACTION_PADDING + pos.y + NODE_HEIGHT / 2,
       })
       nodeIdSet.add(char.id)
     })
   })
 
+  // nodeCenters was built during node creation with absolute positions (see below)
+
   const edges: Edge[] = relationships
     .filter((r: Relationship) => nodeIdSet.has(r.from_id) && nodeIdSet.has(r.to_id))
-    .map((r: Relationship) => ({
-      id: `${r.from_id}__${r.to_id}__${r.type}`,
-      source: r.from_id,
-      target: r.to_id,
-      type: 'straight',
-      label: r.label,
-      labelBgStyle: { fill: 'rgba(17,17,17,0.92)', rx: 3, ry: 3 },
-      labelStyle: { fill: '#ccc', fontSize: 11, fontFamily: '-apple-system,sans-serif' },
-      style: EDGE_STYLES[r.type] ?? EDGE_STYLES.professional,
-      zIndex: 0,
-    }))
+    .map((r: Relationship) => {
+      // Pick the handle on each node that faces the other node
+      const src = nodeCenters.get(r.from_id)!
+      const tgt = nodeCenters.get(r.to_id)!
+      const dx = tgt.x - src.x
+      const dy = tgt.y - src.y
+      let sourceHandle: string
+      let targetHandle: string
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        if (dx >= 0) { sourceHandle = 'src-right';  targetHandle = 'tgt-left'   }
+        else          { sourceHandle = 'src-left';   targetHandle = 'tgt-right'  }
+      } else {
+        if (dy >= 0) { sourceHandle = 'src-bottom'; targetHandle = 'tgt-top'    }
+        else          { sourceHandle = 'src-top';    targetHandle = 'tgt-bottom' }
+      }
+      return {
+        id: `${r.from_id}__${r.to_id}__${r.type}`,
+        source: r.from_id,
+        target: r.to_id,
+        sourceHandle,
+        targetHandle,
+        type: 'default',
+        label: r.label,
+        labelBgStyle: { fill: 'rgba(17,17,17,0.92)', rx: 3, ry: 3 },
+        labelStyle: { fill: '#ccc', fontSize: 11, fontFamily: '-apple-system,sans-serif' },
+        style: EDGE_STYLES[r.type] ?? EDGE_STYLES.professional,
+        zIndex: 0,
+      }
+    })
 
   return { nodes, edges }
 }
