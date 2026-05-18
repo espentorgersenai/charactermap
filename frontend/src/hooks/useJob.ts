@@ -4,7 +4,6 @@ import { getJob, JobStatus } from '../api/client'
 const MODEL_ETAS: Record<string, string> = {
   'claude-sonnet-4-6': 'Typically 30–45s',
   'claude-opus-4-7': 'Typically 60–90s',
-  'claude-haiku-4-5-20251001': 'Typically 15–25s',
   'gpt-5.5': 'Typically 30–60s',
   'gemini-2.5-pro': 'Typically 30–60s',
 }

@@ -189,7 +189,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           title="Toggle relationship lines between characters"
           className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
             showEdges
-              ? 'bg-[#2563eb] text-white border-[#2563eb]'
+              ? 'bg-[#D4AF37] text-[#0D0B09] border-[#D4AF37]'
               : 'bg-transparent text-[#555] border-[#2a2a2a] hover:border-[#555] hover:text-[#aaa]'
           }`}
         >

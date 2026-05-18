@@ -10,30 +10,30 @@ export default function TitleSearch({ onSearch, isLoading, disabled }: Props) {
   const [query, setQuery] = useState('')
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && query.trim()) {
-      onSearch(query.trim())
-    }
-  }
-
-  function handleClick() {
-    if (query.trim()) onSearch(query.trim())
+    if (e.key === 'Enter' && query.trim()) onSearch(query.trim())
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex items-end gap-4">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Enter a book or film title…"
+        placeholder="Enter a title…"
         disabled={disabled || isLoading}
-        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+        className="input-underline flex-1 text-lg disabled:opacity-40"
+        aria-label="Title search"
       />
       <button
-        onClick={handleClick}
+        onClick={() => query.trim() && onSearch(query.trim())}
         disabled={!query.trim() || isLoading || disabled}
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-gold-metal px-7 py-2.5 rounded-full text-sm disabled:opacity-35 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-award-gold"
+        style={
+          !query.trim() || isLoading || disabled
+            ? { background: 'rgba(28,24,16,0.7)', border: '1px solid rgba(61,48,32,0.6)', color: '#7A6A54', animation: 'none', boxShadow: 'none' }
+            : undefined
+        }
       >
         {isLoading ? 'Searching…' : 'Search'}
       </button>

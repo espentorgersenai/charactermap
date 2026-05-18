@@ -3,7 +3,208 @@
 @tailwind utilities;
 
 @layer base {
-  /* Bump root font-size so Tailwind's rem-based utilities scale up on
-     high-DPI displays without OS-level zoom. 17px ≈ +6% vs default 16px. */
-  html { font-size: 17px; }
+  /* Base: slightly above browser default for cleaner proportions */
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  /* Scale up rem-based UI proportionally for high-DPI screens that
+     don't have OS-level zoom configured (120 dpi ≈ 1.25×, 144 dpi ≈ 1.5×) */
+  @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    html { font-size: 19px; }
+  }
+  @media (-webkit-min-device-pixel-ratio: 1.45), (min-resolution: 139dpi) {
+    html { font-size: 22px; }
+  }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    html { font-size: 20px; }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #0D0B09; }
+  ::-webkit-scrollbar-thumb { background: #3D3020; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #5A4820; }
+}
+
+/* ──────────────────────────────────────
+   KEYFRAMES
+────────────────────────────────────── */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+@keyframes scrollBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(9px); }
+}
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 4px 28px rgba(212,175,55,0.45), 0 0 60px rgba(212,175,55,0.12); }
+  50%       { box-shadow: 0 4px 48px rgba(212,175,55,0.70), 0 0 100px rgba(212,175,55,0.25); }
+}
+@keyframes shimmerSweep {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ──────────────────────────────────────
+   HERO ANIMATIONS
+────────────────────────────────────── */
+.hero-animate {
+  animation: heroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-animate-delay-1 { animation-delay: 0.15s; }
+.hero-animate-delay-2 { animation-delay: 0.35s; }
+.hero-animate-delay-3 { animation-delay: 0.55s; }
+.hero-animate-delay-4 { animation-delay: 0.75s; }
+
+.scroll-bob { animation: scrollBob 2s ease-in-out infinite; }
+
+/* ──────────────────────────────────────
+   SCROLL REVEAL
+────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.10s; }
+.reveal-delay-2 { transition-delay: 0.22s; }
+.reveal-delay-3 { transition-delay: 0.34s; }
+.reveal-delay-4 { transition-delay: 0.46s; }
+
+/* ──────────────────────────────────────
+   GOLD METALLIC TEXT
+────────────────────────────────────── */
+.text-gold-shimmer {
+  background: linear-gradient(
+    160deg,
+    #C9A84C 0%, #F0DC82 28%, #E8CB7A 45%,
+    #D4AF37 55%, #F0DC82 72%, #B8951F 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ──────────────────────────────────────
+   GOLD HAIRLINE DIVIDER
+────────────────────────────────────── */
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212,175,55,0.45) 20%,
+    rgba(240,220,130,0.75) 50%,
+    rgba(212,175,55,0.45) 80%,
+    transparent 100%
+  );
+}
+
+/* ──────────────────────────────────────
+   UNDERLINE INPUT
+────────────────────────────────────── */
+.input-underline {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(212,175,55,0.22);
+  border-radius: 0;
+  color: #F4F0EC;
+  padding: 10px 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.input-underline::placeholder { color: #7A6A54; }
+.input-underline:focus {
+  border-bottom-color: rgba(212,175,55,0.75);
+  box-shadow: 0 1px 0 rgba(212,175,55,0.55);
+}
+
+/* ──────────────────────────────────────
+   METALLIC GOLD BUTTON
+────────────────────────────────────── */
+.btn-gold-metal {
+  background: linear-gradient(
+    135deg,
+    #B8951F 0%, #D4AF37 25%,
+    #F0DC82 45%, #E8CB7A 50%,
+    #D4AF37 55%, #C9A84C 75%,
+    #9A7A1A 100%
+  );
+  background-size: 200% 100%;
+  color: #0D0B09;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+  border: none;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.25) inset,
+    0 -1px 0 rgba(0,0,0,0.4) inset;
+  animation: goldPulse 2.8s ease-in-out infinite;
+  transition: background-position 0.4s ease, transform 0.15s ease;
+}
+.btn-gold-metal:hover:not(:disabled) {
+  background-position: right center;
+  transform: translateY(-1px);
+}
+.btn-gold-metal:active:not(:disabled) { transform: translateY(0); }
+
+/* ──────────────────────────────────────
+   PHOTO TYPE PANEL
+────────────────────────────────────── */
+.type-panel {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.type-panel-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease;
+  will-change: transform;
+}
+.type-panel:hover .type-panel-bg,
+.type-panel.selected .type-panel-bg {
+  transform: scale(1.06);
+  filter: brightness(0.75);
+}
+.type-panel-overlay {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.4s ease;
+}
+.type-panel-content {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.type-panel:hover .type-panel-content { transform: translateY(-6px); }
+.type-panel-border {
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.type-panel.selected .type-panel-border {
+  border-color: rgba(212,175,55,0.8);
+}
+
+/* ──────────────────────────────────────
+   STAGE BACKGROUND
+────────────────────────────────────── */
+.award-stage {
+  background: #0D0B09;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -5%,  rgba(212,175,55,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 15% 85%,  rgba(90,50,10,0.06)   0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 85% 85%,  rgba(90,50,10,0.06)   0%, transparent 55%);
 }

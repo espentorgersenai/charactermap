@@ -21,7 +21,7 @@ export function FactionGroupNode({ data, width, height }: NodeProps) {
     >
       <span
         style={{ color: `${colour}dd` }}
-        className="absolute top-3 left-4 text-[11px] font-bold tracking-[0.07em] uppercase select-none"
+        className="absolute top-3 left-4 text-[16px] font-bold tracking-[0.07em] uppercase select-none"
       >
         {label}
       </span>

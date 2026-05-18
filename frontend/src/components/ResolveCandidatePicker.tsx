@@ -7,61 +7,41 @@ interface Props {
 }
 
 export default function ResolveCandidatePicker({ candidates, selected, onSelect }: Props) {
-  if (candidates.length === 0) {
-    return (
-      <div className="p-4 text-center text-sm text-gray-500 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
-        No results — try a different title or add the author&apos;s name.
-      </div>
-    )
-  }
-
+  if (candidates.length === 0) return (
+    <p className="text-sm text-award-cream-dim py-4">No results — try a different title or add the author's name.</p>
+  )
   return (
     <div>
-      <p className="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Select a match:</p>
-      <ul className="space-y-2">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-award-cream-dim mb-4">Select a match</p>
+      <ul className="space-y-0">
         {candidates.slice(0, 5).map((c) => (
           <li key={c.id}>
             <button
               onClick={() => onSelect(c)}
-              className={`w-full text-left flex items-start gap-3 p-3 rounded-lg border transition-colors ${
-                selected?.id === c.id
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-950'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500 bg-white dark:bg-gray-800'
-              }`}
+              className="w-full text-left flex items-center gap-4 py-4 transition-all group"
+              style={{
+                borderBottom: '1px solid rgba(61,48,32,0.5)',
+                ...(selected?.id === c.id ? { borderBottomColor: 'rgba(212,175,55,0.3)' } : {}),
+              }}
             >
-              {/* Cover image */}
               {c.cover_url ? (
-                <img
-                  src={c.cover_url}
-                  alt={c.title}
-                  className="w-12 h-16 object-cover rounded shrink-0"
-                />
+                <img src={c.cover_url} alt={c.title} className="w-10 h-14 object-cover rounded shrink-0 opacity-80" />
               ) : (
-                <div className="w-12 h-16 bg-gray-100 dark:bg-gray-700 rounded shrink-0 flex items-center justify-center text-gray-400 text-xs">
-                  No cover
+                <div className="w-10 h-14 rounded shrink-0 flex items-center justify-center text-award-cream-dim text-xs" style={{ background: 'rgba(28,24,16,0.8)', border: '1px solid rgba(61,48,32,0.5)' }}>
+                  —
                 </div>
               )}
-
-              {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-sm truncate">{c.title}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {c.year && `${c.year} · `}
-                  {c.author || c.director}
+                <p className={`text-sm font-medium truncate transition-colors ${selected?.id === c.id ? 'text-award-gold-light' : 'text-award-cream group-hover:text-award-cream'}`}>
+                  {selected?.id === c.id && <span className="text-award-gold mr-1.5">✦</span>}
+                  {c.title}
                 </p>
-                {/* Adaptation badge */}
+                <p className="text-xs text-award-cream-dim mt-0.5">{c.year && `${c.year} · `}{c.author || c.director}</p>
                 {c.adaptation && (
-                  <p className="text-xs text-green-700 dark:text-green-400 mt-1">
-                    🎬 Adapted: {c.adaptation.title}
-                    {c.adaptation.year ? ` (${c.adaptation.year})` : ''}
-                    {c.adaptation.rating ? ` · ★ ${c.adaptation.rating.toFixed(1)}` : ''}
-                  </p>
+                  <p className="text-xs mt-1" style={{ color: '#A88C2A' }}>🎬 {c.adaptation.title}{c.adaptation.year ? ` (${c.adaptation.year})` : ''}</p>
                 )}
-                {/* Confidence indicator */}
-                <p className="text-xs text-gray-400 mt-0.5">
-                  {(c.confidence_score * 100).toFixed(0)}% match
-                </p>
               </div>
+              <span className="text-[10px] text-award-cream-dim shrink-0">{(c.confidence_score * 100).toFixed(0)}%</span>
             </button>
           </li>
         ))}

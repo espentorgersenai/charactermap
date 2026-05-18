@@ -5,26 +5,29 @@ interface Props {
 
 export default function SpoilerWarningBanner({ acknowledged, onAcknowledgeChange }: Props) {
   return (
-    <div className="rounded-lg bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 p-4 text-sm">
-      <p className="font-medium text-amber-900 dark:text-amber-200 mb-1">
-        ⚠ This app generates full-spoiler maps
+    <div
+      className="rounded-xl px-4 py-3.5"
+      style={{
+        background: 'linear-gradient(135deg, rgba(26,8,8,0.95) 0%, rgba(20,10,6,0.9) 100%)',
+        borderLeft: '3px solid rgba(224,82,82,0.6)',
+        border: '1px solid rgba(224,82,82,0.18)',
+        borderLeftWidth: '3px',
+      }}
+    >
+      <p className="text-xs text-award-cream-muted mb-2.5 leading-relaxed">
+        <span className="font-semibold" style={{ color: '#E05252' }}>⚠ Spoiler warning —</span>{' '}
+        full character maps revealed. Don't use for works you haven't finished.
+        A spoiler-free mode is coming — drop your email below to be notified.
       </p>
-      <p className="text-amber-800 dark:text-amber-300">
-        Don&apos;t use it for books or films you haven&apos;t finished yet. A spoiler-free mode is
-        in development —{' '}
-        <a href="#" className="underline hover:no-underline">
-          sign up for the mailing list
-        </a>{' '}
-        to know when it ships.
-      </p>
-      <label className="flex items-center gap-2 mt-3 cursor-pointer">
+      <label className="flex items-center gap-2.5 cursor-pointer group">
         <input
           type="checkbox"
           checked={acknowledged}
           onChange={(e) => onAcknowledgeChange(e.target.checked)}
           className="rounded"
+          style={{ accentColor: '#D4AF37', width: '14px', height: '14px' }}
         />
-        <span className="text-amber-900 dark:text-amber-200 font-medium">
+        <span className="text-xs text-award-cream-dim group-hover:text-award-cream-muted transition-colors">
           I understand this map will contain spoilers
         </span>
       </label>

@@ -29,7 +29,7 @@ export function CharacterCardNode({ data }: NodeProps) {
 
       <div
         style={{ borderColor: colour }}
-        className="flex items-center gap-3 bg-[#1e1e1e] rounded-[10px] border-[1.5px] px-3.5 py-2.5 cursor-grab active:cursor-grabbing hover:shadow-[0_0_0_2px_rgba(255,255,255,0.1)] transition-shadow select-none"
+        className="flex items-center gap-3.5 bg-[#1e1e1e] rounded-[10px] border-[1.5px] px-4 py-3 cursor-grab active:cursor-grabbing hover:shadow-[0_0_0_2px_rgba(255,255,255,0.1)] transition-shadow select-none"
       >
         {/* Avatar (headshot when actor present, initials otherwise). The
             anchor catches mousedown so React Flow doesn't initiate a drag. */}
@@ -42,7 +42,7 @@ export function CharacterCardNode({ data }: NodeProps) {
               title={`${c.actor.name} on TMDB`}
               onMouseDown={e => e.stopPropagation()}
               onClick={e => e.stopPropagation()}
-              className="block w-11 h-11 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-white/30 transition cursor-pointer"
+              className="block w-14 h-14 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-white/30 transition cursor-pointer"
               style={{ outlineColor: colour }}
             >
               <img
@@ -56,7 +56,7 @@ export function CharacterCardNode({ data }: NodeProps) {
           ) : (
             <div
               style={{ backgroundColor: colour }}
-              className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-extrabold text-white"
+              className="w-14 h-14 rounded-full flex items-center justify-center text-base font-extrabold text-white"
             >
               {initials}
             </div>
@@ -65,8 +65,8 @@ export function CharacterCardNode({ data }: NodeProps) {
 
         {/* Name + role */}
         <div className="min-w-0">
-          <div className="text-[16px] font-bold text-white leading-snug">{c.name}</div>
-          <div className="text-[14px] text-[#9ca3af] mt-0.5">{c.role}</div>
+          <div className="text-[22px] font-bold text-white leading-snug">{c.name}</div>
+          <div className="text-[18px] text-[#9ca3af] mt-0.5">{c.role}</div>
         </div>
       </div>
     </>

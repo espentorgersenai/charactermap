@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireframe – CharacterMap Redesign (Home + Job View)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+      background: #f0f0f0;
+      color: #111;
+      padding: 24px;
+    }
+
+    h1.page-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #000;
+    }
+    .subtitle { font-size: 13px; color: #555; margin-bottom: 32px; }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #333; }
+    .badge-reuse { background: #4CAF50; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; }
+    .badge-new   { background: #FF9800; color: #fff; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px; }
+
+    /* Divider between pages */
+    .page-section { margin-bottom: 60px; }
+    .section-heading {
+      font-size: 18px; font-weight: bold; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #333; border-bottom: 2px dashed #999;
+      padding-bottom: 8px; margin-bottom: 24px;
+    }
+    .section-note {
+      font-size: 12px; color: #666; margin-bottom: 20px; font-style: italic;
+    }
+
+    /* Browser chrome mockup */
+    .browser {
+      border: 2px solid #888;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      max-width: 860px;
+    }
+    .browser-bar {
+      background: #ddd;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #bbb;
+    }
+    .browser-dots { display: flex; gap: 5px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #999; border: 1px solid #777; }
+    .browser-url {
+      flex: 1; background: #fff; border: 1px solid #aaa; border-radius: 4px;
+      padding: 2px 8px; font-size: 12px; color: #555; font-family: monospace;
+    }
+
+    /* App layout */
+    .app-layout { display: flex; flex-direction: column; min-height: 560px; }
+
+    /* Header */
+    .app-header {
+      background: #fff;
+      border-bottom: 2px solid #ccc;
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 28px; height: 28px; background: #333;
+      border-radius: 6px; border: 1.5px solid #999;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #fff;
+    }
+    .logo-text { font-size: 15px; font-weight: bold; color: #111; }
+    .header-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-link {
+      font-size: 12px; color: #555; padding: 4px 10px;
+      border-radius: 4px; border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .nav-link:hover { border-color: #ccc; }
+    .nav-cta {
+      font-size: 12px; background: #333; color: #fff;
+      padding: 5px 12px; border-radius: 5px; border: 1.5px solid #111;
+      cursor: pointer; font-weight: bold;
+    }
+
+    /* Main content */
+    .page-content {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* HOME PAGE */
+    .home-layout {
+      display: flex;
+      height: 100%;
+    }
+    .home-main {
+      flex: 1;
+      padding: 32px 32px 24px;
+      overflow-y: auto;
+    }
+    .home-hero {
+      margin-bottom: 28px;
+    }
+    .home-hero h2 {
+      font-size: 22px; font-weight: bold; margin-bottom: 6px;
+    }
+    .home-hero p {
+      font-size: 13px; color: #555; max-width: 480px; line-height: 1.5;
+    }
+
+    /* Collapsible info banner */
+    .info-banner-collapsed {
+      border: 1.5px dashed #999;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f9f9f9;
+    }
+    .info-banner-label { font-size: 12px; color: #555; }
+    .info-banner-toggle {
+      font-size: 11px; color: #777; border: 1px solid #ccc;
+      border-radius: 3px; padding: 2px 6px; cursor: pointer;
+    }
+
+    /* Spoiler compact */
+    .spoiler-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff8e1;
+      border: 1.5px dashed #e0a000;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: #7a5800;
+      margin-bottom: 20px;
+    }
+
+    /* Step indicators */
+    .steps-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 24px;
+    }
+    .step {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; flex: 1;
+    }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid #999; background: #f5f5f5;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: bold; color: #555;
+    }
+    .step-circle.active { background: #333; border-color: #111; color: #fff; }
+    .step-circle.done { background: #555; border-color: #333; color: #fff; }
+    .step-label { font-size: 10px; color: #666; text-align: center; }
+    .step-connector { flex: 1; height: 2px; background: #ccc; }
+
+    /* Card sections */
+    .form-card {
+      border: 1.5px dashed #bbb;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #fafafa;
+      position: relative;
+    }
+    .form-card-label {
+      font-size: 11px; font-weight: bold; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #777; margin-bottom: 12px;
+    }
+
+    /* Form inputs */
+    .wf-input {
+      width: 100%; border: 1.5px solid #bbb; border-radius: 5px;
+      padding: 8px 10px; font-size: 13px; font-family: inherit;
+      background: #fff; color: #222;
+    }
+    .wf-input:focus { outline: 2px solid #333; }
+    .wf-select { width: 100%; }
+    .input-row { display: flex; gap: 8px; }
+    .input-row .wf-input { flex: 1; }
+    .wf-btn {
+      border: 2px solid #333; border-radius: 5px;
+      padding: 7px 16px; font-size: 13px; font-weight: bold;
+      background: #333; color: #fff; cursor: pointer; font-family: inherit;
+      white-space: nowrap;
+    }
+    .wf-btn.secondary { background: #fff; color: #333; }
+    .wf-btn.primary-lg {
+      width: 100%; padding: 12px;
+      font-size: 14px; font-weight: bold;
+      background: #000; color: #fff; border-color: #000;
+      border-radius: 7px;
+    }
+    .wf-btn.primary-lg:disabled { opacity: 0.4; }
+
+    /* Radio / checkbox rows */
+    .toggle-row { display: flex; gap: 8px; }
+    .toggle-pill {
+      border: 1.5px solid #ccc; border-radius: 20px;
+      padding: 5px 14px; font-size: 12px; cursor: pointer;
+      background: #fff;
+    }
+    .toggle-pill.active { background: #333; color: #fff; border-color: #333; }
+
+    .checkbox-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .checkbox-chip {
+      border: 1.5px dashed #aaa; border-radius: 4px;
+      padding: 5px 10px; font-size: 12px; cursor: pointer; background: #fff;
+    }
+    .checkbox-chip.checked { background: #e8e8e8; border-style: solid; border-color: #555; }
+
+    /* Resolve area */
+    .resolve-found {
+      display: flex; align-items: center; gap: 10px;
+      border: 1.5px solid #888; border-radius: 7px;
+      padding: 10px 14px; background: #f5f5f5; margin-top: 10px;
+    }
+    .resolve-cover {
+      width: 40px; height: 56px; background: #ddd; border-radius: 3px;
+      border: 1px solid #bbb; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #888;
+    }
+    .resolve-info { flex: 1; }
+    .resolve-title { font-size: 13px; font-weight: bold; }
+    .resolve-meta { font-size: 11px; color: #666; }
+    .resolve-change { font-size: 11px; color: #555; text-decoration: underline; cursor: pointer; }
+
+    /* Generate CTA area */
+    .generate-area { margin-top: 20px; }
+    .generate-hint {
+      font-size: 11px; color: #888; text-align: center; margin-bottom: 6px;
+    }
+
+    /* Recent maps sidebar */
+    .home-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      border-left: 1.5px solid #ddd;
+      background: #f8f8f8;
+      padding: 20px 16px;
+      overflow-y: auto;
+    }
+    .sidebar-heading {
+      font-size: 11px; font-weight: bold; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #777; margin-bottom: 12px;
+    }
+    .recent-item {
+      display: flex; gap: 8px; align-items: flex-start;
+      padding: 8px; border-radius: 5px; border: 1px solid #e0e0e0;
+      background: #fff; margin-bottom: 6px;
+    }
+    .recent-thumb {
+      width: 36px; height: 36px; background: #ddd;
+      border-radius: 3px; flex-shrink: 0;
+    }
+    .recent-title { font-size: 12px; font-weight: bold; }
+    .recent-date { font-size: 10px; color: #999; }
+    .empty-state {
+      font-size: 12px; color: #aaa; font-style: italic;
+      text-align: center; padding: 24px 8px; line-height: 1.5;
+    }
+
+    /* Component badges */
+    .comp-badge {
+      position: absolute; top: -1px; right: 8px;
+      font-size: 9px; font-weight: bold; padding: 2px 5px;
+      border-radius: 0 0 3px 3px;
+      font-family: Arial, sans-serif;
+      z-index: 10;
+    }
+    .reuse { background: #4CAF50; color: #fff; }
+    .new-comp { background: #FF9800; color: #fff; }
+
+    /* Annotation callouts */
+    .callout {
+      background: #fffde7; border: 1px dashed #f0c000;
+      border-radius: 5px; padding: 6px 10px;
+      font-size: 11px; color: #6a5a00;
+      margin-top: 8px; line-height: 1.4;
+    }
+
+    /* ── JOB VIEW ────────────────────────────── */
+    .job-layout {
+      display: flex;
+      height: 580px;
+    }
+
+    .job-canvas-area {
+      flex: 1;
+      background: #e0e0e0;
+      border-right: 1.5px solid #ccc;
+      display: flex;
+      flex-direction: column;
+    }
+    .canvas-topbar {
+      background: #f5f5f5;
+      border-bottom: 1px solid #ccc;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .canvas-title-strip {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 16px;
+      flex-shrink: 0;
+    }
+    .canvas-title-text { font-size: 16px; font-weight: bold; }
+    .canvas-meta { font-size: 11px; color: #666; margin-top: 2px; }
+    .canvas-body {
+      flex: 1;
+      background: repeating-linear-gradient(
+        45deg, #ddd, #ddd 1px, #e8e8e8 1px, #e8e8e8 16px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #888;
+      font-style: italic;
+    }
+
+    .job-right-panel {
+      width: 220px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      background: #f8f8f8;
+    }
+    .job-panel-section {
+      padding: 14px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .panel-label {
+      font-size: 10px; font-weight: bold; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #888; margin-bottom: 10px;
+    }
+    .panel-title { font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+    .panel-meta { font-size: 11px; color: #777; }
+    .panel-back-link {
+      font-size: 12px; color: #444; text-decoration: underline;
+      margin-bottom: 8px; display: inline-block; cursor: pointer;
+    }
+
+    .download-btn {
+      display: block; width: 100%;
+      border: 1.5px dashed #bbb; border-radius: 5px;
+      padding: 7px 10px; font-size: 12px; text-align: left;
+      background: #fff; margin-bottom: 5px; font-family: inherit;
+      cursor: pointer;
+    }
+    .toolbar-btn {
+      border: 1.5px solid #bbb; border-radius: 5px;
+      padding: 5px 10px; font-size: 12px; font-family: inherit;
+      background: #fff; cursor: pointer;
+    }
+    .toolbar-btn.active { background: #333; color: #fff; border-color: #333; }
+
+    /* Loading state */
+    .loading-layout {
+      padding: 32px;
+    }
+    .back-link {
+      font-size: 12px; color: #444; text-decoration: underline;
+      margin-bottom: 20px; display: inline-block; cursor: pointer;
+    }
+    .loading-title { font-size: 20px; font-weight: bold; margin-bottom: 16px; }
+    .loading-meta { font-size: 13px; color: #666; margin-bottom: 16px; }
+    .progress-bar-bg {
+      height: 8px; background: #e0e0e0; border-radius: 4px;
+      overflow: hidden; margin-bottom: 8px;
+    }
+    .progress-bar-fill {
+      width: 40%; height: 100%; background: #555; border-radius: 4px;
+    }
+    .progress-meta { display: flex; justify-content: space-between; font-size: 11px; color: #888; }
+    .loading-tips {
+      margin-top: 24px;
+      border: 1.5px dashed #ccc;
+      border-radius: 7px;
+      padding: 14px;
+      background: #f9f9f9;
+    }
+    .tips-label { font-size: 11px; font-weight: bold; color: #666; margin-bottom: 8px; }
+    .tip-item { font-size: 12px; color: #555; margin-bottom: 5px; }
+
+    /* Mobile layout hint */
+    .mobile-hint {
+      border: 2px solid #ddd; border-radius: 8px;
+      background: #f8f8f8; margin-top: 20px;
+      max-width: 340px;
+      overflow: hidden;
+    }
+    .mobile-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 12px; border-bottom: 1px solid #ddd; background: #fff;
+    }
+    .mobile-logo { font-size: 14px; font-weight: bold; }
+    .hamburger-icon {
+      width: 20px; display: flex; flex-direction: column; gap: 4px;
+    }
+    .hamburger-line { height: 2px; background: #444; border-radius: 2px; }
+    .mobile-body { padding: 12px; }
+    .mobile-hero { font-size: 15px; font-weight: bold; margin-bottom: 6px; }
+    .mobile-sub { font-size: 11px; color: #666; margin-bottom: 12px; }
+
+    hr.divider {
+      border: none; border-top: 2px dashed #ccc; margin: 32px 0;
+    }
+
+    .annotation-row {
+      display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;
+    }
+    .annotation-box {
+      border: 1px dashed #bbb; border-radius: 5px;
+      padding: 8px 12px; background: #fffde7;
+      font-size: 11px; color: #555; flex: 1; min-width: 180px;
+    }
+    .annotation-box strong { display: block; color: #333; margin-bottom: 3px; }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">CharacterMap — Wireframe Redesign</h1>
+  <p class="subtitle">Balanced redesign addressing visual design, UX, accessibility, and responsive layout. Single wireframe option per Phase 4 (C).</p>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><span class="badge-reuse">[REUSE]</span> Existing component reused</div>
+    <div class="legend-item"><span class="badge-new">[NEW]</span> New component to create</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE 1: HOME -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-section">
+    <div class="section-heading">Page 1 — Home ( / )</div>
+    <p class="section-note">Key changes: Persistent app header · Hero heading replaces WhatThisIs banner · Spoiler warning condensed to pill · Step indicator · Sidebar for recent maps · Generate button always visible</p>
+
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <span class="browser-url">localhost:8203 /</span>
+      </div>
+
+      <div class="app-layout">
+
+        <!-- ── HEADER ── -->
+        <!-- NEW COMPONENT: AppHeader at src/components/AppHeader.tsx -->
+        <div class="app-header" style="position:relative;">
+          <span class="comp-badge new-comp">[NEW] AppHeader</span>
+          <div class="header-logo">
+            <div class="logo-icon">🗺</div>
+            <span class="logo-text">CharacterMap</span>
+          </div>
+          <nav class="header-nav">
+            <span class="nav-link">How it works</span>
+            <span class="nav-link">Privacy</span>
+            <span class="nav-link">Terms</span>
+          </nav>
+        </div>
+
+        <!-- ── PAGE CONTENT ── -->
+        <div class="page-content">
+          <div class="home-layout">
+
+            <!-- ── MAIN FORM AREA ── -->
+            <div class="home-main">
+
+              <!-- Hero text (replaces WhatThisIsBanner) -->
+              <div class="home-hero" style="position:relative;">
+                <!-- REUSABLE: WhatThisIsBanner from src/components/WhatThisIsBanner.tsx (collapsed/inline variant) -->
+                <span class="comp-badge reuse" style="right:0;">[REUSE] WhatThisIsBanner</span>
+                <h2>Generate a character map for any book or film</h2>
+                <p>AI-powered · Interactive diagram · PNG / SVG / PDF · No account needed</p>
+                <!-- Collapsible "more info" instead of full banner -->
+                <div class="info-banner-collapsed" style="margin-top:12px;">
+                  <span class="info-banner-label">ℹ Hobby project · AI may miss characters · results vary by model</span>
+                  <span class="info-banner-toggle">How this works ▾</span>
+                </div>
+              </div>
+
+              <!-- Spoiler pill (condensed SpoilerWarningBanner) -->
+              <!-- REUSABLE: SpoilerWarningBanner from src/components/SpoilerWarningBanner.tsx (compact variant) -->
+              <div style="position:relative; margin-bottom:20px;">
+                <span class="comp-badge reuse" style="top:-10px;">[REUSE] SpoilerWarningBanner</span>
+                <div class="spoiler-pill">
+                  <input type="checkbox" id="spoiler-ack" />
+                  <label for="spoiler-ack" style="cursor:pointer;">⚠ I know this map will contain spoilers</label>
+                </div>
+                <div class="callout" style="margin-top:0; display:inline-block; font-size:10px; padding: 3px 8px;">
+                  Compact inline checkbox instead of full banner — reduces vertical scroll
+                </div>
+              </div>
+
+              <!-- Step indicator -->
+              <!-- NEW COMPONENT: StepIndicator at src/components/StepIndicator.tsx -->
+              <div style="position:relative;">
+                <span class="comp-badge new-comp">[NEW] StepIndicator</span>
+                <div class="steps-bar" style="margin-bottom:20px;">
+                  <div class="step">
+                    <div class="step-circle active">1</div>
+                    <span class="step-label">Search</span>
+                  </div>
+                  <div class="step-connector"></div>
+                  <div class="step">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Confirm</span>
+                  </div>
+                  <div class="step-connector"></div>
+                  <div class="step">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Configure</span>
+                  </div>
+                  <div class="step-connector"></div>
+                  <div class="step">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Generate</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 1: Search -->
+              <div class="form-card" style="position:relative;">
+                <span class="comp-badge reuse">[REUSE] TitleSearch</span>
+                <div class="form-card-label">Step 1 · Search</div>
+
+                <!-- Type toggle as pills -->
+                <div class="toggle-row" style="margin-bottom:12px;">
+                  <span class="toggle-pill active">📚 Book</span>
+                  <span class="toggle-pill">🎬 Film or TV</span>
+                </div>
+
+                <!-- Title search input + button -->
+                <!-- REUSABLE: TitleSearch from src/components/TitleSearch.tsx -->
+                <div class="input-row">
+                  <input class="wf-input" placeholder="Enter a book or film title…" type="text" />
+                  <button class="wf-btn">Search</button>
+                </div>
+
+                <!-- Resolve result (shown after search) -->
+                <div class="resolve-found" style="margin-top:10px;">
+                  <!-- REUSABLE: ResolveBanner from src/components/ResolveBanner.tsx -->
+                  <div class="resolve-cover">Cover</div>
+                  <div class="resolve-info">
+                    <div class="resolve-title">The Great Gatsby</div>
+                    <div class="resolve-meta">1925 · F. Scott Fitzgerald · 97% match</div>
+                  </div>
+                  <span class="resolve-change">not this?</span>
+                </div>
+              </div>
+
+              <!-- STEP 2-3: Configure -->
+              <div class="form-card" style="position:relative;">
+                <span class="comp-badge reuse">[REUSE] ModelDropdown</span>
+                <div class="form-card-label">Step 2 · Configure</div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                  <div style="flex:1; min-width:180px;">
+                    <div style="font-size:12px; font-weight:bold; margin-bottom:4px;">Model</div>
+                    <!-- REUSABLE: ModelDropdown from src/components/ModelDropdown.tsx -->
+                    <select class="wf-input wf-select">
+                      <option>Claude Sonnet 4.6</option>
+                    </select>
+                  </div>
+                  <div style="flex:1; min-width:180px;">
+                    <div style="font-size:12px; font-weight:bold; margin-bottom:4px;">Character cap</div>
+                    <!-- REUSABLE: CharacterCapDropdown from src/components/CharacterCapDropdown.tsx -->
+                    <select class="wf-input wf-select">
+                      <option>20 characters — default · ~$0.06</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="margin-top:12px;">
+                  <div style="font-size:12px; font-weight:bold; margin-bottom:6px;">Output formats <span style="font-weight:normal; color:#888;">(select at least one)</span></div>
+                  <!-- REUSABLE: FormatCheckboxes from src/components/FormatCheckboxes.tsx (chip variant) -->
+                  <div class="checkbox-grid">
+                    <span class="checkbox-chip checked">✓ Interactive map</span>
+                    <span class="checkbox-chip">PNG</span>
+                    <span class="checkbox-chip">SVG</span>
+                    <span class="checkbox-chip">Markdown</span>
+                    <span class="checkbox-chip">PDF</span>
+                    <span class="checkbox-chip">JSON</span>
+                  </div>
+                </div>
+
+                <div style="margin-top:12px;">
+                  <div style="font-size:12px; font-weight:bold; margin-bottom:4px;">Email <span style="font-weight:normal; color:#888;">(optional — we'll send you the files)</span></div>
+                  <input class="wf-input" placeholder="you@example.com" type="email" />
+                </div>
+              </div>
+
+              <!-- STEP 4: Generate -->
+              <div class="generate-area" style="position:relative;">
+                <span class="comp-badge new-comp" style="top:-12px;">[NEW] GenerateButton (sticky on mobile)</span>
+                <div class="generate-hint">✓ Ready to generate · Claude Sonnet 4.6 · ~50s</div>
+                <button class="wf-btn primary-lg">Generate Character Map</button>
+              </div>
+
+              <div class="annotation-row">
+                <div class="annotation-box">
+                  <strong>Accessibility fix</strong>
+                  Type selector wrapped in &lt;fieldset&gt;/&lt;legend&gt; · Format checkboxes same · aria-live on resolve area
+                </div>
+                <div class="annotation-box">
+                  <strong>Removed</strong>
+                  Turnstile placeholder div (Phase 5 item — hide until real widget)
+                </div>
+              </div>
+            </div><!-- /home-main -->
+
+            <!-- ── SIDEBAR ── -->
+            <!-- NEW COMPONENT: RecentMapsSidebar at src/components/RecentMapsSidebar.tsx -->
+            <div class="home-sidebar" style="position:relative;">
+              <span class="comp-badge new-comp">[NEW] RecentMapsSidebar</span>
+              <div class="sidebar-heading">Your recent maps</div>
+
+              <!-- REUSABLE: RecentMaps logic from hooks/useRecentMaps -->
+              <div class="recent-item">
+                <div class="recent-thumb"></div>
+                <div>
+                  <div class="recent-title">The Great Gatsby</div>
+                  <div class="recent-date">May 17, 2026</div>
+                </div>
+              </div>
+              <div class="recent-item">
+                <div class="recent-thumb"></div>
+                <div>
+                  <div class="recent-title">Breaking Bad</div>
+                  <div class="recent-date">May 15, 2026</div>
+                </div>
+              </div>
+              <div class="recent-item">
+                <div class="recent-thumb"></div>
+                <div>
+                  <div class="recent-title">Dune</div>
+                  <div class="recent-date">May 12, 2026</div>
+                </div>
+              </div>
+
+              <div style="margin-top:16px; border-top:1px dashed #ccc; padding-top:12px;">
+                <div class="empty-state" style="display:none;">No recent maps yet.<br/>Your generated maps will appear here.</div>
+              </div>
+            </div>
+
+          </div><!-- /home-layout -->
+        </div><!-- /page-content -->
+      </div><!-- /app-layout -->
+    </div><!-- /browser -->
+
+    <!-- Mobile variant note -->
+    <hr class="divider" />
+    <div class="section-heading" style="font-size:14px; border-bottom-color:#ddd;">Mobile View — Home ( / )</div>
+    <p class="section-note">On narrow screens: sidebar collapses, step indicator scrolls, generate button becomes sticky footer</p>
+    <div class="mobile-hint">
+      <!-- NEW COMPONENT: AppHeader (mobile) -->
+      <div class="mobile-header">
+        <span class="mobile-logo">🗺 CharacterMap</span>
+        <div class="hamburger-icon"><div class="hamburger-line"></div><div class="hamburger-line"></div><div class="hamburger-line"></div></div>
+      </div>
+      <div class="mobile-body">
+        <div class="mobile-hero">Generate a character map</div>
+        <div class="mobile-sub">AI-powered · No account needed</div>
+        <div class="spoiler-pill" style="font-size:11px; padding:3px 10px; margin-bottom:10px;">
+          <input type="checkbox" /> <label>⚠ I know this has spoilers</label>
+        </div>
+        <div class="toggle-row" style="margin-bottom:10px;">
+          <span class="toggle-pill active" style="font-size:11px;">📚 Book</span>
+          <span class="toggle-pill" style="font-size:11px;">🎬 Film or TV</span>
+        </div>
+        <div class="input-row">
+          <input class="wf-input" placeholder="Enter a title…" style="font-size:12px;" />
+          <button class="wf-btn" style="font-size:12px; padding:6px 12px;">Search</button>
+        </div>
+        <div style="margin-top:8px; font-size:10px; color:#999; text-align:center;">
+          [ model · cap · format options below ]
+        </div>
+        <!-- Sticky generate footer -->
+        <div style="margin-top:12px; border-top:2px solid #ccc; padding-top:10px;">
+          <button class="wf-btn primary-lg" style="font-size:13px;">Generate Character Map</button>
+          <div style="font-size:10px; color:#aaa; text-align:center; margin-top:4px;">Sticky at bottom of viewport on mobile</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page 1 -->
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE 2: JOB VIEW — Done State -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-section">
+    <div class="section-heading">Page 2 — Job View ( /job/:id ) · Done State</div>
+    <p class="section-note">Key changes: Shared AppHeader · Wider right panel · Back link + job info in panel · Share/Export in panel · Canvas keeps full width</p>
+
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <span class="browser-url">localhost:8203 /job/abc-123</span>
+      </div>
+
+      <div class="app-layout">
+
+        <!-- Shared AppHeader (same as Home) -->
+        <div class="app-header" style="position:relative;">
+          <span class="comp-badge reuse">[REUSE] AppHeader</span>
+          <div class="header-logo">
+            <div class="logo-icon">🗺</div>
+            <span class="logo-text">CharacterMap</span>
+          </div>
+          <nav class="header-nav">
+            <span class="nav-link">How it works</span>
+            <span class="nav-link">Privacy</span>
+            <span class="nav-cta">+ New map</span>
+          </nav>
+        </div>
+
+        <div class="page-content" style="height:530px;">
+          <div class="job-layout">
+
+            <!-- ── CANVAS AREA ── -->
+            <div class="job-canvas-area">
+
+              <!-- Title strip (keep, slightly tightened) -->
+              <!-- REUSABLE: CharacterMapCanvas.tsx title strip -->
+              <div class="canvas-title-strip" style="position:relative;">
+                <span class="comp-badge reuse">[REUSE] CharacterMapCanvas title strip</span>
+                <div class="canvas-title-text">The Great Gatsby ↗</div>
+                <div class="canvas-meta">F. Scott Fitzgerald · 1925</div>
+                <div style="font-size:11px; color:#888; margin-top:3px; max-width:600px;">
+                  A story of the enigmatically wealthy Jay Gatsby and his love for Daisy Buchanan…
+                </div>
+              </div>
+
+              <!-- Toolbar (moved toggle only; share/export go to sidebar) -->
+              <div class="canvas-topbar">
+                <button class="toolbar-btn active">Connections</button>
+                <button class="toolbar-btn">Reset layout</button>
+                <div style="flex:1;"></div>
+                <button class="toolbar-btn" style="font-size:11px;">Legend ▾</button>
+              </div>
+
+              <!-- Canvas body -->
+              <div class="canvas-body">
+                [ ReactFlow interactive canvas · characters as nodes · relationships as edges ]
+              </div>
+            </div><!-- /canvas-area -->
+
+            <!-- ── RIGHT PANEL ── -->
+            <div class="job-right-panel" style="width:240px; position:relative;">
+              <span class="comp-badge new-comp" style="top:0;">[NEW] JobSidePanel</span>
+
+              <!-- Back + job info -->
+              <div class="job-panel-section">
+                <a class="panel-back-link">← Back to home</a>
+                <div class="panel-label">This map</div>
+                <div class="panel-title">The Great Gatsby</div>
+                <div class="panel-meta">Claude Sonnet 4.6</div>
+                <div class="panel-meta" style="margin-top:2px;">May 18, 2026</div>
+              </div>
+
+              <!-- Share + Export (moved from toolbar) -->
+              <div class="job-panel-section" style="position:relative;">
+                <span class="comp-badge reuse" style="top:0;">[REUSE] ShareButton + ExportMenu</span>
+                <div class="panel-label">Share &amp; Export</div>
+                <button class="toolbar-btn" style="width:100%; margin-bottom:6px; font-size:12px;">🔗 Copy link</button>
+                <button class="toolbar-btn" style="width:100%; font-size:12px;">↓ Export ▾</button>
+              </div>
+
+              <!-- Downloads -->
+              <div class="job-panel-section" style="position:relative;">
+                <span class="comp-badge reuse">[REUSE] DownloadList</span>
+                <div class="panel-label">Downloads</div>
+                <button class="download-btn">📄 Markdown</button>
+                <button class="download-btn">📑 PDF</button>
+                <button class="download-btn">🖼 PNG (2×)</button>
+                <button class="download-btn">↗ SVG</button>
+                <button class="download-btn">{ } JSON</button>
+              </div>
+
+              <!-- New map CTA -->
+              <div class="job-panel-section">
+                <button class="wf-btn" style="width:100%; font-size:12px;">+ Generate another map</button>
+              </div>
+            </div>
+
+          </div><!-- /job-layout -->
+        </div><!-- /page-content -->
+
+      </div><!-- /app-layout -->
+    </div><!-- /browser -->
+
+    <div class="annotation-row" style="margin-top:12px;">
+      <div class="annotation-box">
+        <strong>Share/Export moved to panel</strong>
+        Reduces toolbar crowding · panel is always visible · better discoverability on narrow screens
+      </div>
+      <div class="annotation-box">
+        <strong>Back link in panel</strong>
+        Always visible even during full-screen canvas view · previously hidden in Done state
+      </div>
+      <div class="annotation-box">
+        <strong>+ New map CTA</strong>
+        Header nav and panel both have a quick way to start over · improves user flow loop
+      </div>
+    </div>
+  </div><!-- /page 2 -->
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE 2B: JOB VIEW — Loading State -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-section">
+    <div class="section-heading">Page 2B — Job View · Loading / In-Progress State</div>
+    <p class="section-note">Key changes: Tip cards while waiting · Job ID hidden in &lt;details&gt; · Progress bar with status label</p>
+
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="browser-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <span class="browser-url">localhost:8203 /job/abc-123</span>
+      </div>
+
+      <div class="app-layout">
+        <!-- Same AppHeader -->
+        <div class="app-header">
+          <div class="header-logo"><div class="logo-icon">🗺</div><span class="logo-text">CharacterMap</span></div>
+          <nav class="header-nav"><span class="nav-link">How it works</span><span class="nav-link">Privacy</span></nav>
+        </div>
+
+        <div class="page-content">
+          <div style="max-width:600px; padding:32px;">
+            <a class="back-link">← Back to home</a>
+            <h2 class="loading-title">Generating your character map…</h2>
+            <p class="loading-meta">
+              <strong>The Great Gatsby</strong> · Claude Sonnet 4.6
+            </p>
+
+            <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+            <div class="progress-meta">
+              <span>Generating… (step 2/3)</span>
+              <span>34s elapsed · ~50s total</span>
+            </div>
+
+            <!-- Tips while waiting -->
+            <!-- NEW COMPONENT: LoadingTips at src/components/LoadingTips.tsx -->
+            <div class="loading-tips" style="position:relative;">
+              <span class="comp-badge new-comp">[NEW] LoadingTips</span>
+              <div class="tips-label">💡 While you wait</div>
+              <div class="tip-item">→ Different models know different works — try Gemini for obscure titles</div>
+              <div class="tip-item">→ You'll get a shareable link when it's done</div>
+              <div class="tip-item">→ Bookmark this page — the map is saved for 90 days</div>
+            </div>
+
+            <!-- Job ID hidden in details -->
+            <div style="margin-top:20px;">
+              <details style="font-size:11px; color:#aaa;">
+                <summary style="cursor:pointer;">Technical details</summary>
+                <div style="margin-top:6px; font-family:monospace; background:#f5f5f5; padding:6px; border-radius:4px; border:1px solid #ddd;">
+                  Job ID: abc-123-uuid-here
+                </div>
+              </details>
+            </div>
+
+            <div class="annotation-row" style="margin-top:16px;">
+              <div class="annotation-box">
+                <strong>Job ID de-emphasized</strong>
+                Moved into &lt;details&gt; · not useful to most users · cleans up the page
+              </div>
+              <div class="annotation-box">
+                <strong>Progress step label</strong>
+                "step 2/3" replaces vague "Generating…" · sets clearer expectations
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page 2b -->
+
+</body>
+</html>

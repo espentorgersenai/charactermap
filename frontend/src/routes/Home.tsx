@@ -1,200 +1,444 @@
-import { useState, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TitleSearch from '../components/TitleSearch'
 import ModelDropdown from '../components/ModelDropdown'
 import FormatCheckboxes from '../components/FormatCheckboxes'
 import CharacterCapDropdown from '../components/CharacterCapDropdown'
-import WhatThisIsBanner from '../components/WhatThisIsBanner'
-import SpoilerWarningBanner from '../components/SpoilerWarningBanner'
 import ResolveBanner from '../components/ResolveBanner'
 import ResolveCandidatePicker from '../components/ResolveCandidatePicker'
+import HowThisWorksModal from '../components/HowThisWorksModal'
 import { useResolve } from '../hooks/useResolve'
 import { useFormPrefill, type CharacterCap } from '../hooks/useFormPrefill'
 import { useRecentMaps } from '../hooks/useRecentMaps'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import { ResolveCandidate, createJob } from '../api/client'
 
+// ── Photos ────────────────────────────────────────────────────────────────────
+const HERO_PHOTO =
+  'https://images.pexels.com/photos/109669/pexels-photo-109669.jpeg?auto=compress&cs=tinysrgb&w=1920'
+const BOOK_PHOTO = '/library-hero.jpg'
+const FILM_PHOTO =
+  'https://images.pexels.com/photos/7991381/pexels-photo-7991381.jpeg?auto=compress&cs=tinysrgb&w=1200'
+
+// ── Scroll-reveal wrapper ─────────────────────────────────────────────────────
+function Reveal({
+  children, delay = 0, className = '',
+}: {
+  children: React.ReactNode; delay?: number; className?: string
+}) {
+  const { ref, inView } = useScrollReveal()
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={`reveal ${inView ? 'in-view' : ''} ${delay ? `reveal-delay-${delay}` : ''} ${className}`}
+    >
+      {children}
+    </div>
+  )
+}
+
+// ── Hero scroll indicator ─────────────────────────────────────────────────────
+function ScrollIndicator() {
+  return (
+    <div className="flex flex-col items-center gap-1.5 scroll-bob">
+      <span className="text-[10px] uppercase tracking-[0.4em]" style={{ color: 'rgba(212,175,55,0.5)' }}>
+        Scroll
+      </span>
+      <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+        <rect x="6.5" y="2" width="3" height="6" rx="1.5" fill="rgba(212,175,55,0.5)" />
+        <rect x="0.5" y="0.5" width="15" height="19" rx="7.5" stroke="rgba(212,175,55,0.3)" />
+      </svg>
+    </div>
+  )
+}
+
+// ── Step label ────────────────────────────────────────────────────────────────
+function StepLabel({ n, title }: { n: string; title: string }) {
+  return (
+    <div className="mb-8">
+      <p className="text-[9px] uppercase tracking-[0.45em] mb-1" style={{ color: '#A88C2A' }}>{n}</p>
+      <h2 className="font-serif text-3xl text-award-cream" style={{ letterSpacing: '-0.01em' }}>{title}</h2>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 export default function Home() {
-  const navigate = useNavigate()
+  const navigate   = useNavigate()
   const { resolve, candidates, isLoading, error, hasSearched, reset } = useResolve()
   const { load, save } = useFormPrefill()
   const prefs = load()
   const { recentMaps } = useRecentMaps()
+  const [showModal, setShowModal] = useState(false)
 
-  const [model, setModel] = useState(prefs.model)
-  const [formats, setFormats] = useState<string[]>(prefs.formats)
-  const [email, setEmail] = useState('')
-  const [workType, setWorkType] = useState<'book' | 'film_tv'>(prefs.workType)
+  const [model, setModel]               = useState(prefs.model)
+  const [formats, setFormats]           = useState<string[]>(prefs.formats)
+  const [email, setEmail]               = useState('')
+  const [workType, setWorkType]         = useState<'book' | 'film_tv'>(prefs.workType)
   const [characterCap, setCharacterCap] = useState<CharacterCap>(prefs.characterCap)
-  // Temporarily pre-acknowledged during dev to remove friction while iterating.
-  // Re-default to false before any public deploy (CLAUDE.md spoiler-gate rule).
-  const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(true)
-  const [selectedCandidate, setSelectedCandidate] = useState<ResolveCandidate | null>(null)
-  const [forceShowPicker, setForceShowPicker] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
+  const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(false)
+  const [selectedCandidate, setSelectedCandidate]     = useState<ResolveCandidate | null>(null)
+  const [forceShowPicker, setForceShowPicker]         = useState(false)
+  const [submitting, setSubmitting]   = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
-  useEffect(() => {
-    save({ model, formats, workType, characterCap })
-  }, [model, formats, workType, characterCap])
+  const searchRef = useRef<HTMLDivElement>(null)
+
+  const savePrefs = (updates: Partial<Parameters<typeof save>[0]>) =>
+    save({ model, formats, workType, characterCap, ...updates })
 
   const topCandidate = candidates[0] ?? null
   const autoSkip = !forceShowPicker && topCandidate !== null && topCandidate.confidence_score >= 0.9
 
-  useEffect(() => {
-    if (autoSkip && topCandidate) {
-      setSelectedCandidate(topCandidate)
-    }
-  }, [autoSkip, topCandidate?.id])
+  if (autoSkip && topCandidate && !selectedCandidate) setSelectedCandidate(topCandidate)
 
   const canGenerate = spoilerAcknowledged && formats.length > 0 && selectedCandidate !== null
 
   function handleSearch(query: string) {
-    reset()
-    setSelectedCandidate(null)
-    setForceShowPicker(false)
+    reset(); setSelectedCandidate(null); setForceShowPicker(false)
     resolve(query, workType)
+  }
+
+  function handleTypeSelect(type: 'book' | 'film_tv') {
+    setWorkType(type); savePrefs({ workType: type })
+    setTimeout(() => searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200)
   }
 
   async function handleGenerate() {
     if (!canGenerate || !selectedCandidate || submitting) return
-    setSubmitError(null)
-    setSubmitting(true)
+    setSubmitError(null); setSubmitting(true)
     try {
       const { job_id } = await createJob({
-        title_query: selectedCandidate.title,
-        resolved: selectedCandidate,
-        model,
-        formats,
-        email: email || undefined,
-        acknowledged_spoilers: true,
-        character_cap: characterCap,
+        title_query: selectedCandidate.title, resolved: selectedCandidate,
+        model, formats, email: email || undefined,
+        acknowledged_spoilers: true, character_cap: characterCap,
       })
-      const params = new URLSearchParams({ model, title: selectedCandidate.title })
-      navigate(`/job/${job_id}?${params.toString()}`)
+      navigate(`/job/${job_id}?${new URLSearchParams({ model, title: selectedCandidate.title })}`)
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : 'Failed to start the job'
-      setSubmitError(msg)
+      setSubmitError(e instanceof Error ? e.message : 'Failed to start the job')
       setSubmitting(false)
     }
   }
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-      <WhatThisIsBanner />
+    <div className="award-stage min-h-screen">
 
-      <SpoilerWarningBanner
-        acknowledged={spoilerAcknowledged}
-        onAcknowledgeChange={setSpoilerAcknowledged}
-      />
+      {/* ════════════════════════════════════════════════════════
+          HERO — full-viewport cinematic
+      ════════════════════════════════════════════════════════ */}
+      <section className="relative flex flex-col items-center justify-center overflow-hidden" style={{ minHeight: '100svh' }}>
+        <div aria-hidden className="absolute inset-0"
+          style={{ backgroundImage: `url(${HERO_PHOTO})`, backgroundSize: 'cover', backgroundPosition: 'center 30%', backgroundAttachment: 'fixed' }} />
+        <div aria-hidden className="absolute inset-0"
+          style={{ background: 'linear-gradient(to bottom, rgba(13,11,9,0.5) 0%, rgba(13,11,9,0.25) 40%, rgba(13,11,9,0.7) 80%, rgba(13,11,9,1) 100%)' }} />
+        <div aria-hidden className="absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 45%, rgba(212,175,55,0.12) 0%, transparent 70%)' }} />
 
-      {/* Type toggle */}
-      <div>
-        <label className="block text-sm font-medium mb-1">Type</label>
-        <div className="flex gap-4">
-          {(['book', 'film_tv'] as const).map((t) => (
-            <label key={t} className="flex items-center gap-1.5 cursor-pointer">
-              <input
-                type="radio"
-                name="workType"
-                value={t}
-                checked={workType === t}
-                onChange={() => setWorkType(t)}
-              />
-              <span className="text-sm">{t === 'book' ? 'Book' : 'Film or TV'}</span>
-            </label>
-          ))}
+        <div className="relative text-center px-6 z-10">
+          <p className="hero-animate hero-animate-delay-1 text-[9px] uppercase tracking-[0.55em] mb-8" style={{ color: '#A88C2A' }}>
+            Visual Character Maps
+          </p>
+          <h1
+            className="hero-animate hero-animate-delay-2 font-serif font-bold text-gold-shimmer leading-none"
+            style={{ fontSize: 'clamp(4rem, 10vw, 9rem)', letterSpacing: '-0.02em' }}
+          >
+            CharacterMap
+          </h1>
+          <p className="hero-animate hero-animate-delay-3 mt-5 text-[11px] uppercase tracking-[0.35em]" style={{ color: 'rgba(196,180,154,0.75)' }}>
+            AI · Literature &amp; Film · Interactive Diagrams
+          </p>
+          <div className="hero-animate hero-animate-delay-4 mt-10 flex items-center justify-center gap-5 max-w-[280px] mx-auto">
+            <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.65))' }} />
+            <span style={{ color: '#D4AF37', fontSize: '0.55rem', letterSpacing: '0.4em' }}>✦ ✦ ✦</span>
+            <div className="flex-1 h-px" style={{ background: 'linear-gradient(to left, transparent, rgba(212,175,55,0.65))' }} />
+          </div>
+          <p className="hero-animate hero-animate-delay-4 mt-6 text-xs text-award-cream-dim">
+            Enter a title — get an interactive map of every character and their relationships.{' '}
+            <button onClick={() => setShowModal(true)} className="underline transition-colors" style={{ color: '#D4AF37' }}>
+              How it works
+            </button>
+          </p>
         </div>
-      </div>
 
-      {/* Title search */}
-      <div>
-        <label className="block text-sm font-medium mb-1">Title</label>
-        <TitleSearch onSearch={handleSearch} isLoading={isLoading} />
-      </div>
+        <div className="hero-animate hero-animate-delay-4 absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+          <ScrollIndicator />
+        </div>
+      </section>
 
-      {/* Resolve error */}
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {/* ════════════════════════════════════════════════════════
+          TYPE SELECTOR — full-width immersive photo panels
+      ════════════════════════════════════════════════════════ */}
+      <section>
+        <Reveal className="text-center py-10 px-6">
+          <p className="text-[9px] uppercase tracking-[0.45em] mb-2" style={{ color: '#A88C2A' }}>Step 1</p>
+          <h2 className="font-serif text-3xl text-award-cream" style={{ letterSpacing: '-0.01em' }}>What will you explore?</h2>
+        </Reveal>
 
-      {/* Resolve state */}
-      {candidates.length > 0 && autoSkip && (
-        <ResolveBanner
-          candidate={topCandidate!}
-          onNotThis={() => {
-            setForceShowPicker(true)
-            setSelectedCandidate(null)
-          }}
-        />
-      )}
-      {candidates.length > 0 && !autoSkip && (
-        <ResolveCandidatePicker
-          candidates={candidates}
-          selected={selectedCandidate}
-          onSelect={setSelectedCandidate}
-        />
-      )}
-      {candidates.length === 0 && !isLoading && !error && !hasSearched && (
-        <p className="text-xs text-gray-400">Enter a title and press Search or Enter to resolve it.</p>
-      )}
-      {candidates.length === 0 && !isLoading && !error && hasSearched && (
-        <p className="text-sm text-gray-500">No results — try a different title or add the author&apos;s name.</p>
-      )}
-
-      <ModelDropdown value={model} onChange={setModel} />
-      <CharacterCapDropdown value={characterCap} onChange={setCharacterCap} />
-      <FormatCheckboxes selected={formats} onChange={setFormats} />
-
-      {/* Email */}
-      <div>
-        <label className="block text-sm font-medium mb-1">
-          Email{' '}
-          <span className="text-gray-500 font-normal">(optional — we'll send you the files)</span>
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      {/* Turnstile placeholder */}
-      <div className="h-12 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center text-xs text-gray-400">
-        [Turnstile widget — Phase 5]
-      </div>
-
-      <button
-        onClick={handleGenerate}
-        disabled={!canGenerate || submitting}
-        className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
-        {submitting ? 'Starting…' : 'Generate Character Map'}
-      </button>
-      {submitError && <p className="text-sm text-red-600">{submitError}</p>}
-
-      {recentMaps.length > 0 && (
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <h2 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Your recent maps</h2>
-          <ul className="space-y-2">
-            {recentMaps.map((entry) => (
-              <li key={entry.jobId}>
-                <a
-                  href={`/job/${entry.jobId}`}
-                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-                >
-                  {entry.thumbnailUrl && (
-                    <img src={entry.thumbnailUrl} alt="" className="w-10 h-10 rounded object-cover" />
+        <div className="flex" style={{ minHeight: '320px' }}>
+          {(['book', 'film_tv'] as const).map((t) => {
+            const isBook = t === 'book'
+            const selected = workType === t
+            return (
+              <button
+                key={t}
+                onClick={() => handleTypeSelect(t)}
+                className={`type-panel flex-1 ${selected ? 'selected' : ''}`}
+                aria-pressed={selected}
+              >
+                <div className="type-panel-bg" style={{ backgroundImage: `url(${isBook ? BOOK_PHOTO : FILM_PHOTO})` }} />
+                <div className="type-panel-overlay" style={{
+                  background: selected
+                    ? 'linear-gradient(to top, rgba(13,11,9,0.85) 0%, rgba(13,11,9,0.45) 60%, rgba(13,11,9,0.15) 100%)'
+                    : 'linear-gradient(to top, rgba(13,11,9,0.92) 0%, rgba(13,11,9,0.7) 60%, rgba(13,11,9,0.45) 100%)',
+                }} />
+                <div className="type-panel-border" />
+                <div className="type-panel-content h-full flex flex-col items-center justify-end pb-10 px-6">
+                  <span className="text-4xl mb-3">{isBook ? '📚' : '🎬'}</span>
+                  <p className="font-serif text-2xl font-semibold text-award-cream">{isBook ? 'Literature' : 'Film & TV'}</p>
+                  <p className="mt-1 text-xs text-award-cream-muted tracking-wide">{isBook ? 'Novels · Short stories · Poetry' : 'Movies · Series · Documentaries'}</p>
+                  {selected && (
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold" style={{ color: '#D4AF37' }}>
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <circle cx="7" cy="7" r="6.5" stroke="#D4AF37" />
+                        <path d="M4 7l2 2 4-4" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                      Selected
+                    </div>
                   )}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{entry.title}</p>
-                    <p className="text-xs text-gray-500">{new Date(entry.date).toLocaleDateString()}</p>
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
+                </div>
+              </button>
+            )
+          })}
         </div>
-      )}
-    </main>
+      </section>
+
+      {/* Gold hairline */}
+      <div className="gold-hairline mx-10 opacity-25 my-0" />
+
+      {/* ════════════════════════════════════════════════════════
+          SPOILER — inline, full-width strip
+      ════════════════════════════════════════════════════════ */}
+      <Reveal className="max-w-7xl mx-auto px-8 pt-10">
+        <label
+          className="inline-flex items-center gap-3 cursor-pointer group px-5 py-3 rounded-full transition-colors"
+          style={{ border: '1px solid rgba(224,82,82,0.25)', background: 'rgba(26,8,8,0.5)' }}
+        >
+          <input
+            type="checkbox"
+            checked={spoilerAcknowledged}
+            onChange={(e) => setSpoilerAcknowledged(e.target.checked)}
+            style={{ accentColor: '#D4AF37', width: '15px', height: '15px' }}
+          />
+          <span className="text-xs text-award-cream-muted group-hover:text-award-cream transition-colors">
+            <span className="font-semibold" style={{ color: '#E05252' }}>⚠ Spoiler warning —</span>{' '}
+            this generates full character maps. Tick to confirm you're happy with spoilers.
+          </span>
+        </label>
+      </Reveal>
+
+      {/* ════════════════════════════════════════════════════════
+          SEARCH + CONFIGURE — two-column on wide screens
+      ════════════════════════════════════════════════════════ */}
+      <section ref={searchRef} className="max-w-7xl mx-auto px-8 py-16">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-24 gap-y-16">
+
+          {/* ── Left: Search ── */}
+          <div>
+            <Reveal><StepLabel n="Step 2" title="Find your title" /></Reveal>
+
+            <Reveal delay={1}>
+              <TitleSearch onSearch={handleSearch} isLoading={isLoading} />
+            </Reveal>
+
+            {error && <Reveal delay={1}><p className="text-sm text-award-crimson mt-4">{error}</p></Reveal>}
+
+            <div aria-live="polite" className="mt-6">
+              {candidates.length > 0 && autoSkip && (
+                <Reveal>
+                  <ResolveBanner
+                    candidate={topCandidate!}
+                    onNotThis={() => { setForceShowPicker(true); setSelectedCandidate(null) }}
+                  />
+                </Reveal>
+              )}
+              {candidates.length > 0 && !autoSkip && (
+                <Reveal>
+                  <ResolveCandidatePicker
+                    candidates={candidates}
+                    selected={selectedCandidate}
+                    onSelect={setSelectedCandidate}
+                  />
+                </Reveal>
+              )}
+              {candidates.length === 0 && !isLoading && !error && !hasSearched && (
+                <p className="text-xs text-award-cream-dim">Enter any title and press Search or ↵</p>
+              )}
+              {candidates.length === 0 && !isLoading && !error && hasSearched && (
+                <p className="text-sm text-award-cream-muted">No results — try a different title or add the author's name.</p>
+              )}
+            </div>
+
+            {/* Recent maps — lives under search on wide screens */}
+            {recentMaps.length > 0 && (
+              <div className="mt-14">
+                <div className="gold-hairline opacity-20 mb-6" />
+                <Reveal>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.35em] mb-4" style={{ color: '#A88C2A' }}>Your recent maps</p>
+                </Reveal>
+                <ul className="space-y-0">
+                  {recentMaps.map((entry, i) => (
+                    <Reveal key={entry.jobId} delay={Math.min(i + 1, 4) as 1|2|3|4}>
+                      <a
+                        href={`/job/${entry.jobId}`}
+                        className="flex items-center gap-4 py-3 group transition-all"
+                        style={{ borderBottom: '1px solid rgba(61,48,32,0.5)' }}
+                      >
+                        {entry.thumbnailUrl && (
+                          <img src={entry.thumbnailUrl} alt="" className="w-10 h-10 rounded object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-award-cream truncate group-hover:text-award-gold-light transition-colors">{entry.title}</p>
+                          <p className="text-[10px] text-award-cream-dim">{new Date(entry.date).toLocaleDateString()}</p>
+                        </div>
+                        <span className="text-award-gold-dim group-hover:text-award-gold transition-colors text-sm">→</span>
+                      </a>
+                    </Reveal>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* ── Right: Configure ── */}
+          <div>
+            <Reveal><StepLabel n="Step 3" title="Fine-tune your map" /></Reveal>
+
+            <div className="space-y-10">
+              <Reveal delay={1}><ModelDropdown value={model} onChange={(v) => { setModel(v); savePrefs({ model: v }) }} /></Reveal>
+              <Reveal delay={2}><CharacterCapDropdown value={characterCap} onChange={(v) => { setCharacterCap(v); savePrefs({ characterCap: v }) }} /></Reveal>
+              <Reveal delay={2}><FormatCheckboxes selected={formats} onChange={(v) => { setFormats(v); savePrefs({ formats: v }) }} /></Reveal>
+              <Reveal delay={3}>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-[0.2em] text-award-cream-dim mb-1">
+                    Email <span className="normal-case opacity-70">(optional — we'll notify you)</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="input-underline"
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gold hairline */}
+      <div className="gold-hairline mx-10 opacity-25" />
+
+      {/* ════════════════════════════════════════════════════════
+          GENERATE — full-width dramatic CTA
+      ════════════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden py-24 px-6 text-center">
+        <div aria-hidden className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 50%, rgba(212,175,55,0.07) 0%, transparent 70%)' }} />
+
+        <Reveal>
+          <p className="text-[9px] uppercase tracking-[0.45em] mb-1" style={{ color: '#A88C2A' }}>Step 4</p>
+          <h2 className="font-serif text-3xl text-award-cream mb-10" style={{ letterSpacing: '-0.01em' }}>Reveal the characters</h2>
+        </Reveal>
+
+        <Reveal delay={1} className="relative">
+          {!canGenerate && (
+            <p className="text-[10px] text-award-cream-dim mb-4 tracking-widest uppercase">
+              {!spoilerAcknowledged
+                ? '— Acknowledge the spoiler warning above —'
+                : !selectedCandidate ? '— Search and select a title first —'
+                : '— Select at least one output format —'}
+            </p>
+          )}
+          <button
+            onClick={handleGenerate}
+            disabled={!canGenerate || submitting}
+            className={`inline-flex items-center justify-center px-20 py-5 rounded-full text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-award-gold focus-visible:ring-offset-4 focus-visible:ring-offset-award-bg transition-all duration-300 ${
+              canGenerate && !submitting ? 'btn-gold-metal' : 'text-award-cream-dim cursor-not-allowed'
+            }`}
+            style={!canGenerate || submitting ? { border: '1px solid rgba(61,48,32,0.6)', background: 'rgba(28,24,16,0.7)' } : undefined}
+          >
+            {submitting ? (
+              <span className="flex items-center gap-2">
+                <svg className="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.3" />
+                  <path d="M14 8A6 6 0 0 0 8 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                Starting…
+              </span>
+            ) : 'Generate Character Map'}
+          </button>
+          {submitError && <p className="text-sm text-award-crimson mt-4">{submitError}</p>}
+        </Reveal>
+
+        <Reveal delay={3} className="mt-10">
+          <p className="text-[10px] text-award-cream-dim">
+            Hobby project · Results may vary · Maps saved 90 days ·{' '}
+            <button onClick={() => setShowModal(true)} className="underline" style={{ color: '#D4AF37' }}>How it works</button>
+          </p>
+        </Reveal>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════
+          STICKY GENERATE BAR — always visible at bottom
+      ════════════════════════════════════════════════════════ */}
+      <div
+        className="fixed bottom-0 inset-x-0 z-50 flex items-center justify-between gap-4 px-8 py-4"
+        style={{
+          background: 'rgba(10,8,6,0.88)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderTop: '1px solid rgba(212,175,55,0.18)',
+        }}
+      >
+        {/* Status chips */}
+        <div className="flex items-center gap-3 flex-wrap min-w-0">
+          <StatusChip done={!!selectedCandidate} label={selectedCandidate ? selectedCandidate.title : 'No title selected'} />
+          <span className="text-award-gold-dim text-xs hidden sm:block">·</span>
+          <StatusChip done={formats.length > 0} label={formats.length > 0 ? formats.join(', ') : 'No format'} />
+          <span className="text-award-gold-dim text-xs hidden sm:block">·</span>
+          <StatusChip done={spoilerAcknowledged} label={spoilerAcknowledged ? 'Spoilers acknowledged' : 'Spoilers not acknowledged'} />
+        </div>
+
+        {/* Generate button */}
+        <button
+          onClick={handleGenerate}
+          disabled={!canGenerate || submitting}
+          className={`shrink-0 px-8 py-2.5 rounded-full text-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-award-gold ${
+            canGenerate && !submitting ? 'btn-gold-metal' : 'text-award-cream-dim cursor-not-allowed'
+          }`}
+          style={!canGenerate || submitting ? { border: '1px solid rgba(61,48,32,0.6)', background: 'rgba(28,24,16,0.7)', animation: 'none', boxShadow: 'none' } : undefined}
+        >
+          {submitting ? 'Starting…' : 'Generate Character Map'}
+        </button>
+      </div>
+
+      {/* Bottom padding so page content clears the sticky bar */}
+      <div className="h-20" />
+
+      {showModal && <HowThisWorksModal onClose={() => setShowModal(false)} />}
+    </div>
+  )
+}
+
+function StatusChip({ done, label }: { done: boolean; label: string }) {
+  return (
+    <span
+      className="flex items-center gap-1.5 text-xs truncate max-w-[200px]"
+      style={{ color: done ? '#D4AF37' : '#7A6A54' }}
+    >
+      <span>{done ? '✦' : '○'}</span>
+      <span className="truncate">{label}</span>
+    </span>
   )
 }
