@@ -140,7 +140,7 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
           y: groupY + FACTION_LABEL_H + FACTION_PADDING + pos.y,
         },
         data: { character: char, colour, showBadges: false },
-        zIndex: 1,
+        zIndex: 2,
       })
       nodeIdSet.add(char.id)
     })
@@ -157,7 +157,7 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
       labelBgStyle: { fill: 'rgba(17,17,17,0.92)', rx: 3, ry: 3 },
       labelStyle: { fill: '#ccc', fontSize: 11, fontFamily: '-apple-system,sans-serif' },
       style: EDGE_STYLES[r.type] ?? EDGE_STYLES.professional,
-      zIndex: 2,
+      zIndex: 0,
     }))
 
   return { nodes, edges }
