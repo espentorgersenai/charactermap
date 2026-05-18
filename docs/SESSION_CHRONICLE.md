@@ -167,3 +167,68 @@ Full Phase 1 implementation — all 8 Planka cards moved to Completed.
 - **Frontend: zero tests** (gap surfaced in review; follow-up card created).
 - Clean Vite build (425 kB JS, 137 kB gzip).
 - Deployed to lfc and re-deployed multiple times during visual iteration.
+
+---
+
+## Session 5 — 2026-05-18
+
+### What We Built
+
+**Phase 3 polish (B-path) — all three follow-ups landed:**
+- Edge handles recompute live as nodes move (`pickHandles` extracted from `buildLayout`, called inside `liveEdges` over a node-centers map that accounts for parent offsets). No more stale handles after dragging a faction.
+- `cm-coverage-dismissed-${jobId}` localStorage key persists the coverage-note × dismiss across reloads.
+- Vitest 3 wired with 19 unit tests for `buildLayout` + `pickHandles` (grid math, faction filtering, handle quadrants, edge dedup, MAX_COLS wrap). Vitest 4 is incompatible with Vite 5's bundled esbuild — pin to v3.
+
+**Phase 4 tracer end-to-end (A-path), then made user-tunable:**
+- `app/metadata/tmdb.py::get_credits` returns top-30 cast + director (with `profile_path` for headshot URL composition).
+- `app/metadata/enrichment.py` does fuzzy-matching with three signals: full-string ratio, best-pairwise token ratio (×0.85, tokens ≥4 chars), actor-name ratio (×0.5). Leading-article stripping (`the`/`a`/`an`) and honorific stripping in normalization. Threshold 0.65.
+- `_enrich_with_credits` runs post-LLM; works for both film/tv (credits from the work itself) and books (credits from `resolved_meta.adaptation_tmdb_id` if present). Creator stays the author for books, director for film/tv.
+- **TMDB wins the naming discussion:** matched character's name overwrites the LLM's pick. *Winston Wolfe → The Wolf*, *Bard → Bard / Girion*, *Azog → Azog the Defiler*.
+- Frontend: `CharacterCardNode` swaps to TMDB headshot when `actor.headshot_url` present, clickable to `themoviedb.org/person/<id>`. `CreatorPill` floats inline next to the title, links to TMDB (director) or Open Library author search; renders the director's headshot when available.
+- Verified live: Princess Bride 12/13 → 13/13 → never mind, Pulp Fiction 16/16, The Hobbit 22/30 (the 8 remaining misses are characters from *other* films of the trilogy — filed as cap-aggregation card).
+
+**User-tunable character cap (10 / 20 / 30 / 40 / 50):**
+- New `CharacterCapDropdown` on the form, persisted via `useFormPrefill`, default 20.
+- `JobCreateRequest.character_cap` validator restricts to the 5 values.
+- Migration `0003`: `character_cap INT NOT NULL DEFAULT 20` on `jobs` + check constraint.
+- Cache lookup keyed by `(resolved_id, spoiler_mode, character_cap)` — a cap=10 request never serves a cap=50 cached map.
+- Prompt template uses `{CHAR_CAP}` placeholder; substituted via `str.replace` because the prompt has literal `{` / `}` in its TypeScript schema block (kills `str.format`).
+- Sample run on The Hobbit: cap=20 → 17 chars / 4 183 tokens / $0.063 / 52 s. cap=50 → 30 chars / 6 239 tokens / $0.094 / 75 s. Sonnet 4.6 self-limits well below 50 (sized to narrative weight, not the cap).
+
+**Home.tsx — actually creates jobs now:**
+- Wires `createJob` → `POST /api/jobs` → navigate to `/job/<id>?model=&title=`. Was the Phase 1 stub through Session 4.
+
+**Header strip + title affordances:**
+- Title / subtitle / blurb in a header strip above the toolbar (was missing entirely).
+- Title is an anchor when `CharacterMap.source_url` is set — deep-links to TMDB movie/tv page or Open Library work page. Backfilled all 10 existing done jobs.
+- Creator pill moved inline next to the title (was floating top-left).
+
+**Download filenames:**
+- `artifacts.py` slugifies `job.resolved_title` into the `Content-Disposition` filename for API-served formats. On-disk file stays `character_map.<ext>`. Result: `pulp-fiction-character-map.md` instead of `character_map.md`.
+- `ExportMenu` mirrors the slugify rule in TypeScript for client-side PNG / SVG / JSON exports.
+
+**Subtraction:**
+- Dropped the Badges feature entirely (toolbar button, on-card spoiler/death pips, Badges legend section). Underlying `spoiler_level` and `is_deceased_in_work` stay in the schema for MD/PDF.
+- Dropped edge label rendering on the canvas. Tried bezier-midpoint chips, then per-edge stagger, then perpendicular offset + truncate; all worse than just hiding them. Labels stay in the data model so MD/PDF can show them. Replaced the `Labels` toolbar toggle with `Connections` (default on) that hides the lines entirely.
+
+**DPI bump for 140-DPI displays:**
+- `frontend/src/index.css`: `html { font-size: 17px }` (≈+6% global via rem).
+- Character card name 14→16 px, role 11→14 px, title `text-lg` → `text-xl`, subtitle/blurb 12→13 px, CreatorPill headshot 28→32 px, etc.
+- Layout `MAX_COLS = 2 → 3` so big factions stay compact (Hobbit's 13-dwarf Company: 9 rows → 6).
+
+**CLAUDE.md got a Planka maintenance section.** Explicit agent responsibilities: move cards to Completed when work ships, file new cards for discovered work, bias toward filing.
+
+### Key Decisions
+
+- **TMDB wins the naming discussion.** When a fuzzy match clears threshold, the credited character name overwrites the LLM's name. Audience-recognizable, matches what's on the work itself, simpler frontend (no need for `display_as` field). Cost: books inherit adaptation-naming for matched characters; books without adaptations untouched.
+- **Token-level fuzzy match.** Necessary to bind TMDB's nickname credits ("The Wolf") to LLM-canonical full names ("Winston Wolfe"). Token-only matches discounted to 0.85× to keep false positives down; min token length 4 chars excludes common short words.
+- **Cap dropdown over hard-coded 25.** User wanted to feel the cost/density tradeoff. Pre-baked the five sensible options (10/20/30/40/50) rather than free-form input — keeps cache hit-rates sane (5 distinct caps × N works ≪ unlimited × N) and the dropdown carries cost hints so users self-throttle.
+- **Edge labels go away on the canvas, stay in the data.** Three iterations on label positioning — bezier midpoint (collides with adjacent cards in dense factions), source-end stagger (lands on source's neighbours), perpendicular-offset + truncate (still messy). User called the last attempt "worst one so far" and asked to hide the toggle. Right call: relationships are easier to read as a list (MD/PDF) than as overlapping chips on a graph.
+- **Slugify everywhere.** Both backend and frontend have a slugify helper because exports run in both places (API-served vs client-generated). The on-disk filename stays generic (`character_map.<ext>`) — only the download name carries the title. Easier to keep paths stable across renders.
+
+### Test Status
+
+- **90 backend unit tests passing** (+ 4 enrichment-token tests, + 1 TMDB-rename test, − 0).
+- **19 frontend tests passing** (Vitest 3, MAX_COLS-aware).
+- End-to-end runs verified live for Pulp Fiction (16/16 actors + The Wolf renamed), The Hobbit (22/30 matched, all 13 dwarves + Smaug + Bard + Azog), Of Mice and Men cap=10 (10/10, $0.0356, 37 s), Princess Bride.
+- 6 commits this session: `d276ffb`, `5497b48`, `e1fc460`, `d1d937b`, `fc666ea`, `93c8b62`.
