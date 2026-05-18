@@ -3,13 +3,15 @@ import structlog
 from datetime import datetime, timezone
 from decimal import Decimal
 from pathlib import Path
-from uuid import UUID
+from uuid import UUID, uuid4
 from pydantic import ValidationError
 
 from app.config import settings
 from app.db.session import async_session_factory
-from app.db.tables import Job
+from app.db.tables import Artifact, Job
 from app.llm.anthropic_client import AnthropicClient
+from app.renderers.markdown import render_markdown
+from app.renderers.pdf import render_pdf
 from app.llm.base import LLMClient, LLMResult
 from app.models.character_map import CharacterMap
 
@@ -169,5 +171,38 @@ async def run_pipeline(job_id: str) -> None:
             job.estimated_cost_usd = Decimal(str(llm_result.cost_usd))
             log.info("pipeline_done", job_id=job_id,
                      chars=len(char_map.characters), cost_usd=llm_result.cost_usd)
+
+            # Render Markdown + PDF artifacts
+            artifact_dir = Path(settings.artifact_storage_path) / job_id
+            artifact_dir.mkdir(parents=True, exist_ok=True)
+            md_text = None
+            try:
+                md_text = render_markdown(char_map)
+                md_path = artifact_dir / "character_map.md"
+                md_path.write_text(md_text, encoding="utf-8")
+                session.add(Artifact(
+                    id=uuid4(),
+                    job_id=UUID(job_id),
+                    format="markdown",
+                    file_path=str(Path(job_id) / "character_map.md"),
+                    file_size=len(md_text.encode()),
+                ))
+                log.info("markdown_rendered", job_id=job_id)
+            except Exception as e:
+                log.warning("markdown_render_failed", job_id=job_id, error=str(e))
+
+            if md_text is not None:
+                try:
+                    pdf_path = render_pdf(md_text, job_id, artifact_dir)
+                    session.add(Artifact(
+                        id=uuid4(),
+                        job_id=UUID(job_id),
+                        format="pdf",
+                        file_path=str(Path(job_id) / "character_map.pdf"),
+                        file_size=pdf_path.stat().st_size,
+                    ))
+                    log.info("pdf_rendered", job_id=job_id)
+                except Exception as e:
+                    log.warning("pdf_render_failed", job_id=job_id, error=str(e))
 
         await session.commit()
