@@ -2,7 +2,7 @@
 
 Character Map Generator · Chronological build log — appended at the end of each session.
 
-Last updated: Session 2 · 2026-05-18 (wrapup)
+Last updated: Session 3 · 2026-05-18 (wrapup)
 
 > **Backlog / open items / next steps → [kanban.torgersen.ai](https://kanban.torgersen.ai) — project: Character Map, board: Character Map.** This file is the *narrative archive* of what was built each session; no TODOs live here.
 
@@ -68,3 +68,47 @@ Full Phase 1 implementation — all 8 Planka cards moved to Completed.
 - 16 backend unit tests passing (`pytest tests/unit/`)
 - Frontend: 0 TypeScript errors, clean Vite build (97 modules, 212 kB JS)
 - Phase 1 manual smoke tests: ready to run once `.env` is configured on lfc
+
+---
+
+## Session 3 — 2026-05-18
+
+### What We Built
+
+**Phase 2 complete (generation pipeline)** — all 7 Planka cards moved to Completed.
+
+- **Infrastructure fix:** Port 8200 was occupied by `signal-ingest-api`. API remapped to **8202**. Updated `docker-compose.yml`, nginx conf, `vite.config.ts`, `deploy.sh`, and `CLAUDE.md`.
+- **CharacterMap + Job Pydantic models:** `CharacterMap`, `Faction`, `Character`, `Relationship`, `RefusalResponse` — `spoiler_level` is `Optional[Literal[0,1,2,3]]` so pipeline can detect and sweep missing values to 3. `JobCreateRequest` validates model name and non-empty formats.
+- **LLMClient protocol + AnthropicClient:** `LLMResult` dataclass, `LLMClient` Protocol, `AnthropicClient` with `cache_control: ephemeral` on system prompt for Anthropic prompt caching. Per-model cost table.
+- **`character_map.md` prompt template:** All 11 §5.1 guardrails — identity-from-metadata, omit-when-uncertain (3 tiers of certainty), full-spoiler, `spoiler_level` tiers, character cap (max 25), `setting_preamble` guidance, English output, library-card tone, 2–6 factions, user_query-as-data-only, JSON-only output. Full TypeScript schema embedded.
+- **`call_and_validate` + pipeline orchestration:** Refusal detection (before Pydantic), retry-once-with-error-appended, `spoiler_level` sweep deferred to `run_pipeline`. `run_pipeline` uses `asyncio.run()` wrapper for the RQ task boundary. 8 unit tests for retry/refusal logic.
+- **`POST /api/jobs` + `GET /api/jobs/:id`:** `acknowledged_spoilers: true` hard gate returns 400. `get_queue()` uses synchronous Redis connection (RQ requirement). Turnstile accepted but not verified (Phase 5). 4 unit tests including acknowledged_spoilers gate.
+- **`GET /api/jobs/:id/stream` SSE:** DB polling at 1s intervals, status-to-progress fractions, terminal events (`done`/`refused`/`failed`).
+- **JobView frontend — 5 states:** Loading, in-progress (progress bar + elapsed timer + per-model ETA), done (raw JSON — canvas Phase 3), refused (friendly message + "try different model"), failed (error + mailto). `useJob` hook with EventSource + 2s polling fallback.
+- **`dev-generate.py` fully wired:** Calls `AnthropicClient` directly, prints stderr stats + stdout JSON. `run_golden_set.py` + `tuning/golden_set.yaml` (10 works from §19.3).
+- **Integration test:** `test_congo.py` — POST → `run_pipeline()` directly → poll → assert `status=done` and `spoiler_level` on all characters/relationships.
+- **Golden-set baseline run:** 10/10 works pass, 100% `spoiler_level` coverage. Key finding: `max_tokens=4096` too small for large works (Dune needs 6139 tokens, García Márquez 6461). Fixed to `16384` in `base.py`, `anthropic_client.py`, and `pipeline.py`.
+- **Deployed to lfc** at port 8202. Acknowledged_spoilers gate verified live.
+
+**Phase 3 design + plan produced** (not yet implemented):
+
+- **Design doc:** `docs/superpowers/specs/2026-05-18-phase3-design.md`
+- **Implementation plan:** `docs/superpowers/plans/2026-05-18-phase3-rendering.md` — 14 tasks
+- **Visual companion session** used to validate canvas design
+
+### Key Decisions
+
+- **API port 8202** (8200 was taken by `signal-ingest-api` on lfc). All references updated.
+- **`max_tokens` must be 16384**, not 4096. Three separate defaults existed (base.py, anthropic_client.py, pipeline.py) — all three must match or the pipeline.py default overrides the client default.
+- **`call_and_validate` does NOT call `_sweep_spoiler_levels`** — sweep is deferred to `run_pipeline`. The retry tests verify this: after call_and_validate returns, `spoiler_level` is still `None` if the LLM omitted it; `run_pipeline` fills it in to 3.
+- **`PYTHONPATH=/app` needed** when running `dev-generate.py` or `run_golden_set.py` inside the Docker container (`docker exec -e PYTHONPATH=/app charmap_api python scripts/...`).
+- **Golden set title:** "Marekors" (Norwegian) refused as `low_confidence`. Replaced with "The Devil's Star" (English title of Jo Nesbø's Harry Hole #5).
+- **Result caching (Phase 3):** Opus result trumps all — if any model has generated a map for a work, POST /api/jobs returns the best existing result instantly at $0 cost. Cache key: `(resolved_id, spoiler_mode)`. Model ranking: Opus 4.7 → Sonnet 4.6 → GPT-5.5 → Gemini 2.5 Pro → Haiku 4.5.
+- **Canvas design choices (Phase 3):** Node style = horizontal pill (option B). Page layout = top toolbar + right sidebar. Badges (⚠ †) hidden by default with independent toolbar toggle. Legend collapsible independently at bottom-left.
+
+### Test Status
+
+- 48 backend unit tests passing (added models, pipeline, jobs route, LLM client tests)
+- Integration test `test_congo.py`: PASSED (36s, $0.038, 10 chars)
+- Golden-set baseline: 10/10 works, 100% spoiler_level coverage, $0.68 total
+- Frontend: clean Vite build
