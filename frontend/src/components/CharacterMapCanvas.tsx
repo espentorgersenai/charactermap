@@ -132,8 +132,8 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           title="Toggle spoiler / death badges on character nodes"
           className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
             showBadges
-              ? 'bg-[#292929] text-white border-[#666]'
-              : 'bg-transparent text-[#888] border-[#333] hover:border-[#555] hover:text-[#ccc]'
+              ? 'bg-[#2563eb] text-white border-[#2563eb]'
+              : 'bg-transparent text-[#555] border-[#2a2a2a] hover:border-[#555] hover:text-[#aaa]'
           }`}
         >
           ⚠ † Badges
@@ -144,8 +144,8 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           title="Toggle relationship labels on edges"
           className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
             showLabels
-              ? 'bg-[#292929] text-white border-[#666]'
-              : 'bg-transparent text-[#888] border-[#333] hover:border-[#555] hover:text-[#ccc]'
+              ? 'bg-[#2563eb] text-white border-[#2563eb]'
+              : 'bg-transparent text-[#555] border-[#2a2a2a] hover:border-[#555] hover:text-[#aaa]'
           }`}
         >
           Labels
