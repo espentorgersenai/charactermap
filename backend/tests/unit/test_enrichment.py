@@ -115,6 +115,38 @@ class TestMatchCastToCharacters:
         match_cast_to_characters(chars, cast)
         assert chars[0].actor.tmdb_person_id == 11
 
+    def test_token_match_when_credit_uses_nickname(self):
+        # Regression: Pulp Fiction credits Harvey Keitel as "The Wolf";
+        # the LLM emits "Winston Wolfe". Token-level matching plus leading-
+        # article stripping should still find him.
+        chars = [_char("c1", "Winston Wolfe")]
+        cast = [_cast("Harvey Keitel", "The Wolf", 1037)]
+        match_cast_to_characters(chars, cast)
+        assert chars[0].actor is not None
+        assert chars[0].actor.tmdb_person_id == 1037
+
+    def test_leading_article_stripped_in_credit(self):
+        chars = [_char("c1", "Joker")]
+        cast = [_cast("Heath Ledger", "The Joker", 7)]
+        match_cast_to_characters(chars, cast)
+        assert chars[0].actor.tmdb_person_id == 7
+
+    def test_short_token_does_not_falsely_match(self):
+        # "Mia" (3 letters) is below _MIN_TOKEN_LEN — shouldn't bind to an
+        # unrelated character credited as "Mia's Sister".
+        chars = [_char("c1", "Mia")]
+        cast = [_cast("Random Actor", "Some Other Person", 999)]
+        match_cast_to_characters(chars, cast)
+        assert chars[0].actor is None
+
+    def test_tmdb_credit_name_overwrites_character_name_on_match(self):
+        # TMDB wins the naming discussion: on a confident match the character's
+        # display name becomes the credited name.
+        chars = [_char("c1", "Winston Wolfe")]
+        cast = [_cast("Harvey Keitel", "The Wolf", 1037)]
+        match_cast_to_characters(chars, cast)
+        assert chars[0].name == "The Wolf"
+
 
 # ── set_creator ────────────────────────────────────────────────────────────
 class TestSetCreator:

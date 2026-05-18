@@ -25,7 +25,9 @@ export default function Home() {
   const [email, setEmail] = useState('')
   const [workType, setWorkType] = useState<'book' | 'film_tv'>(prefs.workType)
   const [characterCap, setCharacterCap] = useState<CharacterCap>(prefs.characterCap)
-  const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(false)
+  // Temporarily pre-acknowledged during dev to remove friction while iterating.
+  // Re-default to false before any public deploy (CLAUDE.md spoiler-gate rule).
+  const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(true)
   const [selectedCandidate, setSelectedCandidate] = useState<ResolveCandidate | null>(null)
   const [forceShowPicker, setForceShowPicker] = useState(false)
   const [submitting, setSubmitting] = useState(false)

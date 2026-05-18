@@ -238,8 +238,9 @@ describe('buildLayout', () => {
     expect(edges[0]).toMatchObject({
       source: 'c1',
       target: 'c2',
-      label: 'married',
     })
+    // Labels intentionally not propagated to edges — see layout.ts comment.
+    expect(edges[0].label).toBeUndefined()
     // Handles should be set by pickHandles
     expect(edges[0].sourceHandle).toMatch(/^src-/)
     expect(edges[0].targetHandle).toMatch(/^tgt-/)

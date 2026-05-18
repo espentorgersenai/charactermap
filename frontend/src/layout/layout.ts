@@ -191,9 +191,9 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
         sourceHandle,
         targetHandle,
         type: 'default',
-        label: r.label,
-        labelBgStyle: { fill: 'rgba(17,17,17,0.92)', rx: 3, ry: 3 },
-        labelStyle: { fill: '#ccc', fontSize: 11, fontFamily: '-apple-system,sans-serif' },
+        // r.label is intentionally not propagated: labels are preserved in
+        // the data model (markdown/PDF still show them) but render too
+        // poorly on a dense canvas. The canvas is connections-only.
         style: EDGE_STYLES[r.type] ?? EDGE_STYLES.professional,
         zIndex: 0,
       }

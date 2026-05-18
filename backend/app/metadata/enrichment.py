@@ -20,10 +20,20 @@ _HONORIFIC_RE = re.compile(
 )
 _PARENS_RE = re.compile(r"\([^)]*\)")
 _NON_ALNUM_RE = re.compile(r"[^a-z0-9\s]")
+_LEADING_ARTICLE_RE = re.compile(r"^(the|a|an)\s+")
 
 # Threshold for a confident character-name match. Tuned conservatively — false
 # positives are worse than missing-but-still-rendered initials.
 MATCH_THRESHOLD = 0.65
+
+# Token-level matching needs a minimum token length to avoid catching tiny
+# common tokens (e.g. credit "Old Man" matching every character named "Old").
+_MIN_TOKEN_LEN = 4
+# Token-only matches are discounted relative to a full-string match, because
+# matching one token out of many is weaker evidence than matching the whole
+# name. Discount tuned so "Winston Wolfe" ↔ "The Wolf" still clears threshold
+# (token ratio 0.89 × 0.85 = 0.76) but two-letter accidental hits don't.
+_TOKEN_DISCOUNT = 0.85
 
 
 def _normalize(s: str) -> str:
@@ -31,7 +41,10 @@ def _normalize(s: str) -> str:
     s = _HONORIFIC_RE.sub("", s)
     s = _PARENS_RE.sub("", s)
     s = _NON_ALNUM_RE.sub("", s)
-    return " ".join(s.split())
+    s = " ".join(s.split())
+    # Strip a leading article ("The Wolf" → "wolf", "An Education" → "education")
+    s = _LEADING_ARTICLE_RE.sub("", s)
+    return s
 
 
 def _ratio(a: str, b: str) -> float:
@@ -40,16 +53,35 @@ def _ratio(a: str, b: str) -> float:
     return SequenceMatcher(None, a, b).ratio()
 
 
+def _best_token_ratio(a: str, b: str) -> float:
+    """Best pairwise SequenceMatcher ratio between any token in a and any in b,
+    ignoring tokens shorter than _MIN_TOKEN_LEN. Lets short surnames /
+    nicknames match when the full-string ratio drowns in surrounding chrome."""
+    a_tokens = [t for t in a.split() if len(t) >= _MIN_TOKEN_LEN]
+    b_tokens = [t for t in b.split() if len(t) >= _MIN_TOKEN_LEN]
+    if not a_tokens or not b_tokens:
+        return 0.0
+    return max(_ratio(at, bt) for at in a_tokens for bt in b_tokens)
+
+
 def _score(char_name: str, cast: CastMember) -> float:
     """Score how well a CastMember matches an LLM character name.
 
-    Primary signal: the credited character name. Actor's real name is a much
-    weaker fallback (Carrie Fisher → "Princess Leia" only matches via character).
+    Three signals, take the strongest:
+    1. Full-string ratio against the credited character name (highest fidelity).
+    2. Best per-token ratio against the credited character name, discounted —
+       catches cases where TMDB credits a name fragment ("The Wolf") vs the
+       LLM's full name ("Winston Wolfe").
+    3. Actor's real-life name, halved (weakest — used for cases where the
+       LLM only knows the actor, e.g. archival footage).
     """
     nname = _normalize(char_name)
+    n_credit = _normalize(cast.character)
+    n_actor = _normalize(cast.name)
     return max(
-        _ratio(nname, _normalize(cast.character)),
-        _ratio(nname, _normalize(cast.name)) * 0.5,
+        _ratio(nname, n_credit),
+        _best_token_ratio(nname, n_credit) * _TOKEN_DISCOUNT,
+        _ratio(nname, n_actor) * 0.5,
     )
 
 
@@ -88,6 +120,13 @@ def match_cast_to_characters(
                     if member.profile_path else None
                 ),
             )
+            # TMDB wins the naming discussion: when a confident match exists,
+            # adopt TMDB's credited character name (e.g. "Winston Wolfe" →
+            # "The Wolf"). LLM name is lost, but: relationships reference
+            # by id (safe), markdown/PDF reads the same field, and the
+            # credit is the audience-facing name on the work itself.
+            if member.character:
+                char.name = member.character
             used_person_ids.add(member.tmdb_person_id)
             matched += 1
     return matched

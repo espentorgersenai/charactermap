@@ -76,7 +76,7 @@ function SettingPreamble({ text }: { text: string }) {
 interface CanvasProps { charMap: CharacterMap; jobId: string }
 
 function InnerCanvas({ charMap, jobId }: CanvasProps) {
-  const [showLabels, setShowLabels] = useState(false)
+  const [showEdges, setShowEdges] = useState(true)
   const [showLegend, setShowLegend] = useState(false)
   const coverageKey = `cm-coverage-dismissed-${jobId}`
   const [coverageDismissed, setCoverageDismissed] = useState(() => {
@@ -117,21 +117,26 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
   }, [nodes])
 
   const liveEdges = useMemo(
-    () => edges.map(e => {
-      const src = centers.get(e.source)
-      const tgt = centers.get(e.target)
-      const handles = src && tgt
-        ? pickHandles(src, tgt)
-        : { sourceHandle: e.sourceHandle, targetHandle: e.targetHandle }
-      return {
-        ...e,
-        sourceHandle: handles.sourceHandle,
-        targetHandle: handles.targetHandle,
-        label: showLabels ? e.label : undefined,
-        zIndex: showLabels ? 10 : 0,
-      }
-    }),
-    [edges, showLabels, centers],
+    () => {
+      if (!showEdges) return []
+      return edges.map(e => {
+        const src = centers.get(e.source)
+        const tgt = centers.get(e.target)
+        const handles = src && tgt
+          ? pickHandles(src, tgt)
+          : { sourceHandle: e.sourceHandle, targetHandle: e.targetHandle }
+        // Labels are stripped at the canvas layer: they're preserved in the
+        // map data (markdown/PDF still show them) but render poorly inside
+        // dense factions, so the canvas is connections-only.
+        return {
+          ...e,
+          sourceHandle: handles.sourceHandle,
+          targetHandle: handles.targetHandle,
+          label: undefined,
+        }
+      })
+    },
+    [edges, showEdges, centers],
   )
 
   const resetLayout = useCallback(() => {
@@ -163,15 +168,15 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       {/* Top toolbar */}
       <div className="bg-[#1a1a1a] border-b border-[#2a2a2a] px-6 py-2.5 flex items-center gap-2.5 flex-shrink-0">
         <button
-          onClick={() => setShowLabels(v => !v)}
-          title="Toggle relationship labels on edges"
+          onClick={() => setShowEdges(v => !v)}
+          title="Toggle relationship lines between characters"
           className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
-            showLabels
+            showEdges
               ? 'bg-[#2563eb] text-white border-[#2563eb]'
               : 'bg-transparent text-[#555] border-[#2a2a2a] hover:border-[#555] hover:text-[#aaa]'
           }`}
         >
-          Labels
+          Connections
         </button>
 
         <div className="w-px h-6 bg-[#2a2a2a] mx-1" />
