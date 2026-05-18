@@ -2,9 +2,11 @@ import structlog
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes.resolve import router as resolve_router
-from app.routes.jobs import router as jobs_router
+from app.routes.adaptations import router as adaptations_router
 from app.routes.artifacts import router as artifacts_router
+from app.routes.images import router as images_router
+from app.routes.jobs import router as jobs_router
+from app.routes.resolve import router as resolve_router
 
 log = structlog.get_logger()
 
@@ -21,6 +23,8 @@ app.add_middleware(
 app.include_router(resolve_router)
 app.include_router(jobs_router)
 app.include_router(artifacts_router)
+app.include_router(adaptations_router)
+app.include_router(images_router)
 
 
 @app.get("/api/health")

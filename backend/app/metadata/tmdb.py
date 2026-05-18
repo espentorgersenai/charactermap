@@ -143,25 +143,10 @@ async def find_adaptation_for_book(
     )
 
 
-async def get_credits(
-    tmdb_id: int,
-    media_type: Literal["movie", "tv"],
-    redis_client=None,
-    cast_limit: int = 30,
-) -> tuple[list[CastMember], Optional[DirectorCredit]]:
-    """Fetch top-N cast (by billing order) and the director credit for a TMDB work.
-
-    Returns ([], None) on any failure — callers must treat enrichment as best-effort.
-    """
-    if not settings.tmdb_api_key:
-        return [], None
-    try:
-        data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
-    except Exception:
-        return [], None
-
+def _parse_cast(data: dict, cast_limit: int) -> list[CastMember]:
+    """Shared cast parser used by best-effort get_credits and strict fetch_cast."""
     cast_raw = sorted(data.get("cast", []), key=lambda c: c.get("order", 9999))[:cast_limit]
-    cast = [
+    return [
         CastMember(
             name=c.get("name", ""),
             character=c.get("character", ""),
@@ -172,6 +157,136 @@ async def get_credits(
         for c in cast_raw
         if c.get("id") and c.get("name")
     ]
+
+
+async def fetch_cast_strict(
+    tmdb_id: int,
+    media_type: Literal["movie", "tv"],
+    redis_client=None,
+    cast_limit: int = 30,
+) -> list[CastMember]:
+    """Fetch cast for a TMDB work, raising on failure.
+
+    Unlike get_credits (best-effort, swallows errors for post-LLM enrichment),
+    this raises httpx/RuntimeError on TMDB failure so the API layer can
+    surface a 503 to the caller. Returns an empty list only when TMDB
+    genuinely has no cast credits."""
+    if not settings.tmdb_api_key:
+        raise RuntimeError("TMDB API key not configured")
+    data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
+    return _parse_cast(data, cast_limit)
+
+
+def _merge_casts(casts: list[list[CastMember]], cast_limit: int) -> list[CastMember]:
+    """Merge cast lists from multiple films, dedupe by tmdb_person_id keeping
+    the entry with the LOWEST billing order (more prominent role wins). Cap
+    output to cast_limit."""
+    by_person: dict[int, CastMember] = {}
+    for cast in casts:
+        for member in cast:
+            existing = by_person.get(member.tmdb_person_id)
+            if existing is None or member.order < existing.order:
+                by_person[member.tmdb_person_id] = member
+    return sorted(by_person.values(), key=lambda m: m.order)[:cast_limit]
+
+
+async def fetch_collection_cast(
+    tmdb_id: int,
+    media_type: Literal["movie", "tv"],
+    redis_client=None,
+    cast_limit: int = 30,
+) -> list[CastMember]:
+    """Aggregate cast across all films in a collection (Hobbit, LOTR, etc).
+
+    For TV: no collection concept, returns this work's cast unchanged.
+    For movies not in a collection: returns this work's cast unchanged.
+    For movies in a collection: fetches each part's credits and merges via
+    `_merge_casts` (dedupe by person, lowest order wins). Catches sibling-
+    film failures individually — one bad part shouldn't break the rest.
+
+    Best-effort: returns [] on TMDB failure (matching get_credits semantics)."""
+    if not settings.tmdb_api_key:
+        return []
+    if media_type != "movie":
+        return await _fetch_single_cast_safe(tmdb_id, media_type, redis_client, cast_limit)
+
+    try:
+        details = await _tmdb_get(f"/movie/{tmdb_id}", None, redis_client)
+    except Exception:
+        return []
+
+    collection = details.get("belongs_to_collection")
+    if not collection or not collection.get("id"):
+        return await _fetch_single_cast_safe(tmdb_id, media_type, redis_client, cast_limit)
+
+    try:
+        coll_data = await _tmdb_get(f"/collection/{collection['id']}", None, redis_client)
+    except Exception:
+        return await _fetch_single_cast_safe(tmdb_id, media_type, redis_client, cast_limit)
+
+    part_ids = [p["id"] for p in coll_data.get("parts", []) if p.get("id")]
+    if not part_ids:
+        return await _fetch_single_cast_safe(tmdb_id, media_type, redis_client, cast_limit)
+
+    # Per-part fetch is best-effort and individually error-handled. We over-
+    # fetch (cast_limit per part) so the merge has room to keep the best of
+    # each, then cap at cast_limit at the end.
+    per_part_limit = cast_limit
+    casts: list[list[CastMember]] = []
+    for pid in part_ids:
+        part_cast = await _fetch_single_cast_safe(pid, "movie", redis_client, per_part_limit)
+        if part_cast:
+            casts.append(part_cast)
+
+    return _merge_casts(casts, cast_limit) if casts else []
+
+
+async def _fetch_single_cast_safe(
+    tmdb_id: int,
+    media_type: Literal["movie", "tv"],
+    redis_client,
+    cast_limit: int,
+) -> list[CastMember]:
+    """Internal: swallow-errors single-film cast (used by collection aggregator
+    so one bad sibling doesn't break the rest)."""
+    try:
+        data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
+    except Exception:
+        return []
+    return _parse_cast(data, cast_limit)
+
+
+async def get_credits(
+    tmdb_id: int,
+    media_type: Literal["movie", "tv"],
+    redis_client=None,
+    cast_limit: int = 30,
+    aggregate_collection: bool = False,
+) -> tuple[list[CastMember], Optional[DirectorCredit]]:
+    """Fetch top-N cast (by billing order) and the director credit for a TMDB work.
+
+    Returns ([], None) on any failure — callers must treat enrichment as best-effort.
+
+    When aggregate_collection=True and the work is a movie in a collection
+    (e.g. Hobbit trilogy), cast is merged across all parts so characters
+    that only appear in sibling films (Gollum from Unexpected Journey, Eagles
+    in Return of the King, etc.) still get matched. The director credit always
+    comes from the originally-requested film (Peter Jackson for Hobbit 2 ≠
+    Hobbit 1's director, but for our adaptation lookup the requested film's
+    director is what matters)."""
+    if not settings.tmdb_api_key:
+        return [], None
+    try:
+        data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
+    except Exception:
+        return [], None
+
+    if aggregate_collection and media_type == "movie":
+        cast = await fetch_collection_cast(tmdb_id, media_type, redis_client, cast_limit)
+        # fetch_collection_cast falls back to single-film cast when there's
+        # no collection — so this never strictly worsens coverage.
+    else:
+        cast = _parse_cast(data, cast_limit)
 
     # Director: for movies, crew[].job == 'Director'; for TV the analogous is
     # 'Creator' (showrunner), but TV results may have many — take the first.

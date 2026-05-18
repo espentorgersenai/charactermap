@@ -32,3 +32,17 @@ class ResolveCandidate(BaseModel):
 
 class ResolveResponse(BaseModel):
     candidates: list[ResolveCandidate]
+
+
+class CastMemberPublic(BaseModel):
+    tmdb_person_id: int
+    name: str  # actor's real name
+    character: str  # credited character name (may differ from LLM canonical)
+    headshot_url: Optional[str] = None  # full TMDB URL; None when no profile photo
+    order: int  # billing order, ascending
+
+
+class AdaptationCastResponse(BaseModel):
+    tmdb_id: int
+    media_type: Literal["movie", "tv"]
+    cast: list[CastMemberPublic]
