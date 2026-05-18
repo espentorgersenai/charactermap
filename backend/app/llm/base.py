@@ -16,5 +16,5 @@ class LLMClient(Protocol):
         self,
         system_prompt: str,
         user_message: str,
-        max_tokens: int = 4096,
+        max_tokens: int = 16384,
     ) -> LLMResult: ...
