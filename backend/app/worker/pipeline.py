@@ -1,7 +1,15 @@
 import json
 import structlog
+from datetime import datetime, timezone
+from decimal import Decimal
+from pathlib import Path
+from uuid import UUID
 from pydantic import ValidationError
 
+from app.config import settings
+from app.db.session import async_session_factory
+from app.db.tables import Job
+from app.llm.anthropic_client import AnthropicClient
 from app.llm.base import LLMClient, LLMResult
 from app.models.character_map import CharacterMap
 
@@ -82,3 +90,84 @@ async def call_and_validate(
         _check_refusal(raw2.text)
         result2 = CharacterMap.model_validate_json(raw2.text)  # raises if still invalid
         return result2, raw2
+
+
+_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map.md"
+
+
+def _load_prompt_template() -> str:
+    return _PROMPT_PATH.read_text()
+
+
+def _render_user_message(job: Job) -> str:
+    meta = job.resolved_meta or {}
+    author_or_director = meta.get("author") or meta.get("director") or "Unknown"
+    return (
+        f"<work_metadata>\n"
+        f"title: {job.resolved_title}\n"
+        f"year: {job.resolved_year or 'Unknown'}\n"
+        f"author_or_director: {author_or_director}\n"
+        f"type: {job.work_type}\n"
+        f"</work_metadata>\n\n"
+        f"<user_query>\n"
+        f"{job.title_query}\n"
+        f"</user_query>\n\n"
+        f"Output a single JSON object matching the CharacterMap schema. No prose, no markdown fences."
+    )
+
+
+def get_llm_client(model: str) -> LLMClient:
+    if model.startswith("claude-"):
+        return AnthropicClient(model=model, api_key=settings.anthropic_api_key)
+    raise NotImplementedError(f"Model {model!r} not yet wired (Phase 5 adds OpenAI + Google)")
+
+
+async def run_pipeline(job_id: str) -> None:
+    """Full generation pipeline: LLM call → validate → write DB."""
+    async with async_session_factory() as session:
+        job = await session.get(Job, UUID(job_id))
+        if not job:
+            log.error("pipeline_job_not_found", job_id=job_id)
+            return
+
+        job.status = "generating"
+        await session.commit()
+        log.info("pipeline_started", job_id=job_id, model=job.model)
+
+        system_prompt = _load_prompt_template()
+        user_message = _render_user_message(job)
+        client = get_llm_client(job.model)
+
+        try:
+            char_map, llm_result = await call_and_validate(
+                client, system_prompt, user_message
+            )
+            _sweep_spoiler_levels(char_map)
+        except RefusalError as e:
+            job.status = "refused"
+            job.error_code = e.refusal_code
+            job.error_message = REFUSAL_MESSAGES.get(
+                e.refusal_code, REFUSAL_MESSAGES["unknown_work"]
+            )
+            log.warning("pipeline_refused", job_id=job_id, code=e.refusal_code)
+        except ValidationError as e:
+            job.status = "failed"
+            job.error_code = "invalid_json"
+            job.error_message = "LLM output failed schema validation after retry."
+            log.error("pipeline_validation_failed", job_id=job_id, error=str(e))
+        except Exception as e:
+            job.status = "failed"
+            job.error_code = "llm_error"
+            job.error_message = str(e)
+            log.error("pipeline_error", job_id=job_id, error=str(e))
+        else:
+            job.status = "done"
+            job.completed_at = datetime.now(tz=timezone.utc)
+            job.character_map = char_map.model_dump()
+            job.llm_input_tokens = llm_result.input_tokens
+            job.llm_output_tokens = llm_result.output_tokens
+            job.estimated_cost_usd = Decimal(str(llm_result.cost_usd))
+            log.info("pipeline_done", job_id=job_id,
+                     chars=len(char_map.characters), cost_usd=llm_result.cost_usd)
+
+        await session.commit()
