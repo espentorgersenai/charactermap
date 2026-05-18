@@ -2,7 +2,7 @@
 
 Character Map Generator · Chronological build log — appended at the end of each session.
 
-Last updated: Session 5 · 2026-05-18 (wrapup)
+Last updated: Session 6 · 2026-05-18 (wrapup)
 
 > **Backlog / open items / next steps → [kanban.torgersen.ai](https://kanban.torgersen.ai) — project: Character Map, board: Character Map.** This file is the *narrative archive* of what was built each session; no TODOs live here.
 
@@ -232,3 +232,60 @@ Full Phase 1 implementation — all 8 Planka cards moved to Completed.
 - **19 frontend tests passing** (Vitest 3, MAX_COLS-aware).
 - End-to-end runs verified live for Pulp Fiction (16/16 actors + The Wolf renamed), The Hobbit (22/30 matched, all 13 dwarves + Smaug + Bard + Azog), Of Mice and Men cap=10 (10/10, $0.0356, 37 s), Princess Bride.
 - 6 commits this session: `d276ffb`, `5497b48`, `e1fc460`, `d1d937b`, `fc666ea`, `93c8b62`.
+
+## Session 6 — 2026-05-18
+
+### What We Built
+
+**Phase 4 deliverable #29 finished — MD + PDF headshots:**
+- Markdown renderer now emits inline `![Char as played by Actor](url)` images, a creator credit line above the blurb (`**By:** {author}` for books, `**Directed by:** ![…](url) {director}` for film/TV), and a TMDb attribution sentence in the footer when the map uses any TMDb data.
+- PDF renderer downloads every remote image to a `TemporaryDirectory`, rewrites the markdown to point at local paths with a pandoc `{ width=2.5cm }` size hint, then runs pandoc. Atomic cleanup via the context manager. Failed downloads degrade to bracketed alt text.
+
+**Phase 4 deliverable #31 — adaptations cast endpoint:**
+- New `backend/app/routes/adaptations.py`: `GET /api/adaptations/{tmdb_id}/cast?media_type=movie|tv` returning sorted cast (`CastMemberPublic` / `AdaptationCastResponse` Pydantic models).
+- Refactored `tmdb.py`: extracted `_parse_cast(data, limit)` shared helper, added `fetch_cast_strict()` (raises on TMDB failure; the route uses it for proper 404/503 status mapping). Existing `get_credits()` stays best-effort.
+- 8 unit tests covering happy path, null profile_path, 422 on bad media_type, 503 on misconfig + 5xx, 404 on unknown id, 200 on empty cast.
+- Unblocks the still-pending frontend ActorOverridePopover (#30).
+
+**Multi-film cast aggregation (was Phase 4 nice-to-have):**
+- `fetch_collection_cast(tmdb_id, media_type)` detects `belongs_to_collection` on a movie, fetches each part's credits, merges via `_merge_casts` (dedupe by `tmdb_person_id`, lowest billing order wins, capped at 50).
+- `get_credits` got `aggregate_collection=True` opt-in; `_enrich_with_credits` calls it for all movie enrichment.
+- Live evidence on The Hobbit: The Desolation of Smaug: 30 → 50 cast, 22 sibling-film bonus characters including Gollum, Saruman, Frodo. Eagles still missing — TMDb data limitation, not aggregation bug.
+
+**TMDb image proxy (Phase 4 #27 / Phase 7 prep):**
+- New `backend/app/routes/images.py`: `GET /images/tmdb/{filename}` with regex whitelist `^[A-Za-z0-9._-]+\.(jpg|jpeg|png|webp)$`, atomic write to `settings.image_cache_path/w185/`, `Cache-Control: public, max-age=31536000, immutable`, `X-Cache: HIT|MISS`. Status: 400 / 404 / 502 mapping. 8 unit tests.
+
+**LLM provider expansion:**
+- **OpenAI:** `OpenAIClient` using `AsyncOpenAI` + `chat.completions` + `response_format={"type":"json_object"}` + `max_completion_tokens` (GPT-5 family rejects `max_tokens`). Live verified end-to-end with `gpt-5.5` on Congo + Pulp Fiction; quality on par with Sonnet, including Vincent Vega correctly flagged dead.
+- **Gemini:** `GeminiClient` using `google-genai`'s `client.aio.models.generate_content` + `response_mime_type="application/json"` + `system_instruction`. Supports both API-key (AI Studio) and Vertex AI / ADC modes via `GOOGLE_CLOUD_PROJECT` env. Live verified with `gemini-2.5-pro` once user enabled billing on the AI Studio side. Caught Herkermer Homolka name (Sonnet had Rudolph), Captain Muguru, Original Zinj Expedition. Quality in the Sonnet / GPT-5.5 league.
+- **Defensive `_strip_fences`** in `call_and_validate` — runs on both first-try and retry text before `_check_refusal` and `model_validate_json`. Catches the markdown-fence wrapping Haiku produces; also defends against future small-tier OpenAI/Google models. Retry message hardened: "Return only the raw JSON object — no \`\`\`json fences, no preamble, no trailing prose."
+- **Haiku 4.5 removed** from `VALID_MODELS`, frontend dropdown, and `MODEL_ETAS` after side-by-side evals on Congo and Pulp Fiction showed it fabricating ("Taman Harper", "Trudi Styler"), getting deceased flags wrong on Munro and Vincent Vega, and omitting Marvin entirely. Kept in `_MODEL_QUALITY_ORDER` and cost table for historical dev-DB rows.
+
+**Public deploy of charactermap.torgersen.ai:**
+- Cloudflare DNS A record (DNS-only / grey cloud, matching radio/kanban) → 204.168.184.185.
+- VPS nginx (single monolithic config in `usv_nginx` Docker container): added `charactermap.torgersen.ai` to the port-80 server_name list for ACME, then appended a full 443 server block modeled on radio's pattern (lfc backend at 10.0.0.2, SSE-friendly `/api/jobs/`, image-proxy block with the `tmdb_images` cache zone).
+- `proxy_cache_path /var/cache/nginx/tmdb levels=1:2 keys_zone=tmdb_images:10m inactive=30d max_size=5g;` added to the `http{}` block.
+- Let's Encrypt cert issued via certbot HTTP-01 webroot, copied into the bind-mount as `charactermap.fullchain.pem` / `charactermap.privkey.pem`.
+- `docker-compose.yml` on lfc: api + frontend now bind on **both** `127.0.0.1:8201/8202` (local dev) **and** `10.0.0.2:8201/8202` (WireGuard tunnel from VPS).
+- End-to-end live: frontend 200, `/api/health` ok, `/api/resolve` returned 5 Congo candidates, `/api/adaptations/680/cast` returned full Pulp Fiction cast, `/images/tmdb/…` HIT on both lfc backend cache and VPS nginx cache.
+
+**Planka backlog brought up to SPEC parity:**
+- Filed 15 new cards covering SPEC §16 deliverables #35-53 that weren't tracked yet (Phase 5 Turnstile/rate-limits/cost-guard/limits-endpoint, Phase 6 email/error-states/privacy/analytics/golden-set/fabrication-audit/prompt-iteration, Phase 7 .env-audit/GHCR/Grafana/Alertmanager/retention).
+
+### Key Decisions
+
+- **Haiku 4.5 is out.** Fence-strip alone wasn't the problem — even with fences handled, side-by-side evaluation showed Haiku violates the "omit when uncertain" prime directive: fabricated characters, wrong deceased flags on plot-pivot characters (Vincent Vega alive!), missed major characters (Marvin from Pulp Fiction). The CLAUDE.md rule says a thin correct map beats a complete invented one. Haiku produces complete invented ones. Kept in cost/quality-order tables (historical dev jobs), removed from user-facing input.
+- **Three-provider parity, one fence-strip.** OpenAI's `response_format=json_object` and Gemini's `response_mime_type=application/json` both natively prevent fence-wrapping. Anthropic doesn't have an equivalent. The `_strip_fences` is provider-agnostic and runs on all paths — defensive even when not strictly needed.
+- **GPT-5.5 pricing is a placeholder.** Used $1.25/$10 per MTok based on GPT-5 launch rates. Verified against actual generation costs to within rounding. Real rates need confirmation before public traffic; filed as Planka card.
+- **Vertex AI fallback wired but dormant.** `GeminiClient` checks for `GOOGLE_CLOUD_PROJECT` — if set, uses ADC + Vertex AI; otherwise uses API key. Built in case the user's org policy ever blocks API keys. Currently the API-key path is active (after billing was enabled on the AI Studio side).
+- **Collection aggregation defaults to on.** Pipeline calls `get_credits(..., aggregate_collection=True)` always. Standalone movies fall through to single-cast inside the function — no behavior change. The only cost is one extra `/movie/{id}` API call to check `belongs_to_collection`; cached by Redis under the existing `_tmdb_get` cache key.
+- **Backend image proxy is the source of truth; VPS nginx is a second tier.** Both have their own cache. lfc cache persists across deploys (Docker volume); nginx cache is ephemeral inside the `usv_nginx` container. If the nginx cache is wiped, the next request to a previously-seen image is one round-trip slower but still cheap.
+- **Docker single-file bind mounts pin to the original inode.** Editing nginx.conf with `awk > tmp && mv tmp orig` changed the inode; `usv_nginx` kept serving the kanban cert via SNI fallback because it still saw the old file. `docker restart usv_nginx` re-resolved the bind. Documented as a feedback memory + CLAUDE.md quirk so future sessions don't burn time on it.
+- **`docker compose restart` doesn't re-read `env_file`.** When the user added a new Google API key, the container kept its old empty value until `up -d --force-recreate`. Documented.
+- **VPS access pattern reused.** `ssh espen@torgersen.ai`, dockerized nginx, monolithic config + Let's Encrypt webroot + WireGuard to lfc — same as kanban/radio. Captured in `reference_vps_access.md` memory so future agents inherit the layout.
+
+### Test Status
+
+- **135 backend unit tests passing.** New additions: 8 markdown headshot/attribution tests, 5 PDF rewrite tests, 13 pipeline fence-strip tests, 8 collection-cast tests, 8 adaptations-route tests, 8 images-route tests.
+- **Live verified end-to-end through the public URL** (https://charactermap.torgersen.ai/): frontend 200, API health ok, resolve returns candidates, adaptations cast returns 30 Pulp Fiction members, image proxy HIT on both cache tiers.
+- Generation quality verified live for Congo + Pulp Fiction across all three providers (Anthropic Sonnet, OpenAI GPT-5.5, Google Gemini 2.5 Pro).
