@@ -2,8 +2,8 @@ import type { Edge, Node } from '@xyflow/react'
 import type { CharacterMap, Character, Faction, Relationship, RelationshipType } from '../types/characterMap'
 
 // ── Visual constants ────────────────────────────────────────────────────────
-const NODE_WIDTH = 240
-const NODE_HEIGHT = 64
+const NODE_WIDTH = 300
+const NODE_HEIGHT = 76
 const COL_GAP = 24       // horizontal gap between columns within a faction
 const ROW_GAP = 16       // vertical gap between rows within a faction
 const MAX_COLS = 2       // max columns per faction before wrapping
@@ -144,6 +144,7 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
         },
         parentId: factionNodeId,
         extent: 'parent' as const,
+        style: { width: NODE_WIDTH },
         data: { character: char, colour, showBadges: false },
         draggable: false,
         zIndex: 2,

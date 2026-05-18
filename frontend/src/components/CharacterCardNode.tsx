@@ -70,8 +70,8 @@ export function CharacterCardNode({ data }: NodeProps) {
 
         {/* Name + role */}
         <div className="min-w-0">
-          <div className="text-sm font-bold text-white truncate leading-tight">{c.name}</div>
-          <div className="text-[11px] text-[#9ca3af] mt-0.5 truncate">{c.role}</div>
+          <div className="text-sm font-bold text-white leading-snug">{c.name}</div>
+          <div className="text-[11px] text-[#9ca3af] mt-0.5">{c.role}</div>
         </div>
       </div>
     </>
