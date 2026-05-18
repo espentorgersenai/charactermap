@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes.resolve import router as resolve_router
 from app.routes.jobs import router as jobs_router
+from app.routes.artifacts import router as artifacts_router
 
 log = structlog.get_logger()
 
@@ -19,6 +20,7 @@ app.add_middleware(
 
 app.include_router(resolve_router)
 app.include_router(jobs_router)
+app.include_router(artifacts_router)
 
 
 @app.get("/api/health")
