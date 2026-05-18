@@ -144,9 +144,12 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
 
       {/* Title strip */}
       <div className="bg-[#161616] border-b border-[#222] px-6 py-3 flex-shrink-0">
-        <h1 className="text-lg font-bold text-white leading-tight">
-          {charMap.title}
-        </h1>
+        <div className="flex items-center gap-3 flex-wrap">
+          <h1 className="text-lg font-bold text-white leading-tight">
+            {charMap.title}
+          </h1>
+          {charMap.creator && <CreatorPill creator={charMap.creator} />}
+        </div>
         {charMap.subtitle && (
           <p className="text-[12px] text-[#888] mt-0.5">{charMap.subtitle}</p>
         )}
@@ -231,13 +234,6 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           />
           <Background color="#1e1e1e" variant={BackgroundVariant.Dots} gap={20} />
         </ReactFlow>
-
-        {/* Creator pill (author / director) */}
-        {charMap.creator && (
-          <div className="absolute top-3.5 left-3.5 z-10">
-            <CreatorPill creator={charMap.creator} />
-          </div>
-        )}
 
         {/* Legend toggle */}
         <div className="absolute bottom-3.5 left-3.5 z-10">
