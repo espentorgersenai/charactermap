@@ -1,4 +1,6 @@
 import json
+from dataclasses import dataclass
+from typing import Literal, Optional
 
 import httpx
 
@@ -8,6 +10,23 @@ from app.models.api import AdaptationInfo, ResolveCandidate
 
 TMDB_BASE = "https://api.themoviedb.org/3"
 TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w300"
+TMDB_HEADSHOT_BASE = "https://image.tmdb.org/t/p/w185"
+
+
+@dataclass
+class CastMember:
+    name: str
+    character: str  # character name as credited
+    tmdb_person_id: int
+    profile_path: Optional[str]
+    order: int
+
+
+@dataclass
+class DirectorCredit:
+    name: str
+    tmdb_person_id: int
+    profile_path: Optional[str] = None
 
 
 async def _tmdb_get(path: str, params: dict = None, redis_client=None) -> dict:
@@ -54,6 +73,7 @@ async def search_film_tv(query: str, redis_client=None) -> list[ResolveCandidate
         poster_path = r.get("poster_path")
         poster_url = f"{TMDB_IMAGE_BASE}{poster_path}" if poster_path else None
         vote_count = r.get("vote_count", 0)
+        media_type = r.get("media_type") if r.get("media_type") in ("movie", "tv") else None
 
         confidence = compute_confidence(
             query=query,
@@ -70,9 +90,10 @@ async def search_film_tv(query: str, redis_client=None) -> list[ResolveCandidate
                 id=str(r["id"]),
                 title=title,
                 year=year,
-                director=None,  # omit for now; full credits lookup is Phase 4
+                director=None,  # populated post-LLM via get_credits
                 cover_url=poster_url,
                 confidence_score=confidence,
+                media_type=media_type,
             )
         )
 
@@ -110,6 +131,7 @@ async def find_adaptation_for_book(
     adapt_year = int(year_str[:4]) if year_str and len(year_str) >= 4 else None
     poster_path = best.get("poster_path")
     poster_url = f"{TMDB_IMAGE_BASE}{poster_path}" if poster_path else None
+    media_type = best.get("media_type") if best.get("media_type") in ("movie", "tv") else None
 
     return AdaptationInfo(
         tmdb_id=best["id"],
@@ -117,4 +139,56 @@ async def find_adaptation_for_book(
         year=adapt_year,
         rating=best.get("vote_average"),
         poster_url=poster_url,
+        media_type=media_type,
     )
+
+
+async def get_credits(
+    tmdb_id: int,
+    media_type: Literal["movie", "tv"],
+    redis_client=None,
+    cast_limit: int = 30,
+) -> tuple[list[CastMember], Optional[DirectorCredit]]:
+    """Fetch top-N cast (by billing order) and the director credit for a TMDB work.
+
+    Returns ([], None) on any failure — callers must treat enrichment as best-effort.
+    """
+    if not settings.tmdb_api_key:
+        return [], None
+    try:
+        data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
+    except Exception:
+        return [], None
+
+    cast_raw = sorted(data.get("cast", []), key=lambda c: c.get("order", 9999))[:cast_limit]
+    cast = [
+        CastMember(
+            name=c.get("name", ""),
+            character=c.get("character", ""),
+            tmdb_person_id=int(c["id"]),
+            profile_path=c.get("profile_path"),
+            order=int(c.get("order", 9999)),
+        )
+        for c in cast_raw
+        if c.get("id") and c.get("name")
+    ]
+
+    # Director: for movies, crew[].job == 'Director'; for TV the analogous is
+    # 'Creator' (showrunner), but TV results may have many — take the first.
+    director: Optional[DirectorCredit] = None
+    crew = data.get("crew", [])
+    if media_type == "movie":
+        for member in crew:
+            if member.get("job") == "Director" and member.get("id"):
+                director = DirectorCredit(
+                    name=member.get("name", ""),
+                    tmdb_person_id=int(member["id"]),
+                    profile_path=member.get("profile_path"),
+                )
+                break
+    else:  # tv — fall back to created_by on the main resource if no crew director
+        # The credits payload includes only episode crew, so a Creator search is
+        # unreliable; expose nothing rather than wrong.
+        director = None
+
+    return cast, director

@@ -15,7 +15,14 @@ export interface Faction {
 export interface ActorInfo {
   name: string
   tmdb_person_id: number
-  headshot_url: string
+  headshot_url: string | null
+}
+
+export interface CreatorInfo {
+  kind: 'author' | 'director'
+  name: string
+  tmdb_person_id?: number | null
+  headshot_url?: string | null
 }
 
 export interface Character {
@@ -49,4 +56,5 @@ export interface CharacterMap {
   relationships: Relationship[]
   coverage_note?: string
   notes: string
+  creator?: CreatorInfo | null
 }

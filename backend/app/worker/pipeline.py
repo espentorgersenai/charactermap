@@ -10,6 +10,8 @@ from app.config import settings
 from app.db.session import async_session_factory
 from app.db.tables import Artifact, Job
 from app.llm.anthropic_client import AnthropicClient
+from app.metadata.enrichment import match_cast_to_characters, set_creator
+from app.metadata.tmdb import get_credits
 from app.renderers.markdown import render_markdown
 from app.renderers.pdf import render_pdf
 from app.llm.base import LLMClient, LLMResult
@@ -44,6 +46,43 @@ def _check_refusal(text: str) -> None:
         return  # not JSON, let Pydantic handle it
     if isinstance(data, dict) and "refusal" in data:
         raise RefusalError(data["refusal"])
+
+
+async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
+    """Best-effort: populate Character.actor (fuzzy-matched) and char_map.creator.
+
+    For film/tv: pull TMDB credits for `job.resolved_id`. For book: surface the
+    author from resolved_meta (no headshot lookup yet — adaptation cast is a
+    follow-up). Never raises — enrichment failures are logged and swallowed.
+    """
+    meta = job.resolved_meta or {}
+    author_name = meta.get("author")
+    director = None
+
+    if job.work_type == "film_tv":
+        media_type = meta.get("media_type")
+        if media_type in ("movie", "tv"):
+            try:
+                tmdb_id = int(job.resolved_id)
+            except (TypeError, ValueError):
+                log.warning("enrichment_bad_tmdb_id", job_id=str(job.id), resolved_id=job.resolved_id)
+            else:
+                try:
+                    cast, director = await get_credits(tmdb_id, media_type)
+                    matched = match_cast_to_characters(char_map.characters, cast)
+                    log.info(
+                        "enrichment_cast_matched",
+                        job_id=str(job.id),
+                        cast_size=len(cast),
+                        matched=matched,
+                        total_chars=len(char_map.characters),
+                    )
+                except Exception as e:
+                    log.warning("enrichment_credits_failed", job_id=str(job.id), error=str(e))
+        else:
+            log.info("enrichment_skipped_no_media_type", job_id=str(job.id))
+
+    set_creator(char_map, job.work_type, author_name, director)
 
 
 def _sweep_spoiler_levels(char_map: CharacterMap) -> None:
@@ -145,6 +184,7 @@ async def run_pipeline(job_id: str) -> None:
                 client, system_prompt, user_message
             )
             _sweep_spoiler_levels(char_map)
+            await _enrich_with_credits(char_map, job)
         except RefusalError as e:
             job.status = "refused"
             job.error_code = e.refusal_code

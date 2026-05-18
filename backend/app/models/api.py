@@ -14,6 +14,7 @@ class AdaptationInfo(BaseModel):
     year: Optional[int]
     rating: Optional[float]
     poster_url: Optional[str]
+    media_type: Optional[Literal["movie", "tv"]] = None
 
 
 class ResolveCandidate(BaseModel):
@@ -26,6 +27,7 @@ class ResolveCandidate(BaseModel):
     cover_url: Optional[str]
     confidence_score: float  # 0.0 to 1.0
     adaptation: Optional[AdaptationInfo] = None
+    media_type: Optional[Literal["movie", "tv"]] = None  # for film_tv source
 
 
 class ResolveResponse(BaseModel):

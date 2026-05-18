@@ -12,7 +12,16 @@ class Faction(BaseModel):
 class ActorInfo(BaseModel):
     name: str
     tmdb_person_id: int
-    headshot_url: str
+    headshot_url: Optional[str] = None  # null when TMDB has no profile photo
+
+
+class CreatorInfo(BaseModel):
+    # 'author' for books, 'director' for film/tv. Populated post-LLM from
+    # OpenLibrary (author name only) or TMDB credits (director with person id).
+    kind: Literal["author", "director"]
+    name: str
+    tmdb_person_id: Optional[int] = None
+    headshot_url: Optional[str] = None
 
 
 class Character(BaseModel):
@@ -51,6 +60,7 @@ class CharacterMap(BaseModel):
     relationships: list[Relationship]
     coverage_note: Optional[str] = None
     notes: str
+    creator: Optional[CreatorInfo] = None
 
 
 class RefusalResponse(BaseModel):

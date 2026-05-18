@@ -32,14 +32,36 @@ export function CharacterCardNode({ data }: NodeProps) {
         style={{ borderColor: colour }}
         className="flex items-center gap-3 bg-[#1e1e1e] rounded-[10px] border-[1.5px] px-3.5 py-2.5 cursor-grab active:cursor-grabbing hover:shadow-[0_0_0_2px_rgba(255,255,255,0.1)] transition-shadow select-none"
       >
-        {/* Avatar circle */}
+        {/* Avatar (headshot when actor present, initials otherwise). The
+            anchor catches mousedown so React Flow doesn't initiate a drag. */}
         <div className="relative flex-shrink-0">
-          <div
-            style={{ backgroundColor: colour }}
-            className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-extrabold text-white"
-          >
-            {initials}
-          </div>
+          {c.actor?.headshot_url && c.actor?.tmdb_person_id ? (
+            <a
+              href={`https://www.themoviedb.org/person/${c.actor.tmdb_person_id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={`${c.actor.name} on TMDB`}
+              onMouseDown={e => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
+              className="block w-11 h-11 rounded-full overflow-hidden ring-2 ring-transparent hover:ring-white/30 transition cursor-pointer"
+              style={{ outlineColor: colour }}
+            >
+              <img
+                src={c.actor.headshot_url}
+                alt={c.actor.name}
+                draggable={false}
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </a>
+          ) : (
+            <div
+              style={{ backgroundColor: colour }}
+              className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-extrabold text-white"
+            >
+              {initials}
+            </div>
+          )}
 
           {/* Spoiler badge */}
           {c.spoiler_level != null && c.spoiler_level >= 2 && (

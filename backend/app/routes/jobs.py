@@ -82,6 +82,13 @@ async def create_job(
         "director": resolved.director,
         "cover_url": resolved.cover_url,
         "source": resolved.source,
+        # Stored for post-LLM credits lookup (Phase 4). film_tv: from the work
+        # itself; book: from the adaptation if available.
+        "media_type": (
+            resolved.media_type
+            or (resolved.adaptation.media_type if resolved.adaptation else None)
+        ),
+        "adaptation_tmdb_id": resolved.adaptation.tmdb_id if resolved.adaptation else None,
     }
 
     # Cache check: reuse the best existing result for this work

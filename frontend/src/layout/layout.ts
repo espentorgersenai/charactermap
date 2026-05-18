@@ -2,8 +2,8 @@ import type { Edge, Node } from '@xyflow/react'
 import type { CharacterMap, Character, Faction, Relationship, RelationshipType } from '../types/characterMap'
 
 // ── Visual constants ────────────────────────────────────────────────────────
-const NODE_WIDTH = 300
-const NODE_HEIGHT = 76
+export const NODE_WIDTH = 300
+export const NODE_HEIGHT = 76
 const COL_GAP = 32       // horizontal gap between columns within a faction
 const ROW_GAP = 24       // vertical gap between rows within a faction
 const MAX_COLS = 2       // max columns per faction before wrapping
@@ -62,6 +62,26 @@ function factionSize(chars: Character[]): { w: number; h: number } {
     w: maxRight  + FACTION_PADDING * 2,
     h: maxBottom + FACTION_PADDING * 2 + FACTION_LABEL_H,
   }
+}
+
+// ── Handle picker ───────────────────────────────────────────────────────────
+// Picks the source/target handle pair that points each node toward the other,
+// based on absolute centers. Exposed so the canvas can recompute handles live
+// as nodes are dragged (build-time selection becomes stale otherwise).
+export function pickHandles(
+  src: { x: number; y: number },
+  tgt: { x: number; y: number },
+): { sourceHandle: string; targetHandle: string } {
+  const dx = tgt.x - src.x
+  const dy = tgt.y - src.y
+  if (Math.abs(dx) >= Math.abs(dy)) {
+    return dx >= 0
+      ? { sourceHandle: 'src-right', targetHandle: 'tgt-left' }
+      : { sourceHandle: 'src-left',  targetHandle: 'tgt-right' }
+  }
+  return dy >= 0
+    ? { sourceHandle: 'src-bottom', targetHandle: 'tgt-top' }
+    : { sourceHandle: 'src-top',    targetHandle: 'tgt-bottom' }
 }
 
 // ── Main export ─────────────────────────────────────────────────────────────
@@ -160,20 +180,10 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
   const edges: Edge[] = relationships
     .filter((r: Relationship) => nodeIdSet.has(r.from_id) && nodeIdSet.has(r.to_id))
     .map((r: Relationship) => {
-      // Pick the handle on each node that faces the other node
-      const src = nodeCenters.get(r.from_id)!
-      const tgt = nodeCenters.get(r.to_id)!
-      const dx = tgt.x - src.x
-      const dy = tgt.y - src.y
-      let sourceHandle: string
-      let targetHandle: string
-      if (Math.abs(dx) >= Math.abs(dy)) {
-        if (dx >= 0) { sourceHandle = 'src-right';  targetHandle = 'tgt-left'   }
-        else          { sourceHandle = 'src-left';   targetHandle = 'tgt-right'  }
-      } else {
-        if (dy >= 0) { sourceHandle = 'src-bottom'; targetHandle = 'tgt-top'    }
-        else          { sourceHandle = 'src-top';    targetHandle = 'tgt-bottom' }
-      }
+      const { sourceHandle, targetHandle } = pickHandles(
+        nodeCenters.get(r.from_id)!,
+        nodeCenters.get(r.to_id)!,
+      )
       return {
         id: `${r.from_id}__${r.to_id}__${r.type}`,
         source: r.from_id,

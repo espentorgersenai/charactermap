@@ -11,9 +11,10 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 
-import { buildLayout } from '../layout/layout'
+import { buildLayout, pickHandles, NODE_WIDTH, NODE_HEIGHT } from '../layout/layout'
 import { CharacterCardNode } from './CharacterCardNode'
 import { FactionGroupNode } from './FactionGroupNode'
+import { CreatorPill } from './CreatorPill'
 import { ExportMenu } from './ExportMenu'
 import { ShareButton } from './ShareButton'
 import type { CharacterMap } from '../types/characterMap'
@@ -90,7 +91,14 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
   const [showBadges, setShowBadges] = useState(false)
   const [showLabels, setShowLabels] = useState(false)
   const [showLegend, setShowLegend] = useState(false)
-  const [coverageDismissed, setCoverageDismissed] = useState(false)
+  const coverageKey = `cm-coverage-dismissed-${jobId}`
+  const [coverageDismissed, setCoverageDismissed] = useState(() => {
+    try { return localStorage.getItem(coverageKey) === '1' } catch { return false }
+  })
+  const dismissCoverage = useCallback(() => {
+    setCoverageDismissed(true)
+    try { localStorage.setItem(coverageKey, '1') } catch {}
+  }, [coverageKey])
 
   const { nodes: initNodes, edges: initEdges } = useMemo(
     () => buildLayout(charMap),
@@ -109,13 +117,43 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
     [nodes, showBadges],
   )
 
+  // Absolute centers of character nodes, accounting for parent (faction) offset.
+  // Recomputed whenever nodes move so edge handles pick the facing side live.
+  const centers = useMemo(() => {
+    const parentPos = new Map<string, { x: number; y: number }>()
+    nodes.forEach(n => {
+      if (n.type === 'factionGroup') parentPos.set(n.id, n.position)
+    })
+    const m = new Map<string, { x: number; y: number }>()
+    nodes.forEach(n => {
+      if (n.type !== 'characterCard') return
+      const pp = n.parentId ? parentPos.get(n.parentId) : undefined
+      const px = pp?.x ?? 0
+      const py = pp?.y ?? 0
+      m.set(n.id, {
+        x: px + n.position.x + NODE_WIDTH / 2,
+        y: py + n.position.y + NODE_HEIGHT / 2,
+      })
+    })
+    return m
+  }, [nodes])
+
   const liveEdges = useMemo(
-    () => edges.map(e => ({
-      ...e,
-      label: showLabels ? e.label : undefined,
-      zIndex: showLabels ? 10 : 0,
-    })),
-    [edges, showLabels],
+    () => edges.map(e => {
+      const src = centers.get(e.source)
+      const tgt = centers.get(e.target)
+      const handles = src && tgt
+        ? pickHandles(src, tgt)
+        : { sourceHandle: e.sourceHandle, targetHandle: e.targetHandle }
+      return {
+        ...e,
+        sourceHandle: handles.sourceHandle,
+        targetHandle: handles.targetHandle,
+        label: showLabels ? e.label : undefined,
+        zIndex: showLabels ? 10 : 0,
+      }
+    }),
+    [edges, showLabels, centers],
   )
 
   const resetLayout = useCallback(() => {
@@ -125,6 +163,21 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
 
   return (
     <div className="flex flex-col h-full bg-[#111]">
+
+      {/* Title strip */}
+      <div className="bg-[#161616] border-b border-[#222] px-6 py-3 flex-shrink-0">
+        <h1 className="text-lg font-bold text-white leading-tight">
+          {charMap.title}
+        </h1>
+        {charMap.subtitle && (
+          <p className="text-[12px] text-[#888] mt-0.5">{charMap.subtitle}</p>
+        )}
+        {charMap.blurb && (
+          <p className="text-[12px] text-[#aaa] mt-1.5 leading-relaxed max-w-4xl">
+            {charMap.blurb}
+          </p>
+        )}
+      </div>
 
       {/* Top toolbar */}
       <div className="bg-[#1a1a1a] border-b border-[#2a2a2a] px-6 py-2.5 flex items-center gap-2.5 flex-shrink-0">
@@ -173,7 +226,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           <span className="flex-shrink-0 mt-0.5">⚠</span>
           <span className="flex-1"><strong>Coverage note:</strong> {charMap.coverage_note}</span>
           <button
-            onClick={() => setCoverageDismissed(true)}
+            onClick={dismissCoverage}
             className="flex-shrink-0 ml-2 text-amber-500 hover:text-amber-200 transition-colors leading-none text-base"
             title="Dismiss"
           >
@@ -212,6 +265,13 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           />
           <Background color="#1e1e1e" variant={BackgroundVariant.Dots} gap={20} />
         </ReactFlow>
+
+        {/* Creator pill (author / director) */}
+        {charMap.creator && (
+          <div className="absolute top-3.5 left-3.5 z-10">
+            <CreatorPill creator={charMap.creator} />
+          </div>
+        )}
 
         {/* Legend toggle */}
         <div className="absolute bottom-3.5 left-3.5 z-10">
