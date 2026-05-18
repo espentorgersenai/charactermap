@@ -29,6 +29,13 @@ Every card must have:
 
 Workflow: **ToDo → In Progress → Completed**. Use *Waiting* for cards blocked on an external dependency (API key, third-party outage).
 
+**Agent responsibilities for Planka — every session:**
+- **At session start:** the chronicle / session brief shows the top ToDo cards. If a card on the brief matches the work the user asks for, work that card.
+- **When a card's work ships:** move it to *Completed* (don't leave it in *ToDo* or *In Progress*).
+- **When new work is discovered:** file a new card. This includes: deferred parts of the current task, bugs found while testing, follow-ups for "we'll do that later" decisions. Set the three required labels (category + svc + phase). Don't accumulate undocumented TODOs in your head — file them.
+- **Tools:** use the `mcp__planka__*` tools. `cards.update` requires `position` when moving between lists (422 without it). `cards.create` requires `type: "project"` (400 without it). Both quirks already in *Known Quirks* below.
+- **Bias toward filing:** if uncertain whether something deserves a card, file it. A short Planka card is cheaper than re-discovering the same gap two sessions later.
+
 ---
 
 ## Stack

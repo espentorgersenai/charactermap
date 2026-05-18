@@ -5,10 +5,23 @@ import { uploadArtifact } from '../api/client'
 
 const CANVAS_BG = '#111111'
 
-export function ExportMenu({ jobId }: { jobId: string }) {
+// Title → safe filename slug. Mirror of backend _slugify in artifacts.py.
+function slugify(s: string): string {
+  const base = (s || '')
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase()
+  return base.slice(0, 60) || 'character-map'
+}
+
+export function ExportMenu({ jobId, title }: { jobId: string; title: string }) {
   const { toObject } = useReactFlow()
   const [open, setOpen] = useState(false)
   const [busy, setBusy] = useState<string | null>(null)
+  const slug = slugify(title)
+  const fname = (ext: string) => `${slug}-character-map.${ext}`
 
   function download(dataUrl: string, filename: string) {
     const a = document.createElement('a')
@@ -27,7 +40,7 @@ export function ExportMenu({ jobId }: { jobId: string }) {
     setBusy('png')
     try {
       const dataUrl = await toPng(getViewport(), { pixelRatio: 2, backgroundColor: CANVAS_BG })
-      download(dataUrl, 'character-map.png')
+      download(dataUrl, fname('png'))
       const blob = await (await fetch(dataUrl)).blob()
       await uploadArtifact(jobId, 'png', blob)
     } finally {
@@ -40,7 +53,7 @@ export function ExportMenu({ jobId }: { jobId: string }) {
     setBusy('svg')
     try {
       const dataUrl = await toSvg(getViewport(), { backgroundColor: CANVAS_BG })
-      download(dataUrl, 'character-map.svg')
+      download(dataUrl, fname('svg'))
       const blob = await (await fetch(dataUrl)).blob()
       await uploadArtifact(jobId, 'svg', blob)
     } finally {
@@ -56,7 +69,7 @@ export function ExportMenu({ jobId }: { jobId: string }) {
       const json = JSON.stringify(obj, null, 2)
       download(
         `data:application/json;charset=utf-8,${encodeURIComponent(json)}`,
-        'character-map.charmap.json',
+        fname('charmap.json'),
       )
       await uploadArtifact(jobId, 'json', new Blob([json], { type: 'application/json' }))
     } finally {

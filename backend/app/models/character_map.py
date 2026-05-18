@@ -61,6 +61,9 @@ class CharacterMap(BaseModel):
     coverage_note: Optional[str] = None
     notes: str
     creator: Optional[CreatorInfo] = None
+    # Deep link back to the source the work was resolved from
+    # (TMDB movie/tv page or OpenLibrary work page). Populated post-LLM.
+    source_url: Optional[str] = None
 
 
 class RefusalResponse(BaseModel):

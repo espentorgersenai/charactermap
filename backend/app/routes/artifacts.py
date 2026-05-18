@@ -1,3 +1,5 @@
+import re
+import unicodedata
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -23,6 +25,13 @@ _EXT_CONTENT_TYPE = {
     "png": "image/png", "svg": "image/svg+xml", "json": "application/json",
     "md": "text/markdown", "pdf": "application/pdf",
 }
+
+
+def _slugify(s: str) -> str:
+    """Title → safe filename slug. ASCII-only, dash-separated, capped at 60c."""
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode("ascii")
+    s = re.sub(r"[^a-zA-Z0-9]+", "-", s).strip("-").lower()
+    return s[:60] or "character-map"
 
 
 @router.post("/api/jobs/{job_id}/artifacts", status_code=201)
@@ -79,7 +88,12 @@ async def list_artifacts(job_id: str, session: AsyncSession = Depends(get_db)) -
 
 
 @router.get("/api/artifacts/{job_id}/{filename}")
-async def serve_artifact(job_id: str, filename: str, request: Request) -> FileResponse:
+async def serve_artifact(
+    job_id: str,
+    filename: str,
+    request: Request,
+    session: AsyncSession = Depends(get_db),
+) -> FileResponse:
     sig = request.query_params.get("sig", "")
     exp = request.query_params.get("exp", "")
     path = f"/api/artifacts/{job_id}/{filename}"
@@ -96,4 +110,15 @@ async def serve_artifact(job_id: str, filename: str, request: Request) -> FileRe
 
     ext = filename.rsplit(".", 1)[-1] if "." in filename else ""
     media_type = _EXT_CONTENT_TYPE.get(ext, "application/octet-stream")
-    return FileResponse(str(file_path), media_type=media_type, filename=filename)
+
+    # Build a friendly download name from the work title — the on-disk name
+    # stays `character_map.<ext>`; only the Content-Disposition changes. Job
+    # lookup is best-effort so a malformed/missing job still serves the file.
+    try:
+        job = await session.get(Job, UUID(job_id))
+    except (ValueError, TypeError):
+        job = None
+    slug = _slugify(job.resolved_title) if job else "character-map"
+    download_name = f"{slug}-character-map.{ext}" if ext else f"{slug}-character-map"
+
+    return FileResponse(str(file_path), media_type=media_type, filename=download_name)

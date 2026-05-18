@@ -48,6 +48,20 @@ def _check_refusal(text: str) -> None:
         raise RefusalError(data["refusal"])
 
 
+def _build_source_url(job: Job) -> str | None:
+    """Deep link to the source listing for this work (TMDB or OpenLibrary).
+    None if we can't construct one (unknown source or missing id)."""
+    meta = job.resolved_meta or {}
+    src = meta.get("source")
+    if src == "openlibrary" and job.resolved_id:
+        return f"https://openlibrary.org/works/{job.resolved_id}"
+    if src == "tmdb" and job.resolved_id:
+        mt = meta.get("media_type")
+        if mt in ("movie", "tv"):
+            return f"https://www.themoviedb.org/{mt}/{job.resolved_id}"
+    return None
+
+
 async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
     """Best-effort: populate Character.actor (fuzzy-matched) and char_map.creator.
 
@@ -207,6 +221,7 @@ async def run_pipeline(job_id: str) -> None:
             )
             _sweep_spoiler_levels(char_map)
             await _enrich_with_credits(char_map, job)
+            char_map.source_url = _build_source_url(job)
         except RefusalError as e:
             job.status = "refused"
             job.error_code = e.refusal_code

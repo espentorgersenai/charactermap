@@ -57,4 +57,5 @@ export interface CharacterMap {
   coverage_note?: string
   notes: string
   creator?: CreatorInfo | null
+  source_url?: string | null
 }

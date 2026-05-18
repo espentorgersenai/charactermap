@@ -151,7 +151,24 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       <div className="bg-[#161616] border-b border-[#222] px-6 py-3 flex-shrink-0">
         <div className="flex items-center gap-3 flex-wrap">
           <h1 className="text-xl font-bold text-white leading-tight">
-            {charMap.title}
+            {charMap.source_url ? (
+              <a
+                href={charMap.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline decoration-[#555] underline-offset-4"
+                title={
+                  charMap.source_url.includes('themoviedb.org')
+                    ? 'View on TMDB'
+                    : 'View on Open Library'
+                }
+              >
+                {charMap.title}
+                <span className="text-[12px] text-[#666] ml-1.5 align-middle">↗</span>
+              </a>
+            ) : (
+              charMap.title
+            )}
           </h1>
           {charMap.creator && <CreatorPill creator={charMap.creator} />}
         </div>
@@ -182,7 +199,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
         <div className="w-px h-6 bg-[#2a2a2a] mx-1" />
 
         <ShareButton jobId={jobId} />
-        <ExportMenu jobId={jobId} />
+        <ExportMenu jobId={jobId} title={charMap.title} />
 
         <div className="w-px h-6 bg-[#2a2a2a] mx-1" />
 
