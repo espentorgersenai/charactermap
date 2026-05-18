@@ -79,3 +79,17 @@ def test_low_popularity_reduces_score():
         query_year=None,
     )
     assert score_high > score_low
+
+
+def test_exact_score_formula():
+    # single result + perfect title + year match + 0 popularity
+    # = 0.5*1.0 + 0.2*1.0 + 0.15*0 + 0.15*1.0 = 0.85
+    score = compute_confidence(
+        query="Congo",
+        candidate_title="Congo",
+        is_single_result=True,
+        popularity_count=0,
+        candidate_year=1980,
+        query_year=1980,
+    )
+    assert score == pytest.approx(0.85, abs=0.01)

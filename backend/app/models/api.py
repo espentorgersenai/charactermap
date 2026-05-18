@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel
 
 
 class ResolveRequest(BaseModel):
     query: str
-    work_type: str  # "book" or "film_tv"
+    work_type: Literal["book", "film_tv"]
 
 
 class AdaptationInfo(BaseModel):

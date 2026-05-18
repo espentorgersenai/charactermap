@@ -105,9 +105,6 @@ async def find_adaptation_for_book(
         key=lambda r: _bayesian_score(r.get("vote_average", 0), r.get("vote_count", 0)),
     )
 
-    if _bayesian_score(best.get("vote_average", 0), best.get("vote_count", 0)) < 0.5:
-        return None  # Too low quality to surface
-
     adapt_title = best.get("title") or best.get("name", "")
     year_str = best.get("release_date") or best.get("first_air_date") or ""
     adapt_year = int(year_str[:4]) if year_str and len(year_str) >= 4 else None
