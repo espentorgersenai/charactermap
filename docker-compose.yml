@@ -12,6 +12,7 @@ services:
         condition: service_healthy
     ports:
       - "127.0.0.1:8202:8000"
+      - "10.0.0.2:8202:8000"  # WireGuard tunnel — VPS nginx reaches here
     volumes:
       - artifacts:/var/lib/charactermap/artifacts
       - image_cache:/var/lib/charactermap/image_cache
@@ -37,6 +38,7 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8201:80"
+      - "10.0.0.2:8201:80"  # WireGuard tunnel — VPS nginx reaches here
     depends_on:
       - api
 
