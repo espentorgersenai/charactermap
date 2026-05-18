@@ -3,20 +3,71 @@
 
 Calls the LLM pipeline directly and prints raw JSON to stdout.
 Bypasses database, Redis, resolver, rendering, email, Turnstile.
-Phase 1: skeleton that parses flags and prints what it would call.
-Phase 2 will wire this to the actual LLM client.
 """
 
 import argparse
+import asyncio
+import json
 import sys
 from pathlib import Path
+
+# Ensure backend app is importable
+sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
 # Load .env from repo root
 try:
     from dotenv import load_dotenv
     load_dotenv(Path(__file__).parent.parent / ".env")
 except ImportError:
-    pass  # python-dotenv optional; env vars can be set directly
+    pass
+
+from app.config import settings
+from app.worker.pipeline import call_and_validate, RefusalError, _load_prompt_template, REFUSAL_MESSAGES
+from app.llm.anthropic_client import AnthropicClient
+
+
+async def _run(args) -> str:
+    creator = args.author or args.director
+    author_or_director = creator or "Unknown"
+
+    system_prompt = _load_prompt_template()
+    if args.prompt_file:
+        system_prompt = Path(args.prompt_file).read_text()
+
+    user_message = (
+        f"<work_metadata>\n"
+        f"title: {args.title}\n"
+        f"year: {args.year or 'Unknown'}\n"
+        f"author_or_director: {author_or_director}\n"
+        f"type: {args.work_type}\n"
+        f"</work_metadata>\n\n"
+        f"<user_query>\n"
+        f"{args.title}\n"
+        f"</user_query>\n\n"
+        f"Output a single JSON object matching the CharacterMap schema. No prose, no markdown fences."
+    )
+
+    if args.model.startswith("claude-"):
+        client = AnthropicClient(model=args.model, api_key=settings.anthropic_api_key)
+    else:
+        print(f"[dev-generate] Model {args.model!r} not yet wired (Phase 5)", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        char_map, llm_result = await call_and_validate(client, system_prompt, user_message)
+    except RefusalError as e:
+        msg = REFUSAL_MESSAGES.get(e.refusal_code, REFUSAL_MESSAGES["unknown_work"])
+        print(f"[dev-generate] Refused: {e.refusal_code} — {msg}", file=sys.stderr)
+        return json.dumps({"refusal": e.refusal_code})
+
+    print(
+        f"[dev-generate] {args.model} | "
+        f"in={llm_result.input_tokens} out={llm_result.output_tokens} "
+        f"cost=${llm_result.cost_usd:.4f} | "
+        f"chars={len(char_map.characters)} rels={len(char_map.relationships)}",
+        file=sys.stderr,
+    )
+    return char_map.model_dump_json(indent=2)
 
 
 def main():
@@ -31,80 +82,28 @@ Examples:
 """,
     )
 
-    # Work metadata
-    parser.add_argument("--title", required=True, help="Title of the work")
-    parser.add_argument("--year", type=int, help="Publication year")
+    parser.add_argument("--title", required=True)
+    parser.add_argument("--year", type=int)
 
-    # Author or director (mutually exclusive)
     creator_group = parser.add_mutually_exclusive_group()
-    creator_group.add_argument("--author", help="Author (for books)")
-    creator_group.add_argument("--director", help="Director (for films/TV)")
+    creator_group.add_argument("--author")
+    creator_group.add_argument("--director")
 
-    parser.add_argument(
-        "--work-type",
-        choices=["book", "film_tv"],
-        default="book",
-        help="Work type (default: book)",
-    )
-
-    # Model
+    parser.add_argument("--work-type", choices=["book", "film_tv"], default="book")
     parser.add_argument(
         "--model",
         default="claude-sonnet-4-6",
-        choices=[
-            "claude-sonnet-4-6",
-            "claude-opus-4-7",
-            "claude-haiku-4-5-20251001",
-            "gpt-5.5",
-            "gemini-2.5-pro",
-        ],
-        help="LLM model to use (default: claude-sonnet-4-6)",
+        choices=["claude-sonnet-4-6", "claude-opus-4-7", "claude-haiku-4-5-20251001", "gpt-5.5", "gemini-2.5-pro"],
     )
-
-    # Prompt and output control
-    parser.add_argument("--prompt-file", type=Path, help="Alternate prompt template file")
-    parser.add_argument("--save", type=Path, help="Write JSON output to this file instead of stdout")
-    parser.add_argument("--temperature", type=float, help="Override temperature (for determinism testing)")
-    parser.add_argument("--seed", type=int, help="Seed for models that support it")
-    parser.add_argument(
-        "--include-actors",
-        action="store_true",
-        help="Also run the actor-mapping LLM call (skipped by default)",
-    )
+    parser.add_argument("--prompt-file", type=Path)
+    parser.add_argument("--save", type=Path)
+    parser.add_argument("--temperature", type=float)
+    parser.add_argument("--seed", type=int)
+    parser.add_argument("--include-actors", action="store_true")
 
     args = parser.parse_args()
 
-    creator = args.author or args.director
-    creator_label = "author" if args.author else "director" if args.director else None
-
-    # Phase 1: print what would be called (LLM not wired yet)
-    print(f"[Phase 1 skeleton — LLM not wired yet]", file=sys.stderr)
-    print(f"Would call: model={args.model}", file=sys.stderr)
-    print(f"  title:     {args.title!r}", file=sys.stderr)
-    if args.year:
-        print(f"  year:      {args.year}", file=sys.stderr)
-    if creator:
-        print(f"  {creator_label}: {creator!r}", file=sys.stderr)
-    print(f"  work_type: {args.work_type}", file=sys.stderr)
-    if args.temperature is not None:
-        print(f"  temperature: {args.temperature}", file=sys.stderr)
-    if args.seed is not None:
-        print(f"  seed: {args.seed}", file=sys.stderr)
-    if args.prompt_file:
-        print(f"  prompt_file: {args.prompt_file}", file=sys.stderr)
-    if args.include_actors:
-        print(f"  include_actors: True", file=sys.stderr)
-
-    # Emit a stub JSON so piping to jq doesn't immediately break
-    import json
-    stub = {
-        "__phase_1_stub": True,
-        "title": args.title,
-        "model": args.model,
-        "work_type": args.work_type,
-        "note": "Phase 2 will emit real CharacterMap JSON here.",
-    }
-    output = json.dumps(stub, indent=2)
+    output = asyncio.run(_run(args))
 
     if args.save:
         args.save.write_text(output)
