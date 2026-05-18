@@ -126,7 +126,7 @@ All 10 works must have 100% `spoiler_level` coverage and zero flagged fabricatio
 
 ## Known Quirks
 
-- **lfc ports:** API `127.0.0.1:8200`, frontend `127.0.0.1:8201`. Verify these are free on lfc before first deploy.
+- **lfc ports:** API `127.0.0.1:8202`, frontend `127.0.0.1:8201`. Port 8200 was already taken by `signal-ingest-api` (signal-newsletter project). Verify these are free on lfc before first deploy.
 - **SSE behind nginx:** `proxy_buffering off` and `proxy_read_timeout 5m` are required on the VPS nginx block for SSE to work. See `charactermap.torgersen.ai.conf`.
 - **PDF headshots:** pandoc + LaTeX cannot fetch remote URLs. Headshots must be downloaded to `/tmp` first and passed as local file paths. See Phase 4 in §16.
 - **TMDb image proxy:** the `proxy_cache_path` zone (`tmdb_images`) must be added to the VPS nginx `http {}` block — not the server block. Done in Phase 7.

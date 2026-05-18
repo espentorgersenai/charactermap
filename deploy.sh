@@ -8,11 +8,13 @@ set -euo pipefail
 
 LFC_HOST="${LFC_HOST:-lfc}"   # SSH alias in ~/.ssh/config
 
+LFC_REPO="${LFC_REPO:-~/ClaudeCode/charactermap}"
+
 echo "→ Syncing code to lfc..."
-ssh "$LFC_HOST" "cd ~/charactermap && git pull"
+ssh "$LFC_HOST" "cd $LFC_REPO && git pull"
 
 echo "→ Building and starting on lfc..."
-ssh "$LFC_HOST" "cd ~/charactermap && docker compose build && docker compose up -d"
+ssh "$LFC_HOST" "cd $LFC_REPO && docker compose build && docker compose up -d"
 
 echo "→ Running migrations..."
 ssh "$LFC_HOST" "docker exec charmap_api alembic upgrade head"

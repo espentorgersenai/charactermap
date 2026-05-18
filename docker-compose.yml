@@ -11,7 +11,7 @@ services:
       redis:
         condition: service_healthy
     ports:
-      - "127.0.0.1:8200:8000"
+      - "127.0.0.1:8202:8000"
     volumes:
       - artifacts:/var/lib/charactermap/artifacts
       - image_cache:/var/lib/charactermap/image_cache
