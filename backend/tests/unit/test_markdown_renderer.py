@@ -1,7 +1,7 @@
 import pytest
 from app.renderers.markdown import render_markdown
 from app.models.character_map import (
-    CharacterMap, Character, Faction, Relationship,
+    ActorInfo, CharacterMap, Character, CreatorInfo, Faction, Relationship,
 )
 
 FIXTURE = CharacterMap(
@@ -90,3 +90,77 @@ def test_setting_preamble_present():
 def test_footer_present():
     md = render_markdown(FIXTURE)
     assert "full spoilers" in md.lower()
+
+
+def test_no_tmdb_attribution_without_actors_or_director():
+    md = render_markdown(FIXTURE)
+    assert "TMDB API" not in md
+    assert "TMDb" not in md
+
+
+def test_character_with_actor_renders_played_by_and_image():
+    cm = FIXTURE.model_copy(deep=True)
+    cm.characters[0].actor = ActorInfo(
+        name="Tim Curry",
+        tmdb_person_id=2154,
+        headshot_url="https://image.tmdb.org/t/p/w185/abc.jpg",
+    )
+    md = render_markdown(cm)
+    assert "played by Tim Curry" in md
+    assert "![Peter Elliot as played by Tim Curry](https://image.tmdb.org/t/p/w185/abc.jpg)" in md
+
+
+def test_character_with_actor_but_no_headshot_omits_image():
+    cm = FIXTURE.model_copy(deep=True)
+    cm.characters[0].actor = ActorInfo(
+        name="Tim Curry", tmdb_person_id=2154, headshot_url=None,
+    )
+    md = render_markdown(cm)
+    assert "played by Tim Curry" in md
+    assert "![Peter Elliot" not in md
+
+
+def test_creator_author_line_present():
+    cm = FIXTURE.model_copy(update={
+        "creator": CreatorInfo(kind="author", name="Michael Crichton"),
+    })
+    md = render_markdown(cm)
+    assert "**By:** Michael Crichton" in md
+
+
+def test_creator_director_with_headshot_renders_image():
+    cm = FIXTURE.model_copy(update={
+        "creator": CreatorInfo(
+            kind="director",
+            name="Frank Marshall",
+            tmdb_person_id=11,
+            headshot_url="https://image.tmdb.org/t/p/w185/dir.jpg",
+        ),
+    })
+    md = render_markdown(cm)
+    assert "**Directed by:** ![Frank Marshall](https://image.tmdb.org/t/p/w185/dir.jpg) Frank Marshall" in md
+
+
+def test_tmdb_attribution_when_actors_present():
+    cm = FIXTURE.model_copy(deep=True)
+    cm.characters[0].actor = ActorInfo(
+        name="Tim Curry", tmdb_person_id=2154, headshot_url=None,
+    )
+    md = render_markdown(cm)
+    assert "TMDB API" in md
+
+
+def test_tmdb_attribution_when_director_creator_only():
+    cm = FIXTURE.model_copy(update={
+        "creator": CreatorInfo(kind="director", name="Frank Marshall", tmdb_person_id=11),
+    })
+    md = render_markdown(cm)
+    assert "TMDB API" in md
+
+
+def test_author_creator_alone_does_not_trigger_tmdb_attribution():
+    cm = FIXTURE.model_copy(update={
+        "creator": CreatorInfo(kind="author", name="Michael Crichton"),
+    })
+    md = render_markdown(cm)
+    assert "TMDB API" not in md
