@@ -37,7 +37,7 @@ async def test_opus_job_returned_when_available():
     opus_job = _make_job("claude-opus-4-7")
     session = _make_session([sonnet_job, opus_job])
 
-    result = await find_best_cached_job(session, "OL12345W", "full")
+    result = await find_best_cached_job(session, "OL12345W", "full", 20)
     assert result is opus_job
 
 
@@ -47,7 +47,7 @@ async def test_sonnet_returned_when_no_opus():
     sonnet_job = _make_job("claude-sonnet-4-6")
     session = _make_session([haiku_job, sonnet_job])
 
-    result = await find_best_cached_job(session, "OL12345W", "full")
+    result = await find_best_cached_job(session, "OL12345W", "full", 20)
     assert result is sonnet_job
 
 
@@ -55,7 +55,7 @@ async def test_sonnet_returned_when_no_opus():
 async def test_no_cached_jobs_returns_none():
     session = _make_session([])
 
-    result = await find_best_cached_job(session, "OL12345W", "full")
+    result = await find_best_cached_job(session, "OL12345W", "full", 20)
     assert result is None
 
 
@@ -65,5 +65,5 @@ async def test_unknown_model_ranked_last():
     haiku_job = _make_job("claude-haiku-4-5-20251001")
     session = _make_session([unknown_job, haiku_job])
 
-    result = await find_best_cached_job(session, "OL12345W", "full")
+    result = await find_best_cached_job(session, "OL12345W", "full", 20)
     assert result is haiku_job

@@ -40,7 +40,7 @@ Back-cover test: "Could this appear in the publisher's blurb without being a spo
 Inverse test: "If this character were removed entirely, would a first-time reader's experience be significantly preserved? If yes → at most 1."
 
 ### 5. Stay within the character cap
-- **Maximum 25 characters.** Keep all `protagonist` and `major` characters. Select `supporting` by narrative weight. If more characters exist, group the remainder into a "Named in passing" pseudo-faction with a single summary node. Populate `coverage_note` when the cap forces exclusions.
+- **Maximum {CHAR_CAP} characters.** Keep all `protagonist` and `major` characters. Select `supporting` by narrative weight. If more characters exist, group the remainder into a "Named in passing" pseudo-faction with a single summary node. Populate `coverage_note` when the cap forces exclusions.
 - **Minimum 5 characters.** If the work has fewer, include all of them.
 
 ### 6. Use `setting_preamble` only when necessary

@@ -35,11 +35,15 @@ async def find_best_cached_job(
     session: AsyncSession,
     resolved_id: str,
     spoiler_mode: str,
+    character_cap: int,
 ) -> Optional[Job]:
+    # Cap is part of the cache identity — a cap=10 map can't be served to a
+    # cap=50 request and vice versa, since they're materially different maps.
     result = await session.execute(
         select(Job).where(
             Job.resolved_id == resolved_id,
             Job.spoiler_mode == spoiler_mode,
+            Job.character_cap == character_cap,
             Job.status == "done",
             Job.deleted_at.is_(None),
             Job.character_map.is_not(None),
@@ -91,8 +95,8 @@ async def create_job(
         "adaptation_tmdb_id": resolved.adaptation.tmdb_id if resolved.adaptation else None,
     }
 
-    # Cache check: reuse the best existing result for this work
-    cached = await find_best_cached_job(session, resolved.id, "full")
+    # Cache check: reuse the best existing result for this work AND cap
+    cached = await find_best_cached_job(session, resolved.id, "full", body.character_cap)
     if cached:
         cached_job = Job(
             id=uuid4(),
@@ -109,6 +113,7 @@ async def create_job(
             status="done",
             completed_at=datetime.now(tz=timezone.utc),
             character_map=cached.character_map,
+            character_cap=body.character_cap,
             estimated_cost_usd=Decimal("0"),
             requester_ip=request.client.host if request.client else "127.0.0.1",
             user_agent=request.headers.get("user-agent"),
@@ -131,6 +136,7 @@ async def create_job(
         email=body.email,
         acknowledgement_at=datetime.now(tz=timezone.utc),
         status="queued",
+        character_cap=body.character_cap,
         requester_ip=request.client.host if request.client else "127.0.0.1",
         user_agent=request.headers.get("user-agent"),
     )

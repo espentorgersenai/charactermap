@@ -36,6 +36,8 @@ class Job(Base):
     adaptation_title = Column(Text)
     adaptation_rating = Column(Numeric(3, 1))
 
+    character_cap = Column(Integer, nullable=False, server_default="20")
+
     status = Column(Text, nullable=False, default="queued")
     error_code = Column(Text)
     error_message = Column(Text)
@@ -56,6 +58,10 @@ class Job(Base):
         CheckConstraint(
             "status IN ('queued','resolving','generating','rendering','done','failed','refused')",
             name="ck_jobs_status",
+        ),
+        CheckConstraint(
+            "character_cap IN (10, 20, 30, 40, 50)",
+            name="ck_jobs_character_cap",
         ),
         Index("idx_jobs_created_at", "created_at"),
         Index("idx_jobs_requester_ip", "requester_ip", "created_at"),

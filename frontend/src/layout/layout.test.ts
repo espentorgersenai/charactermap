@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { buildLayout, pickHandles, NODE_WIDTH, NODE_HEIGHT } from './layout'
+import { buildLayout, pickHandles, MAX_COLS, NODE_WIDTH, NODE_HEIGHT } from './layout'
 import type {
   Character,
   CharacterMap,
@@ -197,16 +197,21 @@ describe('buildLayout', () => {
     expect(groups[3].position.y).toBeGreaterThan(groups[0].position.y)
   })
 
-  it('respects MAX_COLS=2 inside a faction — third char wraps to row 2', () => {
+  it('wraps a faction to a new row after MAX_COLS characters', () => {
     const f = faction('f')
-    const chars = ['c1', 'c2', 'c3'].map(id => character(id, 'f'))
+    const ids = Array.from({ length: MAX_COLS + 1 }, (_, i) => `c${i + 1}`)
+    const chars = ids.map(id => character(id, 'f'))
     const { nodes } = buildLayout(map({ factions: [f], characters: chars }))
 
     const cn = (id: string) => nodes.find(n => n.id === id)!
-    // c1 col=0 row=0; c2 col=1 row=0; c3 col=0 row=1
-    expect(cn('c1').position.x).toBe(cn('c3').position.x)
-    expect(cn('c1').position.y).toBe(cn('c2').position.y)
-    expect(cn('c3').position.y).toBeGreaterThan(cn('c1').position.y)
+    const first = cn(ids[0])
+    const last = cn(ids[MAX_COLS])  // index MAX_COLS = first to wrap
+    // first row all share a y; the wrapper sits below them and same x as first
+    for (let i = 1; i < MAX_COLS; i++) {
+      expect(cn(ids[i]).position.y).toBe(first.position.y)
+    }
+    expect(last.position.x).toBe(first.position.x)
+    expect(last.position.y).toBeGreaterThan(first.position.y)
   })
 
   it('uses faction-relative positions for character nodes', () => {

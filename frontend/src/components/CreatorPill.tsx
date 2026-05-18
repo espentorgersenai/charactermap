@@ -27,14 +27,14 @@ export function CreatorPill({ creator }: Props) {
           alt={creator.name}
           draggable={false}
           loading="lazy"
-          className="w-7 h-7 rounded-full object-cover -ml-1.5"
+          className="w-8 h-8 rounded-full object-cover -ml-1.5"
         />
       ) : (
-        <span className="text-[13px] opacity-80">{icon}</span>
+        <span className="text-[15px] opacity-80">{icon}</span>
       )}
-      {verb && <span className="text-[11px] uppercase tracking-wider text-[#888]">{verb}</span>}
-      <span className="text-[13px] font-medium text-[#e5e7eb]">{creator.name}</span>
-      {href && <span className="text-[10px] text-[#666] ml-0.5">↗</span>}
+      {verb && <span className="text-[12px] uppercase tracking-wider text-[#888]">{verb}</span>}
+      <span className="text-[14px] font-medium text-[#e5e7eb]">{creator.name}</span>
+      {href && <span className="text-[11px] text-[#666] ml-0.5">↗</span>}
     </>
   )
 

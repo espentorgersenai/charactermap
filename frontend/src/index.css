@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Bump root font-size so Tailwind's rem-based utilities scale up on
+     high-DPI displays without OS-level zoom. 17px ≈ +6% vs default 16px. */
+  html { font-size: 17px; }
+}

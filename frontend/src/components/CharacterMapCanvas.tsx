@@ -34,8 +34,8 @@ function LegendPanel() {
     { label: 'Criminal',          colour: '#eab308', dashed: true  },
   ]
   return (
-    <div className="mb-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-3 min-w-[210px]">
-      <p className="text-[10px] font-bold text-[#555] uppercase tracking-[0.06em] mb-2">Relationships</p>
+    <div className="mb-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-3 min-w-[220px]">
+      <p className="text-[11px] font-bold text-[#555] uppercase tracking-[0.06em] mb-2">Relationships</p>
       {EDGE_LEGEND.map(e => (
         <div key={e.label} className="flex items-center gap-2 mb-1.5 last:mb-0">
           <div
@@ -46,7 +46,7 @@ function LegendPanel() {
               flexShrink: 0,
             }}
           />
-          <span className="text-[12px] text-[#ccc]">{e.label}</span>
+          <span className="text-[13px] text-[#ccc]">{e.label}</span>
         </div>
       ))}
     </div>
@@ -145,16 +145,16 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       {/* Title strip */}
       <div className="bg-[#161616] border-b border-[#222] px-6 py-3 flex-shrink-0">
         <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-lg font-bold text-white leading-tight">
+          <h1 className="text-xl font-bold text-white leading-tight">
             {charMap.title}
           </h1>
           {charMap.creator && <CreatorPill creator={charMap.creator} />}
         </div>
         {charMap.subtitle && (
-          <p className="text-[12px] text-[#888] mt-0.5">{charMap.subtitle}</p>
+          <p className="text-[13px] text-[#888] mt-0.5">{charMap.subtitle}</p>
         )}
         {charMap.blurb && (
-          <p className="text-[12px] text-[#aaa] mt-1.5 leading-relaxed max-w-4xl">
+          <p className="text-[13px] text-[#aaa] mt-1.5 leading-relaxed max-w-4xl">
             {charMap.blurb}
           </p>
         )}

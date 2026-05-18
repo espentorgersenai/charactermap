@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom'
 import TitleSearch from '../components/TitleSearch'
 import ModelDropdown from '../components/ModelDropdown'
 import FormatCheckboxes from '../components/FormatCheckboxes'
+import CharacterCapDropdown from '../components/CharacterCapDropdown'
 import WhatThisIsBanner from '../components/WhatThisIsBanner'
 import SpoilerWarningBanner from '../components/SpoilerWarningBanner'
 import ResolveBanner from '../components/ResolveBanner'
 import ResolveCandidatePicker from '../components/ResolveCandidatePicker'
 import { useResolve } from '../hooks/useResolve'
-import { useFormPrefill } from '../hooks/useFormPrefill'
+import { useFormPrefill, type CharacterCap } from '../hooks/useFormPrefill'
 import { useRecentMaps } from '../hooks/useRecentMaps'
-import { ResolveCandidate } from '../api/client'
+import { ResolveCandidate, createJob } from '../api/client'
 
 export default function Home() {
   const navigate = useNavigate()
@@ -23,13 +24,16 @@ export default function Home() {
   const [formats, setFormats] = useState<string[]>(prefs.formats)
   const [email, setEmail] = useState('')
   const [workType, setWorkType] = useState<'book' | 'film_tv'>(prefs.workType)
+  const [characterCap, setCharacterCap] = useState<CharacterCap>(prefs.characterCap)
   const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(false)
   const [selectedCandidate, setSelectedCandidate] = useState<ResolveCandidate | null>(null)
   const [forceShowPicker, setForceShowPicker] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
-    save({ model, formats, workType })
-  }, [model, formats, workType])
+    save({ model, formats, workType, characterCap })
+  }, [model, formats, workType, characterCap])
 
   const topCandidate = candidates[0] ?? null
   const autoSkip = !forceShowPicker && topCandidate !== null && topCandidate.confidence_score >= 0.9
@@ -49,10 +53,27 @@ export default function Home() {
     resolve(query, workType)
   }
 
-  function handleGenerate() {
-    if (!canGenerate) return
-    // Phase 2 will POST /api/jobs here. For now navigate to stub.
-    navigate('/job/stub-phase-1')
+  async function handleGenerate() {
+    if (!canGenerate || !selectedCandidate || submitting) return
+    setSubmitError(null)
+    setSubmitting(true)
+    try {
+      const { job_id } = await createJob({
+        title_query: selectedCandidate.title,
+        resolved: selectedCandidate,
+        model,
+        formats,
+        email: email || undefined,
+        acknowledged_spoilers: true,
+        character_cap: characterCap,
+      })
+      const params = new URLSearchParams({ model, title: selectedCandidate.title })
+      navigate(`/job/${job_id}?${params.toString()}`)
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : 'Failed to start the job'
+      setSubmitError(msg)
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -117,6 +138,7 @@ export default function Home() {
       )}
 
       <ModelDropdown value={model} onChange={setModel} />
+      <CharacterCapDropdown value={characterCap} onChange={setCharacterCap} />
       <FormatCheckboxes selected={formats} onChange={setFormats} />
 
       {/* Email */}
@@ -141,11 +163,12 @@ export default function Home() {
 
       <button
         onClick={handleGenerate}
-        disabled={!canGenerate}
+        disabled={!canGenerate || submitting}
         className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
-        Generate Character Map
+        {submitting ? 'Starting…' : 'Generate Character Map'}
       </button>
+      {submitError && <p className="text-sm text-red-600">{submitError}</p>}
 
       {recentMaps.length > 0 && (
         <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">

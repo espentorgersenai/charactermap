@@ -12,6 +12,7 @@ VALID_MODELS = {
 }
 
 VALID_FORMATS = {"interactive", "png", "svg", "json", "markdown", "pdf"}
+VALID_CHARACTER_CAPS = {10, 20, 30, 40, 50}
 
 
 class JobCreateRequest(BaseModel):
@@ -22,6 +23,7 @@ class JobCreateRequest(BaseModel):
     email: Optional[str] = None
     acknowledged_spoilers: bool
     turnstile_token: Optional[str] = None
+    character_cap: int = 20
 
     @field_validator("model")
     @classmethod
@@ -35,6 +37,13 @@ class JobCreateRequest(BaseModel):
     def formats_must_be_nonempty(cls, v: list[str]) -> list[str]:
         if not v:
             raise ValueError("formats must contain at least one value")
+        return v
+
+    @field_validator("character_cap")
+    @classmethod
+    def cap_must_be_valid(cls, v: int) -> int:
+        if v not in VALID_CHARACTER_CAPS:
+            raise ValueError(f"character_cap must be one of {sorted(VALID_CHARACTER_CAPS)}")
         return v
 
 

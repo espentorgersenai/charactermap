@@ -36,4 +36,7 @@ Thumbs.db
 # Playwright smoke-test artifacts
 smoke-*.png
 princess-bride-*.png
+cap-*.png
+dpi-*.png
+hobbit-*.png
 .playwright-mcp/

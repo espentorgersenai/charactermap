@@ -51,36 +51,52 @@ def _check_refusal(text: str) -> None:
 async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
     """Best-effort: populate Character.actor (fuzzy-matched) and char_map.creator.
 
-    For film/tv: pull TMDB credits for `job.resolved_id`. For book: surface the
-    author from resolved_meta (no headshot lookup yet — adaptation cast is a
-    follow-up). Never raises — enrichment failures are logged and swallowed.
+    - film_tv: pull credits for `job.resolved_id` (the TMDB id of the work itself).
+    - book: if `resolved_meta.adaptation_tmdb_id` is present, pull credits from
+      the adaptation and fuzzy-match against the book's characters. Creator is
+      always the author for books (not the adaptation's director).
+
+    Never raises — enrichment failures are logged and swallowed.
     """
     meta = job.resolved_meta or {}
     author_name = meta.get("author")
-    director = None
+    director = None  # Used to populate creator on film/tv only
+
+    tmdb_id: int | None = None
+    media_type = meta.get("media_type")
 
     if job.work_type == "film_tv":
-        media_type = meta.get("media_type")
-        if media_type in ("movie", "tv"):
+        try:
+            tmdb_id = int(job.resolved_id)
+        except (TypeError, ValueError):
+            log.warning("enrichment_bad_tmdb_id", job_id=str(job.id), resolved_id=job.resolved_id)
+    elif job.work_type == "book":
+        adapt_id = meta.get("adaptation_tmdb_id")
+        if adapt_id is not None:
             try:
-                tmdb_id = int(job.resolved_id)
+                tmdb_id = int(adapt_id)
             except (TypeError, ValueError):
-                log.warning("enrichment_bad_tmdb_id", job_id=str(job.id), resolved_id=job.resolved_id)
-            else:
-                try:
-                    cast, director = await get_credits(tmdb_id, media_type)
-                    matched = match_cast_to_characters(char_map.characters, cast)
-                    log.info(
-                        "enrichment_cast_matched",
-                        job_id=str(job.id),
-                        cast_size=len(cast),
-                        matched=matched,
-                        total_chars=len(char_map.characters),
-                    )
-                except Exception as e:
-                    log.warning("enrichment_credits_failed", job_id=str(job.id), error=str(e))
-        else:
-            log.info("enrichment_skipped_no_media_type", job_id=str(job.id))
+                log.warning("enrichment_bad_adaptation_id", job_id=str(job.id), adapt_id=adapt_id)
+
+    if tmdb_id is not None and media_type in ("movie", "tv"):
+        try:
+            cast, director_credit = await get_credits(tmdb_id, media_type)
+            matched = match_cast_to_characters(char_map.characters, cast)
+            log.info(
+                "enrichment_cast_matched",
+                job_id=str(job.id),
+                work_type=job.work_type,
+                cast_size=len(cast),
+                matched=matched,
+                total_chars=len(char_map.characters),
+            )
+            # Only film/tv creator comes from the director; books always use the author.
+            if job.work_type == "film_tv":
+                director = director_credit
+        except Exception as e:
+            log.warning("enrichment_credits_failed", job_id=str(job.id), error=str(e))
+    elif job.work_type == "film_tv":
+        log.info("enrichment_skipped_no_media_type", job_id=str(job.id))
 
     set_creator(char_map, job.work_type, author_name, director)
 
@@ -140,6 +156,12 @@ def _load_prompt_template() -> str:
     return _PROMPT_PATH.read_text()
 
 
+def _render_system_prompt(template: str, character_cap: int) -> str:
+    """Substitute the runtime placeholders. We avoid `str.format` because the
+    prompt contains literal `{` / `}` (the TypeScript schema block)."""
+    return template.replace("{CHAR_CAP}", str(character_cap))
+
+
 def _render_user_message(job: Job) -> str:
     meta = job.resolved_meta or {}
     author_or_director = meta.get("author") or meta.get("director") or "Unknown"
@@ -175,7 +197,7 @@ async def run_pipeline(job_id: str) -> None:
         await session.commit()
         log.info("pipeline_started", job_id=job_id, model=job.model)
 
-        system_prompt = _load_prompt_template()
+        system_prompt = _render_system_prompt(_load_prompt_template(), job.character_cap)
         user_message = _render_user_message(job)
         client = get_llm_client(job.model)
 

@@ -66,6 +66,7 @@ export async function createJob(body: {
   email?: string
   acknowledged_spoilers: true
   turnstile_token?: string
+  character_cap: 10 | 20 | 30 | 40 | 50
 }): Promise<{ job_id: string }> {
   const res = await fetch('/api/jobs', {
     method: 'POST',
