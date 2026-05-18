@@ -90,6 +90,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
   const [showBadges, setShowBadges] = useState(false)
   const [showLabels, setShowLabels] = useState(false)
   const [showLegend, setShowLegend] = useState(false)
+  const [coverageDismissed, setCoverageDismissed] = useState(false)
 
   const { nodes: initNodes, edges: initEdges } = useMemo(
     () => buildLayout(charMap),
@@ -167,10 +168,17 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       </div>
 
       {/* Optional banners */}
-      {charMap.coverage_note && (
+      {charMap.coverage_note && !coverageDismissed && (
         <div className="mx-4 mt-3 px-4 py-2.5 bg-amber-900/15 border border-amber-500/40 rounded-lg text-amber-300 text-sm flex items-start gap-2 flex-shrink-0">
           <span className="flex-shrink-0 mt-0.5">⚠</span>
-          <span><strong>Coverage note:</strong> {charMap.coverage_note}</span>
+          <span className="flex-1"><strong>Coverage note:</strong> {charMap.coverage_note}</span>
+          <button
+            onClick={() => setCoverageDismissed(true)}
+            className="flex-shrink-0 ml-2 text-amber-500 hover:text-amber-200 transition-colors leading-none text-base"
+            title="Dismiss"
+          >
+            ×
+          </button>
         </div>
       )}
 
