@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "planka": {
+      "command": "npx",
+      "args": ["-y", "@chmald/planka-mcp"],
+      "env": {
+        "PLANKA_BASE_URL": "https://kanban.torgersen.ai",
+        "PLANKA_USERNAME": "<your-planka-username>",
+        "PLANKA_PASSWORD": "<your-planka-password>"
+      }
+    }
+  }
+}
