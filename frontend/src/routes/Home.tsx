@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import TitleSearch from '../components/TitleSearch'
 import ModelDropdown from '../components/ModelDropdown'
 import FormatCheckboxes from '../components/FormatCheckboxes'
+import WhatThisIsBanner from '../components/WhatThisIsBanner'
+import SpoilerWarningBanner from '../components/SpoilerWarningBanner'
 import { useResolve } from '../hooks/useResolve'
 import { ResolveCandidate } from '../api/client'
 
@@ -35,21 +37,12 @@ export default function Home() {
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-      {/* WhatThisIsBanner placeholder — Task 4 */}
-      <div className="p-3 bg-gray-50 dark:bg-gray-900 rounded text-xs text-gray-500">[WhatThisIsBanner — Task 4]</div>
+      <WhatThisIsBanner />
 
-      {/* SpoilerWarningBanner placeholder — Task 4 */}
-      <div className="p-3 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded text-xs text-amber-700 dark:text-amber-300">
-        [SpoilerWarningBanner — Task 4]
-        <label className="flex items-center gap-2 mt-2">
-          <input
-            type="checkbox"
-            checked={spoilerAcknowledged}
-            onChange={(e) => setSpoilerAcknowledged(e.target.checked)}
-          />
-          I understand this map will contain spoilers
-        </label>
-      </div>
+      <SpoilerWarningBanner
+        acknowledged={spoilerAcknowledged}
+        onAcknowledgeChange={setSpoilerAcknowledged}
+      />
 
       {/* Type toggle */}
       <div>
