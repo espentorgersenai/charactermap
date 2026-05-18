@@ -1,0 +1,208 @@
+{
+  "title": "And Then There Were None",
+  "subtitle": "Agatha Christie, 1939",
+  "blurb": "Ten strangers are lured to a remote island mansion off the Devon coast, each guilty of a past death they escaped justice for. One by one they are killed in accordance with an old nursery rhyme, 'Ten Little Soldiers,' until none remain. The identity of the killer is revealed only in a posthumous confession.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "guests",
+      "label": "The Ten Guests",
+      "description": "Ten individuals summoned to Soldier Island under various pretexts, each secretly harbouring guilt over a past death.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "absent",
+      "label": "Absent & Referenced",
+      "description": "Characters who exist primarily as victims of the guests' past crimes or as framing devices, never present on the island.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "justice_wargrave",
+      "name": "Justice Lawrence John Wargrave",
+      "role": "Retired Judge / Mastermind Killer",
+      "description": "A recently retired judge with a lifelong fascination with death and a strong sense of perverse justice. Revealed in a posthumous confession to be the architect of the entire scheme; he faked his own death mid-way and killed all ten guests, including himself last.",
+      "faction_id": "guests",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "vera_claythorne",
+      "name": "Vera Claythorne",
+      "role": "Former Governess / Secretary",
+      "description": "Hired as a secretary and the last survivor before her own death. She allowed her young charge Cyril Hamilton to drown so his uncle Hugo would inherit and marry her. Driven to psychological breakdown by guilt and Wargrave's manipulation, she hangs herself.",
+      "faction_id": "guests",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "philip_lombard",
+      "name": "Philip Lombard",
+      "role": "Soldier of Fortune / Adventurer",
+      "description": "A cool, resourceful mercenary who admits to leaving twenty-one East African tribesmen to die. He and Vera are mutually suspicious throughout, and he is the penultimate death — shot by Vera on the beach.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "emily_brent",
+      "name": "Emily Caroline Brent",
+      "role": "Rigid Spinster / Former Employer",
+      "description": "A severe, religiously inflexible elderly woman who dismissed her servant Beatrice Taylor for becoming pregnant, leading to Beatrice's suicide. She is injected with potassium cyanide while sitting alone, rendered immobile beforehand by a drugged drink.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "general_macarthur",
+      "name": "General John Gordon Macarthur",
+      "role": "Retired Military Officer",
+      "description": "A World War I general who deliberately sent his wife's lover, Lieutenant Richmond, on a fatal mission. By the time of his death he has resigned himself to dying and is bludgeoned from behind while gazing out to sea.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "dr_armstrong",
+      "name": "Dr. Edward George Armstrong",
+      "role": "Harley Street Physician",
+      "description": "A doctor who performed an operation while drunk, causing a patient (Louisa Mary Clees) to die. He is manipulated by Wargrave into a secret alliance and then pushed off a cliff, with his body later used to stage Wargrave's fake death.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "william_blore",
+      "name": "William Henry Blore",
+      "role": "Former Police Inspector / Private Detective",
+      "description": "An ex-policeman who gave false testimony to convict an innocent man, James Landor, who later died in prison. Pragmatic and suspicious, he is killed when a heavy marble clock shaped like a bear is dropped on him from a window above.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "tony_marston",
+      "name": "Anthony James Marston",
+      "role": "Wealthy Young Socialite",
+      "description": "A reckless, amoral young man who killed two children, John and Lucy Combes, in a driving accident and showed no remorse. The first to die — his whisky is laced with potassium cyanide.",
+      "faction_id": "guests",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "thomas_rogers",
+      "name": "Thomas Rogers",
+      "role": "Manservant / Butler",
+      "description": "The island's butler, who along with his wife withheld heart medication from their elderly employer Jennifer Brady, causing her death. He is killed with an axe while chopping wood.",
+      "faction_id": "guests",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "ethel_rogers",
+      "name": "Ethel Rogers",
+      "role": "Cook / Housekeeper",
+      "description": "Thomas Rogers's wife and fellow accomplice in the death of Jennifer Brady. Nervous and fearful from the moment of arrival, she dies in her sleep from an overdose of chloral hydrate — the second victim.",
+      "faction_id": "guests",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "mr_owen",
+      "name": "U.N. Owen (alias)",
+      "role": "Mysterious Host (identity concealed)",
+      "description": "The name used in the invitations luring guests to the island — 'Unknown' — later revealed to be Wargrave's pseudonym. Never appears as a separate person; the alias is a framing device.",
+      "faction_id": "absent",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "inspector_maine",
+      "name": "Inspector Maine",
+      "role": "Police Investigator",
+      "description": "The mainland detective who investigates the deaths after the island is reached. He frames the epilogue and is presented with Wargrave's bottled confession.",
+      "faction_id": "absent",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "vera_claythorne",
+      "type": "antagonism",
+      "label": "manipulates psychologically; engineers her suicide",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "dr_armstrong",
+      "type": "criminal",
+      "label": "recruits Armstrong into false alliance, then murders him",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "vera_claythorne",
+      "to_id": "philip_lombard",
+      "type": "antagonism",
+      "label": "mutual suspicion; she ultimately shoots him",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "thomas_rogers",
+      "to_id": "ethel_rogers",
+      "type": "family",
+      "label": "husband and wife; co-conspirators in employer's death",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "mr_owen",
+      "type": "criminal",
+      "label": "Wargrave is U.N. Owen — the alias is his invention",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "inspector_maine",
+      "to_id": "justice_wargrave",
+      "type": "professional",
+      "label": "receives posthumous confession; closes the case",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "vera_claythorne",
+      "to_id": "general_macarthur",
+      "type": "professional",
+      "label": "fellow guests; both implicated in past deaths",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "U.N. Owen and Inspector Maine are included as functional nodes despite limited page-presence. Minor referenced victims (Cyril Hamilton, Beatrice Taylor, Louisa Clees, James Landor, Jennifer Brady, Lieutenant Richmond, John and Lucy Combes) are omitted as they are absent characters named only as backstory.",
+  "notes": "All ten guest characters die within the narrative. Wargrave's identity as the killer and his staged death are disclosed only in an epilogue presented as a handwritten manuscript found in a bottle at sea. This map reflects the complete text including that epilogue."
+}

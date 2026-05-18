@@ -1,0 +1,3908 @@
+[
+  {
+    "status": "ok",
+    "work": {
+      "title": "Congo",
+      "year": 1980,
+      "author": "Michael Crichton",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "Congo",
+      "subtitle": "Michael Crichton, 1980",
+      "blurb": "A high-tech expedition races into the Congo rainforest to find a lost city and a rare blue diamond deposit. Competing teams, hostile terrain, and a species of aggressive grey gorillas stand between them and their goal. The novel blends adventure thriller with scientific speculation about primate behavior and lost civilizations.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "erts",
+          "label": "ERTS Expedition",
+          "description": "Earth Resources Technology Services, a Houston-based consortium using advanced computing and logistics to locate valuable mineral deposits. The primary expedition team.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "euro_consortium",
+          "label": "Euro-Japanese Consortium",
+          "description": "A rival corporate alliance racing ERTS to the Congo diamond fields, willing to use sabotage and violence to secure the prize.",
+          "color_hint": "red"
+        },
+        {
+          "id": "primates",
+          "label": "Primate Research",
+          "description": "Academic researchers working on gorilla language acquisition and field primatology, whose work becomes entangled with the expedition.",
+          "color_hint": "green"
+        },
+        {
+          "id": "local_guides",
+          "label": "Local & Field Personnel",
+          "description": "Congolese and mercenary guides who navigate the expedition through the jungle and political instability.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "zinj_gorillas",
+          "label": "Grey Gorillas of Zinj",
+          "description": "A relic population of aggressive, possibly trained grey gorillas guarding the ruins of the lost city of Zinj.",
+          "color_hint": "slate"
+        }
+      ],
+      "characters": [
+        {
+          "id": "karen_ross",
+          "name": "Karen Ross",
+          "role": "ERTS Field Project Director",
+          "description": "A brilliant, driven young data analyst and field director for ERTS who leads the Congo expedition on behalf of the corporation. She is highly competent but initially underestimates the dangers of the jungle and the grey gorillas.",
+          "faction_id": "erts",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "peter_elliot",
+          "name": "Peter Elliot",
+          "role": "Primatologist, UC Berkeley",
+          "description": "An academic primatologist who joins the expedition to return Amy, his signing gorilla, to the wild and investigate her mysterious drawings of a lost city. His scientific goals repeatedly conflict with ERTS's commercial mission.",
+          "faction_id": "primates",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "amy",
+          "name": "Amy",
+          "role": "Gorilla / Language Research Subject",
+          "description": "A female lowland gorilla trained in American Sign Language by Elliot. She communicates via a voice-synthesis computer vest and proves invaluable in navigating Zinj, eventually choosing to remain in the Congo with wild gorillas.",
+          "faction_id": "primates",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "charles_munro",
+          "name": "Charles Munro",
+          "role": "Expedition Guide / Mercenary",
+          "description": "A seasoned and pragmatic expedition guide with deep knowledge of the Congo. He manages logistics and security for the ERTS team and proves essential to their survival.",
+          "faction_id": "local_guides",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "travis",
+          "name": "R. B. Travis",
+          "role": "ERTS Director / CEO",
+          "description": "The hard-nosed director of ERTS who drives the expedition from Houston using satellite feeds and advanced data systems. He prioritizes the corporation's commercial interests above all else.",
+          "faction_id": "erts",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "hamir",
+          "name": "Hamir",
+          "role": "Munro's Assistant / Field Hand",
+          "description": "A loyal and capable field assistant to Munro who helps manage the expedition's day-to-day survival in the jungle.",
+          "faction_id": "local_guides",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "kahega",
+          "name": "Kahega",
+          "role": "Head Porters / Congo Scout",
+          "description": "The leader of the Congolese porters hired for the expedition, reliable and knowledgeable about the local terrain.",
+          "faction_id": "local_guides",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "imo",
+          "name": "Imo",
+          "role": "ERTS Communications Technician",
+          "description": "A technician accompanying the ERTS expedition who manages communications equipment in the field.",
+          "faction_id": "erts",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "rossiter",
+          "name": "Geoffrey Rossiter",
+          "role": "Euro-Japanese Consortium Field Leader",
+          "description": "The field leader of the rival Euro-Japanese consortium, who pursues the ERTS team aggressively through the Congo and attempts to sabotage their mission. He is killed by the grey gorillas at Zinj.",
+          "faction_id": "euro_consortium",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "morikawa",
+          "name": "Morikawa",
+          "role": "Euro-Japanese Consortium Representative",
+          "description": "The Japanese financial backer and representative of the consortium, coordinating the rival expedition from behind the scenes.",
+          "faction_id": "euro_consortium",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "seamans",
+          "name": "Dr. Seamans",
+          "role": "ERTS Technical Analyst",
+          "description": "An ERTS analyst based in Houston who assists Travis in interpreting data and coordinating the expedition remotely.",
+          "faction_id": "erts",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "jenny",
+          "name": "Jenny",
+          "role": "Elliot's Research Assistant",
+          "description": "Peter Elliot's graduate student and assistant who helps manage Amy's care and language training before the expedition departs.",
+          "faction_id": "primates",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "grey_gorillas",
+          "name": "Grey Gorillas (Zinj)",
+          "role": "Guardian Predators of the Lost City",
+          "description": "A relic population of large, aggressive grey gorillas believed to have been selectively bred or conditioned by the ancient Zinj civilization to guard the diamond mines. They attack any intruders with coordinated, lethal force.",
+          "faction_id": "zinj_gorillas",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "karen_ross",
+          "to_id": "travis",
+          "type": "professional",
+          "label": "field director reporting to corporate superior",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "karen_ross",
+          "to_id": "peter_elliot",
+          "type": "alliance",
+          "label": "uneasy co-leaders of the expedition",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "peter_elliot",
+          "to_id": "amy",
+          "type": "professional",
+          "label": "researcher and subject; deep personal bond",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "karen_ross",
+          "to_id": "charles_munro",
+          "type": "professional",
+          "label": "client and hired guide",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "charles_munro",
+          "to_id": "hamir",
+          "type": "professional",
+          "label": "commander and loyal assistant",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "rossiter",
+          "to_id": "karen_ross",
+          "type": "antagonism",
+          "label": "rival field commander pursuing same goal",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "rossiter",
+          "to_id": "morikawa",
+          "type": "professional",
+          "label": "field agent of the consortium",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "grey_gorillas",
+          "to_id": "karen_ross",
+          "type": "antagonism",
+          "label": "lethal territorial threat at Zinj",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "grey_gorillas",
+          "to_id": "rossiter",
+          "type": "antagonism",
+          "label": "kill rival expedition members at Zinj",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "amy",
+          "to_id": "grey_gorillas",
+          "type": "alliance",
+          "label": "Amy eventually joins wild gorilla population; departs with them",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "peter_elliot",
+          "to_id": "jenny",
+          "type": "mentorship",
+          "label": "thesis supervisor and graduate assistant",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "charles_munro",
+          "to_id": "kahega",
+          "type": "professional",
+          "label": "expedition guide and head porter",
+          "spoiler_level": 1
+        }
+      ],
+      "coverage_note": "Minor porters, background ERTS analysts, and unnamed Congolese military figures appear in the novel but are omitted as their structural roles are peripheral. The grey gorillas are treated as a collective character node given their narrative function.",
+      "notes": "Character details drawn from the 1980 novel. The grey gorillas of Zinj function as a collective antagonist rather than individual named characters. Amy's arc — from laboratory subject to wild gorilla — forms the emotional spine of the story alongside the corporate race for the diamond deposits."
+    },
+    "chars": 13,
+    "factions": 5,
+    "rels": 12,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.044271,
+    "input_tokens": 77,
+    "output_tokens": 2936,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "The Devil's Star",
+      "year": 2003,
+      "author": "Jo Nesbø",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "The Devil's Star",
+      "subtitle": "Jo Nesbø, 2003 · Harry Hole #5",
+      "blurb": "Oslo detective Harry Hole, battling alcoholism and professional disgrace, is assigned to investigate a series of murders in which the victims—young women—each have a finger severed and a tiny red diamond in the shape of a five-pointed star left beneath an eyelid. The case forces Harry into an uneasy partnership with his nemesis, Tom Waaler, while a parallel investigation into police corruption converges with the killings.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "oslo_police",
+          "label": "Oslo Police / Crime Squad",
+          "description": "Detectives and officers of Oslo's Kripos and Crime Squad investigating the diamond murders and internal corruption.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "victims_and_families",
+          "label": "Victims & Families",
+          "description": "The murder victims and their close relatives drawn into the investigation.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "corrupt_network",
+          "label": "The Corrupt Network",
+          "description": "Officers and associates involved in the criminal conspiracy operating within the police force.",
+          "color_hint": "red"
+        },
+        {
+          "id": "civilian_associates",
+          "label": "Civilian Associates",
+          "description": "Journalists, medical professionals, and private citizens who intersect with the investigation.",
+          "color_hint": "green"
+        }
+      ],
+      "characters": [
+        {
+          "id": "harry_hole",
+          "name": "Harry Hole",
+          "role": "Detective Inspector, Crime Squad",
+          "description": "A brilliant but self-destructive detective whose alcoholism has pushed him to the margins of the force. Reluctantly assigned to the diamond murders, he uncovers a conspiracy reaching deep into the Oslo Police.",
+          "faction_id": "oslo_police",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "tom_waaler",
+          "name": "Tom Waaler",
+          "role": "Detective Inspector / Corrupt Officer",
+          "description": "Harry's charming, ambitious, and dangerous partner on the case. Secretly the mastermind of the criminal network within the police and ultimately revealed as the serial killer responsible for the diamond murders.",
+          "faction_id": "corrupt_network",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "beate_lonn",
+          "name": "Beate Lønn",
+          "role": "Crime Scene Technician / Facial Recognition Expert",
+          "description": "A shy, gifted forensic technician with a rare ability to memorise faces. She becomes a vital ally to Harry and helps break open the case.",
+          "faction_id": "oslo_police",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "bjarne_moller",
+          "name": "Bjarne Møller",
+          "role": "Inspector / Harry's Supervisor",
+          "description": "Harry's direct superior and one of his few genuine supporters within the department. Tries to manage the fallout from Harry's erratic behaviour while keeping him operational.",
+          "faction_id": "oslo_police",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "ellen_gjelten",
+          "name": "Ellen Gjelten",
+          "role": "Deceased Detective / Harry's Former Partner",
+          "description": "Harry's murdered former partner, killed in a previous novel. Her unsolved death—connected to Waaler's network—haunts Harry throughout this case and drives his determination to expose the corruption.",
+          "faction_id": "oslo_police",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "rakel_fauke",
+          "name": "Rakel Fauke",
+          "role": "Lawyer / Harry's Love Interest",
+          "description": "A lawyer with whom Harry has a complicated romantic relationship. Her presence represents the personal stakes Harry risks through his drinking and dangerous work.",
+          "faction_id": "civilian_associates",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "oleg_fauke",
+          "name": "Oleg Fauke",
+          "role": "Rakel's Son",
+          "description": "Rakel's young son, to whom Harry has formed a paternal attachment. His wellbeing is a key emotional motivation for Harry.",
+          "faction_id": "civilian_associates",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "camilla_loen",
+          "name": "Camilla Loen",
+          "role": "Murder Victim",
+          "description": "One of the young women murdered by the serial killer; her death, with a severed finger and a red diamond star beneath her eyelid, is a central case in the investigation.",
+          "faction_id": "victims_and_families",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "lisbeth_barli",
+          "name": "Lisbeth Barli",
+          "role": "Murder Victim",
+          "description": "Another victim in the series; her death helps Harry establish the killer's pattern and connection to the pentagram motif.",
+          "faction_id": "victims_and_families",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "barbara_svendsen",
+          "name": "Barbara Svendsen",
+          "role": "Murder Victim",
+          "description": "An early victim whose death sets the serial murder investigation in motion.",
+          "faction_id": "victims_and_families",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "anne_bethelsen",
+          "name": "Anne Størksen",
+          "role": "Murder Victim / Near-Victim",
+          "description": "A later victim in the sequence; the escalating killings around her case push Harry toward the final confrontation.",
+          "faction_id": "victims_and_families",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "ivarsson",
+          "name": "Ivarsson",
+          "role": "Senior Investigator / Rival",
+          "description": "A senior officer placed in charge of the diamond murder case, sidelining Harry. His bureaucratic rivalry with Harry creates friction that hampers the investigation.",
+          "faction_id": "oslo_police",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "magnus_skarre",
+          "name": "Magnus Skarre",
+          "role": "Detective Constable",
+          "description": "A junior detective on the investigative team who serves as a procedural presence in several inquiry scenes.",
+          "faction_id": "oslo_police",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "sigurd_altman",
+          "name": "Sigurd Altman",
+          "role": "Suspect / Waaler's Associate",
+          "description": "A figure connected to Waaler's criminal network who comes under scrutiny during the investigation, illustrating the breadth of corruption within the force.",
+          "faction_id": "corrupt_network",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "rune_ivarsson_journalist",
+          "name": "Gunnar Hagen",
+          "role": "Senior Police Administrator",
+          "description": "A police administrator whose position intersects with both the murder inquiry and the internal affairs questions raised by the corruption investigation.",
+          "faction_id": "oslo_police",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "harry_hole",
+          "to_id": "tom_waaler",
+          "type": "antagonism",
+          "label": "forced partners; Harry suspects Waaler of Ellen's murder",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "harry_hole",
+          "to_id": "ellen_gjelten",
+          "type": "professional",
+          "label": "former partner; her murder drives Harry's quest",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "harry_hole",
+          "to_id": "beate_lonn",
+          "type": "alliance",
+          "label": "investigative allies; mutual respect",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "harry_hole",
+          "to_id": "rakel_fauke",
+          "type": "romantic",
+          "label": "strained romantic relationship",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "harry_hole",
+          "to_id": "oleg_fauke",
+          "type": "family",
+          "label": "surrogate father figure",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "harry_hole",
+          "to_id": "bjarne_moller",
+          "type": "professional",
+          "label": "supervisor; reluctant protector of Harry",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "tom_waaler",
+          "to_id": "ellen_gjelten",
+          "type": "antagonism",
+          "label": "Waaler murdered Ellen to protect his network",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "tom_waaler",
+          "to_id": "sigurd_altman",
+          "type": "criminal",
+          "label": "associates in corrupt arms-and-crime network",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "harry_hole",
+          "to_id": "ivarsson",
+          "type": "antagonism",
+          "label": "professional rivalry; Ivarsson controls the official investigation",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "rakel_fauke",
+          "to_id": "oleg_fauke",
+          "type": "family",
+          "label": "mother and son",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "beate_lonn",
+          "to_id": "tom_waaler",
+          "type": "antagonism",
+          "label": "Beate's facial recognition ability helps expose Waaler",
+          "spoiler_level": 3
+        }
+      ],
+      "coverage_note": "Minor named victims and peripheral officers are omitted due to the 25-character cap. The network of Waaler's criminal associates is summarised through Sigurd Altman rather than enumerated individually. Some character name details (e.g. the Altman and Hagen roles) reflect best-effort reconstruction from the novel's dense ensemble and may contain minor name inaccuracies at the minor-character tier.",
+      "notes": "The Devil's Star is the fifth Harry Hole novel. The reveal of Tom Waaler as both the serial killer and Ellen Gjelten's murderer resolves a thread running since The Redbreast (#4). This map contains full spoilers including the climactic confrontation in which Harry kills Waaler."
+    },
+    "chars": 15,
+    "factions": 4,
+    "rels": 11,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.047334,
+    "input_tokens": 83,
+    "output_tokens": 3139,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "Dune",
+      "year": 1965,
+      "author": "Frank Herbert",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "Dune",
+      "subtitle": "Frank Herbert, 1965 · Dune Chronicles #1",
+      "blurb": "On the desert planet Arrakis — sole source of the universe's most precious substance, the spice melange — young Paul Atreides is thrust into a deadly struggle for power after his noble House is betrayed and destroyed. Fleeing into the deep desert, Paul finds a destiny among the Fremen people that will reshape the known universe. A sweeping saga of politics, religion, ecology, and messianic myth.",
+      "spoiler_mode": "full",
+      "setting_preamble": "The story takes place roughly 20,000 years in the future under the Padishah Emperor Shaddam IV. Human civilization is governed by a feudal interstellar order — the Imperium — in which noble Houses control planetary fiefs under Imperial oversight. The Spacing Guild monopolizes interstellar travel; the Bene Gesserit sisterhood operates a millennia-long genetic breeding program. Arrakis (Dune) is the only source of the spice melange, which enables prescience, extended life, and Guild navigation.",
+      "factions": [
+        {
+          "id": "house_atreides",
+          "label": "House Atreides",
+          "description": "A noble House of ancient lineage, admired for its honor and military prowess. Appointed by the Emperor to govern Arrakis, then destroyed in a coordinated trap.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "house_harkonnen",
+          "label": "House Harkonnen",
+          "description": "Brutal and cunning noble House, former rulers of Arrakis, and sworn enemies of House Atreides. Serve as primary antagonists and instruments of the Imperial betrayal.",
+          "color_hint": "red"
+        },
+        {
+          "id": "imperium",
+          "label": "The Imperium",
+          "description": "The ruling power structure: the Padishah Emperor, the Spacing Guild, and the Bene Gesserit sisterhood. Each pursues its own agenda around the spice and the possibility of a superbeing.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "fremen",
+          "label": "The Fremen",
+          "description": "The indigenous desert people of Arrakis. Hardened survivors who have secretly been shaped by Bene Gesserit legend-seeding, they harbor a prophecy of a messianic leader who will lead them to transform Arrakis.",
+          "color_hint": "green"
+        },
+        {
+          "id": "atreides_household",
+          "label": "Atreides Household & Retainers",
+          "description": "Advisors, soldiers, and servants bound to House Atreides — some loyal to the end, at least one a hidden traitor.",
+          "color_hint": "slate"
+        }
+      ],
+      "characters": [
+        {
+          "id": "paul_atreides",
+          "name": "Paul Atreides",
+          "role": "Heir of House Atreides; Fremen messianic figure (Muad'Dib)",
+          "description": "Fifteen-year-old son of Duke Leto and the Bene Gesserit Lady Jessica, trained in combat and the Bene Gesserit arts. After the fall of his House he takes the name Muad'Dib among the Fremen and awakens as the Kwisatz Haderach, a prescient superbeing the Bene Gesserit have bred toward for generations. By the novel's end he defeats Emperor Shaddam and claims the throne.",
+          "faction_id": "house_atreides",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "lady_jessica",
+          "name": "Lady Jessica",
+          "role": "Bene Gesserit concubine; mother of Paul",
+          "description": "Duke Leto's bound concubine and a highly trained Bene Gesserit. She defied her sisterhood's orders by bearing Leto a son instead of a daughter, setting in motion the events that produce the Kwisatz Haderach a generation early. She survives and is recognized by the Fremen as a Reverend Mother after undergoing the Water of Life ritual.",
+          "faction_id": "house_atreides",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "duke_leto",
+          "name": "Duke Leto Atreides",
+          "role": "Duke of House Atreides; ruler of Arrakis",
+          "description": "Honorable and politically astute ruler who accepts the dangerous Imperial fief of Arrakis. Betrayed by a member of his own household, he is captured by the Harkonnens and dies attempting to assassinate Baron Harkonnen with a poison-gas tooth.",
+          "faction_id": "house_atreides",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "baron_vladimir_harkonnen",
+          "name": "Baron Vladimir Harkonnen",
+          "role": "Head of House Harkonnen; chief antagonist",
+          "description": "Enormously corpulent and sadistically cunning, the Baron orchestrates the destruction of House Atreides in collusion with the Emperor. He is eventually killed by the young Alia Atreides, who poisons him with a gom jabbar during the climactic battle.",
+          "faction_id": "house_harkonnen",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "feyd_rautha",
+          "name": "Feyd-Rautha Harkonnen",
+          "role": "Harkonnen heir; arena gladiator",
+          "description": "The Baron's favored nephew, groomed as a potential Kwisatz Haderach candidate by the Bene Gesserit. Skilled and charismatic, he serves as Paul's final antagonist and is killed by Paul in single combat at the climax.",
+          "faction_id": "house_harkonnen",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "glossu_rabban",
+          "name": "Glossu 'Beast' Rabban",
+          "role": "Harkonnen military commander; governor of Arrakis",
+          "description": "The Baron's brutish older nephew, installed as the cruel governor of Arrakis to oppress the Fremen and make the Baron's later, 'kinder' replacement by Feyd seem welcome. Killed during the Fremen uprising.",
+          "faction_id": "house_harkonnen",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "stilgar",
+          "name": "Stilgar",
+          "role": "Fremen naib (tribal leader) of Sietch Tabr",
+          "description": "Commanding and pragmatic leader of the Fremen sietch that shelters Paul and Jessica. He becomes one of Paul's most loyal lieutenants and acknowledges Paul's leadership while still holding to his own judgment.",
+          "faction_id": "fremen",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "chani",
+          "name": "Chani",
+          "role": "Fremen fighter; Paul's bond-mate",
+          "description": "Daughter of the Fremen-adopted ecologist Liet-Kynes and a fierce desert warrior. She appears in Paul's prescient visions before he meets her, and becomes his beloved companion and partner among the Fremen.",
+          "faction_id": "fremen",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "alia_atreides",
+          "name": "Alia Atreides",
+          "role": "Pre-born Bene Gesserit; Paul's sister",
+          "description": "Born after Jessica underwent the Fremen Reverend Mother ritual while pregnant, Alia is a 'pre-born' — conscious in the womb and carrying all ancestral memories. She emerges as a child with adult awareness and kills Baron Harkonnen at the novel's climax.",
+          "faction_id": "fremen",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "gurney_halleck",
+          "name": "Gurney Halleck",
+          "role": "Atreides weaponsmaster and troubadour",
+          "description": "Veteran soldier and baliset-playing balladeer, fiercely devoted to House Atreides. He survives the Harkonnen attack, eventually joins spice smugglers, and is reunited with Paul near the novel's end.",
+          "faction_id": "atreides_household",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "duncan_idaho",
+          "name": "Duncan Idaho",
+          "role": "Atreides swordmaster",
+          "description": "Exceptionally skilled fighter and loyal friend to Paul, sent ahead to make contact with the Fremen. He dies heroically holding off Harkonnen and Sardaukar forces to allow Paul and Jessica to escape.",
+          "faction_id": "atreides_household",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "thufir_hawat",
+          "name": "Thufir Hawat",
+          "role": "Atreides Mentat; Master of Assassins",
+          "description": "Ancient and brilliant human computer (Mentat) in service to House Atreides. Captured by the Harkonnens after the fall, he is forced to serve the Baron while secretly working to protect what remains of Atreides interests. Dies in the climax, having been poisoned by the Baron's fail-safe.",
+          "faction_id": "atreides_household",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "piter_de_vries",
+          "name": "Piter De Vries",
+          "role": "Harkonnen Mentat; Twisted Mentat",
+          "description": "A 'twisted' (sadistic) Mentat in service to the Baron, instrumental in planning the destruction of House Atreides. He is killed by Duke Leto's poison gas along with Leto himself.",
+          "faction_id": "house_harkonnen",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "dr_yueh",
+          "name": "Wellington Yueh",
+          "role": "Atreides physician; Imperial Conditioner",
+          "description": "House Atreides' doctor, bearer of an Imperial Conditioning that was believed to make betrayal impossible. The Harkonnens broke his conditioning by holding his wife captive, making him the traitor who enables their coup. He secretly gives Duke Leto a means to attempt assassination of the Baron before dying at the Baron's hand.",
+          "faction_id": "atreides_household",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "liet_kynes",
+          "name": "Liet-Kynes",
+          "role": "Imperial Planetologist; secret Fremen leader",
+          "description": "The Emperor's official ecologist on Arrakis who is also, secretly, the Fremen's spiritual and ecological leader ('Liet'), carrying on his father Pardot Kynes's dream of terraforming Arrakis. Captured and abandoned by the Harkonnens, he dies in the desert when spice-blow gases ignite.",
+          "faction_id": "fremen",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "shaddam_iv",
+          "name": "Padishah Emperor Shaddam IV",
+          "role": "Emperor of the Known Universe",
+          "description": "The reigning Padishah Emperor who covertly aided the Harkonnens in destroying House Atreides, fearing the growing power of Duke Leto. Arrives on Arrakis with his Sardaukar legions for the final confrontation and is ultimately forced to yield his throne to Paul.",
+          "faction_id": "imperium",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "reverend_mother_gaius_mohiam",
+          "name": "Reverend Mother Gaius Helen Mohiam",
+          "role": "Bene Gesserit Truthsayer; Imperial advisor",
+          "description": "The Emperor's Truthsayer and a senior Bene Gesserit who tests Paul with the gom jabbar at the novel's opening, confirming his extraordinary potential. She is secretly Jessica's own mother, making her Paul's maternal grandmother.",
+          "faction_id": "imperium",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "irulan",
+          "name": "Princess Irulan",
+          "role": "Emperor's eldest daughter; chronicler",
+          "description": "Shaddam IV's eldest daughter, whose chapter-opening epigraphs frame the novel as her historical writings about Muad'Dib. At the novel's end Paul demands she become his political wife to legitimize his claim to the throne, though Chani remains his true partner.",
+          "faction_id": "imperium",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "jamis",
+          "name": "Jamis",
+          "role": "Fremen warrior",
+          "description": "A Fremen of Sietch Tabr who challenges Paul to ritual combat (tahaddi challenge) upon their first meeting, doubting Paul's worth. Paul kills him, which binds Paul more deeply into Fremen society through the custom of caring for Jamis's widow and children.",
+          "faction_id": "fremen",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "harah",
+          "name": "Harah",
+          "role": "Fremen woman; Jamis's widow",
+          "description": "Wife of Jamis who, per Fremen custom, becomes Paul's bonded dependent after he kills her husband in ritual combat. She accepts the arrangement with pragmatic grace and becomes part of Paul's growing Fremen household.",
+          "faction_id": "fremen",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "otheym",
+          "name": "Otheym",
+          "role": "Fremen fedaykin lieutenant",
+          "description": "One of Paul's trusted Fremen death-commando (fedaykin) fighters, present through the desert campaigns leading to the final battle.",
+          "faction_id": "fremen",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "count_fenring",
+          "name": "Count Hasimir Fenring",
+          "role": "Imperial agent; Emperor's closest friend",
+          "description": "The Emperor's deadly personal agent and close confidant, himself a near-miss Kwisatz Haderach rendered a eunuch by Bene Gesserit breeding decisions. He accompanies the Emperor to Arrakis and, notably, refuses to fight Paul when challenged — recognizing something of a kindred nature.",
+          "faction_id": "imperium",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "paul_atreides",
+          "to_id": "lady_jessica",
+          "type": "family",
+          "label": "son and mother",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "duke_leto",
+          "type": "family",
+          "label": "son and father",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "duke_leto",
+          "to_id": "lady_jessica",
+          "type": "romantic",
+          "label": "bound concubine; devoted but unmarried partners",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "chani",
+          "type": "romantic",
+          "label": "bond-mate; appears in Paul's visions before they meet",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "stilgar",
+          "type": "alliance",
+          "label": "Fremen naib who shelters, then follows Paul as Muad'Dib",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "gurney_halleck",
+          "type": "mentorship",
+          "label": "weaponsmaster and ward; reunited after the fall",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "duncan_idaho",
+          "type": "alliance",
+          "label": "loyal swordmaster who dies protecting Paul",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "baron_vladimir_harkonnen",
+          "type": "antagonism",
+          "label": "orchestrated the destruction of Paul's House",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "feyd_rautha",
+          "type": "antagonism",
+          "label": "killed in single combat by Paul at the climax",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "reverend_mother_gaius_mohiam",
+          "type": "antagonism",
+          "label": "tested with gom jabbar; she later becomes his prisoner",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "shaddam_iv",
+          "type": "antagonism",
+          "label": "Paul deposes the Emperor and claims the throne",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "irulan",
+          "type": "romantic",
+          "label": "political wife; union of convenience to legitimize Paul's rule",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "paul_atreides",
+          "to_id": "alia_atreides",
+          "type": "family",
+          "label": "older brother; she is born during the novel's events",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "lady_jessica",
+          "to_id": "reverend_mother_gaius_mohiam",
+          "type": "family",
+          "label": "Jessica is secretly Mohiam's daughter",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "lady_jessica",
+          "to_id": "alia_atreides",
+          "type": "family",
+          "label": "mother; the Water of Life ritual makes Alia pre-born",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "baron_vladimir_harkonnen",
+          "to_id": "feyd_rautha",
+          "type": "family",
+          "label": "uncle grooming nephew as heir",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "baron_vladimir_harkonnen",
+          "to_id": "glossu_rabban",
+          "type": "family",
+          "label": "uncle deliberately using brutish nephew as cruel governor",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "baron_vladimir_harkonnen",
+          "to_id": "shaddam_iv",
+          "type": "alliance",
+          "label": "co-conspirators in the destruction of House Atreides",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "baron_vladimir_harkonnen",
+          "to_id": "dr_yueh",
+          "type": "criminal",
+          "label": "blackmailed Yueh into betraying the Atreides",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "alia_atreides",
+          "to_id": "baron_vladimir_harkonnen",
+          "type": "antagonism",
+          "label": "kills the Baron with a gom jabbar at the climax",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "chani",
+          "to_id": "liet_kynes",
+          "type": "family",
+          "label": "daughter of the secret Fremen leader Liet",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "thufir_hawat",
+          "to_id": "duke_leto",
+          "type": "professional",
+          "label": "loyal Mentat in service to Atreides",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "thufir_hawat",
+          "to_id": "baron_vladimir_harkonnen",
+          "type": "professional",
+          "label": "forced servitude after capture; covertly resists",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "shaddam_iv",
+          "to_id": "count_fenring",
+          "type": "alliance",
+          "label": "Emperor's closest confidant and personal agent",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "dr_yueh",
+          "to_id": "duke_leto",
+          "type": "professional",
+          "label": "trusted physician and traitor whose defection enables the Harkonnen coup",
+          "spoiler_level": 2
+        }
+      ],
+      "coverage_note": "Minor Fremen fighters, smuggler crew members, and Spacing Guild representatives are present in the novel but omitted here due to the 25-character cap and limited structural certainty. Pardot Kynes (Liet's father, significant only in backstory) is omitted as he does not appear in the main narrative.",
+      "notes": "Map covers the complete 1965 novel Dune (Part One through the Appendices), including all major plot resolutions. The chapter-epigraph framing device — Irulan's retrospective histories — is reflected in her spoiler_level assignment. Subsequent Dune Chronicles novels are not represented."
+    },
+    "chars": 22,
+    "factions": 5,
+    "rels": 25,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.092319,
+    "input_tokens": 78,
+    "output_tokens": 6139,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "Pride and Prejudice",
+      "year": 1813,
+      "author": "Jane Austen",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "Pride and Prejudice",
+      "subtitle": "Jane Austen, 1813",
+      "blurb": "The Bennet family of Hertfordshire faces the pressing matter of securing advantageous marriages for five daughters. The novel follows Elizabeth Bennet as she navigates social convention, family embarrassment, and her evolving feelings for the proud and wealthy Mr. Darcy. Misunderstandings, meddling, and matters of honour must all be resolved before love can prevail.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "bennet_family",
+          "label": "The Bennet Family",
+          "description": "A genteel but financially precarious family from Longbourn, Hertfordshire, whose estate is entailed away from the female line.",
+          "color_hint": "green"
+        },
+        {
+          "id": "bingley_darcy_circle",
+          "label": "Bingley–Darcy Circle",
+          "description": "Wealthy, fashionable acquaintances who arrive in the neighbourhood and become entangled with the Bennets.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "collins_de_bourgh_circle",
+          "label": "Collins–de Bourgh Circle",
+          "description": "Figures connected to the clergy and the aristocratic patronage of Lady Catherine de Bourgh at Rosings Park.",
+          "color_hint": "violet"
+        },
+        {
+          "id": "militia_and_associates",
+          "label": "Militia & Associates",
+          "description": "Officers of the militia regiment quartered near Meryton, and those connected to their world.",
+          "color_hint": "red"
+        },
+        {
+          "id": "gardiner_circle",
+          "label": "The Gardiners",
+          "description": "Elizabeth's sensible maternal uncle and aunt, who provide counsel and practical assistance throughout the novel.",
+          "color_hint": "amber"
+        }
+      ],
+      "characters": [
+        {
+          "id": "elizabeth_bennet",
+          "name": "Elizabeth Bennet",
+          "role": "Second Bennet daughter; protagonist",
+          "description": "Witty, perceptive, and independent-minded, Elizabeth is the novel's moral and intellectual centre. Her initial prejudice against Darcy gradually yields to genuine love after she recognises her own misjudgements.",
+          "faction_id": "bennet_family",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "fitzwilliam_darcy",
+          "name": "Mr. Fitzwilliam Darcy",
+          "role": "Wealthy gentleman of Pemberley; hero",
+          "description": "Proud and reserved on first acquaintance, Darcy conceals genuine integrity beneath a haughty exterior. He ultimately overcomes his class prejudice and wins Elizabeth's hand after a humbled second proposal.",
+          "faction_id": "bingley_darcy_circle",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "jane_bennet",
+          "name": "Jane Bennet",
+          "role": "Eldest Bennet daughter",
+          "description": "The most beautiful and even-tempered of the sisters, Jane falls in love with Mr. Bingley but is briefly separated from him by outside interference before they are happily reunited.",
+          "faction_id": "bennet_family",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "charles_bingley",
+          "name": "Mr. Charles Bingley",
+          "role": "Wealthy, amiable gentleman; Darcy's friend",
+          "description": "Good-natured and eager to please, Bingley is quickly drawn to Jane Bennet. Temporarily discouraged from the match by Darcy and his sisters, he returns to Jane and proposes successfully.",
+          "faction_id": "bingley_darcy_circle",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "mr_bennet",
+          "name": "Mr. Bennet",
+          "role": "Father; head of Longbourn estate",
+          "description": "A sardonic, bookish man who retreats into irony to cope with an ill-suited marriage. His indulgence of Lydia contributes materially to the family's crisis.",
+          "faction_id": "bennet_family",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "mrs_bennet",
+          "name": "Mrs. Bennet",
+          "role": "Mother; matchmaker",
+          "description": "Nervy and single-mindedly focused on marrying off her daughters, Mrs. Bennet is a source of comic embarrassment throughout the novel, though her anxiety about the entail is not wholly irrational.",
+          "faction_id": "bennet_family",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "lydia_bennet",
+          "name": "Lydia Bennet",
+          "role": "Youngest Bennet daughter",
+          "description": "Flirtatious and heedless, Lydia elopes with Wickham, threatening the entire family's respectability. The scandal is only resolved through Darcy's secret financial intervention.",
+          "faction_id": "bennet_family",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "george_wickham",
+          "name": "Mr. George Wickham",
+          "role": "Militia officer; antagonist",
+          "description": "Charming and plausible on the surface, Wickham is revealed to be dishonest and mercenary. He had previously attempted to elope with Darcy's young sister for her fortune, and his elopement with Lydia is only legitimised by a bribe arranged by Darcy.",
+          "faction_id": "militia_and_associates",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "mr_collins",
+          "name": "Mr. William Collins",
+          "role": "Clergyman; heir to Longbourn",
+          "description": "A pompous, obsequious clergyman who is next in line to inherit Longbourn. After being refused by Elizabeth, he promptly proposes to Charlotte Lucas and is accepted.",
+          "faction_id": "collins_de_bourgh_circle",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "charlotte_lucas",
+          "name": "Charlotte Lucas",
+          "role": "Elizabeth's closest friend",
+          "description": "A pragmatic young woman who accepts Collins's proposal as a sensible if unromantic solution to her situation, providing Austen with a foil to Elizabeth's idealism.",
+          "faction_id": "collins_de_bourgh_circle",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "lady_catherine_de_bourgh",
+          "name": "Lady Catherine de Bourgh",
+          "role": "Aristocratic patron; Darcy's aunt",
+          "description": "Imperious and accustomed to deference, Lady Catherine attempts to bully Elizabeth into renouncing Darcy, but her interference backfires and inadvertently encourages Darcy to renew his suit.",
+          "faction_id": "collins_de_bourgh_circle",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "caroline_bingley",
+          "name": "Miss Caroline Bingley",
+          "role": "Bingley's sister; social rival",
+          "description": "Haughty and calculating, Caroline cultivates Darcy for herself while working to keep him and Bingley from the Bennet sisters. Her scheming ultimately fails.",
+          "faction_id": "bingley_darcy_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "colonel_fitzwilliam",
+          "name": "Colonel Fitzwilliam",
+          "role": "Darcy's cousin; militia officer",
+          "description": "Affable and candid, he visits Rosings alongside Darcy and unwittingly reveals to Elizabeth that Darcy separated Bingley from Jane, deepening her resentment.",
+          "faction_id": "bingley_darcy_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "georgiana_darcy",
+          "name": "Miss Georgiana Darcy",
+          "role": "Darcy's younger sister",
+          "description": "Shy and accomplished, Georgiana's near-elopement with Wickham in her youth is a closely guarded secret that illuminates Wickham's true character when revealed.",
+          "faction_id": "bingley_darcy_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "mr_gardiner",
+          "name": "Mr. Edward Gardiner",
+          "role": "Mrs. Bennet's brother; London merchant",
+          "description": "Intelligent and gentlemanly, he accompanies Elizabeth on her tour to Derbyshire where they encounter Darcy at Pemberley, and he plays a key role in the negotiations surrounding Lydia's elopement.",
+          "faction_id": "gardiner_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "mrs_gardiner",
+          "name": "Mrs. Gardiner",
+          "role": "Elizabeth's aunt; sensible confidante",
+          "description": "Warm and perceptive, she cautions Elizabeth about Wickham's attentions early on and later conveys to her the full extent of Darcy's secret generosity in the Lydia affair.",
+          "faction_id": "gardiner_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "mary_bennet",
+          "name": "Mary Bennet",
+          "role": "Third Bennet daughter",
+          "description": "Bookish and moralistic but lacking genuine insight, Mary serves chiefly as a comic figure given to pedantic observations.",
+          "faction_id": "bennet_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "kitty_bennet",
+          "name": "Kitty Bennet",
+          "role": "Fourth Bennet daughter",
+          "description": "Easily led and much in Lydia's shadow, Kitty follows her younger sister's lead but is later steered toward better society after Lydia's departure.",
+          "faction_id": "bennet_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "sir_william_lucas",
+          "name": "Sir William Lucas",
+          "role": "Neighbour; Charlotte's father",
+          "description": "A good-humoured former mayor, knighted and mildly self-important, who serves as a pleasant neighbour and occasional social catalyst.",
+          "faction_id": "militia_and_associates",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "mrs_hurst",
+          "name": "Mrs. Louisa Hurst",
+          "role": "Bingley's married sister",
+          "description": "Caroline Bingley's ally in social snobbery, she follows her sister's lead in disparaging the Bennets.",
+          "faction_id": "bingley_darcy_circle",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "elizabeth_bennet",
+          "to_id": "fitzwilliam_darcy",
+          "type": "romantic",
+          "label": "mutual antagonism resolved into marriage",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "jane_bennet",
+          "to_id": "charles_bingley",
+          "type": "romantic",
+          "label": "love match; briefly separated, ultimately married",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "elizabeth_bennet",
+          "to_id": "jane_bennet",
+          "type": "family",
+          "label": "sisters; closest confidantes",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "elizabeth_bennet",
+          "to_id": "mr_bennet",
+          "type": "family",
+          "label": "favourite daughter",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "fitzwilliam_darcy",
+          "to_id": "charles_bingley",
+          "type": "alliance",
+          "label": "close friends; Darcy temporarily steers Bingley away from Jane",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "elizabeth_bennet",
+          "to_id": "george_wickham",
+          "type": "antagonism",
+          "label": "initially charmed; later recognises his dishonesty",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "fitzwilliam_darcy",
+          "to_id": "george_wickham",
+          "type": "antagonism",
+          "label": "longstanding enmity; Wickham spread lies about him",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "george_wickham",
+          "to_id": "lydia_bennet",
+          "type": "romantic",
+          "label": "elopement; marriage secured by Darcy's bribe",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "george_wickham",
+          "to_id": "georgiana_darcy",
+          "type": "antagonism",
+          "label": "attempted to elope with her for her fortune",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "mr_collins",
+          "to_id": "elizabeth_bennet",
+          "type": "romantic",
+          "label": "proposal refused",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "mr_collins",
+          "to_id": "charlotte_lucas",
+          "type": "romantic",
+          "label": "married; pragmatic arrangement",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "mr_collins",
+          "to_id": "lady_catherine_de_bourgh",
+          "type": "professional",
+          "label": "obsequious clergyman to patron",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "lady_catherine_de_bourgh",
+          "to_id": "fitzwilliam_darcy",
+          "type": "family",
+          "label": "aunt and nephew",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "lady_catherine_de_bourgh",
+          "to_id": "elizabeth_bennet",
+          "type": "antagonism",
+          "label": "attempts to intimidate her into rejecting Darcy",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "caroline_bingley",
+          "to_id": "fitzwilliam_darcy",
+          "type": "romantic",
+          "label": "one-sided pursuit; unrequited",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "caroline_bingley",
+          "to_id": "jane_bennet",
+          "type": "antagonism",
+          "label": "discourages Bingley's attachment to Jane",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "elizabeth_bennet",
+          "to_id": "charlotte_lucas",
+          "type": "alliance",
+          "label": "close friends; disagreement over Collins match",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "mrs_gardiner",
+          "to_id": "elizabeth_bennet",
+          "type": "mentorship",
+          "label": "wise aunt and confidante",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "fitzwilliam_darcy",
+          "to_id": "georgiana_darcy",
+          "type": "family",
+          "label": "protective older brother",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "colonel_fitzwilliam",
+          "to_id": "fitzwilliam_darcy",
+          "type": "family",
+          "label": "cousins; joint guardians of Georgiana",
+          "spoiler_level": 1
+        }
+      ],
+      "coverage_note": "Minor figures such as Mr. Hurst, Maria Lucas, and the Phillips family appear in the novel but are omitted here as they carry negligible narrative weight. Sir William Lucas is assigned to the militia/associates faction for convenience as a Meryton neighbour.",
+      "notes": "Character map covers the complete novel including all resolutions. Spoiler levels reflect the staged revelation of Wickham's true character, Darcy's secret interventions, and the final marriages. Faction groupings follow social and institutional lines as Austen constructs them."
+    },
+    "chars": 20,
+    "factions": 5,
+    "rels": 20,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.071427,
+    "input_tokens": 84,
+    "output_tokens": 4745,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "Murder on the Orient Express",
+      "year": 1934,
+      "author": "Agatha Christie",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "Murder on the Orient Express",
+      "subtitle": "Agatha Christie, 1934 · Hercule Poirot #10",
+      "blurb": "Celebrated Belgian detective Hercule Poirot is stranded aboard the Orient Express when a fellow passenger, the odious Samuel Ratchett, is found stabbed to death in his locked compartment. With thirteen suspects and a snowdrift holding the train in place, Poirot must untangle a web of false identities and coordinated deception to reveal a truth more extraordinary than any single culprit.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "investigators",
+          "label": "The Investigators",
+          "description": "Hercule Poirot and the railway officials who assist in conducting the inquiry.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "armstrong_conspirators",
+          "label": "The Armstrong Circle",
+          "description": "The twelve passengers — each connected to the Armstrong family tragedy — who collectively planned and executed the murder of Cassetti.",
+          "color_hint": "red"
+        },
+        {
+          "id": "railway",
+          "label": "Compagnie Internationale des Wagons-Lits",
+          "description": "Staff and officials of the Orient Express railway company.",
+          "color_hint": "slate"
+        }
+      ],
+      "characters": [
+        {
+          "id": "hercule_poirot",
+          "name": "Hercule Poirot",
+          "role": "Private Detective",
+          "description": "Fastidious Belgian detective famous for his 'little grey cells.' Summoned back to England, he boards the Orient Express and is drawn into the investigation when Ratchett is killed.",
+          "faction_id": "investigators",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "samuel_ratchett",
+          "name": "Samuel Ratchett (Cassetti)",
+          "role": "Victim / American Gangster",
+          "description": "A coarse, wealthy American who attempts to hire Poirot as a bodyguard. Revealed after his murder to be Cassetti, the kidnapper and murderer of little Daisy Armstrong.",
+          "faction_id": null,
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "monsieur_bouc",
+          "name": "Monsieur Bouc",
+          "role": "Director, Wagons-Lits",
+          "description": "An old friend of Poirot's and a director of the railway company. He facilitates the investigation and ultimately endorses Poirot's alternative explanation to the authorities.",
+          "faction_id": "investigators",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "dr_constantine",
+          "name": "Dr. Constantine",
+          "role": "Greek Physician / Co-investigator",
+          "description": "A Greek doctor travelling on the train who assists Poirot with the medical examination of the body and the forensic aspects of the case.",
+          "faction_id": "investigators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "princess_dragomiroff",
+          "name": "Princess Natalia Dragomiroff",
+          "role": "Russian Aristocrat",
+          "description": "An imperious elderly Russian noblewoman and godmother of Sonia Armstrong. One of the conspirators, she provided the crucial handkerchief clue and organised her maid Hildegarde Schmidt's participation.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "colonel_arbuthnot",
+          "name": "Colonel Arbuthnot",
+          "role": "British Indian Army Officer",
+          "description": "A stiff, upright British colonel and close friend of Colonel Armstrong. Part of the conspiracy, he is romantically attached to Mary Debenham.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "mary_debenham",
+          "name": "Mary Debenham",
+          "role": "English Governess",
+          "description": "A cool, composed English governess who was the nursery governess in the Armstrong household at the time of the kidnapping. Her composure under questioning makes her an early suspect.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "countess_andrenyi",
+          "name": "Countess Helena Andrenyi",
+          "role": "Hungarian Countess",
+          "description": "A beautiful Hungarian noblewoman travelling with her husband. Revealed to be Helena Goldenberg, Sonia Armstrong's younger sister, whose identity was concealed to protect her from suspicion.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "count_andrenyi",
+          "name": "Count Rudolph Andrenyi",
+          "role": "Hungarian Diplomat",
+          "description": "Helena's devoted husband who altered her passport to conceal her identity and shield her from involvement — though he was not himself part of the conspiracy.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "hector_macqueen",
+          "name": "Hector MacQueen",
+          "role": "Ratchett's Secretary",
+          "description": "Ratchett's young American secretary, whose father was the District Attorney ruined by the Cassetti case. One of the conspirators.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "edward_masterman",
+          "name": "Edward Masterman",
+          "role": "Ratchett's Valet",
+          "description": "Ratchett's English manservant, who was Colonel Armstrong's batman (orderly) during the war. A calm, disciplined participant in the conspiracy.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "mrs_hubbard",
+          "name": "Mrs. Caroline Hubbard (Linda Arden)",
+          "role": "Garrulous American Matron / Actress",
+          "description": "An apparently talkative and fussy American widow who is in fact the celebrated actress Linda Arden — Sonia Armstrong's mother and the ringleader of the entire conspiracy.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "hildegarde_schmidt",
+          "name": "Hildegarde Schmidt",
+          "role": "Princess Dragomiroff's Maid",
+          "description": "The Princess's German lady's maid, who was formerly cook in the Armstrong household. She impersonated a Wagons-Lits conductor as part of the conspiracy.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "antonio_foscarelli",
+          "name": "Antonio Foscarelli",
+          "role": "Italian-American Car Salesman",
+          "description": "A large, jovial Italian-American who was the Armstrong family's chauffeur. One of the twelve conspirators.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "cyrus_hardman",
+          "name": "Cyrus Hardman",
+          "role": "American Detective (Undercover)",
+          "description": "Poses as a flamboyant American traveller but is actually a private detective hired to protect Ratchett. Was in love with the Armstrong nursemaid Susanne who died after the kidnapping ordeal.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "greta_ohlsson",
+          "name": "Greta Ohlsson",
+          "role": "Swedish Missionary",
+          "description": "A pious Swedish missionary who was Daisy Armstrong's nurse. Her quiet religious demeanour conceals her role as one of the twelve stabbers.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "pierre_michel",
+          "name": "Pierre Michel",
+          "role": "Wagons-Lits Conductor",
+          "description": "The French conductor of the Istanbul–Calais coach. His daughter was the Armstrong nursemaid Susanne who died after her wrongful arrest, making him a conspirator despite his official role.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "colonel_armstrong",
+          "name": "Colonel John Armstrong",
+          "role": "Deceased Father / Catalyst",
+          "description": "Sonia Armstrong's husband and Daisy's father. Took his own life after his wife and unborn child died in the aftermath of the kidnapping. His tragedy motivates the entire conspiracy; he does not appear in the narrative.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "sonia_armstrong",
+          "name": "Sonia Armstrong",
+          "role": "Deceased Mother / Catalyst",
+          "description": "Daughter of Linda Arden and mother of Daisy. Died prematurely after the shock of her daughter's murder; her death, along with her husband's suicide, underpins the conspirators' motive.",
+          "faction_id": "armstrong_conspirators",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "hercule_poirot",
+          "to_id": "monsieur_bouc",
+          "type": "professional",
+          "label": "old friend and railway contact",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "hercule_poirot",
+          "to_id": "dr_constantine",
+          "type": "professional",
+          "label": "co-investigator",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "hercule_poirot",
+          "to_id": "samuel_ratchett",
+          "type": "antagonism",
+          "label": "refused to protect; then investigates his murder",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "hector_macqueen",
+          "to_id": "samuel_ratchett",
+          "type": "professional",
+          "label": "secretary (concealing hatred)",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "edward_masterman",
+          "to_id": "samuel_ratchett",
+          "type": "professional",
+          "label": "valet (concealing hatred)",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "mrs_hubbard",
+          "to_id": "sonia_armstrong",
+          "type": "family",
+          "label": "mother (Linda Arden)",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "countess_andrenyi",
+          "to_id": "sonia_armstrong",
+          "type": "family",
+          "label": "younger sister (Helena Goldenberg)",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "count_andrenyi",
+          "to_id": "countess_andrenyi",
+          "type": "romantic",
+          "label": "devoted husband; altered her passport to protect her",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "princess_dragomiroff",
+          "to_id": "sonia_armstrong",
+          "type": "family",
+          "label": "godmother",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "pierre_michel",
+          "to_id": "sonia_armstrong",
+          "type": "family",
+          "label": "father of Susanne (Armstrong nursemaid)",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "cyrus_hardman",
+          "to_id": "pierre_michel",
+          "type": "alliance",
+          "label": "fellow conspirators; both connected to Susanne",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "colonel_arbuthnot",
+          "to_id": "colonel_armstrong",
+          "type": "alliance",
+          "label": "close friend and fellow officer",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "colonel_arbuthnot",
+          "to_id": "mary_debenham",
+          "type": "romantic",
+          "label": "romantic attachment",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "mrs_hubbard",
+          "to_id": "armstrong_conspirators",
+          "type": "alliance",
+          "label": "ringleader of the conspiracy",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "samuel_ratchett",
+          "to_id": "colonel_armstrong",
+          "type": "antagonism",
+          "label": "Cassetti kidnapped and murdered Daisy Armstrong, destroying the family",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "edward_masterman",
+          "to_id": "colonel_armstrong",
+          "type": "professional",
+          "label": "former batman (military orderly)",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "hildegarde_schmidt",
+          "to_id": "princess_dragomiroff",
+          "type": "professional",
+          "label": "lady's maid",
+          "spoiler_level": 0
+        }
+      ],
+      "coverage_note": "Colonel Armstrong and Sonia Armstrong are included as deceased catalysts given their structural centrality, though they never appear in the narrative. Minor on-platform characters and background railway staff are omitted. The 'armstrong_conspirators' faction_id is used for the count who was not a stabber but aided the conspiracy by concealing his wife's identity.",
+      "notes": "Full-spoiler map. The resolution reveals that all twelve passengers connected to the Armstrong household each stabbed Ratchett once, so that no single person bears sole guilt — a verdict Poirot presents alongside a fictional alternative for the authorities. Character count: 19 of a possible ~22 named figures; minor speaking characters omitted under the 25-character cap."
+    },
+    "chars": 19,
+    "factions": 3,
+    "rels": 17,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.062292,
+    "input_tokens": 84,
+    "output_tokens": 4136,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "And Then There Were None",
+      "year": 1939,
+      "author": "Agatha Christie",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "And Then There Were None",
+      "subtitle": "Agatha Christie, 1939",
+      "blurb": "Ten strangers are lured to a remote island mansion off the Devon coast, each guilty of a past death they escaped justice for. One by one they are killed in accordance with an old nursery rhyme, 'Ten Little Soldiers,' until none remain. The identity of the killer is revealed only in a posthumous confession.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "guests",
+          "label": "The Ten Guests",
+          "description": "Ten individuals summoned to Soldier Island under various pretexts, each secretly harbouring guilt over a past death.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "absent",
+          "label": "Absent & Referenced",
+          "description": "Characters who exist primarily as victims of the guests' past crimes or as framing devices, never present on the island.",
+          "color_hint": "slate"
+        }
+      ],
+      "characters": [
+        {
+          "id": "justice_wargrave",
+          "name": "Justice Lawrence John Wargrave",
+          "role": "Retired Judge / Mastermind Killer",
+          "description": "A recently retired judge with a lifelong fascination with death and a strong sense of perverse justice. Revealed in a posthumous confession to be the architect of the entire scheme; he faked his own death mid-way and killed all ten guests, including himself last.",
+          "faction_id": "guests",
+          "importance": "protagonist",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "vera_claythorne",
+          "name": "Vera Claythorne",
+          "role": "Former Governess / Secretary",
+          "description": "Hired as a secretary and the last survivor before her own death. She allowed her young charge Cyril Hamilton to drown so his uncle Hugo would inherit and marry her. Driven to psychological breakdown by guilt and Wargrave's manipulation, she hangs herself.",
+          "faction_id": "guests",
+          "importance": "protagonist",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "philip_lombard",
+          "name": "Philip Lombard",
+          "role": "Soldier of Fortune / Adventurer",
+          "description": "A cool, resourceful mercenary who admits to leaving twenty-one East African tribesmen to die. He and Vera are mutually suspicious throughout, and he is the penultimate death — shot by Vera on the beach.",
+          "faction_id": "guests",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "emily_brent",
+          "name": "Emily Caroline Brent",
+          "role": "Rigid Spinster / Former Employer",
+          "description": "A severe, religiously inflexible elderly woman who dismissed her servant Beatrice Taylor for becoming pregnant, leading to Beatrice's suicide. She is injected with potassium cyanide while sitting alone, rendered immobile beforehand by a drugged drink.",
+          "faction_id": "guests",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "general_macarthur",
+          "name": "General John Gordon Macarthur",
+          "role": "Retired Military Officer",
+          "description": "A World War I general who deliberately sent his wife's lover, Lieutenant Richmond, on a fatal mission. By the time of his death he has resigned himself to dying and is bludgeoned from behind while gazing out to sea.",
+          "faction_id": "guests",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "dr_armstrong",
+          "name": "Dr. Edward George Armstrong",
+          "role": "Harley Street Physician",
+          "description": "A doctor who performed an operation while drunk, causing a patient (Louisa Mary Clees) to die. He is manipulated by Wargrave into a secret alliance and then pushed off a cliff, with his body later used to stage Wargrave's fake death.",
+          "faction_id": "guests",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "william_blore",
+          "name": "William Henry Blore",
+          "role": "Former Police Inspector / Private Detective",
+          "description": "An ex-policeman who gave false testimony to convict an innocent man, James Landor, who later died in prison. Pragmatic and suspicious, he is killed when a heavy marble clock shaped like a bear is dropped on him from a window above.",
+          "faction_id": "guests",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "tony_marston",
+          "name": "Anthony James Marston",
+          "role": "Wealthy Young Socialite",
+          "description": "A reckless, amoral young man who killed two children, John and Lucy Combes, in a driving accident and showed no remorse. The first to die — his whisky is laced with potassium cyanide.",
+          "faction_id": "guests",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "thomas_rogers",
+          "name": "Thomas Rogers",
+          "role": "Manservant / Butler",
+          "description": "The island's butler, who along with his wife withheld heart medication from their elderly employer Jennifer Brady, causing her death. He is killed with an axe while chopping wood.",
+          "faction_id": "guests",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "ethel_rogers",
+          "name": "Ethel Rogers",
+          "role": "Cook / Housekeeper",
+          "description": "Thomas Rogers's wife and fellow accomplice in the death of Jennifer Brady. Nervous and fearful from the moment of arrival, she dies in her sleep from an overdose of chloral hydrate — the second victim.",
+          "faction_id": "guests",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "mr_owen",
+          "name": "U.N. Owen (alias)",
+          "role": "Mysterious Host (identity concealed)",
+          "description": "The name used in the invitations luring guests to the island — 'Unknown' — later revealed to be Wargrave's pseudonym. Never appears as a separate person; the alias is a framing device.",
+          "faction_id": "absent",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "inspector_maine",
+          "name": "Inspector Maine",
+          "role": "Police Investigator",
+          "description": "The mainland detective who investigates the deaths after the island is reached. He frames the epilogue and is presented with Wargrave's bottled confession.",
+          "faction_id": "absent",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "justice_wargrave",
+          "to_id": "vera_claythorne",
+          "type": "antagonism",
+          "label": "manipulates psychologically; engineers her suicide",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "justice_wargrave",
+          "to_id": "dr_armstrong",
+          "type": "criminal",
+          "label": "recruits Armstrong into false alliance, then murders him",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "vera_claythorne",
+          "to_id": "philip_lombard",
+          "type": "antagonism",
+          "label": "mutual suspicion; she ultimately shoots him",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "thomas_rogers",
+          "to_id": "ethel_rogers",
+          "type": "family",
+          "label": "husband and wife; co-conspirators in employer's death",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "justice_wargrave",
+          "to_id": "mr_owen",
+          "type": "criminal",
+          "label": "Wargrave is U.N. Owen — the alias is his invention",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "inspector_maine",
+          "to_id": "justice_wargrave",
+          "type": "professional",
+          "label": "receives posthumous confession; closes the case",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "vera_claythorne",
+          "to_id": "general_macarthur",
+          "type": "professional",
+          "label": "fellow guests; both implicated in past deaths",
+          "spoiler_level": 1
+        }
+      ],
+      "coverage_note": "U.N. Owen and Inspector Maine are included as functional nodes despite limited page-presence. Minor referenced victims (Cyril Hamilton, Beatrice Taylor, Louisa Clees, James Landor, Jennifer Brady, Lieutenant Richmond, John and Lucy Combes) are omitted as they are absent characters named only as backstory.",
+      "notes": "All ten guest characters die within the narrative. Wargrave's identity as the killer and his staged death are disclosed only in an epilogue presented as a handwritten manuscript found in a bottle at sea. This map reflects the complete text including that epilogue."
+    },
+    "chars": 12,
+    "factions": 2,
+    "rels": 7,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.038577,
+    "input_tokens": 84,
+    "output_tokens": 2555,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "Atonement",
+      "year": 2001,
+      "author": "Ian McEwan",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "Atonement",
+      "subtitle": "Ian McEwan, 2001",
+      "blurb": "On a sweltering summer day in 1935, thirteen-year-old Briony Tallis misinterprets a sexual encounter and falsely accuses a young man of rape, setting in motion a tragedy that destroys two lives and haunts her own for decades. The novel spans the English country house, the retreat to Dunkirk, wartime London, and finally a 1999 coda in which the elderly Briony reveals the full, devastating truth about her narrative and her guilt.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "tallis_family",
+          "label": "Tallis Family",
+          "description": "The upper-middle-class English family at the centre of the novel, residing at their Surrey country house.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "turner_household",
+          "label": "Turner Household",
+          "description": "Robbie Turner and his mother, socially dependent on the Tallis family's patronage.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "quincey_visitors",
+          "label": "Quincey–Marshall Visitors",
+          "description": "Relatives and guests visiting the Tallis estate in the summer of 1935.",
+          "color_hint": "green"
+        },
+        {
+          "id": "war_theatre",
+          "label": "Wartime World",
+          "description": "Soldiers, nurses, and figures encountered during the Dunkirk retreat and the London Blitz.",
+          "color_hint": "slate"
+        },
+        {
+          "id": "older_briony",
+          "label": "Older Briony's Frame",
+          "description": "The 1999 narrative frame in which Briony as an elderly novelist acknowledges her fabrications and seeks a form of atonement.",
+          "color_hint": "violet"
+        }
+      ],
+      "characters": [
+        {
+          "id": "briony_tallis",
+          "name": "Briony Tallis",
+          "role": "Protagonist / Narrator (as elderly novelist)",
+          "description": "An imaginative, morally presumptuous thirteen-year-old in 1935 who falsely accuses Robbie Turner of rape after misreading adult sexuality. Decades later, as a celebrated novelist dying of vascular dementia, she reveals that the novel itself is her final, failed act of atonement.",
+          "faction_id": "tallis_family",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "cecilia_tallis",
+          "name": "Cecilia Tallis",
+          "role": "Briony's elder sister / Robbie's lover",
+          "description": "A Cambridge graduate and Robbie's true love. She cuts off her family after the injustice against Robbie and serves as a nurse during the war. She and Robbie are reunited briefly before both are killed — though this ending is later revealed to be Briony's invented consolation.",
+          "faction_id": "tallis_family",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "robbie_turner",
+          "name": "Robbie Turner",
+          "role": "Falsely accused young man / soldier",
+          "description": "The charming, intellectually gifted son of the Tallis charlady, loved by Cecilia and wrongly imprisoned for a rape committed by Paul Marshall. He survives prison by enlisting and endures the Dunkirk retreat, dying of septicaemia on the beach — though Briony's novel gives him a happier invented death.",
+          "faction_id": "turner_household",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "leon_tallis",
+          "name": "Leon Tallis",
+          "role": "Cecilia and Briony's older brother",
+          "description": "An amiable, superficial young man who brings Paul Marshall to the estate that fateful weekend, unwittingly catalysing events.",
+          "faction_id": "tallis_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "emily_tallis",
+          "name": "Emily Tallis",
+          "role": "Matriarch of the Tallis household",
+          "description": "A semi-invalid, self-absorbed mother who manages the household from her darkened bedroom and fails to investigate Briony's accusation with sufficient rigour.",
+          "faction_id": "tallis_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "jack_tallis",
+          "name": "Jack Tallis",
+          "role": "Father / civil servant",
+          "description": "The largely absent patriarch, a senior civil servant who ultimately accepts Briony's accusation against Robbie rather than challenge the social order.",
+          "faction_id": "tallis_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "paul_marshall",
+          "name": "Paul Marshall",
+          "role": "Actual rapist / Leon's wealthy friend",
+          "description": "A self-satisfied chocolate magnate who accompanies Leon to the Tallis estate and rapes the fifteen-year-old Lola Quincey in the garden. He escapes justice by marrying Lola and goes on to a wealthy, respectable life — the true criminal whom Briony's false accusation shielded.",
+          "faction_id": "quincey_visitors",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "lola_quincey",
+          "name": "Lola Quincey",
+          "role": "Rape victim / later Paul Marshall's wife",
+          "description": "A fifteen-year-old cousin visiting the Tallis estate who is raped by Paul Marshall. She does not correct Briony's false identification of Robbie as her attacker, either through confusion or complicity, and later marries Marshall — a union that silences any possibility of the truth emerging in her lifetime.",
+          "faction_id": "quincey_visitors",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "pierrot_quincey",
+          "name": "Pierrot Quincey",
+          "role": "Lola's younger brother",
+          "description": "One of the Quincey twins visiting the estate; a minor figure whose running away prompts the fateful night-time search.",
+          "faction_id": "quincey_visitors",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "jackson_quincey",
+          "name": "Jackson Quincey",
+          "role": "Lola's younger brother (twin)",
+          "description": "The other Quincey twin; runs away with Pierrot from the troubled atmosphere of the estate.",
+          "faction_id": "quincey_visitors",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "grace_turner",
+          "name": "Grace Turner",
+          "role": "Robbie's mother / Tallis charlady",
+          "description": "The loyal, hardworking charwoman employed by the Tallis family, whose son's social advancement is made possible by Jack Tallis — and then destroyed by the family's failure to stand by Robbie.",
+          "faction_id": "turner_household",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "corporal_nettle",
+          "name": "Corporal Nettle",
+          "role": "Robbie's companion on the Dunkirk retreat",
+          "description": "One of two cockney corporals who march with the wounded Robbie across France toward Dunkirk; loyal and grounding amid the chaos of the retreat.",
+          "faction_id": "war_theatre",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "corporal_mace",
+          "name": "Corporal Mace",
+          "role": "Robbie's second companion on the retreat",
+          "description": "The other cockney corporal accompanying Robbie; together with Nettle he provides human solidarity during the harrowing march to the coast.",
+          "faction_id": "war_theatre",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "fiona_ward_nurse",
+          "name": "Fiona",
+          "role": "Cecilia's fellow nurse and friend",
+          "description": "A nurse who works alongside Cecilia in wartime London and serves as a minor confidante.",
+          "faction_id": "war_theatre",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "elderly_briony_1999",
+          "name": "Briony Tallis (1999)",
+          "role": "Elderly novelist / frame narrator",
+          "description": "The seventy-seven-year-old Briony who, on her birthday, discloses that Cecilia and Robbie never actually reconciled — both died in 1940 — and that the reunion in Part Three was her novelistic invention. She acknowledges she cannot truly atone; the crime and its cover persist beyond her death in the marriage of Paul and Lola Marshall.",
+          "faction_id": "older_briony",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "briony_tallis",
+          "to_id": "cecilia_tallis",
+          "type": "family",
+          "label": "sisters (estranged after Briony's false accusation)",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "briony_tallis",
+          "to_id": "robbie_turner",
+          "type": "antagonism",
+          "label": "false accuser — destroys his life with perjured testimony",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "cecilia_tallis",
+          "to_id": "robbie_turner",
+          "type": "romantic",
+          "label": "deeply in love; separated by Briony's accusation and Robbie's imprisonment",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "robbie_turner",
+          "to_id": "grace_turner",
+          "type": "family",
+          "label": "son and mother",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "leon_tallis",
+          "to_id": "paul_marshall",
+          "type": "alliance",
+          "label": "friends; Leon brings Marshall to the estate",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "paul_marshall",
+          "to_id": "lola_quincey",
+          "type": "criminal",
+          "label": "rapes Lola; later marries her, silencing the truth",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "briony_tallis",
+          "to_id": "lola_quincey",
+          "type": "family",
+          "label": "cousins; Briony's false identification protects Marshall",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "briony_tallis",
+          "to_id": "elderly_briony_1999",
+          "type": "professional",
+          "label": "same person across time; the 1999 frame reveals the novel's true authorship and moral burden",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "jack_tallis",
+          "to_id": "robbie_turner",
+          "type": "professional",
+          "label": "patron who funded Robbie's education, then failed to protect him",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "robbie_turner",
+          "to_id": "corporal_nettle",
+          "type": "alliance",
+          "label": "comrades on the Dunkirk retreat",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "robbie_turner",
+          "to_id": "corporal_mace",
+          "type": "alliance",
+          "label": "comrades on the Dunkirk retreat",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "elderly_briony_1999",
+          "to_id": "paul_marshall",
+          "type": "antagonism",
+          "label": "Briony knows Marshall is the true rapist but cannot publish the truth while he and Lola live",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "cecilia_tallis",
+          "to_id": "elderly_briony_1999",
+          "type": "family",
+          "label": "Cecilia (dead since 1940) is given a fictional survival and reunion by Briony as an act of invented atonement",
+          "spoiler_level": 3
+        }
+      ],
+      "coverage_note": "Minor named patients, ward sisters, and background soldiers from the wartime sections are omitted as they fall below the character cap and have negligible structural roles.",
+      "notes": "Character map covers the full novel including the Part Three coda ('London, 1999') in which McEwan's metafictional frame is disclosed. Spoiler levels 2–3 contain major revelations about Marshall's guilt and the falsity of the reconciliation scene. All structural details are drawn from the published 2001 Vintage/Cape text."
+    },
+    "chars": 15,
+    "factions": 5,
+    "rels": 13,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.056211,
+    "input_tokens": 82,
+    "output_tokens": 3731,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "Cem Anos de Solidão",
+      "year": 1967,
+      "author": "Gabriel García Márquez",
+      "type": "book"
+    },
+    "char_map": {
+      "title": "One Hundred Years of Solitude",
+      "subtitle": "Gabriel García Márquez, 1967",
+      "blurb": "The multigenerational saga of the Buendía family and the fictional town of Macondo, which they founded. Over six generations, the family's obsessions, loves, wars, and madnesses echo and repeat in a world where the miraculous and the mundane coexist. The novel ends with the town's apocalyptic annihilation and the decipherment of a prophecy that had foretold everything.",
+      "spoiler_mode": "full",
+      "setting_preamble": "Macondo is an isolated fictional town in an unnamed Latin American country, founded by the Buendía family. It passes through phases of innocence, outside contact, civil war, banana-company exploitation, and ultimate decay. The Buendía line spans six generations; names recycle across generations (multiple José Arcadios and Aurelianos), linking each character to inherited traits and fates. The gypsy Melquíades leaves behind parchment manuscripts in which the entire history of Macondo is written in advance.",
+      "factions": [
+        {
+          "id": "buendia_family",
+          "label": "The Buendía Family",
+          "description": "The founding dynasty of Macondo. Men named José Arcadio tend toward physical passion and impulsive action; those named Aureliano tend toward solitary introspection and lucidity. The family's history is cyclical, marked by incest, solitude, and repeated patterns across generations.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "gypsies_and_outsiders",
+          "label": "Gypsies and Outsiders",
+          "description": "Itinerant figures — chiefly Melquíades and his band — who bring knowledge, technology, and prophecy to the isolated town. They represent the intrusion of the wider world and the mystical into Macondo's insularity.",
+          "color_hint": "violet"
+        },
+        {
+          "id": "liberals_and_soldiers",
+          "label": "Liberals, Conservatives, and Soldiers",
+          "description": "Political and military forces that draw the Buendías into decades of civil war between Liberals and Conservatives, shaping the fate of Macondo and its founders.",
+          "color_hint": "red"
+        },
+        {
+          "id": "banana_company",
+          "label": "The Banana Company and Foreign Interests",
+          "description": "The United Fruit Company and its representatives arrive in Macondo's later era, bringing prosperity, exploitation, and ultimately a massacre that destroys the town's social fabric.",
+          "color_hint": "green"
+        },
+        {
+          "id": "women_of_macondo",
+          "label": "Women of Macondo",
+          "description": "The matriarchal and female figures — wives, lovers, prostitutes — who provide pragmatic continuity against the Buendía men's self-destructive solitude and obsession.",
+          "color_hint": "blue"
+        }
+      ],
+      "characters": [
+        {
+          "id": "jose_arcadio_buendia",
+          "name": "José Arcadio Buendía",
+          "role": "Founder of Macondo / Patriarch",
+          "description": "Visionary founder of Macondo, driven by insatiable curiosity about alchemy and science. He eventually goes mad, is tied to a chestnut tree in the family courtyard, and dies there.",
+          "faction_id": "buendia_family",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "ursula_iguaran",
+          "name": "Úrsula Iguarán",
+          "role": "Matriarch",
+          "description": "The indomitable matriarch of the Buendía family, she outlives multiple generations and holds the household and the town together through sheer will. She lives to an extreme old age before dying blind and tiny.",
+          "faction_id": "women_of_macondo",
+          "importance": "protagonist",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "colonel_aureliano_buendia",
+          "name": "Colonel Aureliano Buendía",
+          "role": "Military Leader / Liberal Commander",
+          "description": "The most legendary of the Buendías, he leads thirty-two armed uprisings against the Conservative government, all of which fail. He fathers seventeen sons by seventeen different women, all named Aureliano, and ends his life in solitary obsession with making tiny golden fish in his workshop.",
+          "faction_id": "liberals_and_soldiers",
+          "importance": "protagonist",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "jose_arcadio_buendia_ii",
+          "name": "José Arcadio (eldest son)",
+          "role": "Eldest Son of the Founder",
+          "description": "The physically enormous, impulsive eldest son of the founders. He runs away with the gypsies, returns tattooed and worldly, marries Rebeca, and is eventually found shot dead under mysterious circumstances.",
+          "faction_id": "buendia_family",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "rebeca",
+          "name": "Rebeca",
+          "role": "Adopted Daughter / José Arcadio's Wife",
+          "description": "An orphan who arrives carrying a bag of her parents' bones and brings an insomnia plague to Macondo. She marries José Arcadio against Úrsula's wishes and lives to extreme old age in isolation after his death.",
+          "faction_id": "buendia_family",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "amaranta_buendia",
+          "name": "Amaranta Buendía",
+          "role": "Second Daughter of the Founders",
+          "description": "Proud and cruel in love, she rejects all suitors out of ambivalence and spite. She burns her hand in penance for causing Pietro Crespi's suicide and dies a virgin, calmly sewing her own burial shroud.",
+          "faction_id": "women_of_macondo",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "melquiades",
+          "name": "Melquíades",
+          "role": "Gypsy Sage / Prophet",
+          "description": "The ancient, visionary gypsy who introduces Macondo to the outside world's marvels. He writes parchment manuscripts in encrypted Sanskrit that contain the entire prophesied history of the Buendía family. His ghost lingers in the family study for generations.",
+          "faction_id": "gypsies_and_outsiders",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "pilar_ternera",
+          "name": "Pilar Ternera",
+          "role": "Fortune-teller / Brothel Keeper",
+          "description": "A sensual woman who has affairs with both José Arcadio and Colonel Aureliano in their youths, bearing sons by each. She reads futures in her cards and outlives virtually everyone, reaching over a hundred and forty years of age.",
+          "faction_id": "women_of_macondo",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "aureliano_jose",
+          "name": "Aureliano José",
+          "role": "Son of Colonel Aureliano and Pilar Ternera",
+          "description": "Raised in the Buendía household, he develops a forbidden passion for his aunt Amaranta and fights in the civil wars before being killed by a Conservative soldier.",
+          "faction_id": "buendia_family",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "pietro_crespi",
+          "name": "Pietro Crespi",
+          "role": "Italian Musician and Merchant",
+          "description": "A refined Italian who courts both Rebeca and Amaranta; after Amaranta's final rejection he commits suicide. His death haunts Amaranta for the rest of her life.",
+          "faction_id": "gypsies_and_outsiders",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "arcadio",
+          "name": "Arcadio",
+          "role": "Teacher / Petty Tyrant",
+          "description": "Illegitimate son of José Arcadio and Pilar Ternera, raised in ignorance of his parentage. He becomes a brutal local dictator during the civil war and is executed by firing squad.",
+          "faction_id": "liberals_and_soldiers",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "santa_sofia_de_la_piedad",
+          "name": "Santa Sofía de la Piedad",
+          "role": "Arcadio's Wife / Buendía Caretaker",
+          "description": "A quiet, self-effacing woman who marries Arcadio and spends decades maintaining the Buendía household invisibly. She eventually walks away into the world, never to return.",
+          "faction_id": "women_of_macondo",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "colonel_gerineldo_marquez",
+          "name": "Colonel Gerineldo Márquez",
+          "role": "Liberal Officer / Aureliano's Friend",
+          "description": "Colonel Aureliano Buendía's closest military comrade and friend. He carries a long, unrequited love for Amaranta and survives the wars to live out a quiet old age.",
+          "faction_id": "liberals_and_soldiers",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "aureliano_segundo",
+          "name": "Aureliano Segundo",
+          "role": "Twin / Festive Patriarch of Fourth Generation",
+          "description": "One of the twin great-grandsons of the founders, known for extravagant feasts and debauchery. He lives between his wife Fernanda and his lifelong mistress Petra Cotes, and dies on the same day as his twin.",
+          "faction_id": "buendia_family",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "jose_arcadio_segundo",
+          "name": "José Arcadio Segundo",
+          "role": "Twin / Banana Strike Witness",
+          "description": "The other twin, physically identical to Aureliano Segundo. He witnesses the massacre of striking banana workers by government soldiers — an event the entire town is made to forget — and spends the rest of his life in Melquíades's room deciphering the parchments.",
+          "faction_id": "buendia_family",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "fernanda_del_carpio",
+          "name": "Fernanda del Carpio",
+          "role": "Aureliano Segundo's Wife",
+          "description": "A rigidly pious, aristocratic woman from a ruined family, she imposes repressive order on the Buendía household. Her pride and secrecy set in motion the tragic fates of the last generation.",
+          "faction_id": "women_of_macondo",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "petra_cotes",
+          "name": "Petra Cotes",
+          "role": "Aureliano Segundo's Mistress",
+          "description": "Aureliano Segundo's devoted mistress, whose love magically multiplies his livestock. She remains loyal to him in poverty as well as abundance.",
+          "faction_id": "women_of_macondo",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "meme_buendia",
+          "name": "Meme Buendía (Renata Remedios)",
+          "role": "Daughter of Aureliano Segundo",
+          "description": "A gifted cello student whose secret love affair with a banana-company worker, Mauricio Babilonia, is ended by Fernanda, who arranges for him to be shot. Meme is sent to a convent, where she lives in silence until her death.",
+          "faction_id": "buendia_family",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "mauricio_babilonia",
+          "name": "Mauricio Babilonia",
+          "role": "Mechanic / Meme's Lover",
+          "description": "A handsome banana-company mechanic always surrounded by yellow butterflies. Shot and paralyzed on Fernanda's orders; he fathers Aureliano Babilonia.",
+          "faction_id": "banana_company",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "remedios_la_bella",
+          "name": "Remedios la Bella",
+          "role": "Beauty of Supernatural Power",
+          "description": "The great-granddaughter of the founders, of unearthly beauty and complete indifference to the world. Men who encounter her tend to die. She ascends bodily into the sky one afternoon while folding sheets.",
+          "faction_id": "buendia_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "jose_arcadio_iii",
+          "name": "José Arcadio (fifth generation)",
+          "role": "Seminarian / Reclusive Heir",
+          "description": "Fernanda's son, sent to Rome to study for the priesthood. He returns to Macondo dissolute and corrupted, and is found drowned in the bath under mysterious circumstances.",
+          "faction_id": "buendia_family",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "amaranta_ursula",
+          "name": "Amaranta Úrsula",
+          "role": "Last Vibrant Buendía",
+          "description": "The youngest child of Aureliano Segundo and Fernanda, she returns from Europe full of life and modern energy with her husband Gaston. She falls into an incestuous affair with her nephew Aureliano Babilonia and dies in childbirth.",
+          "faction_id": "buendia_family",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "aureliano_babilonia",
+          "name": "Aureliano Babilonia",
+          "role": "Last Buendía / Decoder of the Prophecy",
+          "description": "The illegitimate son of Meme and Mauricio Babilonia, raised in secrecy by Fernanda. He deciphers Melquíades's parchments and in the final pages reads the entire history of his family, as Macondo is annihilated by a biblical wind around him. He and his child with Amaranta Úrsula — born with a pig's tail — represent the prophesied end of the line.",
+          "faction_id": "buendia_family",
+          "importance": "protagonist",
+          "is_deceased_in_work": true,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "gaston",
+          "name": "Gastón",
+          "role": "Amaranta Úrsula's Husband",
+          "description": "A Belgian aviation enthusiast who accompanies his wife back to Macondo. He tolerates her affair with Aureliano Babilonia and eventually leaves for Brussels.",
+          "faction_id": "gypsies_and_outsiders",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "mr_brown",
+          "name": "Mr. Brown",
+          "role": "Banana Company Director",
+          "description": "The imperious American director of the banana company whose exploitation of workers triggers the great strike. He disappears before the massacre, leaving the army to suppress the workers.",
+          "faction_id": "banana_company",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "jose_arcadio_buendia",
+          "to_id": "ursula_iguaran",
+          "type": "family",
+          "label": "husband and wife; founding couple of Macondo",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "ursula_iguaran",
+          "to_id": "colonel_aureliano_buendia",
+          "type": "family",
+          "label": "mother and son",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "ursula_iguaran",
+          "to_id": "jose_arcadio_buendia_ii",
+          "type": "family",
+          "label": "mother and eldest son",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "ursula_iguaran",
+          "to_id": "amaranta_buendia",
+          "type": "family",
+          "label": "mother and daughter",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "pilar_ternera",
+          "to_id": "jose_arcadio_buendia_ii",
+          "type": "romantic",
+          "label": "early lover; she bears his son Arcadio",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "pilar_ternera",
+          "to_id": "colonel_aureliano_buendia",
+          "type": "romantic",
+          "label": "early lover; she bears Aureliano José",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "jose_arcadio_buendia_ii",
+          "to_id": "rebeca",
+          "type": "romantic",
+          "label": "husband and wife (against family's wishes)",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "amaranta_buendia",
+          "to_id": "pietro_crespi",
+          "type": "romantic",
+          "label": "rejected him repeatedly; his suicide haunts her",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "amaranta_buendia",
+          "to_id": "colonel_gerineldo_marquez",
+          "type": "romantic",
+          "label": "his long suit refused; she never stopped caring",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "colonel_aureliano_buendia",
+          "to_id": "colonel_gerineldo_marquez",
+          "type": "alliance",
+          "label": "closest military comrade and friend",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "melquiades",
+          "to_id": "jose_arcadio_buendia",
+          "type": "mentorship",
+          "label": "brought knowledge and marvels to the founder",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "melquiades",
+          "to_id": "aureliano_babilonia",
+          "type": "mentorship",
+          "label": "his prophetic manuscripts guide the last Buendía to the truth",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "aureliano_segundo",
+          "to_id": "jose_arcadio_segundo",
+          "type": "family",
+          "label": "twin brothers; their identities may have been swapped in childhood",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "aureliano_segundo",
+          "to_id": "fernanda_del_carpio",
+          "type": "family",
+          "label": "husband and wife (estranged)",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "aureliano_segundo",
+          "to_id": "petra_cotes",
+          "type": "romantic",
+          "label": "lifelong mistress; her love magically multiplies his livestock",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "fernanda_del_carpio",
+          "to_id": "meme_buendia",
+          "type": "family",
+          "label": "mother who destroys daughter's love affair and sends her to a convent",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "fernanda_del_carpio",
+          "to_id": "aureliano_babilonia",
+          "type": "family",
+          "label": "raises him in secrecy as a shameful illegitimate grandson",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "meme_buendia",
+          "to_id": "mauricio_babilonia",
+          "type": "romantic",
+          "label": "forbidden love affair; he is shot, she is imprisoned in a convent",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "meme_buendia",
+          "to_id": "aureliano_babilonia",
+          "type": "family",
+          "label": "mother and son (she never acknowledges him)",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "amaranta_ursula",
+          "to_id": "aureliano_babilonia",
+          "type": "romantic",
+          "label": "aunt and nephew; incestuous affair that produces the last Buendía with a pig's tail",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "amaranta_ursula",
+          "to_id": "gaston",
+          "type": "romantic",
+          "label": "husband; she abandons him for Aureliano Babilonia",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "jose_arcadio_segundo",
+          "to_id": "mr_brown",
+          "type": "antagonism",
+          "label": "worker uprising against banana company exploitation; José Arcadio witnesses the massacre",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "aureliano_jose",
+          "to_id": "amaranta_buendia",
+          "type": "romantic",
+          "label": "forbidden passion for his aunt; she ultimately repels him",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "arcadio",
+          "to_id": "santa_sofia_de_la_piedad",
+          "type": "family",
+          "label": "husband and wife; parents of the fourth generation",
+          "spoiler_level": 2
+        }
+      ],
+      "coverage_note": "The novel contains dozens of named characters across six generations, including the seventeen Aurelianos (sons of Colonel Aureliano Buendía), multiple minor wives and lovers, and various townsfolk. These have been omitted to stay within the 25-character cap. The character of Remedios Moscote (Colonel Aureliano's young wife, who dies in childhood) and Father Nicanor Reyna are among notable supporting figures not included.",
+      "notes": "Name recycling is central to the novel's structure: 'José Arcadio' denotes impulsive, physical characters; 'Aureliano' denotes solitary, intellectual ones. Characters are placed in the faction most relevant to their narrative function, though most belong to the Buendía family by blood. The final revelation — that Melquíades's parchments prophesied every event including the wind that destroys Macondo — constitutes the novel's ultimate spoiler."
+    },
+    "chars": 25,
+    "factions": 5,
+    "rels": 24,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.097188,
+    "input_tokens": 91,
+    "output_tokens": 6461,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "The Office",
+      "year": 2005,
+      "type": "film_tv"
+    },
+    "char_map": {
+      "title": "The Office",
+      "subtitle": "Greg Daniels, 2005–2013 · NBC Mockumentary",
+      "blurb": "A mockumentary following the daily lives of employees at Dunder Mifflin's Scranton, Pennsylvania branch. The series blends workplace comedy with character-driven drama as the staff navigates the management of their oblivious, well-meaning regional manager Michael Scott. Over nine seasons, the show chronicles romances, rivalries, and the slow transformation of the branch and its people.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "management",
+          "label": "Management",
+          "description": "Branch manager and those who hold or vie for managerial authority at Dunder Mifflin Scranton.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "sales",
+          "label": "Sales",
+          "description": "The sales team responsible for moving paper and office supplies.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "accounting",
+          "label": "Accounting",
+          "description": "The accounting department handling the branch's finances.",
+          "color_hint": "green"
+        },
+        {
+          "id": "reception_admin",
+          "label": "Reception & Admin",
+          "description": "Front-of-house and administrative support staff.",
+          "color_hint": "violet"
+        },
+        {
+          "id": "corporate",
+          "label": "Corporate / Outside",
+          "description": "Dunder Mifflin corporate staff and significant figures from outside the Scranton branch.",
+          "color_hint": "red"
+        },
+        {
+          "id": "warehouse_other",
+          "label": "Warehouse & Other Staff",
+          "description": "Warehouse workers and miscellaneous branch employees.",
+          "color_hint": "slate"
+        }
+      ],
+      "characters": [
+        {
+          "id": "michael_scott",
+          "name": "Michael Scott",
+          "role": "Regional Manager, Dunder Mifflin Scranton",
+          "description": "Well-meaning but deeply self-absorbed manager who craves the affection of his employees above all else. Leaves Scranton in Season 7 to move to Colorado with Holly Flax and is happily married by the series finale.",
+          "faction_id": "management",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "dwight_schrute",
+          "name": "Dwight Schrute",
+          "role": "Assistant to the Regional Manager / Salesman / Eventually Regional Manager",
+          "description": "Intense, rule-obsessed top salesman and beet farmer who is fiercely loyal to Michael. Becomes Regional Manager of Scranton and marries Angela Martin in the series finale.",
+          "faction_id": "sales",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "jim_halpert",
+          "name": "Jim Halpert",
+          "role": "Salesman / Co-Manager / Later Athlead Co-Founder",
+          "description": "Affable, sardonic salesman whose long-running romance with Pam Beesly is a central thread of the series. Pursues a sports-marketing venture (Athlead/Athleap) in later seasons, straining his marriage before ultimately reconciling.",
+          "faction_id": "sales",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "pam_beesly",
+          "name": "Pam Beesly",
+          "role": "Receptionist / Office Administrator / Later Art Student",
+          "description": "Soft-spoken receptionist who nurtures artistic ambitions and a slow-building romance with Jim Halpert. Marries Jim in Season 6 and ultimately persuades him to sell his business stake so the family can move to Austin.",
+          "faction_id": "reception_admin",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "andy_bernard",
+          "name": "Andy Bernard",
+          "role": "Salesman / Regional Manager (Seasons 8–9)",
+          "description": "Cornell alumnus with anger-management history who rises to Regional Manager after Michael leaves. His management tenure unravels as he pursues internet fame, and he is ultimately demoted and humiliated.",
+          "faction_id": "management",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "angela_martin",
+          "name": "Angela Martin",
+          "role": "Head of Accounting",
+          "description": "Prim, judgmental accountant with a passion for cats and a long secret affair with Dwight. Marries the Senator in Season 8 but divorces him when his affair with Oscar is revealed; marries Dwight in the finale.",
+          "faction_id": "accounting",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "ryan_howard",
+          "name": "Ryan Howard",
+          "role": "Temp / Salesman / VP of New Media (Corporate) / Later Various",
+          "description": "Ambitious temp who rises rapidly to a corporate VP role before a fraud scandal derails him. Spends later seasons in a volatile on-off relationship with Kelly Kapoor and departs with her abruptly in the finale.",
+          "faction_id": "sales",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "kelly_kapoor",
+          "name": "Kelly Kapoor",
+          "role": "Customer Service Representative",
+          "description": "Effusive, pop-culture-obsessed customer service rep perpetually entangled in a dramatic romance with Ryan Howard. Elopes with Ryan at the end of the series finale, abandoning her new fiancé.",
+          "faction_id": "reception_admin",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "oscar_martinez",
+          "name": "Oscar Martinez",
+          "role": "Accountant",
+          "description": "Measured, intellectual accountant who is outed as gay by Michael in Season 3. Later has a secret affair with Angela's husband, Senator Robert Lipton.",
+          "faction_id": "accounting",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "kevin_malone",
+          "name": "Kevin Malone",
+          "role": "Accountant",
+          "description": "Good-natured, slow-witted accountant and amateur musician. Is eventually fired by Dwight for incompetence and, per the documentary's coda, later runs a bar.",
+          "faction_id": "accounting",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "toby_flenderson",
+          "name": "Toby Flenderson",
+          "role": "HR Representative",
+          "description": "Mild, melancholy HR rep who is a persistent target of Michael's contempt. Returns in Season 9 and becomes obsessed with the Scranton Strangler case.",
+          "faction_id": "reception_admin",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "stanley_hudson",
+          "name": "Stanley Hudson",
+          "role": "Salesman",
+          "description": "Gruff, openly disengaged salesman who lives for retirement and crossword puzzles. Retires to Florida and takes up woodcarving by the series' end.",
+          "faction_id": "sales",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "phyllis_vance",
+          "name": "Phyllis Vance",
+          "role": "Salesperson",
+          "description": "Warm, underestimated salesperson married to Bob Vance of Vance Refrigeration. Uses knowledge of Dwight and Angela's affair as leverage at various points.",
+          "faction_id": "sales",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "meredith_palmer",
+          "name": "Meredith Palmer",
+          "role": "Supplier Relations",
+          "description": "Uninhibited, hard-drinking supplier relations representative whose personal life is a recurring source of dark comedy.",
+          "faction_id": "warehouse_other",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "creed_bratton",
+          "name": "Creed Bratton",
+          "role": "Quality Assurance",
+          "description": "Enigmatic, possibly criminal quality assurance director whose backstory is deliberately murky. Goes on the run after the documentary airs, suggesting a criminal past, but is seen at Dwight's wedding.",
+          "faction_id": "warehouse_other",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "holly_flax",
+          "name": "Holly Flax",
+          "role": "HR Representative / Michael Scott's Partner",
+          "description": "HR rep who replaces Toby and becomes Michael Scott's great love. Transferred away by corporate, then returns in Season 8; Michael leaves Scranton to be with her and they marry.",
+          "faction_id": "corporate",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "robert_california",
+          "name": "Robert California",
+          "role": "CEO of Dunder Mifflin (Season 8)",
+          "description": "Enigmatic, manipulative CEO who replaces Jo Bennett for one season. His unsettling charisma drives much of Season 8's comedy and tension before he disappears from the narrative.",
+          "faction_id": "corporate",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "darryl_philbin",
+          "name": "Darryl Philbin",
+          "role": "Warehouse Foreman / Later Office Staff / Athlead Employee",
+          "description": "Grounded, pragmatic warehouse foreman who migrates into the office and eventually joins Jim's Athlead venture in Philadelphia.",
+          "faction_id": "warehouse_other",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "michael_scott_paper_company",
+          "name": "Michael Scott Paper Company",
+          "role": "Story Arc / Faction Note",
+          "description": "Temporary rival paper company formed by Michael, Pam, and Ryan in Season 5. Successfully competes with Dunder Mifflin before being absorbed back; treated here as a plot arc rather than a separate character.",
+          "faction_id": "management",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "jan_levinson",
+          "name": "Jan Levinson",
+          "role": "VP of Sales (Corporate) / Michael's Girlfriend",
+          "description": "Ambitious corporate VP who enters a destructive relationship with Michael. Fired from Dunder Mifflin and her subsequent instability forms a running storyline through Season 4.",
+          "faction_id": "corporate",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "roy_anderson",
+          "name": "Roy Anderson",
+          "role": "Warehouse Worker / Pam's Fiancé",
+          "description": "Pam's longtime fiancé whose inattentiveness allows Jim and Pam's relationship to develop. Briefly threatens Jim in Season 3 before departing the main cast.",
+          "faction_id": "warehouse_other",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "erin_hannon",
+          "name": "Erin Hannon",
+          "role": "Receptionist (Seasons 5–9)",
+          "description": "Cheerful, earnest receptionist who replaces Pam and becomes a fan favorite. Discovers her biological parents in Season 9 and ends the series in a relationship with Pete Miller.",
+          "faction_id": "reception_admin",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "senator_robert_lipton",
+          "name": "Senator Robert Lipton",
+          "role": "State Senator / Angela's Husband",
+          "description": "Angela's politically ambitious husband who is revealed to be having an affair with Oscar Martinez. Divorces Angela when this is publicly exposed.",
+          "faction_id": "corporate",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "todd_packer",
+          "name": "Todd Packer",
+          "role": "Traveling Salesman",
+          "description": "Crude, boorish road salesman and longtime friend of Michael who is eventually fired after his offensive behavior becomes untenable even by the office's standards.",
+          "faction_id": "sales",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "gabe_lewis",
+          "name": "Gabe Lewis",
+          "role": "Corporate Liaison / Erin's Former Boyfriend",
+          "description": "Awkward corporate liaison from Sabre who oversees the Scranton branch and is Erin's ill-matched boyfriend before she ends their relationship.",
+          "faction_id": "corporate",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "jim_halpert",
+          "to_id": "pam_beesly",
+          "type": "romantic",
+          "label": "long-running courtship; marry in Season 6; strained by Jim's startup in Season 9 but reconciled",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "michael_scott",
+          "to_id": "holly_flax",
+          "type": "romantic",
+          "label": "great love; reunite in Season 8; Michael leaves Scranton to marry her",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "michael_scott",
+          "to_id": "jan_levinson",
+          "type": "romantic",
+          "label": "volatile relationship ending in mutual damage",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "dwight_schrute",
+          "to_id": "angela_martin",
+          "type": "romantic",
+          "label": "long secret affair; estrangement; reunite and marry in series finale",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "ryan_howard",
+          "to_id": "kelly_kapoor",
+          "type": "romantic",
+          "label": "chaotic on-off relationship; elope together at the finale",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "michael_scott",
+          "to_id": "dwight_schrute",
+          "type": "professional",
+          "label": "boss and devotedly loyal subordinate",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "michael_scott",
+          "to_id": "toby_flenderson",
+          "type": "antagonism",
+          "label": "Michael's inexplicable and persistent contempt for Toby",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "jim_halpert",
+          "to_id": "dwight_schrute",
+          "type": "antagonism",
+          "label": "ongoing prank war and rivalry softening into grudging friendship",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "pam_beesly",
+          "to_id": "roy_anderson",
+          "type": "romantic",
+          "label": "engaged at series start; Pam breaks off engagement in Season 3",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "oscar_martinez",
+          "to_id": "senator_robert_lipton",
+          "type": "romantic",
+          "label": "secret affair exposed publicly in Season 9",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "angela_martin",
+          "to_id": "senator_robert_lipton",
+          "type": "romantic",
+          "label": "marriage that ends in divorce after his affair with Oscar is revealed",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "jan_levinson",
+          "to_id": "michael_scott",
+          "type": "professional",
+          "label": "his corporate superior before their personal relationship complicates both roles",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "andy_bernard",
+          "to_id": "erin_hannon",
+          "type": "romantic",
+          "label": "relationship in middle seasons; ultimately ends when Andy pursues fame and Erin moves on",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "darryl_philbin",
+          "to_id": "jim_halpert",
+          "type": "professional",
+          "label": "colleagues who become Athlead co-workers; close friends",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "dwight_schrute",
+          "to_id": "michael_scott",
+          "type": "mentorship",
+          "label": "Dwight looks to Michael as his model; inherits the manager role",
+          "spoiler_level": 2
+        }
+      ],
+      "coverage_note": "The series has a large ensemble cast across nine seasons. Characters such as Mose Schrute, Nellie Bertram, Pete Miller, Clark Green, Nate Nickerson, Jo Bennett, David Wallace, and Bob Vance are present but omitted or minimized here due to the 25-character cap. The Michael Scott Paper Company is listed as a plot-arc node rather than a character. Relative weight was given to characters present across multiple seasons.",
+      "notes": "Based on the US adaptation of The Office (NBC, 2005–2013), created by Greg Daniels and adapted from the BBC original by Ricky Gervais and Stephen Merchant. Character map covers all nine seasons including the 2013 series finale. Spoiler levels reflect first meaningful introduction rather than peak narrative importance."
+    },
+    "chars": 25,
+    "factions": 6,
+    "rels": 15,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.076116,
+    "input_tokens": 77,
+    "output_tokens": 5059,
+    "model": "claude-sonnet-4-6"
+  },
+  {
+    "status": "ok",
+    "work": {
+      "title": "Breaking Bad",
+      "year": 2008,
+      "type": "film_tv"
+    },
+    "char_map": {
+      "title": "Breaking Bad",
+      "subtitle": "Vince Gilligan, 2008–2013 · AMC Series",
+      "blurb": "A mild-mannered high school chemistry teacher diagnosed with terminal lung cancer partners with a former student to manufacture methamphetamine, descending into the criminal underworld of Albuquerque, New Mexico. The series traces Walter White's transformation from desperate father to calculating drug kingpin, with catastrophic consequences for everyone around him.",
+      "spoiler_mode": "full",
+      "setting_preamble": null,
+      "factions": [
+        {
+          "id": "white_family",
+          "label": "White–Schrader Family",
+          "description": "Walter's immediate and extended family, largely unaware of his criminal activities until the series' later stages.",
+          "color_hint": "blue"
+        },
+        {
+          "id": "pinkman_circle",
+          "label": "Pinkman & Associates",
+          "description": "Jesse Pinkman and the street-level dealers and contacts surrounding him.",
+          "color_hint": "amber"
+        },
+        {
+          "id": "dea",
+          "label": "Drug Enforcement Administration",
+          "description": "Federal and local law enforcement investigating the Albuquerque drug trade.",
+          "color_hint": "slate"
+        },
+        {
+          "id": "fring_operation",
+          "label": "Fring Criminal Organization",
+          "description": "Gustavo Fring's disciplined and highly compartmentalized drug distribution empire, operating under the cover of a fast-food chain.",
+          "color_hint": "violet"
+        },
+        {
+          "id": "cartel_and_neo_nazi",
+          "label": "Cartel & Neo-Nazi Gang",
+          "description": "The Mexican Juárez Cartel and Jack Welker's white supremacist gang — the external criminal forces that intersect with Walt and Jesse's operations.",
+          "color_hint": "red"
+        },
+        {
+          "id": "legal_and_support",
+          "label": "Legal & Peripheral",
+          "description": "Lawyers, fixers, and peripheral figures who facilitate or complicate the criminal enterprise.",
+          "color_hint": "green"
+        }
+      ],
+      "characters": [
+        {
+          "id": "walter_white",
+          "name": "Walter White",
+          "role": "Chemistry Teacher / Drug Manufacturer (Heisenberg)",
+          "description": "A brilliant but embittered high school chemistry teacher who, upon learning he has inoperable lung cancer, begins cooking methamphetamine. His alias 'Heisenberg' comes to represent his darker, domineering alter ego; he ultimately admits he acted out of ego and self-gratification, not family necessity. He dies from a stray bullet in the series finale.",
+          "faction_id": "white_family",
+          "importance": "protagonist",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "jesse_pinkman",
+          "name": "Jesse Pinkman",
+          "role": "Former Student / Drug Cook and Dealer",
+          "description": "Walt's former student and small-time meth dealer who becomes his manufacturing partner. Morally conflicted and emotionally volatile, Jesse suffers profound losses throughout the series and is ultimately enslaved by Jack's gang before escaping to freedom in the finale.",
+          "faction_id": "pinkman_circle",
+          "importance": "protagonist",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "skyler_white",
+          "name": "Skyler White",
+          "role": "Walt's Wife / Bookkeeper",
+          "description": "Walt's wife, initially unaware of his crimes, who gradually discovers and is coerced into facilitating money laundering through the car wash they acquire. She ultimately cooperates with the DEA after Walt's exposure.",
+          "faction_id": "white_family",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "hank_schrader",
+          "name": "Hank Schrader",
+          "role": "DEA Agent / Walt's Brother-in-Law",
+          "description": "A boisterous and determined DEA agent married to Skyler's sister Marie. He unknowingly investigates his own brother-in-law and finally uncovers Walt's identity as Heisenberg; he is executed by Jack Welker's gang shortly after confronting Walt.",
+          "faction_id": "dea",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "gustavo_fring",
+          "name": "Gustavo Fring",
+          "role": "Drug Kingpin / Fast-Food Entrepreneur",
+          "description": "The composed, meticulous owner of the Los Pollos Hermanos chain who operates a vast methamphetamine distribution network. He recruits Walt and Jesse for his superlab but is ultimately killed by a bomb planted by Walt and Hector Salamanca.",
+          "faction_id": "fring_operation",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "saul_goodman",
+          "name": "Saul Goodman",
+          "role": "Criminal Defense Attorney / Fixer",
+          "description": "A flamboyant, morally flexible lawyer who becomes Walt and Jesse's legal counsel and general fixer. He connects them to the criminal underworld and eventually flees to Nebraska under a new identity.",
+          "faction_id": "legal_and_support",
+          "importance": "major",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "mike_ehrmantraut",
+          "name": "Mike Ehrmantraut",
+          "role": "Fixer / Former Police Officer",
+          "description": "A calm, methodical former Philadelphia cop who serves as Gus Fring's enforcer and later partners loosely with Walt and Jesse. He is shot and killed by Walter in a moment of rage over a list of names.",
+          "faction_id": "fring_operation",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "marie_schrader",
+          "name": "Marie Schrader",
+          "role": "Radiologic Technologist / Hank's Wife",
+          "description": "Skyler's sister and Hank's devoted wife. She is supportive of the Whites until Hank's death, after which she becomes hostile toward Skyler and cooperates with the DEA.",
+          "faction_id": "white_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "walter_white_jr",
+          "name": "Walter White Jr.",
+          "role": "Walt's Son / High School Student",
+          "description": "Walt and Skyler's teenage son, who lives with cerebral palsy and idolizes his father. He is devastated upon learning the truth about Walt and rejects him entirely.",
+          "faction_id": "white_family",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 0,
+          "actor": null
+        },
+        {
+          "id": "jane_margolis",
+          "name": "Jane Margolis",
+          "role": "Jesse's Girlfriend / Recovering Addict",
+          "description": "Jesse's neighbor and romantic partner, herself a recovering drug addict who relapses alongside him. Walt watches her choke to death on her own vomit during an overdose and deliberately does not intervene.",
+          "faction_id": "pinkman_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "hector_salamanca",
+          "name": "Hector Salamanca",
+          "role": "Cartel Enforcer (retired) / Wheelchair-Bound Patriarch",
+          "description": "A once-fearsome Juárez Cartel enforcer, now mute and confined to a wheelchair. His deep hatred of Gus Fring leads him to cooperate with Walt in a suicide bombing that kills both himself and Fring.",
+          "faction_id": "cartel_and_neo_nazi",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "tuco_salamanca",
+          "name": "Tuco Salamanca",
+          "role": "Drug Distributor / Cartel Enforcer",
+          "description": "A volatile and violent distributor who becomes Walt and Jesse's first major criminal contact. He is killed in a confrontation with Hank Schrader.",
+          "faction_id": "cartel_and_neo_nazi",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "jack_welker",
+          "name": "Jack Welker",
+          "role": "Neo-Nazi Gang Leader",
+          "description": "The ruthless leader of a white supremacist prison gang who executes Hank, steals Walt's drug fortune, and enslaves Jesse as a cook. He is killed by Walt in the series finale.",
+          "faction_id": "cartel_and_neo_nazi",
+          "importance": "major",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "todd_alquist",
+          "name": "Todd Alquist",
+          "role": "Neo-Nazi Gang Member / Meth Cook",
+          "description": "A disturbingly affable young man who joins Walt's operation and later works for Jack's gang. He murders a child witness without remorse and is strangled by Jesse in the finale.",
+          "faction_id": "cartel_and_neo_nazi",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "lydia_rodarte_quayle",
+          "name": "Lydia Rodarte-Quayle",
+          "role": "Madrigal Executive / Drug Supply Chain Coordinator",
+          "description": "A high-strung Madrigal Electromotive executive who manages the methylamine supply chain for Fring's operation and later for Walt's. She is poisoned with ricin by Walt and dies shortly after the finale's events.",
+          "faction_id": "fring_operation",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "steven_gomez",
+          "name": "Steven Gomez",
+          "role": "DEA Agent / Hank's Partner",
+          "description": "Hank's loyal partner at the DEA. He is killed alongside Hank when Jack Welker's gang ambushes them at the desert confrontation.",
+          "faction_id": "dea",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "andrea_cantillo",
+          "name": "Andrea Cantillo",
+          "role": "Jesse's Girlfriend / Mother",
+          "description": "A young woman with a son, Brock, whom Jesse becomes close to. She is executed by Todd in front of Jesse to punish him for an escape attempt while he is held captive.",
+          "faction_id": "pinkman_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 3,
+          "actor": null
+        },
+        {
+          "id": "badger_mayhew",
+          "name": "Badger Mayhew",
+          "role": "Street-Level Drug Dealer",
+          "description": "One of Jesse's longtime friends and low-level dealers. Provides comic relief and loyalty throughout the series.",
+          "faction_id": "pinkman_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "skinny_pete",
+          "name": "Skinny Pete",
+          "role": "Street-Level Drug Dealer",
+          "description": "Another of Jesse's loyal friends and dealers. In the finale, he and Badger pose with laser pointers to make Walt's enemies believe they have sniper rifles.",
+          "faction_id": "pinkman_circle",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 1,
+          "actor": null
+        },
+        {
+          "id": "gale_boetticher",
+          "name": "Gale Boetticher",
+          "role": "Chemist / Lab Assistant",
+          "description": "A gentle, idealistic chemist hired by Gus to work in the superlab. Walt arranges for Jesse to kill him in order to make himself indispensable to Gus.",
+          "faction_id": "fring_operation",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "victor",
+          "name": "Victor",
+          "role": "Fring's Enforcer",
+          "description": "One of Gus Fring's loyal enforcers. Gus kills him with a box cutter in front of Walt and Jesse as a demonstration of power and warning.",
+          "faction_id": "fring_operation",
+          "importance": "supporting",
+          "is_deceased_in_work": true,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "walter_jr_holly",
+          "name": "Holly White",
+          "role": "Walt and Skyler's Infant Daughter",
+          "description": "Walt and Skyler's baby daughter, born during the series. Walt briefly abducts her during his breakdown before surrendering her to be returned to Skyler.",
+          "faction_id": "white_family",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "donald_margolis",
+          "name": "Donald Margolis",
+          "role": "Jane's Father / Air Traffic Controller",
+          "description": "Jane's father, devastated by her death. His grief causes a momentary lapse while working as an air traffic controller, leading to a mid-air collision that kills 167 people.",
+          "faction_id": "legal_and_support",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "ed_galbraith",
+          "name": "Ed Galbraith",
+          "role": "Disappearer / Vacuum Repairman",
+          "description": "A secretive fixer operating under the cover of a vacuum repair shop who provides new identities and relocation services to those in the criminal world. Assists Walt in going into hiding in New Hampshire.",
+          "faction_id": "legal_and_support",
+          "importance": "supporting",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        },
+        {
+          "id": "brock_cantillo",
+          "name": "Brock Cantillo",
+          "role": "Andrea's Young Son",
+          "description": "Andrea's young son whom Jesse grows to love. Walt poisons Brock with lily of the valley berries — a non-lethal dose — to manipulate Jesse into turning against Gus Fring.",
+          "faction_id": "pinkman_circle",
+          "importance": "minor",
+          "is_deceased_in_work": false,
+          "spoiler_level": 2,
+          "actor": null
+        }
+      ],
+      "relationships": [
+        {
+          "from_id": "walter_white",
+          "to_id": "jesse_pinkman",
+          "type": "professional",
+          "label": "reluctant partners turned deeply entangled co-conspirators",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "skyler_white",
+          "type": "family",
+          "label": "husband and wife (increasingly estranged)",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "hank_schrader",
+          "type": "family",
+          "label": "brothers-in-law (secret adversaries)",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "hank_schrader",
+          "to_id": "marie_schrader",
+          "type": "family",
+          "label": "husband and wife",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "skyler_white",
+          "to_id": "marie_schrader",
+          "type": "family",
+          "label": "sisters",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "walter_white_jr",
+          "type": "family",
+          "label": "father and son (idolized then rejected)",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "hank_schrader",
+          "to_id": "walter_white",
+          "type": "antagonism",
+          "label": "DEA investigator ultimately identifies Walt as Heisenberg",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "hank_schrader",
+          "to_id": "steven_gomez",
+          "type": "professional",
+          "label": "DEA partners",
+          "spoiler_level": 0
+        },
+        {
+          "from_id": "gustavo_fring",
+          "to_id": "walter_white",
+          "type": "professional",
+          "label": "employer and cook (mutual manipulation, escalating to lethal antagonism)",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "gustavo_fring",
+          "to_id": "mike_ehrmantraut",
+          "type": "professional",
+          "label": "employer and trusted enforcer",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "gustavo_fring",
+          "to_id": "hector_salamanca",
+          "type": "antagonism",
+          "label": "deep mutual hatred rooted in cartel history",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "gustavo_fring",
+          "type": "antagonism",
+          "label": "Walt orchestrates Fring's assassination",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "mike_ehrmantraut",
+          "type": "antagonism",
+          "label": "Walt kills Mike in a rage",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "saul_goodman",
+          "to_id": "walter_white",
+          "type": "professional",
+          "label": "criminal attorney and fixer",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "saul_goodman",
+          "to_id": "jesse_pinkman",
+          "type": "professional",
+          "label": "attorney and client",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "jesse_pinkman",
+          "to_id": "jane_margolis",
+          "type": "romantic",
+          "label": "lovers (both relapse; Jane dies as Walt watches)",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "jesse_pinkman",
+          "to_id": "andrea_cantillo",
+          "type": "romantic",
+          "label": "romantic partners; Andrea is executed to punish Jesse",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "jane_margolis",
+          "type": "antagonism",
+          "label": "Walt allows Jane to die to keep Jesse under control",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "jack_welker",
+          "to_id": "todd_alquist",
+          "type": "family",
+          "label": "uncle and nephew",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "jack_welker",
+          "to_id": "hank_schrader",
+          "type": "antagonism",
+          "label": "Jack executes Hank at Walt's inadvertent summons",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "jack_welker",
+          "type": "antagonism",
+          "label": "Walt kills Jack in the finale with a remote-triggered machine gun",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "todd_alquist",
+          "to_id": "jesse_pinkman",
+          "type": "antagonism",
+          "label": "Todd keeps Jesse as a captive cook; Jesse strangles Todd in the finale",
+          "spoiler_level": 3
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "lydia_rodarte_quayle",
+          "type": "professional",
+          "label": "methylamine supplier and distributor contact; Walt poisons her with ricin in the finale",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "gustavo_fring",
+          "to_id": "lydia_rodarte_quayle",
+          "type": "professional",
+          "label": "Lydia manages the methylamine supply chain for Fring",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "gustavo_fring",
+          "to_id": "gale_boetticher",
+          "type": "mentorship",
+          "label": "Gus recruits and mentors Gale as his preferred chemist",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "brock_cantillo",
+          "type": "antagonism",
+          "label": "Walt poisons Brock to manipulate Jesse",
+          "spoiler_level": 2
+        },
+        {
+          "from_id": "jane_margolis",
+          "to_id": "donald_margolis",
+          "type": "family",
+          "label": "daughter and father",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "hector_salamanca",
+          "to_id": "tuco_salamanca",
+          "type": "family",
+          "label": "uncle and nephew",
+          "spoiler_level": 1
+        },
+        {
+          "from_id": "walter_white",
+          "to_id": "ed_galbraith",
+          "type": "professional",
+          "label": "Walt uses Ed to disappear to New Hampshire",
+          "spoiler_level": 2
+        }
+      ],
+      "coverage_note": "Minor recurring figures such as Combo, Huell Babineaux, Patrick Kuby, the Cousins (Leonel and Marco Salamanca), and Tyrus Kitt are omitted due to the 25-character cap. The Cousins and Tyrus are folded implicitly into the Cartel & Neo-Nazi faction.",
+      "notes": "Character map covers all five seasons of Breaking Bad (AMC, 2008–2013). Spoiler levels are assigned relative to a first-time viewer; level 3 events include the series finale. The spin-off Better Call Saul and the film El Camino are not mapped here."
+    },
+    "chars": 25,
+    "factions": 6,
+    "rels": 29,
+    "spoiler_level_coverage_pct": 100.0,
+    "cost_usd": 0.092991,
+    "input_tokens": 77,
+    "output_tokens": 6184,
+    "model": "claude-sonnet-4-6"
+  }
+]

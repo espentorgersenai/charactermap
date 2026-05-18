@@ -1,0 +1,281 @@
+{
+  "title": "The Devil's Star",
+  "subtitle": "Jo Nesbø, 2003 · Harry Hole #5",
+  "blurb": "Oslo detective Harry Hole, battling alcoholism and professional disgrace, is assigned to investigate a series of murders in which the victims—young women—each have a finger severed and a tiny red diamond in the shape of a five-pointed star left beneath an eyelid. The case forces Harry into an uneasy partnership with his nemesis, Tom Waaler, while a parallel investigation into police corruption converges with the killings.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "oslo_police",
+      "label": "Oslo Police / Crime Squad",
+      "description": "Detectives and officers of Oslo's Kripos and Crime Squad investigating the diamond murders and internal corruption.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "victims_and_families",
+      "label": "Victims & Families",
+      "description": "The murder victims and their close relatives drawn into the investigation.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "corrupt_network",
+      "label": "The Corrupt Network",
+      "description": "Officers and associates involved in the criminal conspiracy operating within the police force.",
+      "color_hint": "red"
+    },
+    {
+      "id": "civilian_associates",
+      "label": "Civilian Associates",
+      "description": "Journalists, medical professionals, and private citizens who intersect with the investigation.",
+      "color_hint": "green"
+    }
+  ],
+  "characters": [
+    {
+      "id": "harry_hole",
+      "name": "Harry Hole",
+      "role": "Detective Inspector, Crime Squad",
+      "description": "A brilliant but self-destructive detective whose alcoholism has pushed him to the margins of the force. Reluctantly assigned to the diamond murders, he uncovers a conspiracy reaching deep into the Oslo Police.",
+      "faction_id": "oslo_police",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "tom_waaler",
+      "name": "Tom Waaler",
+      "role": "Detective Inspector / Corrupt Officer",
+      "description": "Harry's charming, ambitious, and dangerous partner on the case. Secretly the mastermind of the criminal network within the police and ultimately revealed as the serial killer responsible for the diamond murders.",
+      "faction_id": "corrupt_network",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "beate_lonn",
+      "name": "Beate Lønn",
+      "role": "Crime Scene Technician / Facial Recognition Expert",
+      "description": "A shy, gifted forensic technician with a rare ability to memorise faces. She becomes a vital ally to Harry and helps break open the case.",
+      "faction_id": "oslo_police",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "bjarne_moller",
+      "name": "Bjarne Møller",
+      "role": "Inspector / Harry's Supervisor",
+      "description": "Harry's direct superior and one of his few genuine supporters within the department. Tries to manage the fallout from Harry's erratic behaviour while keeping him operational.",
+      "faction_id": "oslo_police",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "ellen_gjelten",
+      "name": "Ellen Gjelten",
+      "role": "Deceased Detective / Harry's Former Partner",
+      "description": "Harry's murdered former partner, killed in a previous novel. Her unsolved death—connected to Waaler's network—haunts Harry throughout this case and drives his determination to expose the corruption.",
+      "faction_id": "oslo_police",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "rakel_fauke",
+      "name": "Rakel Fauke",
+      "role": "Lawyer / Harry's Love Interest",
+      "description": "A lawyer with whom Harry has a complicated romantic relationship. Her presence represents the personal stakes Harry risks through his drinking and dangerous work.",
+      "faction_id": "civilian_associates",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "oleg_fauke",
+      "name": "Oleg Fauke",
+      "role": "Rakel's Son",
+      "description": "Rakel's young son, to whom Harry has formed a paternal attachment. His wellbeing is a key emotional motivation for Harry.",
+      "faction_id": "civilian_associates",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "camilla_loen",
+      "name": "Camilla Loen",
+      "role": "Murder Victim",
+      "description": "One of the young women murdered by the serial killer; her death, with a severed finger and a red diamond star beneath her eyelid, is a central case in the investigation.",
+      "faction_id": "victims_and_families",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "lisbeth_barli",
+      "name": "Lisbeth Barli",
+      "role": "Murder Victim",
+      "description": "Another victim in the series; her death helps Harry establish the killer's pattern and connection to the pentagram motif.",
+      "faction_id": "victims_and_families",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "barbara_svendsen",
+      "name": "Barbara Svendsen",
+      "role": "Murder Victim",
+      "description": "An early victim whose death sets the serial murder investigation in motion.",
+      "faction_id": "victims_and_families",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "anne_bethelsen",
+      "name": "Anne Størksen",
+      "role": "Murder Victim / Near-Victim",
+      "description": "A later victim in the sequence; the escalating killings around her case push Harry toward the final confrontation.",
+      "faction_id": "victims_and_families",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "ivarsson",
+      "name": "Ivarsson",
+      "role": "Senior Investigator / Rival",
+      "description": "A senior officer placed in charge of the diamond murder case, sidelining Harry. His bureaucratic rivalry with Harry creates friction that hampers the investigation.",
+      "faction_id": "oslo_police",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "magnus_skarre",
+      "name": "Magnus Skarre",
+      "role": "Detective Constable",
+      "description": "A junior detective on the investigative team who serves as a procedural presence in several inquiry scenes.",
+      "faction_id": "oslo_police",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "sigurd_altman",
+      "name": "Sigurd Altman",
+      "role": "Suspect / Waaler's Associate",
+      "description": "A figure connected to Waaler's criminal network who comes under scrutiny during the investigation, illustrating the breadth of corruption within the force.",
+      "faction_id": "corrupt_network",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "rune_ivarsson_journalist",
+      "name": "Gunnar Hagen",
+      "role": "Senior Police Administrator",
+      "description": "A police administrator whose position intersects with both the murder inquiry and the internal affairs questions raised by the corruption investigation.",
+      "faction_id": "oslo_police",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "harry_hole",
+      "to_id": "tom_waaler",
+      "type": "antagonism",
+      "label": "forced partners; Harry suspects Waaler of Ellen's murder",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "ellen_gjelten",
+      "type": "professional",
+      "label": "former partner; her murder drives Harry's quest",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "beate_lonn",
+      "type": "alliance",
+      "label": "investigative allies; mutual respect",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "rakel_fauke",
+      "type": "romantic",
+      "label": "strained romantic relationship",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "oleg_fauke",
+      "type": "family",
+      "label": "surrogate father figure",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "bjarne_moller",
+      "type": "professional",
+      "label": "supervisor; reluctant protector of Harry",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "ellen_gjelten",
+      "type": "antagonism",
+      "label": "Waaler murdered Ellen to protect his network",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "sigurd_altman",
+      "type": "criminal",
+      "label": "associates in corrupt arms-and-crime network",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "ivarsson",
+      "type": "antagonism",
+      "label": "professional rivalry; Ivarsson controls the official investigation",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "rakel_fauke",
+      "to_id": "oleg_fauke",
+      "type": "family",
+      "label": "mother and son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "beate_lonn",
+      "to_id": "tom_waaler",
+      "type": "antagonism",
+      "label": "Beate's facial recognition ability helps expose Waaler",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "Minor named victims and peripheral officers are omitted due to the 25-character cap. The network of Waaler's criminal associates is summarised through Sigurd Altman rather than enumerated individually. Some character name details (e.g. the Altman and Hagen roles) reflect best-effort reconstruction from the novel's dense ensemble and may contain minor name inaccuracies at the minor-character tier.",
+  "notes": "The Devil's Star is the fifth Harry Hole novel. The reveal of Tom Waaler as both the serial killer and Ellen Gjelten's murderer resolves a thread running since The Redbreast (#4). This map contains full spoilers including the climactic confrontation in which Harry kills Waaler."
+}

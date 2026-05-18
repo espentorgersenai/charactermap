@@ -1,0 +1,272 @@
+{
+  "title": "Congo",
+  "subtitle": "Michael Crichton, 1980",
+  "blurb": "A high-tech expedition races into the Congo rainforest to find a lost city and a rare blue diamond deposit. Competing teams, hostile terrain, and a species of aggressive grey gorillas stand between them and their goal. The novel blends adventure thriller with scientific speculation about primate behavior and lost civilizations.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "erts",
+      "label": "ERTS Expedition",
+      "description": "Earth Resources Technology Services, a Houston-based consortium using advanced computing and logistics to locate valuable mineral deposits. The primary expedition team.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "euro_consortium",
+      "label": "Euro-Japanese Consortium",
+      "description": "A rival corporate alliance racing ERTS to the Congo diamond fields, willing to use sabotage and violence to secure the prize.",
+      "color_hint": "red"
+    },
+    {
+      "id": "primates",
+      "label": "Primate Research",
+      "description": "Academic researchers working on gorilla language acquisition and field primatology, whose work becomes entangled with the expedition.",
+      "color_hint": "green"
+    },
+    {
+      "id": "local_guides",
+      "label": "Local & Field Personnel",
+      "description": "Congolese and mercenary guides who navigate the expedition through the jungle and political instability.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "zinj_gorillas",
+      "label": "Grey Gorillas of Zinj",
+      "description": "A relic population of aggressive, possibly trained grey gorillas guarding the ruins of the lost city of Zinj.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "karen_ross",
+      "name": "Karen Ross",
+      "role": "ERTS Field Project Director",
+      "description": "A brilliant, driven young data analyst and field director for ERTS who leads the Congo expedition on behalf of the corporation. She is highly competent but initially underestimates the dangers of the jungle and the grey gorillas.",
+      "faction_id": "erts",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "peter_elliot",
+      "name": "Peter Elliot",
+      "role": "Primatologist, UC Berkeley",
+      "description": "An academic primatologist who joins the expedition to return Amy, his signing gorilla, to the wild and investigate her mysterious drawings of a lost city. His scientific goals repeatedly conflict with ERTS's commercial mission.",
+      "faction_id": "primates",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "amy",
+      "name": "Amy",
+      "role": "Gorilla / Language Research Subject",
+      "description": "A female lowland gorilla trained in American Sign Language by Elliot. She communicates via a voice-synthesis computer vest and proves invaluable in navigating Zinj, eventually choosing to remain in the Congo with wild gorillas.",
+      "faction_id": "primates",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "charles_munro",
+      "name": "Charles Munro",
+      "role": "Expedition Guide / Mercenary",
+      "description": "A seasoned and pragmatic expedition guide with deep knowledge of the Congo. He manages logistics and security for the ERTS team and proves essential to their survival.",
+      "faction_id": "local_guides",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "travis",
+      "name": "R. B. Travis",
+      "role": "ERTS Director / CEO",
+      "description": "The hard-nosed director of ERTS who drives the expedition from Houston using satellite feeds and advanced data systems. He prioritizes the corporation's commercial interests above all else.",
+      "faction_id": "erts",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "hamir",
+      "name": "Hamir",
+      "role": "Munro's Assistant / Field Hand",
+      "description": "A loyal and capable field assistant to Munro who helps manage the expedition's day-to-day survival in the jungle.",
+      "faction_id": "local_guides",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "kahega",
+      "name": "Kahega",
+      "role": "Head Porters / Congo Scout",
+      "description": "The leader of the Congolese porters hired for the expedition, reliable and knowledgeable about the local terrain.",
+      "faction_id": "local_guides",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "imo",
+      "name": "Imo",
+      "role": "ERTS Communications Technician",
+      "description": "A technician accompanying the ERTS expedition who manages communications equipment in the field.",
+      "faction_id": "erts",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "rossiter",
+      "name": "Geoffrey Rossiter",
+      "role": "Euro-Japanese Consortium Field Leader",
+      "description": "The field leader of the rival Euro-Japanese consortium, who pursues the ERTS team aggressively through the Congo and attempts to sabotage their mission. He is killed by the grey gorillas at Zinj.",
+      "faction_id": "euro_consortium",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "morikawa",
+      "name": "Morikawa",
+      "role": "Euro-Japanese Consortium Representative",
+      "description": "The Japanese financial backer and representative of the consortium, coordinating the rival expedition from behind the scenes.",
+      "faction_id": "euro_consortium",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "seamans",
+      "name": "Dr. Seamans",
+      "role": "ERTS Technical Analyst",
+      "description": "An ERTS analyst based in Houston who assists Travis in interpreting data and coordinating the expedition remotely.",
+      "faction_id": "erts",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "jenny",
+      "name": "Jenny",
+      "role": "Elliot's Research Assistant",
+      "description": "Peter Elliot's graduate student and assistant who helps manage Amy's care and language training before the expedition departs.",
+      "faction_id": "primates",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "grey_gorillas",
+      "name": "Grey Gorillas (Zinj)",
+      "role": "Guardian Predators of the Lost City",
+      "description": "A relic population of large, aggressive grey gorillas believed to have been selectively bred or conditioned by the ancient Zinj civilization to guard the diamond mines. They attack any intruders with coordinated, lethal force.",
+      "faction_id": "zinj_gorillas",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "karen_ross",
+      "to_id": "travis",
+      "type": "professional",
+      "label": "field director reporting to corporate superior",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "karen_ross",
+      "to_id": "peter_elliot",
+      "type": "alliance",
+      "label": "uneasy co-leaders of the expedition",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "peter_elliot",
+      "to_id": "amy",
+      "type": "professional",
+      "label": "researcher and subject; deep personal bond",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "karen_ross",
+      "to_id": "charles_munro",
+      "type": "professional",
+      "label": "client and hired guide",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "charles_munro",
+      "to_id": "hamir",
+      "type": "professional",
+      "label": "commander and loyal assistant",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "rossiter",
+      "to_id": "karen_ross",
+      "type": "antagonism",
+      "label": "rival field commander pursuing same goal",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "rossiter",
+      "to_id": "morikawa",
+      "type": "professional",
+      "label": "field agent of the consortium",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "grey_gorillas",
+      "to_id": "karen_ross",
+      "type": "antagonism",
+      "label": "lethal territorial threat at Zinj",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "grey_gorillas",
+      "to_id": "rossiter",
+      "type": "antagonism",
+      "label": "kill rival expedition members at Zinj",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "amy",
+      "to_id": "grey_gorillas",
+      "type": "alliance",
+      "label": "Amy eventually joins wild gorilla population; departs with them",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "peter_elliot",
+      "to_id": "jenny",
+      "type": "mentorship",
+      "label": "thesis supervisor and graduate assistant",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "charles_munro",
+      "to_id": "kahega",
+      "type": "professional",
+      "label": "expedition guide and head porter",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "Minor porters, background ERTS analysts, and unnamed Congolese military figures appear in the novel but are omitted as their structural roles are peripheral. The grey gorillas are treated as a collective character node given their narrative function.",
+  "notes": "Character details drawn from the 1980 novel. The grey gorillas of Zinj function as a collective antagonist rather than individual named characters. Amy's arc — from laboratory subject to wild gorilla — forms the emotional spine of the story alongside the corporate race for the diamond deposits."
+}

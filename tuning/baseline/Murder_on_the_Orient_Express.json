@@ -1,0 +1,361 @@
+{
+  "title": "Murder on the Orient Express",
+  "subtitle": "Agatha Christie, 1934 · Hercule Poirot #10",
+  "blurb": "Celebrated Belgian detective Hercule Poirot is stranded aboard the Orient Express when a fellow passenger, the odious Samuel Ratchett, is found stabbed to death in his locked compartment. With thirteen suspects and a snowdrift holding the train in place, Poirot must untangle a web of false identities and coordinated deception to reveal a truth more extraordinary than any single culprit.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "investigators",
+      "label": "The Investigators",
+      "description": "Hercule Poirot and the railway officials who assist in conducting the inquiry.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "armstrong_conspirators",
+      "label": "The Armstrong Circle",
+      "description": "The twelve passengers — each connected to the Armstrong family tragedy — who collectively planned and executed the murder of Cassetti.",
+      "color_hint": "red"
+    },
+    {
+      "id": "railway",
+      "label": "Compagnie Internationale des Wagons-Lits",
+      "description": "Staff and officials of the Orient Express railway company.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "hercule_poirot",
+      "name": "Hercule Poirot",
+      "role": "Private Detective",
+      "description": "Fastidious Belgian detective famous for his 'little grey cells.' Summoned back to England, he boards the Orient Express and is drawn into the investigation when Ratchett is killed.",
+      "faction_id": "investigators",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "samuel_ratchett",
+      "name": "Samuel Ratchett (Cassetti)",
+      "role": "Victim / American Gangster",
+      "description": "A coarse, wealthy American who attempts to hire Poirot as a bodyguard. Revealed after his murder to be Cassetti, the kidnapper and murderer of little Daisy Armstrong.",
+      "faction_id": null,
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "monsieur_bouc",
+      "name": "Monsieur Bouc",
+      "role": "Director, Wagons-Lits",
+      "description": "An old friend of Poirot's and a director of the railway company. He facilitates the investigation and ultimately endorses Poirot's alternative explanation to the authorities.",
+      "faction_id": "investigators",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "dr_constantine",
+      "name": "Dr. Constantine",
+      "role": "Greek Physician / Co-investigator",
+      "description": "A Greek doctor travelling on the train who assists Poirot with the medical examination of the body and the forensic aspects of the case.",
+      "faction_id": "investigators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "princess_dragomiroff",
+      "name": "Princess Natalia Dragomiroff",
+      "role": "Russian Aristocrat",
+      "description": "An imperious elderly Russian noblewoman and godmother of Sonia Armstrong. One of the conspirators, she provided the crucial handkerchief clue and organised her maid Hildegarde Schmidt's participation.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "colonel_arbuthnot",
+      "name": "Colonel Arbuthnot",
+      "role": "British Indian Army Officer",
+      "description": "A stiff, upright British colonel and close friend of Colonel Armstrong. Part of the conspiracy, he is romantically attached to Mary Debenham.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "mary_debenham",
+      "name": "Mary Debenham",
+      "role": "English Governess",
+      "description": "A cool, composed English governess who was the nursery governess in the Armstrong household at the time of the kidnapping. Her composure under questioning makes her an early suspect.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "countess_andrenyi",
+      "name": "Countess Helena Andrenyi",
+      "role": "Hungarian Countess",
+      "description": "A beautiful Hungarian noblewoman travelling with her husband. Revealed to be Helena Goldenberg, Sonia Armstrong's younger sister, whose identity was concealed to protect her from suspicion.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "count_andrenyi",
+      "name": "Count Rudolph Andrenyi",
+      "role": "Hungarian Diplomat",
+      "description": "Helena's devoted husband who altered her passport to conceal her identity and shield her from involvement — though he was not himself part of the conspiracy.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "hector_macqueen",
+      "name": "Hector MacQueen",
+      "role": "Ratchett's Secretary",
+      "description": "Ratchett's young American secretary, whose father was the District Attorney ruined by the Cassetti case. One of the conspirators.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "edward_masterman",
+      "name": "Edward Masterman",
+      "role": "Ratchett's Valet",
+      "description": "Ratchett's English manservant, who was Colonel Armstrong's batman (orderly) during the war. A calm, disciplined participant in the conspiracy.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "mrs_hubbard",
+      "name": "Mrs. Caroline Hubbard (Linda Arden)",
+      "role": "Garrulous American Matron / Actress",
+      "description": "An apparently talkative and fussy American widow who is in fact the celebrated actress Linda Arden — Sonia Armstrong's mother and the ringleader of the entire conspiracy.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "hildegarde_schmidt",
+      "name": "Hildegarde Schmidt",
+      "role": "Princess Dragomiroff's Maid",
+      "description": "The Princess's German lady's maid, who was formerly cook in the Armstrong household. She impersonated a Wagons-Lits conductor as part of the conspiracy.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "antonio_foscarelli",
+      "name": "Antonio Foscarelli",
+      "role": "Italian-American Car Salesman",
+      "description": "A large, jovial Italian-American who was the Armstrong family's chauffeur. One of the twelve conspirators.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "cyrus_hardman",
+      "name": "Cyrus Hardman",
+      "role": "American Detective (Undercover)",
+      "description": "Poses as a flamboyant American traveller but is actually a private detective hired to protect Ratchett. Was in love with the Armstrong nursemaid Susanne who died after the kidnapping ordeal.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "greta_ohlsson",
+      "name": "Greta Ohlsson",
+      "role": "Swedish Missionary",
+      "description": "A pious Swedish missionary who was Daisy Armstrong's nurse. Her quiet religious demeanour conceals her role as one of the twelve stabbers.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "pierre_michel",
+      "name": "Pierre Michel",
+      "role": "Wagons-Lits Conductor",
+      "description": "The French conductor of the Istanbul–Calais coach. His daughter was the Armstrong nursemaid Susanne who died after her wrongful arrest, making him a conspirator despite his official role.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "colonel_armstrong",
+      "name": "Colonel John Armstrong",
+      "role": "Deceased Father / Catalyst",
+      "description": "Sonia Armstrong's husband and Daisy's father. Took his own life after his wife and unborn child died in the aftermath of the kidnapping. His tragedy motivates the entire conspiracy; he does not appear in the narrative.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "sonia_armstrong",
+      "name": "Sonia Armstrong",
+      "role": "Deceased Mother / Catalyst",
+      "description": "Daughter of Linda Arden and mother of Daisy. Died prematurely after the shock of her daughter's murder; her death, along with her husband's suicide, underpins the conspirators' motive.",
+      "faction_id": "armstrong_conspirators",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "hercule_poirot",
+      "to_id": "monsieur_bouc",
+      "type": "professional",
+      "label": "old friend and railway contact",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "hercule_poirot",
+      "to_id": "dr_constantine",
+      "type": "professional",
+      "label": "co-investigator",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "hercule_poirot",
+      "to_id": "samuel_ratchett",
+      "type": "antagonism",
+      "label": "refused to protect; then investigates his murder",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "hector_macqueen",
+      "to_id": "samuel_ratchett",
+      "type": "professional",
+      "label": "secretary (concealing hatred)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "edward_masterman",
+      "to_id": "samuel_ratchett",
+      "type": "professional",
+      "label": "valet (concealing hatred)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "mrs_hubbard",
+      "to_id": "sonia_armstrong",
+      "type": "family",
+      "label": "mother (Linda Arden)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "countess_andrenyi",
+      "to_id": "sonia_armstrong",
+      "type": "family",
+      "label": "younger sister (Helena Goldenberg)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "count_andrenyi",
+      "to_id": "countess_andrenyi",
+      "type": "romantic",
+      "label": "devoted husband; altered her passport to protect her",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "princess_dragomiroff",
+      "to_id": "sonia_armstrong",
+      "type": "family",
+      "label": "godmother",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "pierre_michel",
+      "to_id": "sonia_armstrong",
+      "type": "family",
+      "label": "father of Susanne (Armstrong nursemaid)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "cyrus_hardman",
+      "to_id": "pierre_michel",
+      "type": "alliance",
+      "label": "fellow conspirators; both connected to Susanne",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "colonel_arbuthnot",
+      "to_id": "colonel_armstrong",
+      "type": "alliance",
+      "label": "close friend and fellow officer",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "colonel_arbuthnot",
+      "to_id": "mary_debenham",
+      "type": "romantic",
+      "label": "romantic attachment",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "mrs_hubbard",
+      "to_id": "armstrong_conspirators",
+      "type": "alliance",
+      "label": "ringleader of the conspiracy",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "samuel_ratchett",
+      "to_id": "colonel_armstrong",
+      "type": "antagonism",
+      "label": "Cassetti kidnapped and murdered Daisy Armstrong, destroying the family",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "edward_masterman",
+      "to_id": "colonel_armstrong",
+      "type": "professional",
+      "label": "former batman (military orderly)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "hildegarde_schmidt",
+      "to_id": "princess_dragomiroff",
+      "type": "professional",
+      "label": "lady's maid",
+      "spoiler_level": 0
+    }
+  ],
+  "coverage_note": "Colonel Armstrong and Sonia Armstrong are included as deceased catalysts given their structural centrality, though they never appear in the narrative. Minor on-platform characters and background railway staff are omitted. The 'armstrong_conspirators' faction_id is used for the count who was not a stabber but aided the conspiracy by concealing his wife's identity.",
+  "notes": "Full-spoiler map. The resolution reveals that all twelve passengers connected to the Armstrong household each stabbed Ratchett once, so that no single person bears sole guilt — a verdict Poirot presents alongside a fictional alternative for the authorities. Character count: 19 of a possible ~22 named figures; minor speaking characters omitted under the 25-character cap."
+}

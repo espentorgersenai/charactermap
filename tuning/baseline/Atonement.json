@@ -1,0 +1,301 @@
+{
+  "title": "Atonement",
+  "subtitle": "Ian McEwan, 2001",
+  "blurb": "On a sweltering summer day in 1935, thirteen-year-old Briony Tallis misinterprets a sexual encounter and falsely accuses a young man of rape, setting in motion a tragedy that destroys two lives and haunts her own for decades. The novel spans the English country house, the retreat to Dunkirk, wartime London, and finally a 1999 coda in which the elderly Briony reveals the full, devastating truth about her narrative and her guilt.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "tallis_family",
+      "label": "Tallis Family",
+      "description": "The upper-middle-class English family at the centre of the novel, residing at their Surrey country house.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "turner_household",
+      "label": "Turner Household",
+      "description": "Robbie Turner and his mother, socially dependent on the Tallis family's patronage.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "quincey_visitors",
+      "label": "Quincey–Marshall Visitors",
+      "description": "Relatives and guests visiting the Tallis estate in the summer of 1935.",
+      "color_hint": "green"
+    },
+    {
+      "id": "war_theatre",
+      "label": "Wartime World",
+      "description": "Soldiers, nurses, and figures encountered during the Dunkirk retreat and the London Blitz.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "older_briony",
+      "label": "Older Briony's Frame",
+      "description": "The 1999 narrative frame in which Briony as an elderly novelist acknowledges her fabrications and seeks a form of atonement.",
+      "color_hint": "violet"
+    }
+  ],
+  "characters": [
+    {
+      "id": "briony_tallis",
+      "name": "Briony Tallis",
+      "role": "Protagonist / Narrator (as elderly novelist)",
+      "description": "An imaginative, morally presumptuous thirteen-year-old in 1935 who falsely accuses Robbie Turner of rape after misreading adult sexuality. Decades later, as a celebrated novelist dying of vascular dementia, she reveals that the novel itself is her final, failed act of atonement.",
+      "faction_id": "tallis_family",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "cecilia_tallis",
+      "name": "Cecilia Tallis",
+      "role": "Briony's elder sister / Robbie's lover",
+      "description": "A Cambridge graduate and Robbie's true love. She cuts off her family after the injustice against Robbie and serves as a nurse during the war. She and Robbie are reunited briefly before both are killed — though this ending is later revealed to be Briony's invented consolation.",
+      "faction_id": "tallis_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "robbie_turner",
+      "name": "Robbie Turner",
+      "role": "Falsely accused young man / soldier",
+      "description": "The charming, intellectually gifted son of the Tallis charlady, loved by Cecilia and wrongly imprisoned for a rape committed by Paul Marshall. He survives prison by enlisting and endures the Dunkirk retreat, dying of septicaemia on the beach — though Briony's novel gives him a happier invented death.",
+      "faction_id": "turner_household",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "leon_tallis",
+      "name": "Leon Tallis",
+      "role": "Cecilia and Briony's older brother",
+      "description": "An amiable, superficial young man who brings Paul Marshall to the estate that fateful weekend, unwittingly catalysing events.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "emily_tallis",
+      "name": "Emily Tallis",
+      "role": "Matriarch of the Tallis household",
+      "description": "A semi-invalid, self-absorbed mother who manages the household from her darkened bedroom and fails to investigate Briony's accusation with sufficient rigour.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "jack_tallis",
+      "name": "Jack Tallis",
+      "role": "Father / civil servant",
+      "description": "The largely absent patriarch, a senior civil servant who ultimately accepts Briony's accusation against Robbie rather than challenge the social order.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "paul_marshall",
+      "name": "Paul Marshall",
+      "role": "Actual rapist / Leon's wealthy friend",
+      "description": "A self-satisfied chocolate magnate who accompanies Leon to the Tallis estate and rapes the fifteen-year-old Lola Quincey in the garden. He escapes justice by marrying Lola and goes on to a wealthy, respectable life — the true criminal whom Briony's false accusation shielded.",
+      "faction_id": "quincey_visitors",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "lola_quincey",
+      "name": "Lola Quincey",
+      "role": "Rape victim / later Paul Marshall's wife",
+      "description": "A fifteen-year-old cousin visiting the Tallis estate who is raped by Paul Marshall. She does not correct Briony's false identification of Robbie as her attacker, either through confusion or complicity, and later marries Marshall — a union that silences any possibility of the truth emerging in her lifetime.",
+      "faction_id": "quincey_visitors",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "pierrot_quincey",
+      "name": "Pierrot Quincey",
+      "role": "Lola's younger brother",
+      "description": "One of the Quincey twins visiting the estate; a minor figure whose running away prompts the fateful night-time search.",
+      "faction_id": "quincey_visitors",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "jackson_quincey",
+      "name": "Jackson Quincey",
+      "role": "Lola's younger brother (twin)",
+      "description": "The other Quincey twin; runs away with Pierrot from the troubled atmosphere of the estate.",
+      "faction_id": "quincey_visitors",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "grace_turner",
+      "name": "Grace Turner",
+      "role": "Robbie's mother / Tallis charlady",
+      "description": "The loyal, hardworking charwoman employed by the Tallis family, whose son's social advancement is made possible by Jack Tallis — and then destroyed by the family's failure to stand by Robbie.",
+      "faction_id": "turner_household",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "corporal_nettle",
+      "name": "Corporal Nettle",
+      "role": "Robbie's companion on the Dunkirk retreat",
+      "description": "One of two cockney corporals who march with the wounded Robbie across France toward Dunkirk; loyal and grounding amid the chaos of the retreat.",
+      "faction_id": "war_theatre",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "corporal_mace",
+      "name": "Corporal Mace",
+      "role": "Robbie's second companion on the retreat",
+      "description": "The other cockney corporal accompanying Robbie; together with Nettle he provides human solidarity during the harrowing march to the coast.",
+      "faction_id": "war_theatre",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "fiona_ward_nurse",
+      "name": "Fiona",
+      "role": "Cecilia's fellow nurse and friend",
+      "description": "A nurse who works alongside Cecilia in wartime London and serves as a minor confidante.",
+      "faction_id": "war_theatre",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "elderly_briony_1999",
+      "name": "Briony Tallis (1999)",
+      "role": "Elderly novelist / frame narrator",
+      "description": "The seventy-seven-year-old Briony who, on her birthday, discloses that Cecilia and Robbie never actually reconciled — both died in 1940 — and that the reunion in Part Three was her novelistic invention. She acknowledges she cannot truly atone; the crime and its cover persist beyond her death in the marriage of Paul and Lola Marshall.",
+      "faction_id": "older_briony",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "briony_tallis",
+      "to_id": "cecilia_tallis",
+      "type": "family",
+      "label": "sisters (estranged after Briony's false accusation)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "robbie_turner",
+      "type": "antagonism",
+      "label": "false accuser — destroys his life with perjured testimony",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "cecilia_tallis",
+      "to_id": "robbie_turner",
+      "type": "romantic",
+      "label": "deeply in love; separated by Briony's accusation and Robbie's imprisonment",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "grace_turner",
+      "type": "family",
+      "label": "son and mother",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "leon_tallis",
+      "to_id": "paul_marshall",
+      "type": "alliance",
+      "label": "friends; Leon brings Marshall to the estate",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "paul_marshall",
+      "to_id": "lola_quincey",
+      "type": "criminal",
+      "label": "rapes Lola; later marries her, silencing the truth",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "lola_quincey",
+      "type": "family",
+      "label": "cousins; Briony's false identification protects Marshall",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "elderly_briony_1999",
+      "type": "professional",
+      "label": "same person across time; the 1999 frame reveals the novel's true authorship and moral burden",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jack_tallis",
+      "to_id": "robbie_turner",
+      "type": "professional",
+      "label": "patron who funded Robbie's education, then failed to protect him",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "corporal_nettle",
+      "type": "alliance",
+      "label": "comrades on the Dunkirk retreat",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "corporal_mace",
+      "type": "alliance",
+      "label": "comrades on the Dunkirk retreat",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "elderly_briony_1999",
+      "to_id": "paul_marshall",
+      "type": "antagonism",
+      "label": "Briony knows Marshall is the true rapist but cannot publish the truth while he and Lola live",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "cecilia_tallis",
+      "to_id": "elderly_briony_1999",
+      "type": "family",
+      "label": "Cecilia (dead since 1940) is given a fictional survival and reunion by Briony as an act of invented atonement",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "Minor named patients, ward sisters, and background soldiers from the wartime sections are omitted as they fall below the character cap and have negligible structural roles.",
+  "notes": "Character map covers the full novel including the Part Three coda ('London, 1999') in which McEwan's metafictional frame is disclosed. Spoiler levels 2–3 contain major revelations about Marshall's guilt and the falsity of the reconciliation scene. All structural details are drawn from the published 2001 Vintage/Cape text."
+}

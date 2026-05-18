@@ -1,0 +1,431 @@
+{
+  "title": "The Office",
+  "subtitle": "Greg Daniels, 2005–2013 · NBC Mockumentary",
+  "blurb": "A mockumentary following the daily lives of employees at Dunder Mifflin's Scranton, Pennsylvania branch. The series blends workplace comedy with character-driven drama as the staff navigates the management of their oblivious, well-meaning regional manager Michael Scott. Over nine seasons, the show chronicles romances, rivalries, and the slow transformation of the branch and its people.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "management",
+      "label": "Management",
+      "description": "Branch manager and those who hold or vie for managerial authority at Dunder Mifflin Scranton.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "sales",
+      "label": "Sales",
+      "description": "The sales team responsible for moving paper and office supplies.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "accounting",
+      "label": "Accounting",
+      "description": "The accounting department handling the branch's finances.",
+      "color_hint": "green"
+    },
+    {
+      "id": "reception_admin",
+      "label": "Reception & Admin",
+      "description": "Front-of-house and administrative support staff.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "corporate",
+      "label": "Corporate / Outside",
+      "description": "Dunder Mifflin corporate staff and significant figures from outside the Scranton branch.",
+      "color_hint": "red"
+    },
+    {
+      "id": "warehouse_other",
+      "label": "Warehouse & Other Staff",
+      "description": "Warehouse workers and miscellaneous branch employees.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "michael_scott",
+      "name": "Michael Scott",
+      "role": "Regional Manager, Dunder Mifflin Scranton",
+      "description": "Well-meaning but deeply self-absorbed manager who craves the affection of his employees above all else. Leaves Scranton in Season 7 to move to Colorado with Holly Flax and is happily married by the series finale.",
+      "faction_id": "management",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "dwight_schrute",
+      "name": "Dwight Schrute",
+      "role": "Assistant to the Regional Manager / Salesman / Eventually Regional Manager",
+      "description": "Intense, rule-obsessed top salesman and beet farmer who is fiercely loyal to Michael. Becomes Regional Manager of Scranton and marries Angela Martin in the series finale.",
+      "faction_id": "sales",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "jim_halpert",
+      "name": "Jim Halpert",
+      "role": "Salesman / Co-Manager / Later Athlead Co-Founder",
+      "description": "Affable, sardonic salesman whose long-running romance with Pam Beesly is a central thread of the series. Pursues a sports-marketing venture (Athlead/Athleap) in later seasons, straining his marriage before ultimately reconciling.",
+      "faction_id": "sales",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "pam_beesly",
+      "name": "Pam Beesly",
+      "role": "Receptionist / Office Administrator / Later Art Student",
+      "description": "Soft-spoken receptionist who nurtures artistic ambitions and a slow-building romance with Jim Halpert. Marries Jim in Season 6 and ultimately persuades him to sell his business stake so the family can move to Austin.",
+      "faction_id": "reception_admin",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "andy_bernard",
+      "name": "Andy Bernard",
+      "role": "Salesman / Regional Manager (Seasons 8–9)",
+      "description": "Cornell alumnus with anger-management history who rises to Regional Manager after Michael leaves. His management tenure unravels as he pursues internet fame, and he is ultimately demoted and humiliated.",
+      "faction_id": "management",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "angela_martin",
+      "name": "Angela Martin",
+      "role": "Head of Accounting",
+      "description": "Prim, judgmental accountant with a passion for cats and a long secret affair with Dwight. Marries the Senator in Season 8 but divorces him when his affair with Oscar is revealed; marries Dwight in the finale.",
+      "faction_id": "accounting",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "ryan_howard",
+      "name": "Ryan Howard",
+      "role": "Temp / Salesman / VP of New Media (Corporate) / Later Various",
+      "description": "Ambitious temp who rises rapidly to a corporate VP role before a fraud scandal derails him. Spends later seasons in a volatile on-off relationship with Kelly Kapoor and departs with her abruptly in the finale.",
+      "faction_id": "sales",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "kelly_kapoor",
+      "name": "Kelly Kapoor",
+      "role": "Customer Service Representative",
+      "description": "Effusive, pop-culture-obsessed customer service rep perpetually entangled in a dramatic romance with Ryan Howard. Elopes with Ryan at the end of the series finale, abandoning her new fiancé.",
+      "faction_id": "reception_admin",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "oscar_martinez",
+      "name": "Oscar Martinez",
+      "role": "Accountant",
+      "description": "Measured, intellectual accountant who is outed as gay by Michael in Season 3. Later has a secret affair with Angela's husband, Senator Robert Lipton.",
+      "faction_id": "accounting",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "kevin_malone",
+      "name": "Kevin Malone",
+      "role": "Accountant",
+      "description": "Good-natured, slow-witted accountant and amateur musician. Is eventually fired by Dwight for incompetence and, per the documentary's coda, later runs a bar.",
+      "faction_id": "accounting",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "toby_flenderson",
+      "name": "Toby Flenderson",
+      "role": "HR Representative",
+      "description": "Mild, melancholy HR rep who is a persistent target of Michael's contempt. Returns in Season 9 and becomes obsessed with the Scranton Strangler case.",
+      "faction_id": "reception_admin",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "stanley_hudson",
+      "name": "Stanley Hudson",
+      "role": "Salesman",
+      "description": "Gruff, openly disengaged salesman who lives for retirement and crossword puzzles. Retires to Florida and takes up woodcarving by the series' end.",
+      "faction_id": "sales",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "phyllis_vance",
+      "name": "Phyllis Vance",
+      "role": "Salesperson",
+      "description": "Warm, underestimated salesperson married to Bob Vance of Vance Refrigeration. Uses knowledge of Dwight and Angela's affair as leverage at various points.",
+      "faction_id": "sales",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "meredith_palmer",
+      "name": "Meredith Palmer",
+      "role": "Supplier Relations",
+      "description": "Uninhibited, hard-drinking supplier relations representative whose personal life is a recurring source of dark comedy.",
+      "faction_id": "warehouse_other",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "creed_bratton",
+      "name": "Creed Bratton",
+      "role": "Quality Assurance",
+      "description": "Enigmatic, possibly criminal quality assurance director whose backstory is deliberately murky. Goes on the run after the documentary airs, suggesting a criminal past, but is seen at Dwight's wedding.",
+      "faction_id": "warehouse_other",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "holly_flax",
+      "name": "Holly Flax",
+      "role": "HR Representative / Michael Scott's Partner",
+      "description": "HR rep who replaces Toby and becomes Michael Scott's great love. Transferred away by corporate, then returns in Season 8; Michael leaves Scranton to be with her and they marry.",
+      "faction_id": "corporate",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "robert_california",
+      "name": "Robert California",
+      "role": "CEO of Dunder Mifflin (Season 8)",
+      "description": "Enigmatic, manipulative CEO who replaces Jo Bennett for one season. His unsettling charisma drives much of Season 8's comedy and tension before he disappears from the narrative.",
+      "faction_id": "corporate",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "darryl_philbin",
+      "name": "Darryl Philbin",
+      "role": "Warehouse Foreman / Later Office Staff / Athlead Employee",
+      "description": "Grounded, pragmatic warehouse foreman who migrates into the office and eventually joins Jim's Athlead venture in Philadelphia.",
+      "faction_id": "warehouse_other",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "michael_scott_paper_company",
+      "name": "Michael Scott Paper Company",
+      "role": "Story Arc / Faction Note",
+      "description": "Temporary rival paper company formed by Michael, Pam, and Ryan in Season 5. Successfully competes with Dunder Mifflin before being absorbed back; treated here as a plot arc rather than a separate character.",
+      "faction_id": "management",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "jan_levinson",
+      "name": "Jan Levinson",
+      "role": "VP of Sales (Corporate) / Michael's Girlfriend",
+      "description": "Ambitious corporate VP who enters a destructive relationship with Michael. Fired from Dunder Mifflin and her subsequent instability forms a running storyline through Season 4.",
+      "faction_id": "corporate",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "roy_anderson",
+      "name": "Roy Anderson",
+      "role": "Warehouse Worker / Pam's Fiancé",
+      "description": "Pam's longtime fiancé whose inattentiveness allows Jim and Pam's relationship to develop. Briefly threatens Jim in Season 3 before departing the main cast.",
+      "faction_id": "warehouse_other",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "erin_hannon",
+      "name": "Erin Hannon",
+      "role": "Receptionist (Seasons 5–9)",
+      "description": "Cheerful, earnest receptionist who replaces Pam and becomes a fan favorite. Discovers her biological parents in Season 9 and ends the series in a relationship with Pete Miller.",
+      "faction_id": "reception_admin",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "senator_robert_lipton",
+      "name": "Senator Robert Lipton",
+      "role": "State Senator / Angela's Husband",
+      "description": "Angela's politically ambitious husband who is revealed to be having an affair with Oscar Martinez. Divorces Angela when this is publicly exposed.",
+      "faction_id": "corporate",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "todd_packer",
+      "name": "Todd Packer",
+      "role": "Traveling Salesman",
+      "description": "Crude, boorish road salesman and longtime friend of Michael who is eventually fired after his offensive behavior becomes untenable even by the office's standards.",
+      "faction_id": "sales",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "gabe_lewis",
+      "name": "Gabe Lewis",
+      "role": "Corporate Liaison / Erin's Former Boyfriend",
+      "description": "Awkward corporate liaison from Sabre who oversees the Scranton branch and is Erin's ill-matched boyfriend before she ends their relationship.",
+      "faction_id": "corporate",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "jim_halpert",
+      "to_id": "pam_beesly",
+      "type": "romantic",
+      "label": "long-running courtship; marry in Season 6; strained by Jim's startup in Season 9 but reconciled",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "holly_flax",
+      "type": "romantic",
+      "label": "great love; reunite in Season 8; Michael leaves Scranton to marry her",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "jan_levinson",
+      "type": "romantic",
+      "label": "volatile relationship ending in mutual damage",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "dwight_schrute",
+      "to_id": "angela_martin",
+      "type": "romantic",
+      "label": "long secret affair; estrangement; reunite and marry in series finale",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "ryan_howard",
+      "to_id": "kelly_kapoor",
+      "type": "romantic",
+      "label": "chaotic on-off relationship; elope together at the finale",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "dwight_schrute",
+      "type": "professional",
+      "label": "boss and devotedly loyal subordinate",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "toby_flenderson",
+      "type": "antagonism",
+      "label": "Michael's inexplicable and persistent contempt for Toby",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "jim_halpert",
+      "to_id": "dwight_schrute",
+      "type": "antagonism",
+      "label": "ongoing prank war and rivalry softening into grudging friendship",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "pam_beesly",
+      "to_id": "roy_anderson",
+      "type": "romantic",
+      "label": "engaged at series start; Pam breaks off engagement in Season 3",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "oscar_martinez",
+      "to_id": "senator_robert_lipton",
+      "type": "romantic",
+      "label": "secret affair exposed publicly in Season 9",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "angela_martin",
+      "to_id": "senator_robert_lipton",
+      "type": "romantic",
+      "label": "marriage that ends in divorce after his affair with Oscar is revealed",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "jan_levinson",
+      "to_id": "michael_scott",
+      "type": "professional",
+      "label": "his corporate superior before their personal relationship complicates both roles",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "andy_bernard",
+      "to_id": "erin_hannon",
+      "type": "romantic",
+      "label": "relationship in middle seasons; ultimately ends when Andy pursues fame and Erin moves on",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "darryl_philbin",
+      "to_id": "jim_halpert",
+      "type": "professional",
+      "label": "colleagues who become Athlead co-workers; close friends",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "dwight_schrute",
+      "to_id": "michael_scott",
+      "type": "mentorship",
+      "label": "Dwight looks to Michael as his model; inherits the manager role",
+      "spoiler_level": 2
+    }
+  ],
+  "coverage_note": "The series has a large ensemble cast across nine seasons. Characters such as Mose Schrute, Nellie Bertram, Pete Miller, Clark Green, Nate Nickerson, Jo Bennett, David Wallace, and Bob Vance are present but omitted or minimized here due to the 25-character cap. The Michael Scott Paper Company is listed as a plot-arc node rather than a character. Relative weight was given to characters present across multiple seasons.",
+  "notes": "Based on the US adaptation of The Office (NBC, 2005–2013), created by Greg Daniels and adapted from the BBC original by Ricky Gervais and Stephen Merchant. Character map covers all nine seasons including the 2013 series finale. Spoiler levels reflect first meaningful introduction rather than peak narrative importance."
+}

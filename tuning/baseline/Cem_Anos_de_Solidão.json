@@ -1,0 +1,488 @@
+{
+  "title": "One Hundred Years of Solitude",
+  "subtitle": "Gabriel García Márquez, 1967",
+  "blurb": "The multigenerational saga of the Buendía family and the fictional town of Macondo, which they founded. Over six generations, the family's obsessions, loves, wars, and madnesses echo and repeat in a world where the miraculous and the mundane coexist. The novel ends with the town's apocalyptic annihilation and the decipherment of a prophecy that had foretold everything.",
+  "spoiler_mode": "full",
+  "setting_preamble": "Macondo is an isolated fictional town in an unnamed Latin American country, founded by the Buendía family. It passes through phases of innocence, outside contact, civil war, banana-company exploitation, and ultimate decay. The Buendía line spans six generations; names recycle across generations (multiple José Arcadios and Aurelianos), linking each character to inherited traits and fates. The gypsy Melquíades leaves behind parchment manuscripts in which the entire history of Macondo is written in advance.",
+  "factions": [
+    {
+      "id": "buendia_family",
+      "label": "The Buendía Family",
+      "description": "The founding dynasty of Macondo. Men named José Arcadio tend toward physical passion and impulsive action; those named Aureliano tend toward solitary introspection and lucidity. The family's history is cyclical, marked by incest, solitude, and repeated patterns across generations.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "gypsies_and_outsiders",
+      "label": "Gypsies and Outsiders",
+      "description": "Itinerant figures — chiefly Melquíades and his band — who bring knowledge, technology, and prophecy to the isolated town. They represent the intrusion of the wider world and the mystical into Macondo's insularity.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "liberals_and_soldiers",
+      "label": "Liberals, Conservatives, and Soldiers",
+      "description": "Political and military forces that draw the Buendías into decades of civil war between Liberals and Conservatives, shaping the fate of Macondo and its founders.",
+      "color_hint": "red"
+    },
+    {
+      "id": "banana_company",
+      "label": "The Banana Company and Foreign Interests",
+      "description": "The United Fruit Company and its representatives arrive in Macondo's later era, bringing prosperity, exploitation, and ultimately a massacre that destroys the town's social fabric.",
+      "color_hint": "green"
+    },
+    {
+      "id": "women_of_macondo",
+      "label": "Women of Macondo",
+      "description": "The matriarchal and female figures — wives, lovers, prostitutes — who provide pragmatic continuity against the Buendía men's self-destructive solitude and obsession.",
+      "color_hint": "blue"
+    }
+  ],
+  "characters": [
+    {
+      "id": "jose_arcadio_buendia",
+      "name": "José Arcadio Buendía",
+      "role": "Founder of Macondo / Patriarch",
+      "description": "Visionary founder of Macondo, driven by insatiable curiosity about alchemy and science. He eventually goes mad, is tied to a chestnut tree in the family courtyard, and dies there.",
+      "faction_id": "buendia_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "ursula_iguaran",
+      "name": "Úrsula Iguarán",
+      "role": "Matriarch",
+      "description": "The indomitable matriarch of the Buendía family, she outlives multiple generations and holds the household and the town together through sheer will. She lives to an extreme old age before dying blind and tiny.",
+      "faction_id": "women_of_macondo",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "colonel_aureliano_buendia",
+      "name": "Colonel Aureliano Buendía",
+      "role": "Military Leader / Liberal Commander",
+      "description": "The most legendary of the Buendías, he leads thirty-two armed uprisings against the Conservative government, all of which fail. He fathers seventeen sons by seventeen different women, all named Aureliano, and ends his life in solitary obsession with making tiny golden fish in his workshop.",
+      "faction_id": "liberals_and_soldiers",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "jose_arcadio_buendia_ii",
+      "name": "José Arcadio (eldest son)",
+      "role": "Eldest Son of the Founder",
+      "description": "The physically enormous, impulsive eldest son of the founders. He runs away with the gypsies, returns tattooed and worldly, marries Rebeca, and is eventually found shot dead under mysterious circumstances.",
+      "faction_id": "buendia_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "rebeca",
+      "name": "Rebeca",
+      "role": "Adopted Daughter / José Arcadio's Wife",
+      "description": "An orphan who arrives carrying a bag of her parents' bones and brings an insomnia plague to Macondo. She marries José Arcadio against Úrsula's wishes and lives to extreme old age in isolation after his death.",
+      "faction_id": "buendia_family",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "amaranta_buendia",
+      "name": "Amaranta Buendía",
+      "role": "Second Daughter of the Founders",
+      "description": "Proud and cruel in love, she rejects all suitors out of ambivalence and spite. She burns her hand in penance for causing Pietro Crespi's suicide and dies a virgin, calmly sewing her own burial shroud.",
+      "faction_id": "women_of_macondo",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "melquiades",
+      "name": "Melquíades",
+      "role": "Gypsy Sage / Prophet",
+      "description": "The ancient, visionary gypsy who introduces Macondo to the outside world's marvels. He writes parchment manuscripts in encrypted Sanskrit that contain the entire prophesied history of the Buendía family. His ghost lingers in the family study for generations.",
+      "faction_id": "gypsies_and_outsiders",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "pilar_ternera",
+      "name": "Pilar Ternera",
+      "role": "Fortune-teller / Brothel Keeper",
+      "description": "A sensual woman who has affairs with both José Arcadio and Colonel Aureliano in their youths, bearing sons by each. She reads futures in her cards and outlives virtually everyone, reaching over a hundred and forty years of age.",
+      "faction_id": "women_of_macondo",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "aureliano_jose",
+      "name": "Aureliano José",
+      "role": "Son of Colonel Aureliano and Pilar Ternera",
+      "description": "Raised in the Buendía household, he develops a forbidden passion for his aunt Amaranta and fights in the civil wars before being killed by a Conservative soldier.",
+      "faction_id": "buendia_family",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "pietro_crespi",
+      "name": "Pietro Crespi",
+      "role": "Italian Musician and Merchant",
+      "description": "A refined Italian who courts both Rebeca and Amaranta; after Amaranta's final rejection he commits suicide. His death haunts Amaranta for the rest of her life.",
+      "faction_id": "gypsies_and_outsiders",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "arcadio",
+      "name": "Arcadio",
+      "role": "Teacher / Petty Tyrant",
+      "description": "Illegitimate son of José Arcadio and Pilar Ternera, raised in ignorance of his parentage. He becomes a brutal local dictator during the civil war and is executed by firing squad.",
+      "faction_id": "liberals_and_soldiers",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "santa_sofia_de_la_piedad",
+      "name": "Santa Sofía de la Piedad",
+      "role": "Arcadio's Wife / Buendía Caretaker",
+      "description": "A quiet, self-effacing woman who marries Arcadio and spends decades maintaining the Buendía household invisibly. She eventually walks away into the world, never to return.",
+      "faction_id": "women_of_macondo",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "colonel_gerineldo_marquez",
+      "name": "Colonel Gerineldo Márquez",
+      "role": "Liberal Officer / Aureliano's Friend",
+      "description": "Colonel Aureliano Buendía's closest military comrade and friend. He carries a long, unrequited love for Amaranta and survives the wars to live out a quiet old age.",
+      "faction_id": "liberals_and_soldiers",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "aureliano_segundo",
+      "name": "Aureliano Segundo",
+      "role": "Twin / Festive Patriarch of Fourth Generation",
+      "description": "One of the twin great-grandsons of the founders, known for extravagant feasts and debauchery. He lives between his wife Fernanda and his lifelong mistress Petra Cotes, and dies on the same day as his twin.",
+      "faction_id": "buendia_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "jose_arcadio_segundo",
+      "name": "José Arcadio Segundo",
+      "role": "Twin / Banana Strike Witness",
+      "description": "The other twin, physically identical to Aureliano Segundo. He witnesses the massacre of striking banana workers by government soldiers — an event the entire town is made to forget — and spends the rest of his life in Melquíades's room deciphering the parchments.",
+      "faction_id": "buendia_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "fernanda_del_carpio",
+      "name": "Fernanda del Carpio",
+      "role": "Aureliano Segundo's Wife",
+      "description": "A rigidly pious, aristocratic woman from a ruined family, she imposes repressive order on the Buendía household. Her pride and secrecy set in motion the tragic fates of the last generation.",
+      "faction_id": "women_of_macondo",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "petra_cotes",
+      "name": "Petra Cotes",
+      "role": "Aureliano Segundo's Mistress",
+      "description": "Aureliano Segundo's devoted mistress, whose love magically multiplies his livestock. She remains loyal to him in poverty as well as abundance.",
+      "faction_id": "women_of_macondo",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "meme_buendia",
+      "name": "Meme Buendía (Renata Remedios)",
+      "role": "Daughter of Aureliano Segundo",
+      "description": "A gifted cello student whose secret love affair with a banana-company worker, Mauricio Babilonia, is ended by Fernanda, who arranges for him to be shot. Meme is sent to a convent, where she lives in silence until her death.",
+      "faction_id": "buendia_family",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "mauricio_babilonia",
+      "name": "Mauricio Babilonia",
+      "role": "Mechanic / Meme's Lover",
+      "description": "A handsome banana-company mechanic always surrounded by yellow butterflies. Shot and paralyzed on Fernanda's orders; he fathers Aureliano Babilonia.",
+      "faction_id": "banana_company",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "remedios_la_bella",
+      "name": "Remedios la Bella",
+      "role": "Beauty of Supernatural Power",
+      "description": "The great-granddaughter of the founders, of unearthly beauty and complete indifference to the world. Men who encounter her tend to die. She ascends bodily into the sky one afternoon while folding sheets.",
+      "faction_id": "buendia_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "jose_arcadio_iii",
+      "name": "José Arcadio (fifth generation)",
+      "role": "Seminarian / Reclusive Heir",
+      "description": "Fernanda's son, sent to Rome to study for the priesthood. He returns to Macondo dissolute and corrupted, and is found drowned in the bath under mysterious circumstances.",
+      "faction_id": "buendia_family",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "amaranta_ursula",
+      "name": "Amaranta Úrsula",
+      "role": "Last Vibrant Buendía",
+      "description": "The youngest child of Aureliano Segundo and Fernanda, she returns from Europe full of life and modern energy with her husband Gaston. She falls into an incestuous affair with her nephew Aureliano Babilonia and dies in childbirth.",
+      "faction_id": "buendia_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "aureliano_babilonia",
+      "name": "Aureliano Babilonia",
+      "role": "Last Buendía / Decoder of the Prophecy",
+      "description": "The illegitimate son of Meme and Mauricio Babilonia, raised in secrecy by Fernanda. He deciphers Melquíades's parchments and in the final pages reads the entire history of his family, as Macondo is annihilated by a biblical wind around him. He and his child with Amaranta Úrsula — born with a pig's tail — represent the prophesied end of the line.",
+      "faction_id": "buendia_family",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "gaston",
+      "name": "Gastón",
+      "role": "Amaranta Úrsula's Husband",
+      "description": "A Belgian aviation enthusiast who accompanies his wife back to Macondo. He tolerates her affair with Aureliano Babilonia and eventually leaves for Brussels.",
+      "faction_id": "gypsies_and_outsiders",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "mr_brown",
+      "name": "Mr. Brown",
+      "role": "Banana Company Director",
+      "description": "The imperious American director of the banana company whose exploitation of workers triggers the great strike. He disappears before the massacre, leaving the army to suppress the workers.",
+      "faction_id": "banana_company",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "jose_arcadio_buendia",
+      "to_id": "ursula_iguaran",
+      "type": "family",
+      "label": "husband and wife; founding couple of Macondo",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "ursula_iguaran",
+      "to_id": "colonel_aureliano_buendia",
+      "type": "family",
+      "label": "mother and son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "ursula_iguaran",
+      "to_id": "jose_arcadio_buendia_ii",
+      "type": "family",
+      "label": "mother and eldest son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "ursula_iguaran",
+      "to_id": "amaranta_buendia",
+      "type": "family",
+      "label": "mother and daughter",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "pilar_ternera",
+      "to_id": "jose_arcadio_buendia_ii",
+      "type": "romantic",
+      "label": "early lover; she bears his son Arcadio",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "pilar_ternera",
+      "to_id": "colonel_aureliano_buendia",
+      "type": "romantic",
+      "label": "early lover; she bears Aureliano José",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jose_arcadio_buendia_ii",
+      "to_id": "rebeca",
+      "type": "romantic",
+      "label": "husband and wife (against family's wishes)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "amaranta_buendia",
+      "to_id": "pietro_crespi",
+      "type": "romantic",
+      "label": "rejected him repeatedly; his suicide haunts her",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "amaranta_buendia",
+      "to_id": "colonel_gerineldo_marquez",
+      "type": "romantic",
+      "label": "his long suit refused; she never stopped caring",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "colonel_aureliano_buendia",
+      "to_id": "colonel_gerineldo_marquez",
+      "type": "alliance",
+      "label": "closest military comrade and friend",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "melquiades",
+      "to_id": "jose_arcadio_buendia",
+      "type": "mentorship",
+      "label": "brought knowledge and marvels to the founder",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "melquiades",
+      "to_id": "aureliano_babilonia",
+      "type": "mentorship",
+      "label": "his prophetic manuscripts guide the last Buendía to the truth",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "aureliano_segundo",
+      "to_id": "jose_arcadio_segundo",
+      "type": "family",
+      "label": "twin brothers; their identities may have been swapped in childhood",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "aureliano_segundo",
+      "to_id": "fernanda_del_carpio",
+      "type": "family",
+      "label": "husband and wife (estranged)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "aureliano_segundo",
+      "to_id": "petra_cotes",
+      "type": "romantic",
+      "label": "lifelong mistress; her love magically multiplies his livestock",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "fernanda_del_carpio",
+      "to_id": "meme_buendia",
+      "type": "family",
+      "label": "mother who destroys daughter's love affair and sends her to a convent",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "fernanda_del_carpio",
+      "to_id": "aureliano_babilonia",
+      "type": "family",
+      "label": "raises him in secrecy as a shameful illegitimate grandson",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "meme_buendia",
+      "to_id": "mauricio_babilonia",
+      "type": "romantic",
+      "label": "forbidden love affair; he is shot, she is imprisoned in a convent",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "meme_buendia",
+      "to_id": "aureliano_babilonia",
+      "type": "family",
+      "label": "mother and son (she never acknowledges him)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "amaranta_ursula",
+      "to_id": "aureliano_babilonia",
+      "type": "romantic",
+      "label": "aunt and nephew; incestuous affair that produces the last Buendía with a pig's tail",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "amaranta_ursula",
+      "to_id": "gaston",
+      "type": "romantic",
+      "label": "husband; she abandons him for Aureliano Babilonia",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jose_arcadio_segundo",
+      "to_id": "mr_brown",
+      "type": "antagonism",
+      "label": "worker uprising against banana company exploitation; José Arcadio witnesses the massacre",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "aureliano_jose",
+      "to_id": "amaranta_buendia",
+      "type": "romantic",
+      "label": "forbidden passion for his aunt; she ultimately repels him",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "arcadio",
+      "to_id": "santa_sofia_de_la_piedad",
+      "type": "family",
+      "label": "husband and wife; parents of the fourth generation",
+      "spoiler_level": 2
+    }
+  ],
+  "coverage_note": "The novel contains dozens of named characters across six generations, including the seventeen Aurelianos (sons of Colonel Aureliano Buendía), multiple minor wives and lovers, and various townsfolk. These have been omitted to stay within the 25-character cap. The character of Remedios Moscote (Colonel Aureliano's young wife, who dies in childhood) and Father Nicanor Reyna are among notable supporting figures not included.",
+  "notes": "Name recycling is central to the novel's structure: 'José Arcadio' denotes impulsive, physical characters; 'Aureliano' denotes solitary, intellectual ones. Characters are placed in the faction most relevant to their narrative function, though most belong to the Buendía family by blood. The final revelation — that Melquíades's parchments prophesied every event including the wind that destroys Macondo — constitutes the novel's ultimate spoiler."
+}
