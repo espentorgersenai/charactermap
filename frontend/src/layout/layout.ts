@@ -164,7 +164,7 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
         parentId: factionNodeId,
         extent: 'parent' as const,
         style: { width: NODE_WIDTH },
-        data: { character: char, colour, showBadges: false },
+        data: { character: char, colour },
         draggable: false,
         zIndex: 2,
       })

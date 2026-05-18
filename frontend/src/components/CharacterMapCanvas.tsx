@@ -49,18 +49,6 @@ function LegendPanel() {
           <span className="text-[12px] text-[#ccc]">{e.label}</span>
         </div>
       ))}
-      <div className="border-t border-[#2a2a2a] my-2" />
-      <p className="text-[10px] font-bold text-[#555] uppercase tracking-[0.06em] mb-2">
-        Badges <span className="normal-case font-normal">(toggle in toolbar)</span>
-      </p>
-      <div className="flex items-center gap-2 mb-1.5">
-        <span className="w-[18px] h-[18px] rounded-full bg-amber-500 flex items-center justify-center text-[9px] font-bold text-black flex-shrink-0">⚠</span>
-        <span className="text-[12px] text-[#ccc]">Late-act reveal (spoiler)</span>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="w-[18px] h-[18px] rounded-full bg-[#374151] flex items-center justify-center text-[12px] font-bold text-[#d1d5db] flex-shrink-0">†</span>
-        <span className="text-[12px] text-[#ccc]">Dies in the story</span>
-      </div>
     </div>
   )
 }
@@ -88,7 +76,6 @@ function SettingPreamble({ text }: { text: string }) {
 interface CanvasProps { charMap: CharacterMap; jobId: string }
 
 function InnerCanvas({ charMap, jobId }: CanvasProps) {
-  const [showBadges, setShowBadges] = useState(false)
   const [showLabels, setShowLabels] = useState(false)
   const [showLegend, setShowLegend] = useState(false)
   const coverageKey = `cm-coverage-dismissed-${jobId}`
@@ -107,15 +94,6 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initNodes)
   const [edges, , onEdgesChange] = useEdgesState(initEdges)
-
-  const liveNodes = useMemo(
-    () => nodes.map(n =>
-      n.type === 'characterCard'
-        ? { ...n, data: { ...n.data, showBadges } }
-        : n,
-    ),
-    [nodes, showBadges],
-  )
 
   // Absolute centers of character nodes, accounting for parent (faction) offset.
   // Recomputed whenever nodes move so edge handles pick the facing side live.
@@ -182,18 +160,6 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       {/* Top toolbar */}
       <div className="bg-[#1a1a1a] border-b border-[#2a2a2a] px-6 py-2.5 flex items-center gap-2.5 flex-shrink-0">
         <button
-          onClick={() => setShowBadges(v => !v)}
-          title="Toggle spoiler / death badges on character nodes"
-          className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
-            showBadges
-              ? 'bg-[#2563eb] text-white border-[#2563eb]'
-              : 'bg-transparent text-[#555] border-[#2a2a2a] hover:border-[#555] hover:text-[#aaa]'
-          }`}
-        >
-          ! † Badges
-        </button>
-
-        <button
           onClick={() => setShowLabels(v => !v)}
           title="Toggle relationship labels on edges"
           className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
@@ -244,7 +210,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       {/* React Flow canvas */}
       <div className="flex-1 relative">
         <ReactFlow
-          nodes={liveNodes}
+          nodes={nodes}
           edges={liveEdges}
           nodeTypes={NODE_TYPES}
           onNodesChange={onNodesChange}

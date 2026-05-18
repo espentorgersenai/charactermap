@@ -5,11 +5,10 @@ import type { Character } from '../types/characterMap'
 export interface CardNodeData {
   character: Character
   colour: string
-  showBadges: boolean
 }
 
 export function CharacterCardNode({ data }: NodeProps) {
-  const { character: c, colour, showBadges } = data as unknown as CardNodeData
+  const { character: c, colour } = data as unknown as CardNodeData
   const initials = c.name
     .split(' ')
     .slice(0, 2)
@@ -61,32 +60,6 @@ export function CharacterCardNode({ data }: NodeProps) {
             >
               {initials}
             </div>
-          )}
-
-          {/* Spoiler badge */}
-          {c.spoiler_level != null && c.spoiler_level >= 2 && (
-            <span
-              className={`absolute -top-1 -right-1 w-[17px] h-[17px] rounded-full
-                bg-amber-500 text-black text-[9px] font-bold
-                flex items-center justify-center border-[1.5px] border-[#111]
-                transition-all duration-200
-                ${showBadges ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
-            >
-              ⚠
-            </span>
-          )}
-
-          {/* Death badge */}
-          {c.is_deceased_in_work && (
-            <span
-              className={`absolute -top-1 -left-1 w-[17px] h-[17px] rounded-full
-                bg-[#374151] text-[#d1d5db] text-[12px] font-bold leading-none
-                flex items-center justify-center border-[1.5px] border-[#111]
-                transition-all duration-200
-                ${showBadges ? 'opacity-100 scale-100' : 'opacity-0 scale-50 pointer-events-none'}`}
-            >
-              †
-            </span>
           )}
         </div>
 
