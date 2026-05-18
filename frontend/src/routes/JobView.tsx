@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useJob, getModelEta } from '../hooks/useJob'
+import { CharacterMapCanvas } from '../components/CharacterMapCanvas'
+import { DownloadList } from '../components/DownloadList'
+import type { CharacterMap } from '../types/characterMap'
 
 export default function JobView() {
   const { id } = useParams<{ id: string }>()
@@ -20,20 +23,25 @@ export default function JobView() {
   const eta = getModelEta(model)
 
   // ── Done ─────────────────────────────────────────────────────────────────
-  if (job?.status === 'done') {
+  if (job?.status === 'done' && job.character_map) {
+    const charMap = job.character_map as unknown as CharacterMap
     return (
-      <main className="max-w-3xl mx-auto px-4 py-8">
-        <Link to="/" className="text-sm text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block">
-          ← Back to home
-        </Link>
-        <h1 className="text-2xl font-bold mb-4">Character map ready</h1>
-        <p className="text-sm text-gray-500 mb-4">
-          Interactive canvas coming in Phase 3. Raw JSON:
-        </p>
-        <pre className="bg-gray-100 dark:bg-gray-900 rounded p-4 text-xs overflow-auto max-h-[70vh]">
-          {JSON.stringify(job.character_map, null, 2)}
-        </pre>
-      </main>
+      <div className="flex h-screen overflow-hidden">
+        {/* Canvas fills the viewport */}
+        <div className="flex-1 min-w-0">
+          <CharacterMapCanvas charMap={charMap} jobId={id!} />
+        </div>
+
+        {/* Right sidebar: downloads */}
+        <div className="w-[190px] flex-shrink-0 bg-[#161616] border-l border-[#222] p-4 overflow-y-auto">
+          <div className="mb-4">
+            <p className="text-[11px] font-bold text-[#555] uppercase tracking-[0.06em] mb-2.5">
+              Downloads
+            </p>
+            <DownloadList jobId={id!} />
+          </div>
+        </div>
+      </div>
     )
   }
 
