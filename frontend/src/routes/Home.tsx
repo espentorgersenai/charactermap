@@ -5,6 +5,8 @@ import ModelDropdown from '../components/ModelDropdown'
 import FormatCheckboxes from '../components/FormatCheckboxes'
 import WhatThisIsBanner from '../components/WhatThisIsBanner'
 import SpoilerWarningBanner from '../components/SpoilerWarningBanner'
+import ResolveBanner from '../components/ResolveBanner'
+import ResolveCandidatePicker from '../components/ResolveCandidatePicker'
 import { useResolve } from '../hooks/useResolve'
 import { useFormPrefill } from '../hooks/useFormPrefill'
 import { useRecentMaps } from '../hooks/useRecentMaps'
@@ -23,16 +25,27 @@ export default function Home() {
   const [workType, setWorkType] = useState<'book' | 'film_tv'>(prefs.workType)
   const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(false)
   const [selectedCandidate, setSelectedCandidate] = useState<ResolveCandidate | null>(null)
+  const [forceShowPicker, setForceShowPicker] = useState(false)
 
   useEffect(() => {
     save({ model, formats, workType })
   }, [model, formats, workType])
+
+  const topCandidate = candidates[0] ?? null
+  const autoSkip = !forceShowPicker && topCandidate !== null && topCandidate.confidence_score >= 0.9
+
+  useEffect(() => {
+    if (autoSkip && topCandidate) {
+      setSelectedCandidate(topCandidate)
+    }
+  }, [autoSkip, topCandidate?.id])
 
   const canGenerate = spoilerAcknowledged && formats.length > 0 && selectedCandidate !== null
 
   function handleSearch(query: string) {
     reset()
     setSelectedCandidate(null)
+    setForceShowPicker(false)
     resolve(query, workType)
   }
 
@@ -79,34 +92,23 @@ export default function Home() {
       {/* Resolve error */}
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      {/* Candidates — simple list (ResolveCandidatePicker replaces this in Task 6) */}
-      {candidates.length > 0 && (
-        <div>
-          <p className="text-sm font-medium mb-2">Select a match:</p>
-          <ul className="space-y-2">
-            {candidates.map((c) => (
-              <li key={c.id}>
-                <button
-                  onClick={() => setSelectedCandidate(c)}
-                  className={`w-full text-left p-3 rounded-lg border text-sm ${
-                    selectedCandidate?.id === c.id
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  <span className="font-medium">{c.title}</span>
-                  {c.year && <span className="text-gray-500 ml-2">({c.year})</span>}
-                  {c.author && <span className="text-gray-500 ml-2">by {c.author}</span>}
-                  <span className="text-gray-400 ml-2 text-xs">
-                    {(c.confidence_score * 100).toFixed(0)}% match
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* Resolve state */}
+      {candidates.length > 0 && autoSkip && (
+        <ResolveBanner
+          candidate={topCandidate!}
+          onNotThis={() => {
+            setForceShowPicker(true)
+            setSelectedCandidate(null)
+          }}
+        />
       )}
-
+      {candidates.length > 0 && !autoSkip && (
+        <ResolveCandidatePicker
+          candidates={candidates}
+          selected={selectedCandidate}
+          onSelect={setSelectedCandidate}
+        />
+      )}
       {candidates.length === 0 && !isLoading && !error && (
         <p className="text-xs text-gray-400">Enter a title and press Search or Enter to resolve it.</p>
       )}
