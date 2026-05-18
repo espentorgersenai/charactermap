@@ -84,3 +84,30 @@ export async function getJob(jobId: string): Promise<JobStatus> {
   if (!res.ok) throw new Error('JOB_FETCH_FAILED')
   return res.json()
 }
+
+export interface ArtifactInfo {
+  format: string
+  url: string
+}
+
+export async function uploadArtifact(
+  jobId: string,
+  format: string,
+  blob: Blob,
+): Promise<void> {
+  const form = new FormData()
+  form.append('file', blob, `character-map.${format}`)
+  const res = await fetch(`/api/jobs/${jobId}/artifacts?format=${format}`, {
+    method: 'POST',
+    body: form,
+  })
+  if (!res.ok) {
+    console.warn('Artifact upload failed', format, res.status)
+  }
+}
+
+export async function getArtifacts(jobId: string): Promise<ArtifactInfo[]> {
+  const res = await fetch(`/api/jobs/${jobId}/artifacts`)
+  if (!res.ok) return []
+  return res.json()
+}
