@@ -2,6 +2,8 @@ import structlog
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.routes.resolve import router as resolve_router
+
 log = structlog.get_logger()
 
 app = FastAPI(title="Character Map API", version="0.1.0")
@@ -13,6 +15,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(resolve_router)
 
 
 @app.get("/api/health")
