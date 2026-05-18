@@ -4,11 +4,11 @@
   type: book
   # Tests: small institutional ensemble, faction grouping, clear protagonist
 
-- title: Marekors
+- title: The Devil's Star
   year: 2003
   author: Jo Nesbø
   type: book
-  # Tests: non-English source, series character, twist-heavy plot
+  # Tests: non-English source (Norwegian), series character (Harry Hole), twist-heavy plot
 
 - title: Dune
   year: 1965
