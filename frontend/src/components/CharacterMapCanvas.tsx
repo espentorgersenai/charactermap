@@ -88,6 +88,7 @@ interface CanvasProps { charMap: CharacterMap; jobId: string }
 
 function InnerCanvas({ charMap, jobId }: CanvasProps) {
   const [showBadges, setShowBadges] = useState(false)
+  const [showLabels, setShowLabels] = useState(false)
   const [showLegend, setShowLegend] = useState(false)
 
   const { nodes: initNodes, edges: initEdges } = useMemo(
@@ -105,6 +106,15 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
         : n,
     ),
     [nodes, showBadges],
+  )
+
+  const liveEdges = useMemo(
+    () => edges.map(e => ({
+      ...e,
+      label: showLabels ? e.label : undefined,
+      zIndex: showLabels ? 10 : 0,
+    })),
+    [edges, showLabels],
   )
 
   const resetLayout = useCallback(() => {
@@ -127,6 +137,18 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           }`}
         >
           ⚠ † Badges
+        </button>
+
+        <button
+          onClick={() => setShowLabels(v => !v)}
+          title="Toggle relationship labels on edges"
+          className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
+            showLabels
+              ? 'bg-[#292929] text-white border-[#666]'
+              : 'bg-transparent text-[#888] border-[#333] hover:border-[#555] hover:text-[#ccc]'
+          }`}
+        >
+          Labels
         </button>
 
         <div className="w-px h-6 bg-[#2a2a2a] mx-1" />
@@ -162,7 +184,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
       <div className="flex-1 relative">
         <ReactFlow
           nodes={liveNodes}
-          edges={edges}
+          edges={liveEdges}
           nodeTypes={NODE_TYPES}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}

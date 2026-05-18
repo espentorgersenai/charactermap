@@ -4,14 +4,14 @@ import type { CharacterMap, Character, Faction, Relationship, RelationshipType }
 // ── Visual constants ────────────────────────────────────────────────────────
 const NODE_WIDTH = 300
 const NODE_HEIGHT = 76
-const COL_GAP = 24       // horizontal gap between columns within a faction
-const ROW_GAP = 16       // vertical gap between rows within a faction
+const COL_GAP = 32       // horizontal gap between columns within a faction
+const ROW_GAP = 24       // vertical gap between rows within a faction
 const MAX_COLS = 2       // max columns per faction before wrapping
-const FACTION_PADDING = 32
-const FACTION_LABEL_H = 36
-const FACTION_COL_GAP = 80   // horizontal gap between faction columns
-const FACTION_ROW_GAP = 60   // vertical gap between faction rows
-const CANVAS_TOP = 48
+const FACTION_PADDING = 40
+const FACTION_LABEL_H = 40
+const FACTION_COL_GAP = 160  // horizontal gap between faction columns
+const FACTION_ROW_GAP = 120  // vertical gap between faction rows
+const CANVAS_TOP = 60
 
 // ── Faction colour mapping ──────────────────────────────────────────────────
 const COLOUR_MAP: Record<string, string> = {
