@@ -1,8 +1,8 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import (
-    BigInteger, Boolean, Column, Date, DateTime, ForeignKey,
-    Index, Integer, Numeric, String, Text, ARRAY,
+    BigInteger, CheckConstraint, Column, Date, DateTime, ForeignKey,
+    Index, Integer, Numeric, String, Text, ARRAY, text,
 )
 from sqlalchemy.dialects.postgresql import INET, JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase
@@ -51,8 +51,19 @@ class Job(Base):
     deleted_at = Column(DateTime(timezone=True))
 
     __table_args__ = (
+        CheckConstraint("work_type IN ('book', 'film_tv')", name="ck_jobs_work_type"),
+        CheckConstraint("spoiler_mode IN ('full', 'safe')", name="ck_jobs_spoiler_mode"),
+        CheckConstraint(
+            "status IN ('queued','resolving','generating','rendering','done','failed','refused')",
+            name="ck_jobs_status",
+        ),
         Index("idx_jobs_created_at", "created_at"),
         Index("idx_jobs_requester_ip", "requester_ip", "created_at"),
+        Index(
+            "idx_jobs_status",
+            "status",
+            postgresql_where=text("status IN ('queued','resolving','generating','rendering')"),
+        ),
     )
 
 
