@@ -2,7 +2,7 @@
 
 Character Map Generator · Chronological build log — appended at the end of each session.
 
-Last updated: Session 1 · 2026-05-18
+Last updated: Session 1 · 2026-05-18 (wrapup)
 
 > **Backlog / open items / next steps → [kanban.torgersen.ai](https://kanban.torgersen.ai) — project: Character Map, board: Character Map.** This file is the *narrative archive* of what was built each session; no TODOs live here.
 
@@ -31,3 +31,6 @@ Last updated: Session 1 · 2026-05-18
 
 ### Spec Version
 SPEC.md v1.7 — 7 phases, each with explicit test checkpoints. See §16 for full phase/test breakdown.
+
+### Planka Setup
+Board created (ID: 1777578866382997173) with 19 labels (6 categories + 6 svc:* + 7 phase:*) and three lists (ToDo / In Progress / Completed). 8 Phase 1 cards created in ToDo covering all deliverables from §16.
