@@ -11,7 +11,9 @@ RUN pip install --no-cache-dir -e ".[dev]"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     pandoc \
     texlive-latex-base \
+    texlive-latex-recommended \
     texlive-fonts-recommended \
+    lmodern \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . .

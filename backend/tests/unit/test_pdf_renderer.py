@@ -35,6 +35,14 @@ def test_pdf_in_correct_directory(tmp_path):
     assert path.parent == tmp_path
 
 
-def test_pandoc_error_raises(tmp_path):
+def test_pandoc_error_raises(tmp_path, monkeypatch):
+    """Force pandoc to fail by patching subprocess.run to return a non-zero exit code."""
+    import subprocess as _sp
+
+    def _fake_run(cmd, **kwargs):
+        result = _sp.CompletedProcess(cmd, returncode=1, stdout="", stderr="pandoc failed: synthetic error")
+        return result
+
+    monkeypatch.setattr("app.renderers.pdf.subprocess.run", _fake_run)
     with pytest.raises(RuntimeError, match="pandoc failed"):
-        render_pdf("", "test-job-id", tmp_path / "nonexistent" / "deep")
+        render_pdf("anything", "test-job-id", tmp_path)
