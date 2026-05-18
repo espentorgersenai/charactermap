@@ -1,0 +1,57 @@
+- title: Congo
+  year: 1980
+  author: Michael Crichton
+  type: book
+  # Tests: small institutional ensemble, faction grouping, clear protagonist
+
+- title: Marekors
+  year: 2003
+  author: Jo Nesbø
+  type: book
+  # Tests: non-English source, series character, twist-heavy plot
+
+- title: Dune
+  year: 1965
+  author: Frank Herbert
+  type: book
+  # Tests: large cast, multiple factions, world-building
+
+- title: Pride and Prejudice
+  year: 1813
+  author: Jane Austen
+  type: book
+  # Tests: classic literature, family relationships, no adaptation ambiguity
+
+- title: Murder on the Orient Express
+  year: 1934
+  author: Agatha Christie
+  type: book
+  # Tests: ensemble where everyone is a suspect, famous twist
+
+- title: And Then There Were None
+  year: 1939
+  author: Agatha Christie
+  type: book
+  # Tests: shrinking cast, famous twist, character_count edge case
+
+- title: Atonement
+  year: 2001
+  author: Ian McEwan
+  type: book
+  # Tests: literary fiction, unreliable narration, late-act reveal
+
+- title: Cem Anos de Solidão
+  year: 1967
+  author: Gabriel García Márquez
+  type: book
+  # Tests: non-English title, massive family cast, character cap enforcement
+
+- title: The Office
+  year: 2005
+  type: film_tv
+  # Tests: TV ensemble, multi-season character arcs
+
+- title: Breaking Bad
+  year: 2008
+  type: film_tv
+  # Tests: character transformation arc, antagonist that becomes protagonist
