@@ -14,7 +14,7 @@ import { ResolveCandidate } from '../api/client'
 
 export default function Home() {
   const navigate = useNavigate()
-  const { resolve, candidates, isLoading, error, reset } = useResolve()
+  const { resolve, candidates, isLoading, error, hasSearched, reset } = useResolve()
   const { load, save } = useFormPrefill()
   const prefs = load()
   const { recentMaps } = useRecentMaps()
@@ -109,8 +109,11 @@ export default function Home() {
           onSelect={setSelectedCandidate}
         />
       )}
-      {candidates.length === 0 && !isLoading && !error && (
+      {candidates.length === 0 && !isLoading && !error && !hasSearched && (
         <p className="text-xs text-gray-400">Enter a title and press Search or Enter to resolve it.</p>
+      )}
+      {candidates.length === 0 && !isLoading && !error && hasSearched && (
+        <p className="text-sm text-gray-500">No results — try a different title or add the author&apos;s name.</p>
       )}
 
       <ModelDropdown value={model} onChange={setModel} />
