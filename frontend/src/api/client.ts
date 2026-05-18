@@ -49,3 +49,38 @@ export const api = {
       body: JSON.stringify({ query, work_type: workType }),
     }),
 }
+
+export interface JobStatus {
+  job_id: string
+  status: 'queued' | 'generating' | 'done' | 'refused' | 'failed'
+  character_map?: Record<string, unknown> | null
+  error_code?: string | null
+  error_message?: string | null
+}
+
+export async function createJob(body: {
+  title_query: string
+  resolved: ResolveCandidate
+  model: string
+  formats: string[]
+  email?: string
+  acknowledged_spoilers: true
+  turnstile_token?: string
+}): Promise<{ job_id: string }> {
+  const res = await fetch('/api/jobs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: { code: 'JOB_CREATE_FAILED' } }))
+    throw new Error(err?.detail?.code ?? err?.detail ?? 'JOB_CREATE_FAILED')
+  }
+  return res.json()
+}
+
+export async function getJob(jobId: string): Promise<JobStatus> {
+  const res = await fetch(`/api/jobs/${jobId}`)
+  if (!res.ok) throw new Error('JOB_FETCH_FAILED')
+  return res.json()
+}
