@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TitleSearch from '../components/TitleSearch'
 import ModelDropdown from '../components/ModelDropdown'
@@ -6,20 +6,27 @@ import FormatCheckboxes from '../components/FormatCheckboxes'
 import WhatThisIsBanner from '../components/WhatThisIsBanner'
 import SpoilerWarningBanner from '../components/SpoilerWarningBanner'
 import { useResolve } from '../hooks/useResolve'
+import { useFormPrefill } from '../hooks/useFormPrefill'
+import { useRecentMaps } from '../hooks/useRecentMaps'
 import { ResolveCandidate } from '../api/client'
-
-const DEFAULT_FORMATS = ['interactive']
 
 export default function Home() {
   const navigate = useNavigate()
   const { resolve, candidates, isLoading, error, reset } = useResolve()
+  const { load, save } = useFormPrefill()
+  const prefs = load()
+  const { recentMaps } = useRecentMaps()
 
-  const [model, setModel] = useState('claude-sonnet-4-6')
-  const [formats, setFormats] = useState<string[]>(DEFAULT_FORMATS)
+  const [model, setModel] = useState(prefs.model)
+  const [formats, setFormats] = useState<string[]>(prefs.formats)
   const [email, setEmail] = useState('')
-  const [workType, setWorkType] = useState<'book' | 'film_tv'>('book')
+  const [workType, setWorkType] = useState<'book' | 'film_tv'>(prefs.workType)
   const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(false)
   const [selectedCandidate, setSelectedCandidate] = useState<ResolveCandidate | null>(null)
+
+  useEffect(() => {
+    save({ model, formats, workType })
+  }, [model, formats, workType])
 
   const canGenerate = spoilerAcknowledged && formats.length > 0 && selectedCandidate !== null
 
@@ -134,6 +141,30 @@ export default function Home() {
       >
         Generate Character Map
       </button>
+
+      {recentMaps.length > 0 && (
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <h2 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Your recent maps</h2>
+          <ul className="space-y-2">
+            {recentMaps.map((entry) => (
+              <li key={entry.jobId}>
+                <a
+                  href={`/job/${entry.jobId}`}
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+                >
+                  {entry.thumbnailUrl && (
+                    <img src={entry.thumbnailUrl} alt="" className="w-10 h-10 rounded object-cover" />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">{entry.title}</p>
+                    <p className="text-xs text-gray-500">{new Date(entry.date).toLocaleDateString()}</p>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </main>
   )
 }
