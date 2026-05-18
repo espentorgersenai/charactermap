@@ -36,7 +36,7 @@ def upgrade() -> None:
                   server_default=sa.text("'{}'::jsonb")),
 
         sa.Column("model", sa.Text(), nullable=False),
-        sa.Column("spoiler_mode", sa.Text(), nullable=False, server_default="full"),
+        sa.Column("spoiler_mode", sa.Text(), nullable=False, server_default="'full'"),
         sa.Column("formats", postgresql.ARRAY(sa.Text()), nullable=False),
         sa.Column("email", sa.Text(), nullable=True),
         sa.Column("acknowledgement_at", sa.DateTime(timezone=True), nullable=False),
@@ -47,7 +47,7 @@ def upgrade() -> None:
         sa.Column("adaptation_rating", sa.Numeric(3, 1), nullable=True),
 
         # Output
-        sa.Column("status", sa.Text(), nullable=False, server_default="queued"),
+        sa.Column("status", sa.Text(), nullable=False, server_default="'queued'"),
         sa.Column("error_code", sa.Text(), nullable=True),
         sa.Column("error_message", sa.Text(), nullable=True),
         sa.Column("character_map", postgresql.JSONB(astext_type=sa.Text()), nullable=True),
