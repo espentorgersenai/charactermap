@@ -2,7 +2,7 @@
 
 A web app that generates visual, interactive character maps for books and films using LLMs.
 
-**Full spec:** `SPEC.md` — read it before doing anything. Implement Phase 1 only unless asked otherwise.
+**Full spec:** `SPEC.md` — read it before doing anything. **Phase 1 complete. Implement Phase 2 next** unless asked otherwise.
 
 ---
 
@@ -132,3 +132,7 @@ All 10 works must have 100% `spoiler_level` coverage and zero flagged fabricatio
 - **TMDb image proxy:** the `proxy_cache_path` zone (`tmdb_images`) must be added to the VPS nginx `http {}` block — not the server block. Done in Phase 7.
 - **TitleSearch is explicit-trigger only.** No debounced-on-keystroke autocomplete. The resolve call fires on Enter or Search button click only.
 - **Acknowledgement checkbox is never persisted to localStorage.** The user re-confirms every session. Model, formats, and type toggle are persisted; email and acknowledgement are not.
+- **Alembic `server_default` for string columns needs inner quotes.** Use `server_default="'full'"` not `server_default="full"` — PostgreSQL interprets the unquoted form as an identifier, not a string literal.
+- **SQLAlchemy ORM `__table_args__`:** CHECK constraints and partial indexes must appear in both `tables.py` AND the Alembic migration. If only in the migration, `alembic --autogenerate` will produce spurious DROP/ADD diffs.
+- **deploy.sh builds on lfc directly** (git pull → docker compose build). Does NOT push to a container registry. Phase 7 will add GHCR push/pull via GitHub Actions. See comment in deploy.sh.
+- **Planka MCP API quirks:** `cards update` requires `position` alongside `listId` when moving between lists (422 without it). `cards create` requires `type: "project"` (400 without it).
