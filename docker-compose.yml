@@ -1,0 +1,75 @@
+services:
+  api:
+    build: ./backend
+    container_name: charmap_api
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8200:8000"
+    volumes:
+      - artifacts:/var/lib/charactermap/artifacts
+      - image_cache:/var/lib/charactermap/image_cache
+
+  worker:
+    build: ./backend
+    container_name: charmap_worker
+    restart: unless-stopped
+    command: rq worker --url redis://redis:6379/0 character-maps
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - artifacts:/var/lib/charactermap/artifacts
+      - image_cache:/var/lib/charactermap/image_cache
+
+  frontend:
+    build: ./frontend
+    container_name: charmap_frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8201:80"
+    depends_on:
+      - api
+
+  postgres:
+    image: postgres:16
+    container_name: charmap_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: charactermap
+      POSTGRES_USER: charactermap
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U charactermap"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: charmap_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:
+  artifacts:
+  image_cache:
