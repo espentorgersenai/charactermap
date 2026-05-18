@@ -36,7 +36,6 @@ const EDGE_STYLES: Record<RelationshipType, { stroke: string; strokeDasharray?: 
 
 // ── Per-faction vertical grid layout ────────────────────────────────────────
 // Stacks characters in up to MAX_COLS columns, top-to-bottom within each column.
-// Avoids dagre for unconnected nodes (dagre collapses them to one horizontal rank).
 function layoutCharsInFaction(chars: Character[]): Map<string, { x: number; y: number }> {
   const cols = Math.min(chars.length, MAX_COLS)
   const positions = new Map<string, { x: number; y: number }>()
@@ -157,8 +156,6 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
       nodeIdSet.add(char.id)
     })
   })
-
-  // nodeCenters was built during node creation with absolute positions (see below)
 
   const edges: Edge[] = relationships
     .filter((r: Relationship) => nodeIdSet.has(r.from_id) && nodeIdSet.has(r.to_id))

@@ -11,7 +11,7 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 
-import { buildLayout } from '../layout/dagreLayout'
+import { buildLayout } from '../layout/layout'
 import { CharacterCardNode } from './CharacterCardNode'
 import { FactionGroupNode } from './FactionGroupNode'
 import { ExportMenu } from './ExportMenu'
