@@ -1,14 +1,17 @@
+import asyncio
+import json
 from datetime import datetime, timezone
 from uuid import uuid4
 
 import redis as redis_sync
 import structlog
 from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import StreamingResponse
 from rq import Queue
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
-from app.db.session import get_db
+from app.db.session import async_session_factory, get_db
 from app.db.tables import Job
 from app.models.job import JobCreateRequest, JobCreateResponse, JobStatusResponse
 from app.worker.tasks import generate_character_map_task
@@ -85,4 +88,60 @@ async def get_job(job_id: str, session: AsyncSession = Depends(get_db)) -> JobSt
         character_map=job.character_map,
         error_code=job.error_code,
         error_message=job.error_message,
+    )
+
+
+_STATUS_TO_PROGRESS = {
+    "queued": 0.05,
+    "generating": 0.4,
+    "done": 1.0,
+    "refused": 1.0,
+    "failed": 1.0,
+}
+
+
+@router.get("/api/jobs/{job_id}/stream")
+async def stream_job(job_id: str) -> StreamingResponse:
+    from uuid import UUID
+
+    async def generate():
+        last_status = None
+        try:
+            uid = UUID(job_id)
+        except ValueError:
+            yield f"event: error\ndata: {json.dumps({'error': 'invalid_job_id'})}\n\n"
+            return
+
+        while True:
+            async with async_session_factory() as session:
+                job = await session.get(Job, uid)
+
+            if not job:
+                yield f"event: error\ndata: {json.dumps({'error': 'not_found'})}\n\n"
+                return
+
+            if job.status != last_status:
+                progress = _STATUS_TO_PROGRESS.get(job.status, 0.05)
+                yield (
+                    f"event: status\n"
+                    f"data: {json.dumps({'status': job.status, 'progress': progress})}\n\n"
+                )
+                last_status = job.status
+
+            if job.status in ("done", "refused", "failed"):
+                if job.status == "done":
+                    yield f"event: done\ndata: {json.dumps({'status': 'done'})}\n\n"
+                else:
+                    yield (
+                        f"event: error\n"
+                        f"data: {json.dumps({'error': job.error_code, 'message': job.error_message})}\n\n"
+                    )
+                return
+
+            await asyncio.sleep(1.0)
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
