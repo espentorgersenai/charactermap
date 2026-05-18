@@ -26,6 +26,10 @@ def mock_db_session():
     session = AsyncMock()
     session.add = MagicMock()
     session.commit = AsyncMock()
+    # Return empty list from execute() so find_best_cached_job finds no cache hit
+    execute_result = MagicMock()
+    execute_result.scalars.return_value.all.return_value = []
+    session.execute = AsyncMock(return_value=execute_result)
 
     async def override():
         yield session

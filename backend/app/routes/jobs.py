@@ -1,6 +1,8 @@
 import asyncio
 import json
 from datetime import datetime, timezone
+from decimal import Decimal
+from typing import Optional
 from uuid import uuid4
 
 import redis as redis_sync
@@ -8,6 +10,7 @@ import structlog
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from rq import Queue
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
@@ -18,6 +21,38 @@ from app.worker.tasks import generate_character_map_task
 
 log = structlog.get_logger()
 router = APIRouter()
+
+_MODEL_QUALITY_ORDER = [
+    "claude-opus-4-7",
+    "claude-sonnet-4-6",
+    "gpt-5.5",
+    "gemini-2.5-pro",
+    "claude-haiku-4-5-20251001",
+]
+
+
+async def find_best_cached_job(
+    session: AsyncSession,
+    resolved_id: str,
+    spoiler_mode: str,
+) -> Optional[Job]:
+    result = await session.execute(
+        select(Job).where(
+            Job.resolved_id == resolved_id,
+            Job.spoiler_mode == spoiler_mode,
+            Job.status == "done",
+            Job.deleted_at.is_(None),
+            Job.character_map.is_not(None),
+        )
+    )
+    jobs = result.scalars().all()
+    if not jobs:
+        return None
+    jobs.sort(
+        key=lambda j: _MODEL_QUALITY_ORDER.index(j.model)
+        if j.model in _MODEL_QUALITY_ORDER else 99
+    )
+    return jobs[0]
 
 
 def get_queue() -> Queue:
@@ -48,6 +83,33 @@ async def create_job(
         "cover_url": resolved.cover_url,
         "source": resolved.source,
     }
+
+    # Cache check: reuse the best existing result for this work
+    cached = await find_best_cached_job(session, resolved.id, "full")
+    if cached:
+        cached_job = Job(
+            id=uuid4(),
+            work_type=work_type,
+            title_query=body.title_query,
+            resolved_id=resolved.id,
+            resolved_title=resolved.title,
+            resolved_year=resolved.year,
+            resolved_meta=resolved_meta,
+            model=cached.model,
+            formats=body.formats,
+            email=body.email,
+            acknowledgement_at=datetime.now(tz=timezone.utc),
+            status="done",
+            completed_at=datetime.now(tz=timezone.utc),
+            character_map=cached.character_map,
+            estimated_cost_usd=Decimal("0"),
+            requester_ip=request.client.host if request.client else "127.0.0.1",
+            user_agent=request.headers.get("user-agent"),
+        )
+        session.add(cached_job)
+        await session.commit()
+        log.info("job_cache_hit", job_id=str(cached_job.id), source_model=cached.model)
+        return JobCreateResponse(job_id=str(cached_job.id))
 
     job = Job(
         id=uuid4(),
