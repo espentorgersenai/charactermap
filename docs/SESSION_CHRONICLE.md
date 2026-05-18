@@ -2,7 +2,7 @@
 
 Character Map Generator · Chronological build log — appended at the end of each session.
 
-Last updated: Session 3 · 2026-05-18 (wrapup)
+Last updated: Session 4 · 2026-05-18 (wrapup)
 
 > **Backlog / open items / next steps → [kanban.torgersen.ai](https://kanban.torgersen.ai) — project: Character Map, board: Character Map.** This file is the *narrative archive* of what was built each session; no TODOs live here.
 
@@ -112,3 +112,58 @@ Full Phase 1 implementation — all 8 Planka cards moved to Completed.
 - Integration test `test_congo.py`: PASSED (36s, $0.038, 10 chars)
 - Golden-set baseline: 10/10 works, 100% spoiler_level coverage, $0.68 total
 - Frontend: clean Vite build
+
+---
+
+## Session 4 — 2026-05-18
+
+### What We Built
+
+**Phase 3 implementation complete and verified end-to-end.** All 7 ToDo cards moved to Completed. The 14-task plan from session 3 was executed via subagent-driven development.
+
+- **Backend rendering pipeline:** Markdown renderer (`backend/app/renderers/markdown.py`) with bleach XSS sanitisation (9 tests). PDF renderer (`renderers/pdf.py`) via pandoc subprocess with `--pdf-engine=pdflatex` (3 tests, skipped locally where pdflatex absent). Worker pipeline wired to render both after generation and write `Artifact` rows.
+- **Dockerfile additions:** `pandoc`, `texlive-latex-base`, `texlive-fonts-recommended`, **and `lmodern`** (the last was a late discovery — `lmodern.sty` lives in its own apt package, not `texlive-fonts-recommended`).
+- **Signed artifact URLs:** `backend/app/security/signed_urls.py` HMAC-SHA256 over `path:exp`, 7-day TTL (5 tests including expiry, tamper, invalid-exp).
+- **Artifact endpoints:** `POST /api/jobs/:id/artifacts` (multipart upload from frontend), `GET /api/jobs/:id/artifacts` (returns signed URLs), `GET /api/artifacts/:job_id/:filename` (verifies sig+exp, serves file). 4 tests including mock DB session.
+- **Result cache:** `find_best_cached_job()` in `routes/jobs.py` with model quality ranking (Opus 4.7 → Sonnet 4.6 → GPT-5.5 → Gemini 2.5 → Haiku 4.5). Cache-hit path clones `character_map` to new Job with `estimated_cost_usd=Decimal('0')`. 4 tests.
+- **Alembic 0002:** Partial index `idx_jobs_cache` on `(resolved_id, spoiler_mode)` WHERE `status='done' AND deleted_at IS NULL`.
+- **Frontend layout:** `src/layout/layout.ts` (renamed from `dagreLayout.ts` after dagre removed) — factions arranged in `ceil(√N)` × `ceil(N/cols)` grid; per-faction internal grid with `MAX_COLS=2`. Per-edge handle selection: each node has 8 invisible handles (4 source + 4 target on every side), `buildLayout` picks the facing-side pair from absolute node centers. Bezier (`type: 'default'`) edges with `zIndex: 0` (below nodes). Character nodes with `parentId: factionNodeId` and `draggable: false` so faction groups drag as units.
+- **Canvas component:** `CharacterMapCanvas.tsx` with React Flow + MiniMap + Controls + Background. Three toolbar toggles (Badges, Labels, Reset layout) plus Share / Export. Labels off by default; when on, edges get `zIndex: 10` so labels float above nodes/boxes. Coverage note banner dismissable via × button.
+- **Export + downloads:** `ExportMenu.tsx` (PNG/SVG/JSON via `html-to-image` + React Flow `toObject`), uploads each export to the artifact endpoint after download. `DownloadList.tsx` (sidebar) renders signed URLs returned by `GET /api/jobs/:id/artifacts`.
+- **JobView done state:** Full-viewport canvas + 190px right sidebar with `DownloadList`.
+
+**End-to-end verification (issue #1 from session-end review):**
+- Generated fresh "Of Mice and Men" map: status `done` in 32s, $0.038, 11 characters across 3 factions
+- Worker logged `markdown_rendered` + `pdf_rendered`; `artifacts` table has 2 rows (4381 + 112512 bytes)
+- API container sees the same files (shared `artifacts` docker volume)
+- Signed URL via `GET /api/artifacts/...?sig=...&exp=...` returns Markdown content correctly
+- `DownloadList` sidebar populates with both items on the job page
+- **Cache hit verified:** second POST for "Of Mice and Men" with `model=claude-haiku-4-5-20251001` returned status `done` instantly; API logged `job_cache_hit source_model=claude-sonnet-4-6`
+
+**Dagre dead-dependency cleanup (issue #2):**
+- Removed `dagre` + `@types/dagre` from `package.json` (never actually used after the layout was rewritten as plain grid math during the visual-iteration phase)
+- Renamed `dagreLayout.ts` → `layout.ts`, updated one import in `CharacterMapCanvas.tsx`
+- Added `smoke-*.png` and `.playwright-mcp/` to `.gitignore`
+
+### Key Decisions
+
+- **Layout: grid of factions, not single horizontal row.** Original plan put all factions at the same `y=48` in a single row. User feedback ("a square or circular shape is probably optimal") drove a redesign to a `ceil(√N)` column grid. For Congo's 5 factions: 3×2 grid, dramatically more compact and less wide.
+- **Edge type: `default` (bezier), not `smoothstep` or `straight`.** Iterated through all three this session:
+  - `smoothstep` (orthogonal grid) → multiple edges to the same target collapse into stacked rectangles
+  - `straight` → no looping but feels mechanical, no curve at all
+  - `default` (bezier) with explicit facing-side handle selection → natural curves that don't loop. **Final choice.**
+- **8 handles per node.** Character cards have `Handle id={src,tgt}-{right,bottom,left,top}` for all 4 sides. `buildLayout` picks `sourceHandle` and `targetHandle` per edge based on `dx, dy` between absolute node centers (Math.abs comparison decides axis; sign decides side).
+- **`parentId` for faction → character relationship.** Character node positions become *relative* to the faction group. Dragging the group moves all children with it. `draggable: false` on children prevents independent moves. `nodeCenters` map stores absolute positions captured at build time for handle selection.
+- **Edges below nodes via `zIndex: 0`** (character cards at `zIndex: 2`, faction groups at `zIndex: 0`). Edge lines pass behind boxes — text always readable. When user toggles Labels on, `liveEdges` boosts `zIndex` to 10 so labels float above everything.
+- **Result cache stores `model = cached.model`.** Documented in the design spec but invisible to user — a follow-up Planka card now exists to add a UI hint ("cached result from <model> · $0").
+- **NODE_WIDTH 300, NODE_HEIGHT 76.** Long character names (e.g. "Morikawa / Consortium Field Leader") needed more than 240×64 to render without clipping faction boxes. Explicit `style: { width: NODE_WIDTH }` on character nodes forces React Flow to use the same width the layout assumed.
+- **Toolbar uniformity:** All five buttons (Badges, Labels, Share, Export, Reset layout) use the same ghost-outline style when inactive. Toggles (Badges, Labels) go solid blue when active. Dropped the original blue-Share primary-button look.
+- **Subagent-driven development for the 14-task plan.** Each task: dispatch implementer with full task text + context, verify outputs (test counts, build status), commit, move on. Total ~12 implementer dispatches across the plan plus an end-to-end deploy subagent.
+
+### Test Status
+
+- **73 backend unit tests passing**, 3 PDF tests skipped locally (no pdflatex outside Docker; they run in CI/container).
+- **End-to-end pipeline verified live:** Of Mice and Men map generated with full renderer + artifact + cache-hit flow.
+- **Frontend: zero tests** (gap surfaced in review; follow-up card created).
+- Clean Vite build (425 kB JS, 137 kB gzip).
+- Deployed to lfc and re-deployed multiple times during visual iteration.
