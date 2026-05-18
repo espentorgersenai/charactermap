@@ -1,15 +1,16 @@
-import dagre from 'dagre'
 import type { Edge, Node } from '@xyflow/react'
 import type { CharacterMap, Character, Faction, Relationship, RelationshipType } from '../types/characterMap'
 
 // ── Visual constants ────────────────────────────────────────────────────────
 const NODE_WIDTH = 240
 const NODE_HEIGHT = 64
-const RANKSEP = 120
-const NODESEP = 80
+const COL_GAP = 24       // horizontal gap between columns within a faction
+const ROW_GAP = 16       // vertical gap between rows within a faction
+const MAX_COLS = 2       // max columns per faction before wrapping
 const FACTION_PADDING = 32
 const FACTION_LABEL_H = 36
-const FACTION_GAP = 120
+const FACTION_COL_GAP = 80   // horizontal gap between faction columns
+const FACTION_ROW_GAP = 60   // vertical gap between faction rows
 const CANVAS_TOP = 48
 
 // ── Faction colour mapping ──────────────────────────────────────────────────
@@ -33,25 +34,44 @@ const EDGE_STYLES: Record<RelationshipType, { stroke: string; strokeDasharray?: 
   criminal:     { stroke: '#eab308', strokeDasharray: '5,3', strokeWidth: 1.5 },
 }
 
-// ── Per-faction dagre layout ────────────────────────────────────────────────
+// ── Per-faction vertical grid layout ────────────────────────────────────────
+// Stacks characters in up to MAX_COLS columns, top-to-bottom within each column.
+// Avoids dagre for unconnected nodes (dagre collapses them to one horizontal rank).
 function layoutCharsInFaction(chars: Character[]): Map<string, { x: number; y: number }> {
-  const g = new dagre.graphlib.Graph()
-  g.setGraph({ rankdir: 'TB', ranksep: RANKSEP, nodesep: NODESEP })
-  g.setDefaultEdgeLabel(() => ({}))
-  chars.forEach(c => g.setNode(c.id, { width: NODE_WIDTH, height: NODE_HEIGHT }))
-  dagre.layout(g)
+  const cols = Math.min(chars.length, MAX_COLS)
   const positions = new Map<string, { x: number; y: number }>()
-  chars.forEach(c => {
-    const n = g.node(c.id)
-    positions.set(c.id, { x: n.x - NODE_WIDTH / 2, y: n.y - NODE_HEIGHT / 2 })
+  chars.forEach((c, i) => {
+    const col = i % cols
+    const row = Math.floor(i / cols)
+    positions.set(c.id, {
+      x: col * (NODE_WIDTH + COL_GAP),
+      y: row * (NODE_HEIGHT + ROW_GAP),
+    })
   })
   return positions
 }
 
+// ── Faction size helper ──────────────────────────────────────────────────────
+function factionSize(chars: Character[]): { w: number; h: number } {
+  const positions = layoutCharsInFaction(chars)
+  let maxRight = 0, maxBottom = 0
+  positions.forEach(({ x, y }) => {
+    maxRight  = Math.max(maxRight,  x + NODE_WIDTH)
+    maxBottom = Math.max(maxBottom, y + NODE_HEIGHT)
+  })
+  return {
+    w: maxRight  + FACTION_PADDING * 2,
+    h: maxBottom + FACTION_PADDING * 2 + FACTION_LABEL_H,
+  }
+}
+
 // ── Main export ─────────────────────────────────────────────────────────────
+// Factions are arranged in a square grid (ceil(√N) columns) so the overall
+// map shape is compact and inter-faction edges cross at varied angles.
 export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge[] } {
   const { factions, characters, relationships } = charMap
 
+  // Group characters by faction
   const factionChars = new Map<string, Character[]>(factions.map(f => [f.id, []]))
   characters.forEach(c => {
     const fid = c.faction_id ?? factions[0]?.id
@@ -62,27 +82,42 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
     }
   })
 
+  const nonEmpty = factions.filter(f => (factionChars.get(f.id)?.length ?? 0) > 0)
+  const GRID_COLS = Math.max(2, Math.ceil(Math.sqrt(nonEmpty.length)))
+
+  // Per-column max width, per-row max height (for uniform column/row sizing)
+  const colWidths: number[] = new Array(GRID_COLS).fill(0)
+  const rowHeights: number[] = []
+  nonEmpty.forEach((faction, idx) => {
+    const col = idx % GRID_COLS
+    const row = Math.floor(idx / GRID_COLS)
+    const { w, h } = factionSize(factionChars.get(faction.id) ?? [])
+    colWidths[col] = Math.max(colWidths[col], w)
+    rowHeights[row] = Math.max(rowHeights[row] ?? 0, h)
+  })
+
+  // Cumulative column X offsets and row Y offsets
+  const colX: number[] = [FACTION_PADDING]
+  for (let c = 1; c < GRID_COLS; c++) {
+    colX.push(colX[c - 1] + colWidths[c - 1] + FACTION_COL_GAP)
+  }
+  const rowY: number[] = [CANVAS_TOP]
+  for (let r = 1; r < rowHeights.length; r++) {
+    rowY.push(rowY[r - 1] + rowHeights[r - 1] + FACTION_ROW_GAP)
+  }
+
   const nodes: Node[] = []
   const nodeIdSet = new Set<string>()
-  let cursorX = FACTION_PADDING
 
-  factions.forEach((faction: Faction) => {
+  nonEmpty.forEach((faction, idx) => {
+    const gridCol = idx % GRID_COLS
+    const gridRow = Math.floor(idx / GRID_COLS)
     const chars = factionChars.get(faction.id) ?? []
-    if (chars.length === 0) return
-
     const colour = COLOUR_MAP[faction.color_hint] ?? '#64748b'
     const charPositions = layoutCharsInFaction(chars)
-
-    let maxRight = 0, maxBottom = 0
-    charPositions.forEach(({ x, y }) => {
-      maxRight  = Math.max(maxRight,  x + NODE_WIDTH)
-      maxBottom = Math.max(maxBottom, y + NODE_HEIGHT)
-    })
-
-    const groupW = maxRight  + FACTION_PADDING * 2
-    const groupH = maxBottom + FACTION_PADDING * 2 + FACTION_LABEL_H
-    const groupX = cursorX
-    const groupY = CANVAS_TOP
+    const { w: groupW, h: groupH } = factionSize(chars)
+    const groupX = colX[gridCol]
+    const groupY = rowY[gridRow]
 
     nodes.push({
       id: `__faction_${faction.id}`,
@@ -109,8 +144,6 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
       })
       nodeIdSet.add(char.id)
     })
-
-    cursorX += groupW + FACTION_GAP
   })
 
   const edges: Edge[] = relationships
