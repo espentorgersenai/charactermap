@@ -152,7 +152,7 @@ export function buildLayout(charMap: CharacterMap): { nodes: Node[]; edges: Edge
       id: `${r.from_id}__${r.to_id}__${r.type}`,
       source: r.from_id,
       target: r.to_id,
-      type: 'smoothstep',
+      type: 'default',
       label: r.label,
       labelBgStyle: { fill: 'rgba(17,17,17,0.92)', rx: 3, ry: 3 },
       labelStyle: { fill: '#ccc', fontSize: 11, fontFamily: '-apple-system,sans-serif' },
