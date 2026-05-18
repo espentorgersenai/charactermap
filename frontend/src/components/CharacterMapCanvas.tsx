@@ -137,7 +137,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
               : 'bg-transparent text-[#555] border-[#2a2a2a] hover:border-[#555] hover:text-[#aaa]'
           }`}
         >
-          ⚠ † Badges
+          ! † Badges
         </button>
 
         <button
