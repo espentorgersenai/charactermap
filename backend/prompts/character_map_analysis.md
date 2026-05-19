@@ -10,11 +10,9 @@ You have access to web search — USE IT. Verify every character name against au
 
 3. **Adaptation discrepancies.** If the work has a major adaptation (book → film, original → remake, novel → TV series), note explicitly where the ending, killer identity, character fates, or thematic resolution diverge between versions. Verify via search — these are facts, not opinions.
 
-4. **Refuse internal flattening.** For non-mystery and literary works, do not reduce protagonists or factions to "good vs. evil" or "noble vs. corrupt". Identify actual systemic failures, internal hypocrisies, and moral ambiguities — both the protagonist's and the antagonist's. Use specific incidents from the work, not generic critic-speak.
+4. **Refuse internal flattening.** When describing characters in the Cast section, do not reduce protagonists or factions to "good vs. evil" or "noble vs. corrupt". Reference internal hypocrisies, moral ambiguities, and systemic failures *concisely* within each Cast entry's role/function field — not as a separate prose section.
 
-5. **Structural metaphors.** Note when the protagonist's profession, the scientific pursuit at the heart of the work, the narrative's timeline structure, or its physical setting is itself a metaphor for the philosophical theme.
-
-6. **Faction-padding is forbidden.** If a faction exists in the work (rival corporation, criminal organisation, opposing army) but its individual members are unnamed in canon, write "members unnamed in source". Do not invent named members.
+5. **Faction-padding is forbidden.** If a faction exists in the work (rival corporation, criminal organisation, opposing army) but its individual members are unnamed in canon, write "members unnamed in source". Do not invent named members.
 
 ## Output structure (plain prose, no JSON, no markdown fences)
 
@@ -32,12 +30,6 @@ The actual ending, named explicitly. Who lives, who dies, who turns out to be wh
 
 **The Deceptive Red Herrings / False Leads**
 Suspects, theories, or directions the work explicitly misdirects toward and away from. Distinct from True Resolution above. If the work has no mystery structure, write "n/a".
-
-**Systemic & Thematic Nuance**
-The internal failures of the protagonist's society/faction. Where the work refuses good-vs-evil. Specific examples from the text.
-
-**Structural Metaphors**
-The work's deeper philosophical or thematic argument, anchored in its structure (timeline, protagonist's profession, setting).
 
 **Key Adaptation Differences** (only if a major adaptation exists)
 Specifically: how the ending, killer identity, or character fates differ between versions. Cite the adaptation by name and year.

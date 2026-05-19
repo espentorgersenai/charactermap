@@ -27,7 +27,7 @@ Your job: convert the analysis into a single JSON object conforming to the Chara
 
 5. **Factions.** Use the affiliations stated in the analysis's Cast section. Choose 2–6 faction groupings. If the analysis lists a faction with members "unnamed in source", include the faction as a single collective character entry (e.g. `name: "Bremen officials"`, `importance: "supporting"`) — never as a faction with invented individual members.
 
-6. **Descriptions: refuse flattening.** Where the analysis's *Systemic & Thematic Nuance* section flags a character's moral ambiguity, internal contradiction, or hypocrisy, that nuance should be visible in the description field. "Loyal soldier" is wrong when the analysis identifies that character's complicity in a systemic failure. Reference real contradictions from the analysis text, not generic complexity-speak.
+6. **Descriptions: refuse flattening.** Where the analysis's Cast section identifies a character's moral ambiguity, internal contradiction, or hypocrisy in their role/function field, that nuance should be visible in your description. "Loyal soldier" is wrong when the analysis identifies that character's complicity in a systemic failure. Reference real contradictions from the analysis text, not generic complexity-speak.
 
 7. **`name_evidence` per character.** Each Character emits a `name_evidence` field — 5–15 words quoting or paraphrasing how the analysis's Cast section identifies this character. This is the audit trail back to the grounding source.
 
