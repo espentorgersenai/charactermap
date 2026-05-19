@@ -106,7 +106,9 @@ export default function Home() {
   const [email, setEmail]               = useState('')
   const [workType, setWorkType]         = useState<'book' | 'film_tv'>(prefs.workType)
   const [characterCap, setCharacterCap] = useState<CharacterCap>(prefs.characterCap)
-  const [spoilerAcknowledged, setSpoilerAcknowledged] = useState(false)
+  // Spoiler banner hidden in v1 (the WhatThisIsBanner already sets honest
+  // expectations). Backend still hard-gates on `acknowledged_spoilers: true`
+  // — the field is always sent as true from this page.
   const [selectedCandidate, setSelectedCandidate]     = useState<ResolveCandidate | null>(null)
   const [forceShowPicker, setForceShowPicker]         = useState(false)
   const [submitting, setSubmitting]   = useState(false)
@@ -146,7 +148,6 @@ export default function Home() {
   if (autoSkip && topCandidate && !selectedCandidate) setSelectedCandidate(topCandidate)
 
   const canGenerate =
-    spoilerAcknowledged &&
     formats.length > 0 &&
     selectedCandidate !== null &&
     !budgetExhausted &&
@@ -282,23 +283,7 @@ export default function Home() {
       {/* ════════════════════════════════════════════════════════
           SPOILER — inline, full-width strip
       ════════════════════════════════════════════════════════ */}
-      <Reveal className="max-w-7xl mx-auto px-8 pt-10">
-        <label
-          className="inline-flex items-center gap-3 cursor-pointer group px-5 py-3 rounded-full transition-colors"
-          style={{ border: '1px solid rgba(224,82,82,0.25)', background: 'rgba(26,8,8,0.5)' }}
-        >
-          <input
-            type="checkbox"
-            checked={spoilerAcknowledged}
-            onChange={(e) => setSpoilerAcknowledged(e.target.checked)}
-            style={{ accentColor: '#D4AF37', width: '15px', height: '15px' }}
-          />
-          <span className="text-xs text-award-cream-muted group-hover:text-award-cream transition-colors">
-            <span className="font-semibold" style={{ color: '#E05252' }}>⚠ Spoiler warning —</span>{' '}
-            this generates full character maps. Tick to confirm you're happy with spoilers.
-          </span>
-        </label>
-      </Reveal>
+      {/* Spoiler banner hidden in v1 — revisit when shipping spoiler-safe mode. */}
 
       {/* ════════════════════════════════════════════════════════
           SEARCH + CONFIGURE — two-column on wide screens
@@ -437,9 +422,7 @@ export default function Home() {
           )}
           {!canGenerate && !budgetExhausted && (
             <p className="text-[10px] text-award-cream-dim mb-4 tracking-widest uppercase">
-              {!spoilerAcknowledged
-                ? '— Acknowledge the spoiler warning above —'
-                : !selectedCandidate ? '— Search and select a title first —'
+              {!selectedCandidate ? '— Search and select a title first —'
                 : formats.length === 0 ? '— Select at least one output format —'
                 : turnstileRequired && !turnstileToken ? '— Complete the captcha below —'
                 : ''}
@@ -501,8 +484,6 @@ export default function Home() {
           <StatusChip done={!!selectedCandidate} label={selectedCandidate ? selectedCandidate.title : 'No title selected'} />
           <span className="text-award-gold-dim text-xs hidden sm:block">·</span>
           <StatusChip done={formats.length > 0} label={formats.length > 0 ? formats.join(', ') : 'No format'} />
-          <span className="text-award-gold-dim text-xs hidden sm:block">·</span>
-          <StatusChip done={spoilerAcknowledged} label={spoilerAcknowledged ? 'Spoilers acknowledged' : 'Spoilers not acknowledged'} />
         </div>
 
         {/* Generate button */}
