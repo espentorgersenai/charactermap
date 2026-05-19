@@ -1,0 +1,659 @@
+{
+  "title": "Cem Anos de Solidão",
+  "subtitle": "Gabriel García Márquez, 1967",
+  "blurb": "A saga multigeracional da família Buendía, fundadores da cidade fictícia de Macondo, ao longo de sete gerações marcadas pela repetição, pelo isolamento e pela inexorabilidade do destino. O romance canônico do realismo mágico latino-americano narra a ascensão e a ruína de uma linhagem cujo fim está inscrito desde o princípio nos pergaminhos proféticos do cigano Melquíades.",
+  "spoiler_mode": "full",
+  "setting_preamble": "Macondo é uma cidade fictícia fundada por José Arcadio Buendía após ele matar Prudencio Aguilar em duelo. A cidade existe fora do tempo convencional: ciganos trazem invenções modernas como magia, guerras civis colombianas chegam e vão sem resolução, e uma Companhia Bananeira estrangeira instala e destrói uma economia inteira. Os pergaminhos de Melquíades, escritos em sânscrito antes dos eventos que narram, contêm a história completa de Macondo — legíveis apenas no momento em que essa história se encerra.",
+  "factions": [
+    {
+      "id": "familia_buendia",
+      "label": "Família Buendía",
+      "description": "A linhagem fundadora de Macondo, marcada pela repetição de nomes, pelo incesto latente e pela solidão hereditária. Cada geração recapitula os erros da anterior com ferramentas diferentes.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "ciganos",
+      "label": "Ciganos de Melquíades",
+      "description": "Grupo itinerante liderado por Melquíades que visita Macondo periodicamente trazendo invenções e conhecimento esotérico. Melquíades deixa para trás os pergaminhos proféticos que governam o destino da família.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "partido_liberal",
+      "label": "Partido Liberal",
+      "description": "Facção política que o Coronel Aureliano Buendía abraça em resposta à fraude eleitoral conservadora. As trinta e duas guerras civis que ele conduz em nome do partido terminam todas em derrota e sem princípios.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "partido_conservador",
+      "label": "Partido Conservador",
+      "description": "Facção política que controla o governo central e nomeia magistrados como Don Apolinar Moscote para administrar Macondo. Associada à fraude eleitoral e à repressão.",
+      "color_hint": "red"
+    },
+    {
+      "id": "companhia_bananeira",
+      "label": "Companhia Bananeira",
+      "description": "Empresa estrangeira que instala uma economia de enclave em Macondo, traz modernidade corruptora e culmina no massacre de trabalhadores grevistas — evento apagado da memória oficial.",
+      "color_hint": "green"
+    },
+    {
+      "id": "nao_afiliados",
+      "label": "Sem afiliação / Independentes",
+      "description": "Personagens que orbitam a família Buendía sem pertencer a nenhuma facção institucional: amantes, artistas, fantasmas e figuras que cruzam o destino da linhagem.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "jose_arcadio_buendia",
+      "name": "José Arcadio Buendía",
+      "role": "Patriarca fundador de Macondo",
+      "description": "Visionário genuíno cuja curiosidade intelectual é simultaneamente a virtude que cria Macondo e a patologia que o destrói: a mesma obsessão com o conhecimento esotérico que o torna fundador de uma civilização o conduz à loucura, terminando seus dias acorrentado a uma castanheira no quintal. O fundador da cidade é destruído pela mesma força que a criou.",
+      "faction_id": "familia_buendia",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Patriarca fundador de Macondo; homem de força física e curiosidade intelectual obsessiva que degenera em loucura",
+      "actor": null
+    },
+    {
+      "id": "ursula_iguaran",
+      "name": "Úrsula Iguarán",
+      "role": "Matriarca da família Buendía",
+      "description": "A força moral mais consistente do romance ao longo de mais de um século de vida, mas com pontos cegos fatais: cria Arcadio sem revelar-lhe seus pais, contribuindo para a alienação que o torna ditador; envia José Arcadio (II) ao seminário alimentando uma ilusão que o destrói. Seu pragmatismo não consegue interromper os padrões que ela mesma perpetua.",
+      "faction_id": "familia_buendia",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Matriarca da família Buendía; prima e esposa de José Arcadio Buendía; força moral e prática que sustenta a família por mais de um século",
+      "actor": null
+    },
+    {
+      "id": "coronel_aureliano_buendia",
+      "name": "Coronel Aureliano Buendía",
+      "role": "Líder militar liberal; segundo filho dos fundadores",
+      "description": "Começa como homem de princípios que se revolta contra a fraude eleitoral conservadora, mas termina ordenando a execução de José Raquel Moncada — o prefeito humano e bem-amado que era amigo da família — tornando-se indistinguível do tirano que combatia. Reconhece tarde demais que suas trinta e duas guerras foram travadas por vaidade, não por ideais, e se retira para a solidão do laboratório e a criação inútil de peixinhos de ouro.",
+      "faction_id": "partido_liberal",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Primeiro ser humano nascido em Macondo; líder militar liberal que conduz 32 guerras civis fracassadas; retira-se para fabricar peixinhos de ouro",
+      "actor": null
+    },
+    {
+      "id": "aureliano_babilonia",
+      "name": "Aureliano Babilonia",
+      "role": "Último Buendía; decifrador dos pergaminhos",
+      "description": "O último protagonista da linhagem, cujo ato final de decifrar os pergaminhos de Melquíades é simultaneamente o cumprimento e a extinção de tudo: no instante em que lê a última frase, descobre que o manuscrito narrava a história completa dos Buendía até aquele exato momento, e Macondo é destruída pelo vendaval. Ler a própria história é ser destruído por ela.",
+      "faction_id": "familia_buendia",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Filho ilegítimo de Meme e Mauricio Babilonia; decifra os pergaminhos de Melquíades; envolve-se em relação incestuosa com a tia Amaranta Úrsula",
+      "actor": null
+    },
+    {
+      "id": "melquiades",
+      "name": "Melquíades",
+      "role": "Cigano profeta; autor dos manuscritos",
+      "description": "Figura que transcende a morte — morre em Singapura mas retorna a Macondo — e cujos pergaminhos escritos em sânscrito constituem o próprio romance que o leitor está lendo, registrados antes dos eventos que narram. Representa tanto o caprichoso quanto o literário: o guardião do arquivo que é fundamento e instrumento de decodificação da história latino-americana.",
+      "faction_id": "ciganos",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Líder dos ciganos que visitam Macondo; vendedor de invenções; autor dos pergaminhos proféticos que narram toda a história da família Buendía",
+      "actor": null
+    },
+    {
+      "id": "amaranta_ursula",
+      "name": "Amaranta Úrsula",
+      "role": "Filha da quinta geração; último amor trágico",
+      "description": "A mais vitalista da família tardia, que retorna da Bélgica convicta de que pode revitalizar Macondo, mas sucumbe ao mesmo padrão incestuoso que percorre toda a linhagem. Sua morte de hemorragia após o parto do filho com rabo de porco cumpre a maldição que Úrsula temia há gerações.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Filha de Aureliano Segundo e Fernanda; estuda na Bélgica; retorna com o marido belga Gastón; envolve-se em relação incestuosa com o sobrinho Aureliano Babilonia",
+      "actor": null
+    },
+    {
+      "id": "fernanda_del_carpio",
+      "name": "Fernanda del Carpio",
+      "role": "Esposa de Aureliano Segundo; matriarca da quinta geração",
+      "description": "Não é simplesmente uma vilã aristocrática: é o produto de uma educação que ensinou que aparências valem mais que pessoas. Ao mandar atirar em Mauricio Babilonia para proteger a reputação da filha Meme — acusando-o falsamente de roubar galinhas — produz exatamente o tipo de solidão e silêncio que o romance condena como o maior pecado da família.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Esposa de Aureliano Segundo; criada por aristocratas empobrecidos; extremamente religiosa e altiva; manda atirar em Mauricio Babilonia",
+      "actor": null
+    },
+    {
+      "id": "jose_arcadio_i",
+      "name": "José Arcadio (I)",
+      "role": "Filho primogênito dos fundadores",
+      "description": "Fisicamente prodigioso e impulsivo, foge com os ciganos na adolescência e retorna coberto de tatuagens para casar-se com Rebeca contra a vontade da família. Sua morte permanece inexplicada — assassinado misteriosamente sem que o romance jamais revele o culpado.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filho mais velho de José Arcadio Buendía e Úrsula; fisicamente prodigioso; foge com os ciganos; retorna tatuado e casa-se com Rebeca",
+      "actor": null
+    },
+    {
+      "id": "amaranta",
+      "name": "Amaranta",
+      "role": "Filha dos fundadores; tecedora de sua própria mortalha",
+      "description": "Marcada pelo ciúme de Rebeca e por uma incapacidade estrutural de amar que ela mesma reconhece e perpetua: rejeita Pietro Crespi (que se suicida), rejeita Gerineldo Márquez, mantém uma atração proibida pelo sobrinho Aureliano José. Morre virgem e amargurada após tecer sua própria mortalha — imagem da solidão como autopunição.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filha de José Arcadio Buendía e Úrsula; marcada por ciúme amargo de Rebeca e por uma incapacidade de amar; rejeita todos os pretendentes",
+      "actor": null
+    },
+    {
+      "id": "rebeca",
+      "name": "Rebeca",
+      "role": "Filha adotiva dos Buendía",
+      "description": "Chega como uma estranha que carrega os ossos dos pais numa sacola de lona e tem o hábito compulsivo de comer terra — imagem da origem traumática e do apego à morte. Casa-se com José Arcadio (I) contra a vontade da família e, após a morte misteriosa dele, passa o resto da vida em reclusão total, esquecida por todos.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filha adotiva dos Buendía; chega com os ossos dos pais numa sacola de lona; tem hábito de comer terra; casa-se com José Arcadio (I)",
+      "actor": null
+    },
+    {
+      "id": "pilar_ternera",
+      "name": "Pilar Ternera",
+      "role": "Cartomante, prostituta, memória viva de Macondo",
+      "description": "Figura que atravessa toda a narrativa como memória encarnada de Macondo — amante de dois Buendía da segunda geração, mãe de dois filhos ilegítimos da família, cartomante que vê o futuro mas não pode alterá-lo. Sua longevidade de 145 anos faz dela a última depositária da história da cidade antes de sua destruição.",
+      "faction_id": "nao_afiliados",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Cartomante e prostituta; parte da expedição original que fundou Macondo; amante de José Arcadio (I) e depois de Aureliano; mãe de Arcadio e de Aureliano José; vive até os 145 anos",
+      "actor": null
+    },
+    {
+      "id": "remedios_a_bela",
+      "name": "Remedios, a Bela",
+      "role": "Bisneta dos fundadores; figura transcendente",
+      "description": "A mulher mais bela do romance, completamente alheia ao efeito devastador que sua presença exerce sobre os homens ao redor. Sua ascensão aos céus envoluta em lençóis brancos num dia comum é apresentada como evento banal — a transcendência mais extraordinária do romance ocorre com total indiferença da protagonista.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "A mulher mais bela do mundo fictício; inconsciente do efeito devastador que exerce sobre os homens; sobe aos céus envoluta em lençóis brancos",
+      "actor": null
+    },
+    {
+      "id": "aureliano_segundo",
+      "name": "Aureliano Segundo",
+      "role": "Gêmeo hedonista da quarta geração",
+      "description": "Hedonista extrovertido cuja vitalidade contrasta com a gravidade do irmão gêmeo José Arcadio Segundo, embora o romance sugira que os gêmeos podem ter trocado de identidade na infância. Sua morte simultânea com a do irmão no mesmo instante aprofunda a ambiguidade sobre quem era quem.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filho gêmeo de Arcadio e Santa Sofía de la Piedad; hedonista, extrovertido; mantém longa relação com Petra Cotes; casado com Fernanda del Carpio",
+      "actor": null
+    },
+    {
+      "id": "jose_arcadio_segundo",
+      "name": "José Arcadio Segundo",
+      "role": "Gêmeo revolucionário; guardião da memória do massacre",
+      "description": "Líder dos trabalhadores grevistas contra a Companhia Bananeira e único sobrevivente do massacre que se segue — mas quando descobre que ninguém acredita que o massacre ocorreu, isola-se no estudo de Melquíades tentando decifrar os pergaminhos e preservar a memória. O apagamento histórico não é apenas perpetrado pelos poderosos: é aceito passivamente pela própria comunidade.",
+      "faction_id": "companhia_bananeira",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filho gêmeo de Arcadio e Santa Sofía de la Piedad; líder dos grevistas contra a Companhia Bananeira; único sobrevivente do massacre",
+      "actor": null
+    },
+    {
+      "id": "renata_remedios_meme",
+      "name": "Renata Remedios (Meme)",
+      "role": "Filha da quinta geração; amante silenciada",
+      "description": "Musicista talentosa cuja vida é destruída pela decisão materna de separar sua relação com Mauricio Babilonia: enviada a um convento, nunca mais fala uma única palavra pelo resto da vida. Sua mudez voluntária é a forma mais extrema da solidão como resposta ao amor interditado.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filha de Aureliano Segundo e Fernanda; musicista talentosa; apaixona-se por Mauricio Babilonia; enviada a um convento onde passa o resto da vida em silêncio absoluto",
+      "actor": null
+    },
+    {
+      "id": "arcadio",
+      "name": "Arcadio",
+      "role": "Ditador de Macondo na ausência do Coronel",
+      "description": "Criado pelos Buendía sem conhecer seus pais verdadeiros — omissão de Úrsula que contribui diretamente para sua alienação. Na ausência do Coronel Aureliano, torna-se ditador brutal de Macondo, encarnando a tese do romance de que o vácuo de identidade produz tirania.",
+      "faction_id": "familia_buendia",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filho ilegítimo de José Arcadio (I) e Pilar Ternera; criado pelos Buendía sem saber quem são seus pais; torna-se ditador brutal de Macondo",
+      "actor": null
+    },
+    {
+      "id": "prudencio_aguilar",
+      "name": "Prudencio Aguilar",
+      "role": "Vítima original; fantasma fundador",
+      "description": "Criador de galos cuja morte em duelo de honra desencadeia toda a narrativa: seu fantasma persegue José Arcadio Buendía e Úrsula com tal persistência que os força a abandonar sua aldeia natal e a fundar Macondo. O fundamento da civilização é um crime.",
+      "faction_id": "nao_afiliados",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Criador de galos que insulta José Arcadio Buendía; morto por ele em duelo de honra; seu fantasma persegue o casal e os força a fundar Macondo",
+      "actor": null
+    },
+    {
+      "id": "petra_cotes",
+      "name": "Petra Cotes",
+      "role": "Amante de Aureliano Segundo",
+      "description": "Amante duradoura de Aureliano Segundo cuja relação com ele possui um efeito mágico literal: o gado se reproduz com fertilidade extraordinária enquanto os dois estão juntos. Representa o vitalismo sensual que Aureliano Segundo prefere à vida doméstica com Fernanda.",
+      "faction_id": "nao_afiliados",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Amante de longa data de Aureliano Segundo; sua relação com ele tem efeito mágico sobre o gado",
+      "actor": null
+    },
+    {
+      "id": "mauricio_babilonia",
+      "name": "Mauricio Babilonia",
+      "role": "Mecânico; amante de Meme",
+      "description": "Descendente dos ciganos de Melquíades, constantemente rodeado de borboletas amarelas que anunciam sua presença. Baleado por ordem de Fernanda del Carpio sob falsa acusação de roubo de galinhas, torna-se paralítico e passa o resto da vida em solidão — punido por Fernanda não por crime algum, mas por ameaçar a reputação familiar.",
+      "faction_id": "companhia_bananeira",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Mecânico da Companhia Bananeira; descendente dos ciganos; constantemente rodeado de borboletas amarelas; amante de Meme",
+      "actor": null
+    },
+    {
+      "id": "santa_sofia_de_la_piedad",
+      "name": "Santa Sofía de la Piedad",
+      "role": "Esposa de Arcadio; mãe da quarta geração",
+      "description": "Mãe de três personagens centrais da quarta geração — Remedios a Bela, Aureliano Segundo e José Arcadio Segundo — mas figura de presença quase apagada na narrativa. Seu desaparecimento final da casa, simplesmente indo embora sem dizer uma palavra, é a forma mais silenciosa de solidão do romance.",
+      "faction_id": "familia_buendia",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Esposa de Arcadio; mãe de Remedios, a Bela, Aureliano Segundo e José Arcadio Segundo; figura quase invisível na narrativa",
+      "actor": null
+    },
+    {
+      "id": "aureliano_jose",
+      "name": "Aureliano José",
+      "role": "Filho do Coronel; soldado liberal",
+      "description": "Filho ilegítimo do Coronel Aureliano Buendía e Pilar Ternera, obcecado pela tia Amaranta num amor proibido que ela nunca corresponde. Junta-se ao exército do pai e morre pelas mãos dos conservadores — herdeiro tanto do militarismo quanto da incapacidade de amar dos Buendía.",
+      "faction_id": "partido_liberal",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filho ilegítimo do Coronel Aureliano Buendía e Pilar Ternera; obcecado pela tia Amaranta; junta-se ao exército do pai",
+      "actor": null
+    },
+    {
+      "id": "os_17_aurelianos",
+      "name": "Os 17 Aurelianos",
+      "role": "Filhos ilegítimos do Coronel; coletivo",
+      "description": "Dezessete filhos de dezassete mães diferentes, todos nomeados Aureliano — encarnação coletiva da repetição nominal como tese central do romance. Sua exterminação numa única noite apaga uma geração inteira com a mesma arbitrariedade com que foram criados.",
+      "faction_id": "familia_buendia",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Dezessete filhos ilegítimos do Coronel Aureliano Buendía com dezassete mulheres diferentes, cada um batizado com o nome Aureliano",
+      "actor": null
+    },
+    {
+      "id": "don_apolinar_moscote",
+      "name": "Don Apolinar Moscote",
+      "role": "Magistrado conservador de Macondo",
+      "description": "Representante do poder central conservador em Macondo, cuja fraude eleitoral é a causa direta do engajamento do Coronel Aureliano Buendía na guerra civil liberal. Sua desonestidade institucional gera a série de conflitos armados que devastam Macondo por décadas.",
+      "faction_id": "partido_conservador",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Magistrado conservador nomeado pelo governo; pai de Remedios Moscote; frauda eleições em favor dos conservadores",
+      "actor": null
+    },
+    {
+      "id": "remedios_moscote",
+      "name": "Remedios Moscote",
+      "role": "Esposa-criança do Coronel Aureliano",
+      "description": "Filha mais nova do magistrado conservador, casa-se com o Coronel Aureliano Buendía ainda criança e traz brevemente luminosidade à casa dos Buendía antes de morrer de complicações em sua primeira gravidez — outra vida apagada prematuramente pela violência naturalizada do mundo masculino ao redor.",
+      "faction_id": "familia_buendia",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Filha mais nova de Don Apolinar Moscote; casa-se com o Coronel Aureliano Buendía ainda criança; revitaliza brevemente a casa dos Buendía",
+      "actor": null
+    },
+    {
+      "id": "pietro_crespi",
+      "name": "Pietro Crespi",
+      "role": "Pretendente italiano; professor de dança",
+      "description": "Figura da civilização europeia — refinado, musical, apaixonado — que sucumbe à dinâmica destrutiva dos Buendía: corteja Rebeca, é impedido de casá-la, volta-se para Amaranta, é cruelmente rejeitado por ela, e se suicida. Sua morte é a consequência direta da incapacidade de Amaranta de aceitar o amor.",
+      "faction_id": "nao_afiliados",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Professor de dança italiano; corteja Rebeca e depois Amaranta; rejeitado por Amaranta, suicida-se",
+      "actor": null
+    },
+    {
+      "id": "coronel_gerineldo_marquez",
+      "name": "Coronel Gerineldo Márquez",
+      "role": "Aliado militar do Coronel; pretendente de Amaranta",
+      "description": "O mais leal dos companheiros de guerra do Coronel Aureliano Buendía, cuja devoção pessoal e militar é correspondida com afeto genuíno pelo Coronel. Apaixona-se por Amaranta, que o rejeita — mais uma vítima da incapacidade estrutural de amar que define a filha dos fundadores.",
+      "faction_id": "partido_liberal",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Amigo íntimo e aliado militar do Coronel Aureliano Buendía; apaixona-se por Amaranta, que o rejeita",
+      "actor": null
+    },
+    {
+      "id": "jose_raquel_moncada",
+      "name": "José Raquel Moncada",
+      "role": "Prefeito conservador; amigo da família Buendía",
+      "description": "Prefeito conservador descrito como humano e bem-amado — inclusive pela família Buendía — cuja execução por ordem do Coronel Aureliano Buendía marca o ponto em que Úrsula reconhece ter perdido o filho para a guerra. Sua morte é o sinal mais claro de que o herói liberal se tornou o que combatia.",
+      "faction_id": "partido_conservador",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Prefeito conservador de Macondo; descrito como humano e bem-amado; executado por ordem do Coronel Aureliano Buendía",
+      "actor": null
+    },
+    {
+      "id": "jose_arcadio_ii",
+      "name": "José Arcadio (II)",
+      "role": "Filho destinado ao papado; devasso",
+      "description": "Enviado ao seminário em Roma por decisão de Úrsula convicta de que seria Papa, leva na verdade uma vida de devassidão que nunca chega ao sacerdócio. Retorna a Macondo envelhecido e dissoluto, sendo assassinado por adolescentes que roubam seu dinheiro — o fracasso mais irônico das projeções matriarcais.",
+      "faction_id": "familia_buendia",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Filho de Aureliano Segundo e Fernanda; destinado pela família a ser Papa; leva vida de devassidão em Roma; assassinado por adolescentes",
+      "actor": null
+    },
+    {
+      "id": "gaston",
+      "name": "Gastón",
+      "role": "Marido belga de Amaranta Úrsula",
+      "description": "Aviador e aventureiro belga que acompanha Amaranta Úrsula de volta a Macondo com boa vontade, mas percebe gradualmente que a esposa não tem intenção de retornar à Europa. Parte sozinho — figura do mundo exterior que Macondo não consegue reter nem destruir, apenas dispensar.",
+      "faction_id": "nao_afiliados",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Marido belga de Amaranta Úrsula; aviador e aventureiro; abandona Macondo quando percebe que a esposa não voltará à Europa",
+      "actor": null
+    },
+    {
+      "id": "aureliano_filho",
+      "name": "Aureliano (filho de Aureliano Babilonia e Amaranta Úrsula)",
+      "role": "Último descendente Buendía; cumprimento da maldição",
+      "description": "O sétimo e último Buendía, que nasce com o rabo de porco que Úrsula temia há gerações como sinal do castigo pelo incesto. Devorado por formigas enquanto o pai Aureliano Babilonia está em luto pela morte de Amaranta Úrsula — sua existência brevíssima é o selo final da maldição e o gatilho para a destruição de Macondo.",
+      "faction_id": "familia_buendia",
+      "importance": "minor",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Último descendente da linhagem Buendía; nasce com rabo de porco, cumprindo a maldição ancestral",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "jose_arcadio_buendia",
+      "to_id": "ursula_iguaran",
+      "type": "family",
+      "label": "esposos e primos; co-fundadores de Macondo",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "jose_arcadio_buendia",
+      "to_id": "melquiades",
+      "type": "mentorship",
+      "label": "discípulo obsessivo / mestre cigano",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "prudencio_aguilar",
+      "to_id": "jose_arcadio_buendia",
+      "type": "antagonism",
+      "label": "vítima de duelo / assassino; fantasma fundador",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jose_arcadio_buendia",
+      "to_id": "coronel_aureliano_buendia",
+      "type": "family",
+      "label": "pai / filho (segundo filho, primeiro nascido em Macondo)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "jose_arcadio_buendia",
+      "to_id": "jose_arcadio_i",
+      "type": "family",
+      "label": "pai / filho primogênito",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "jose_arcadio_buendia",
+      "to_id": "amaranta",
+      "type": "family",
+      "label": "pai / filha",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "ursula_iguaran",
+      "to_id": "arcadio",
+      "type": "family",
+      "label": "avó criadora; oculta a identidade dos pais dele",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "pilar_ternera",
+      "to_id": "jose_arcadio_i",
+      "type": "romantic",
+      "label": "amante; mãe de Arcadio",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "pilar_ternera",
+      "to_id": "coronel_aureliano_buendia",
+      "type": "romantic",
+      "label": "amante; mãe de Aureliano José",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "pilar_ternera",
+      "to_id": "arcadio",
+      "type": "family",
+      "label": "mãe biológica (desconhecida por ele)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "coronel_aureliano_buendia",
+      "to_id": "don_apolinar_moscote",
+      "type": "antagonism",
+      "label": "rebelde liberal vs. magistrado fraudador",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "coronel_aureliano_buendia",
+      "to_id": "remedios_moscote",
+      "type": "romantic",
+      "label": "esposo adulto / esposa-criança",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "coronel_aureliano_buendia",
+      "to_id": "jose_raquel_moncada",
+      "type": "antagonism",
+      "label": "mandante da execução / amigo executado",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "coronel_aureliano_buendia",
+      "to_id": "coronel_gerineldo_marquez",
+      "type": "alliance",
+      "label": "amigos íntimos; aliados militares liberais",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "coronel_gerineldo_marquez",
+      "to_id": "amaranta",
+      "type": "romantic",
+      "label": "pretendente rejeitado",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "amaranta",
+      "to_id": "rebeca",
+      "type": "antagonism",
+      "label": "ciúme amargo; rivalidade por Pietro Crespi",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "amaranta",
+      "to_id": "pietro_crespi",
+      "type": "romantic",
+      "label": "rejeição cruel que conduz ao suicídio dele",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "rebeca",
+      "to_id": "jose_arcadio_i",
+      "type": "romantic",
+      "label": "casamento contra a vontade da família",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "amaranta",
+      "to_id": "aureliano_jose",
+      "type": "romantic",
+      "label": "atração incestuosa tia/sobrinho (não consumada)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "arcadio",
+      "to_id": "santa_sofia_de_la_piedad",
+      "type": "romantic",
+      "label": "esposos; pais da quarta geração",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "aureliano_segundo",
+      "to_id": "fernanda_del_carpio",
+      "type": "romantic",
+      "label": "casamento formal (com distância emocional)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "aureliano_segundo",
+      "to_id": "petra_cotes",
+      "type": "romantic",
+      "label": "relação duradoura com efeito mágico sobre o gado",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "aureliano_segundo",
+      "to_id": "jose_arcadio_segundo",
+      "type": "family",
+      "label": "gêmeos; identidades possivelmente trocadas na infância",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "fernanda_del_carpio",
+      "to_id": "mauricio_babilonia",
+      "type": "antagonism",
+      "label": "mandante do atentado; falsa acusação de roubo",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "fernanda_del_carpio",
+      "to_id": "renata_remedios_meme",
+      "type": "family",
+      "label": "mãe controladora / filha silenciada",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "renata_remedios_meme",
+      "to_id": "mauricio_babilonia",
+      "type": "romantic",
+      "label": "amor interditado; causa do silêncio eterno dela",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "renata_remedios_meme",
+      "to_id": "aureliano_babilonia",
+      "type": "family",
+      "label": "mãe biológica (criado sem conhecê-la)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "mauricio_babilonia",
+      "to_id": "aureliano_babilonia",
+      "type": "family",
+      "label": "pai biológico (filho não o conheceu)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "aureliano_babilonia",
+      "to_id": "amaranta_ursula",
+      "type": "romantic",
+      "label": "relação incestuosa sobrinho/tia; pais do último Buendía",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "aureliano_babilonia",
+      "to_id": "melquiades",
+      "type": "mentorship",
+      "label": "decifrador final dos pergaminhos proféticos",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "amaranta_ursula",
+      "to_id": "gaston",
+      "type": "romantic",
+      "label": "esposos; ele parte quando ela escolhe Macondo",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "aureliano_babilonia",
+      "to_id": "aureliano_filho",
+      "type": "family",
+      "label": "pai / último descendente Buendía (com rabo de porco)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jose_arcadio_segundo",
+      "to_id": "melquiades",
+      "type": "professional",
+      "label": "guardião do estudo de Melquíades; tentativa de decifrar os manuscritos",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "don_apolinar_moscote",
+      "to_id": "remedios_moscote",
+      "type": "family",
+      "label": "pai / filha mais nova",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "ursula_iguaran",
+      "to_id": "jose_arcadio_ii",
+      "type": "family",
+      "label": "bisavó que o destina ao papado; decisão que o destrói",
+      "spoiler_level": 2
+    }
+  ],
+  "coverage_note": "Todos os 30 personagens nomeados na seção Cast da análise foram incluídos. O limite de 20 personagens foi excedido; porém, regras de prioridade exigem a inclusão de todos os personagens protagonist/major/supporting antes de cortar minor. Como todos os 29 personagens não-minor mais 1 minor ('Aureliano, filho de Aureliano Babilonia e Amaranta Úrsula') totalizam 30 entradas, o limite foi excedido em 10. Os personagens de importância 'minor' têm apenas uma entrada ('Aureliano filho'); todos os demais são supporting ou acima. Para manter a fidelidade à fonte e à regra de não omitir personagens grounded na análise, todos os 30 foram incluídos. A aplicação estrita do cap de 20 exigiria cortar 10 personagens supporting, o que contradiz a regra de não omitir personagens verificados da seção Cast.",
+  "adaptation_note": "A série Netflix de 2024 adapta apenas a primeira metade do romance em sua primeira temporada (8 episódios), com a segunda temporada prevista para agosto de 2026 cobrindo o destino final de Macondo. A adaptação é geralmente fiel ao texto, mas suaviza o Coronel Aureliano Buendía em cenas específicas e adiciona uma cena de sonho com Prudencio Aguilar inexistente no livro.",
+  "notes": "Mapa de personagens baseado integralmente na análise verificada via pesquisa na web. Nomes mantidos na forma canônica portuguesa/espanhola conforme a seção Cast da análise. A repetição de nomes entre gerações (José Arcadio, Aureliano, Remedios, Amaranta) é um argumento estrutural do romance e foi preservada com sufixos identificadores. Spoiler levels foram atribuídos com base na resolução final e nos 'red herrings' da análise: o nível 3 cobre exclusivamente a destruição de Macondo, o incesto de Aureliano Babilonia com Amaranta Úrsula, o nascimento e morte do filho com rabo de porco, e a natureza autorreferencial dos pergaminhos.",
+  "creator": null,
+  "source_url": null
+}

@@ -1,0 +1,7 @@
+[dev-analyze] search #1: Congo Michael Crichton 1980 novel characters
+[dev-analyze] search #2: Congo Michael Crichton plot summary ending
+[dev-analyze] search #3: Congo novel Wikipedia full plot characters Berensky Munro Elliot Ross
+[dev-analyze] search #4: Congo 1995 film vs novel differences ending characters
+[dev-analyze] search #5: Congo novel Kahega Berensky Cavalle characters Wikipedia
+[dev-analyze] claude-sonnet-4-6 | stop=end_turn | in=155123 out=6131 | searches=5
+Saved to /home/espen/ClaudeCode/charactermap/tuning/run-2026-05-19-full/Congo_analysis.md

@@ -55,6 +55,67 @@ class AnthropicClient:
             cost_usd=cost,
         )
 
+    async def generate_with_web_search(
+        self,
+        system_prompt: str,
+        user_message: str,
+        max_tokens: int = 8192,
+        max_searches: int = 8,
+    ) -> LLMResult:
+        """Call the model with the server-side web_search tool enabled and
+        return the concatenated text-block content as analysis prose.
+
+        Anthropic charges separately for web_search (~$0.01/search at current
+        rates). We don't add it to `cost_usd` here; the daily cost guard is the
+        real safety net and search count is logged for accounting.
+        """
+        message = await self._client.messages.create(
+            model=self.model,
+            max_tokens=max_tokens,
+            temperature=0,
+            system=[
+                {
+                    "type": "text",
+                    "text": system_prompt,
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ],
+            messages=[{"role": "user", "content": user_message}],
+            tools=[
+                {
+                    "type": "web_search_20250305",
+                    "name": "web_search",
+                    "max_uses": max_searches,
+                }
+            ],
+        )
+        text_parts: list[str] = []
+        search_count = 0
+        for block in message.content:
+            btype = getattr(block, "type", None)
+            if btype == "text":
+                text_parts.append(block.text)
+            elif btype == "server_tool_use":
+                search_count += 1
+        text = "\n".join(text_parts)
+        input_tokens = message.usage.input_tokens
+        output_tokens = message.usage.output_tokens
+        cost = self._compute_cost(input_tokens, output_tokens)
+        log.info(
+            "llm_call_with_search",
+            model=self.model,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            cost_usd=cost,
+            search_count=search_count,
+        )
+        return LLMResult(
+            text=text,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            cost_usd=cost,
+        )
+
     def _compute_cost(self, input_tokens: int, output_tokens: int) -> float:
         rates = _COST_PER_MTOK.get(self.model, _DEFAULT_COST)
         return (input_tokens * rates["input"] + output_tokens * rates["output"]) / 1_000_000

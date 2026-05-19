@@ -1,0 +1,393 @@
+{
+  "title": "The Office",
+  "subtitle": "NBC, 2005–2013 | Created by Greg Daniels",
+  "blurb": "A mockumentary sitcom following the employees of Dunder Mifflin's Scranton, Pennsylvania branch over nine seasons. Embedded documentary cameras expose the absurdity, loneliness, and unexpected warmth of American white-collar work life. The show's central argument lives in the gap between what characters perform for the camera and what they confess to it alone.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "dunder_mifflin_scranton",
+      "label": "Dunder Mifflin Scranton",
+      "description": "The core ensemble of paper-company employees at the Scranton branch — salespeople, accountants, and support staff whose loyalties to each other outlast the institution itself.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "dunder_mifflin_corporate",
+      "label": "Dunder Mifflin Corporate",
+      "description": "The managerial and executive layer above the Scranton branch, whose decisions — downsizing, absorption by Sabre, buyouts — shape the employees' fates with institutional indifference.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "sabre",
+      "label": "Sabre Corporation",
+      "description": "The tech-forward company that absorbs Dunder Mifflin in Season 6, introducing a new wave of corporate dysfunction before David Wallace's buyout dissolves its influence.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "athlead",
+      "label": "Athlead / Athleap",
+      "description": "Jim Halpert's sports marketing startup, co-founded during Season 9, representing his long-deferred ambition and the show's reckoning with his years of passive complicity.",
+      "color_hint": "green"
+    },
+    {
+      "id": "schrute_farms",
+      "label": "Schrute Farms",
+      "description": "Dwight Schrute's beet plantation and bed-and-breakfast operation — an extension of his eccentric identity that exists entirely outside the corporate world.",
+      "color_hint": "red"
+    }
+  ],
+  "characters": [
+    {
+      "id": "michael_scott",
+      "name": "Michael Gary Scott",
+      "role": "Regional Manager (Seasons 1–7); best man at Dwight's wedding (finale)",
+      "description": "The show's central figure and its most structurally complex: not a villain but the product of a corporate culture that rewards performed enthusiasm over competence, as demonstrated by his 'Diversity Day' seminar, his outing of Oscar, and his staged fake suicide. His genuine loneliness and capacity for love — ultimately fulfilled by Holly and a family in Colorado — are inseparable from the institutional failures that shaped him.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Regional Manager of Dunder Mifflin Scranton, Seasons 1–7; returns in finale",
+      "actor": null
+    },
+    {
+      "id": "dwight_schrute",
+      "name": "Dwight Kurt Schrute",
+      "role": "Salesman, then Regional Manager; beet farmer; business park owner",
+      "description": "Sustained for seasons as Jim's comic nemesis and a figure of petty authoritarianism, Dwight is revealed in the finale to be Jim's most loyal friend — firing Jim and Pam specifically so they can collect severance, and naming Oscar as his son's godfather and Jim as best man. The show's longest-running red herring: the audience is misdirected into reading him as a villain when he is, in resolution, the emotional center of the ensemble.",
+      "faction_id": "schrute_farms",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Salesman; Assistant to the Regional Manager; eventual Regional Manager",
+      "actor": null
+    },
+    {
+      "id": "jim_halpert",
+      "name": "Jim Halpert",
+      "role": "Sales Representative; Co-Manager (Season 6); Athlead co-founder",
+      "description": "Positioned as the audience surrogate — the 'normal' man reacting to surrounding absurdity — but the show carefully indicts him: his pranks on Dwight are often genuinely cruel, his years of inaction are a form of emotional avoidance, and his Season 9 pursuit of Athlead exposes how he used Pam's attachment to Scranton as an excuse not to pursue his own ambitions until it threatened to fracture his marriage.",
+      "faction_id": "athlead",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Sales Representative; briefly Co-Manager Season 6; co-founder of Athlead/Athleap",
+      "actor": null
+    },
+    {
+      "id": "pam_halpert",
+      "name": "Pam Beesly (later Pam Halpert)",
+      "role": "Receptionist, then Sales Representative, then Office Administrator",
+      "description": "Begins as a shy receptionist constrained by her engagement to Roy; ends the series as, per the analysis, 'a much stronger and outspoken person' who secretly sells the family home to commit to Jim's dream — an act of agency that resolves Season 9's sustained misdirection about the marriage being doomed.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Receptionist; Sales Representative; Office Administrator; married to Jim",
+      "actor": null
+    },
+    {
+      "id": "ryan_howard",
+      "name": "Ryan Bailey Howard",
+      "role": "Temp; VP of New Media (briefly); recurring temp/sales role",
+      "description": "The show's sharpest systemic critique: his arc from temp to VP to convicted fraudster back to irrelevance is a pointed commentary on meritocracy, as his rise was built entirely on self-promotion and exploitation of Michael's affection. The show never punishes him proportionally — he runs off with Kelly at the finale after abandoning his infant son at Dwight's wedding.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Temp; VP of New Media briefly; various demotions; love interest to Kelly",
+      "actor": null
+    },
+    {
+      "id": "andy_bernard",
+      "name": "Andrew Baines Bernard",
+      "role": "Regional Director (Stamford); Regional Manager (Scranton, Season 8)",
+      "description": "An original character with no British counterpart, Andy's arc tracks an unstable need for validation — from anger-management-prone salesman to regional manager to the laughingstock of a viral singing-competition clip — ultimately resolved when he leverages his viral notoriety into a dream job at Cornell.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Regional Director in Charge of Sales Stamford; later Regional Manager Scranton Season 8",
+      "actor": null
+    },
+    {
+      "id": "angela_martin",
+      "name": "Angela Noelle Martin (later Angela Schrute)",
+      "role": "Senior Accountant; Head of Party Planning Committee; Safety Officer",
+      "description": "Her severe moralism and obsession with rules are revealed over nine seasons to be a defense mechanism against her own desires — her secret relationship with Dwight, her affair with the Senator — contextualizing her cruelty to coworkers as the behavior of someone who has deeply internalized shame without excusing it. Her paternity lie about son Phillip, constructed to test whether Dwight loved her for herself, is the show's clearest articulation of her arc.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Senior Accountant; Head of Party Planning Committee; secretly dates then marries Dwight",
+      "actor": null
+    },
+    {
+      "id": "kevin_malone",
+      "name": "Kevin Jaye Malone",
+      "role": "Accountant",
+      "description": "Played throughout as comedically incompetent, Kevin is ultimately fired by Dwight via a cake reading 'Get out' — a blunt institutional disposal that the show softens only slightly by having him later open a bar and reconcile with Dwight.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Accountant at Dunder Mifflin; fired by Dwight; later opens a bar",
+      "actor": null
+    },
+    {
+      "id": "oscar_martinez",
+      "name": "Oscar Juan Paul Martinez",
+      "role": "Accountant; godfather to Dwight's son",
+      "description": "One of the office's sharpest minds, whose affair with Angela's husband the Senator becomes, unexpectedly, the catalyst for his own political ambition — he runs for State Senate by the finale, framed as doing better than his ex-lover.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Accountant; one of the few LGBTQ+ characters; affair with the Senator",
+      "actor": null
+    },
+    {
+      "id": "phyllis_vance",
+      "name": "Phyllis Margaret Vance (née Lapin)",
+      "role": "Senior Sales Representative; Party Planning Committee member",
+      "description": "Initially shy and reserved, Phyllis is repeatedly diminished by Angela within the Party Planning Committee while maintaining a warm and steady presence in the ensemble. Her friendship with the retired Stanley — he carves her a wooden bird — is among the show's quieter emotional resolutions.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Senior Sales Representative; Party Planning Committee member; married to Bob Vance",
+      "actor": null
+    },
+    {
+      "id": "stanley_hudson",
+      "name": "Stanley James Hudson",
+      "role": "Sales Representative",
+      "description": "A figure of studied disengagement throughout the series — openly disdainful of the office's manufactured enthusiasm — whose retirement to Florida is one of the finale's most straightforwardly earned resolutions.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Sales Representative; retires and moves to Florida",
+      "actor": null
+    },
+    {
+      "id": "meredith_palmer",
+      "name": "Meredith Elizabeth Palmer",
+      "role": "Supplier Relations Representative",
+      "description": "The office's most openly transgressive figure, whose social inappropriateness and promiscuity are played for comedy while the show also notes — without fanfare — that she is the person Dwight singles out for knowing how to properly head-bang to Motörhead, a small acknowledgment of genuine affinity beneath the mockery.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Supplier Relations Representative; socially inappropriate and sexually promiscuous",
+      "actor": null
+    },
+    {
+      "id": "creed_bratton",
+      "name": "Creed Bratton",
+      "role": "Quality Assurance Representative",
+      "description": "The show's most deliberately opaque character — his shady past is never fully explained — who fakes his own death in the warehouse baler to avoid incarceration, attends Dwight's wedding in disguise, is discovered living secretly in the office, and is finally led away by police, the only cast member whose finale resolution is outright criminal.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Quality Assurance Representative; elderly and eccentric with a shady past; arrested at finale",
+      "actor": null
+    },
+    {
+      "id": "toby_flenderson",
+      "name": "Toby Wyatt Flenderson",
+      "role": "Human Resources Representative",
+      "description": "Perpetually marginalized — most famously by Michael's open contempt — Toby ends the series fired by Dwight and moving to New York with six roommates to write the Great American Novel, a resolution the show presents with characteristic tonal ambiguity between pathos and absurdity.",
+      "faction_id": "dunder_mifflin_corporate",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Human Resources Representative; fired by Dwight in Season 9 finale; moves to New York to write",
+      "actor": null
+    },
+    {
+      "id": "kelly_kapoor",
+      "name": "Kelly Rajanigandha Kapoor",
+      "role": "Customer Service Representative",
+      "description": "A figure of volcanic emotional intensity whose on-again-off-again relationship with Ryan is the show's comic counterpoint to the Jim-Pam romance; she and Ryan ultimately run off together at the finale, with Ryan abandoning his infant son in the process.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Customer Service Representative; often romantically involved with Ryan Howard",
+      "actor": null
+    },
+    {
+      "id": "darryl_philbin",
+      "name": "Darryl Mathias Philbin",
+      "role": "Warehouse Foreman; later joins Athlead/Athleap",
+      "description": "A cool, no-nonsense leader who rises from the warehouse to the office and ultimately to a limo-and-big-shot position at Athlead — one of the series' clearest examples of a character whose arc is genuinely upward without irony.",
+      "faction_id": "athlead",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Warehouse Foreman; later promoted to office; joins Athlead",
+      "actor": null
+    },
+    {
+      "id": "erin_hannon",
+      "name": "Kelly Erin Hannon",
+      "role": "Receptionist (replacing Pam)",
+      "description": "Introduced as Pam's cheerful replacement at the reception desk, Erin's most significant personal arc — her search for her birth parents — is resolved at the finale's documentary panel, where she finally meets them.",
+      "faction_id": "dunder_mifflin_scranton",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Receptionist replacing Pam; meets birth parents at finale panel",
+      "actor": null
+    },
+    {
+      "id": "holly_flax",
+      "name": "Hollis Partridge \"Holly\" Flax",
+      "role": "Human Resources Representative (temporary); Michael's wife",
+      "description": "The character who resolves Michael Scott's defining loneliness — introduced as Toby's replacement, transferred away, and ultimately returned in Season 7 to accept Michael's proposal and move to Colorado, where the finale confirms they have several children together.",
+      "faction_id": "dunder_mifflin_corporate",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Human Resources Representative replacing Toby; Michael's wife; living in Colorado",
+      "actor": null
+    },
+    {
+      "id": "david_wallace",
+      "name": "David Wallace",
+      "role": "CFO; later CEO of Dunder Mifflin",
+      "description": "The show's emblem of corporate ambiguity: a relatively decent executive who is discarded when Sabre absorbs Dunder Mifflin, then becomes wealthy by selling a toy vacuum to the U.S. military and uses that windfall to privately re-acquire the company — a resolution the show presents without fully excusing its absurdity.",
+      "faction_id": "dunder_mifflin_corporate",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "CFO later CEO of Dunder Mifflin; sold patent for toy vacuum to military for $20 million",
+      "actor": null
+    },
+    {
+      "id": "robert_california",
+      "name": "Robert California",
+      "role": "CEO of Sabre; brief Regional Manager (Season 8)",
+      "description": "An enigmatic and destabilizing presence in Season 8 whose manipulative authority collapses entirely once David Wallace re-acquires Dunder Mifflin, his departure confirming that his power was entirely institutional rather than personal.",
+      "faction_id": "sabre",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "CEO of Sabre; briefly Regional Manager of Scranton; departs after Wallace buyout",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "jim_halpert",
+      "to_id": "pam_halpert",
+      "type": "romantic",
+      "label": "slow-burn romance; marriage; Season 9 near-fracture; reconciled via Pam selling the house",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "dwight_schrute",
+      "to_id": "angela_martin",
+      "type": "romantic",
+      "label": "secret relationship; secret child; marriage in finale",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "holly_flax",
+      "type": "romantic",
+      "label": "mutual love; marriage; family in Colorado",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "dwight_schrute",
+      "type": "professional",
+      "label": "manager / devoted assistant; Michael returns as Dwight's best man",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "jim_halpert",
+      "to_id": "dwight_schrute",
+      "type": "antagonism",
+      "label": "sustained pranking rivalry; resolved as deep mutual loyalty in finale",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "ryan_howard",
+      "to_id": "kelly_kapoor",
+      "type": "romantic",
+      "label": "volatile on-again-off-again relationship; run off together at finale",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "jan_levinson",
+      "type": "romantic",
+      "label": "dysfunctional, unhealthy relationship; ends acrimoniously",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "pam_halpert",
+      "to_id": "roy_anderson",
+      "type": "romantic",
+      "label": "fiancée; relationship ends as Pam chooses Jim",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jim_halpert",
+      "to_id": "darryl_philbin",
+      "type": "alliance",
+      "label": "co-founders of Athlead/Athleap",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "dwight_schrute",
+      "to_id": "angela_martin",
+      "type": "family",
+      "label": "parents of son Phillip; paternity concealed then revealed",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "david_wallace",
+      "to_id": "robert_california",
+      "type": "antagonism",
+      "label": "Wallace buyout ends California's authority",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "michael_scott",
+      "to_id": "ryan_howard",
+      "type": "professional",
+      "label": "Michael's affection exploited by Ryan to fuel unmerited rise",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "oscar_martinez",
+      "to_id": "angela_martin",
+      "type": "professional",
+      "label": "desk neighbors; strained by her homophobia and later her husband's affair with Oscar",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "dwight_schrute",
+      "to_id": "kevin_malone",
+      "type": "professional",
+      "label": "manager fires Kevin via cake; later reconciled",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jim_halpert",
+      "to_id": "karen_filippelli",
+      "type": "romantic",
+      "label": "relationship during Stamford/Season 3; ends when Jim returns to Pam",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "The analysis lists 30+ named characters; per the 20-character cap, minor characters (Todd Packer, Charles Miner, Jo Bennett, Bob Vance, Mose Schrute, Hank Doyle, Pete Miller, Clark Green, Gabe Lewis, Nellie Bertram, Deangelo Vickers, Roy Anderson, Karen Filippelli, Jan Levinson) are either excluded or absorbed into relationship entries. Jan Levinson, Roy Anderson, and Karen Filippelli appear in relationships given their structural importance to major characters' arcs. The cap is the binding constraint here.",
+  "adaptation_note": "The US adaptation by Greg Daniels substantially expands the cast and runs nine seasons versus the UK original's two series and a special. Key structural divergences include Andy Bernard having no UK counterpart, Ryan Howard's arc being greatly expanded beyond the original Ricky Howard character, and Michael Scott being deliberately written as more sympathetic and redeemable than David Brent — the UK original was never intended to be a character the audience would like.",
+  "notes": "Character map covers all nine seasons (2005–2013), 201 episodes. Spoiler levels reflect the series as a completed whole. The show's format — characters performing for and confessing to the documentary camera — means that nearly every character's 'true' self is a spoiler relative to their performed public persona; spoiler levels are assigned based on plot revelation rather than tonal revelation.",
+  "creator": null,
+  "source_url": null
+}

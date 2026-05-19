@@ -1,0 +1,7 @@
+[dev-analyze] search #1: Dune Frank Herbert 1965 characters complete list
+[dev-analyze] search #2: Dune Frank Herbert plot summary ending
+[dev-analyze] search #3: Dune novel Wikipedia characters Baron Harkonnen Feyd-Rautha Piter de Vries Liet-Kynes Chani Stilgar Duncan Idaho
+[dev-analyze] search #4: Dune 1984 film vs novel ending differences book adaptation
+[dev-analyze] search #5: Dune novel Thufir Hawat fate ending Duncan Idaho death Liet-Kynes death book
+[dev-analyze] claude-sonnet-4-6 | stop=max_tokens | in=159212 out=8519 | searches=5
+Saved to /home/espen/ClaudeCode/charactermap/tuning/run-2026-05-19-full/Dune_analysis.md

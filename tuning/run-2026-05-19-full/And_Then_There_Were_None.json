@@ -1,0 +1,295 @@
+{
+  "title": "And Then There Were None",
+  "subtitle": "Agatha Christie, 1939",
+  "blurb": "Ten strangers are lured to an isolated island off Devon by a mysterious host known only as U. N. Owen, accused of unpunished murders, and killed one by one in accordance with a nursery rhyme. There is no detective, no rescue, and no survivor. The solution arrives only after everyone is dead.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "island_guests",
+      "label": "Island Guests",
+      "description": "The ten individuals summoned to Soldier Island under false pretenses, each guilty of a killing that escaped legal punishment.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "wargraves_instrument",
+      "label": "Wargrave's Instrument",
+      "description": "Off-island agents knowingly or unknowingly used by Wargrave to construct and execute his plan before the island events begin.",
+      "color_hint": "red"
+    },
+    {
+      "id": "island_servants",
+      "label": "Island Servants",
+      "description": "The domestic staff hired to manage Soldier Island, themselves guilty of a past crime of omission for inheritance.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "law_enforcement",
+      "label": "Scotland Yard",
+      "description": "The investigators who examine the aftermath of the island deaths, baffled until Wargrave's manuscript is recovered from the sea.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "mainland_locals",
+      "label": "Mainland Locals",
+      "description": "Devon-based individuals connected to the island's supply and transport, kept ignorant of events by Wargrave's instructions.",
+      "color_hint": "green"
+    }
+  ],
+  "characters": [
+    {
+      "id": "justice_wargrave",
+      "name": "Justice Lawrence Wargrave",
+      "role": "Retired judge; true antagonist and architect of the island murders",
+      "description": "A man who spent his career satisfying contradictory impulses — a stringent belief in justice and a lifelong sadistic compulsion to kill — by sentencing criminals to death from the bench. His 'justice' on the island is indistinguishable from sadism: he does not merely punish the guilty but relishes the power to condemn, stages his own death as a theatrical misdirection, and designs the entire scheme so that investigators are left with an insoluble puzzle, his confession arriving only by bottle after all consequences are final.",
+      "faction_id": "island_guests",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Retired judge; secretly the orchestrator of all ten murders",
+      "actor": null
+    },
+    {
+      "id": "vera_claythorne",
+      "name": "Vera Claythorne",
+      "role": "Former governess, invited under the pretense of employment as a secretary",
+      "description": "The most intelligent and capable of the guests, Vera is simultaneously a murderer (she allowed a child, Cyril Hamilton, to drown so her lover would inherit) and the novel's closest thing to a sympathetic centre — yet her survival instinct, hysteria, and obsession with the nursery rhyme conspire to make her both Wargrave's final instrument and her own executioner. Her suicide is not simply manipulation; it is the culmination of guilt she has carried since Cyril's death.",
+      "faction_id": "island_guests",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Former governess, de facto final survivor and closest figure to a protagonist",
+      "actor": null
+    },
+    {
+      "id": "philip_lombard",
+      "name": "Philip Lombard",
+      "role": "Mercenary soldier hired to observe the island guests",
+      "description": "Resourceful and unabashedly self-interested, Lombard openly admits to abandoning twenty-one East African tribesmen to die in the bush to save himself, rationalizing it through a colonialist framework that treats their lives as categorically less valuable — a perspective the novel places among the guilty, not the merely pragmatic. His revolver, his admitted crime, and his predatory survival instinct make him the most plausible killer in the novel's final pages, leading Vera to shoot him — incorrectly.",
+      "faction_id": "island_guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Mercenary soldier; bold, resourceful, morally flexible",
+      "actor": null
+    },
+    {
+      "id": "dr_armstrong",
+      "name": "Dr. Edward George Armstrong",
+      "role": "Harley Street physician",
+      "description": "Professionally successful but inwardly weak, Armstrong once killed a patient by operating on her while drunk — a crime his medical standing allowed him to survive without legal consequence. His gullibility and need to appear competent make him the perfect tool for Wargrave, who persuades him to assist in faking a murder, only to drown him once he is no longer useful.",
+      "faction_id": "island_guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Harley Street physician; gullible, professionally successful but personally weak",
+      "actor": null
+    },
+    {
+      "id": "william_blore",
+      "name": "William Henry Blore",
+      "role": "Former police detective, hired to surveil the other guests",
+      "description": "The novel's ironic stand-in for a detective figure: a former policeman who committed the precise crime the law exists to prevent — giving false testimony that sent an innocent man to his death in prison. His investigative posturing on the island never approaches the truth, and Christie uses his failure to subvert the genre convention that a detective-type will solve the case.",
+      "faction_id": "island_guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Former police detective, hired to spy on the other guests",
+      "actor": null
+    },
+    {
+      "id": "emily_brent",
+      "name": "Emily Brent",
+      "role": "Retired religious spinster",
+      "description": "The starkest moral case in the novel: where the other guests are tormented by guilt, Emily Brent feels none whatsoever, convinced that firing her pregnant servant Beatrice Taylor — whose subsequent suicide she considers the consequence of Beatrice's own sin — was an act of righteousness. Wargrave reads her total absence of remorse as the most dangerous form of moral failure, and the novel treats her certainty of her own virtue as its own kind of violence.",
+      "faction_id": "island_guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Rigid, self-righteous spinster",
+      "actor": null
+    },
+    {
+      "id": "general_macarthur",
+      "name": "General John Gordon Macarthur",
+      "role": "Retired World War I general",
+      "description": "The oldest guest, and the one most openly consumed by guilt: he sent a subordinate officer, Arthur Richmond, to certain death during WWI because Richmond was sleeping with his wife. Once the killings begin, Macarthur does not resist or investigate — he retreats to the sea's edge and waits for death to come, making him the novel's clearest portrait of guilt collapsing into resignation.",
+      "faction_id": "island_guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Retired WWI general; the oldest guest",
+      "actor": null
+    },
+    {
+      "id": "thomas_rogers",
+      "name": "Thomas Rogers",
+      "role": "Butler and manservant on the island",
+      "description": "Maintains his role as a proper servant with rigid composure even as bodies accumulate around him, a performance of professional normalcy that masks his crime: he and his wife withheld medicine from their employer, Jennifer Brady, to accelerate their inheritance. Wargrave judges him the dominant partner in this crime; his wife, the tool.",
+      "faction_id": "island_servants",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "The dignified butler; continues to serve even after his wife is found dead",
+      "actor": null
+    },
+    {
+      "id": "ethel_rogers",
+      "name": "Ethel Rogers",
+      "role": "Housekeeper and cook; wife of Thomas Rogers",
+      "description": "Frail and dominated by her husband, she faints at the first death and is given what Wargrave considers a relatively merciful end — poisoned in her sleep on the first night — reflecting his judgment that she was an instrument of her husband's crime rather than its architect.",
+      "faction_id": "island_servants",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Rogers's wife; a frail woman; Wargrave believes her husband dominates her",
+      "actor": null
+    },
+    {
+      "id": "anthony_marston",
+      "name": "Anthony Marston",
+      "role": "Wealthy young playboy",
+      "description": "Handsome, rich, and wholly without conscience: he killed two children through reckless driving and expressed no remorse. Wargrave kills him first — poisoned whiskey on the opening evening — treating him like a dangerous animal to be put down, the one guest too shallow to experience the psychological torment the island is designed to inflict.",
+      "faction_id": "island_guests",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Amoral, irresponsible young man; reckless driving killed two small children",
+      "actor": null
+    },
+    {
+      "id": "isaac_morris",
+      "name": "Isaac Morris",
+      "role": "Off-island agent; shady lawyer and drug trafficker",
+      "description": "Never present on the island, Morris purchased Soldier Island under the pseudonym 'Mr. Owen' on Wargrave's behalf and arranged the logistics of the gathering. Wargrave eliminated him before the island events began by tricking him into a fatal overdose of sleeping pills, ensuring no living witness could explain the invitations.",
+      "faction_id": "wargraves_instrument",
+      "importance": "minor",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Drug trafficker and crooked lawyer; hired by Wargrave to buy the island as Mr. Owen",
+      "actor": null
+    },
+    {
+      "id": "fred_narracott",
+      "name": "Fred Narracott",
+      "role": "Local boatman",
+      "description": "The ferryman who transports the guests to Soldier Island and is instructed — believing it part of a game — to disregard any distress signals from the island, making him an unwitting guarantor of the guests' isolation.",
+      "faction_id": "mainland_locals",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "The boatman who ferries the guests to the island; instructed to ignore distress signals",
+      "actor": null
+    },
+    {
+      "id": "sir_thomas_legge_and_inspector_maine",
+      "name": "Sir Thomas Legge and Inspector Maine",
+      "role": "Scotland Yard investigators examining the aftermath",
+      "description": "Appear only in the epilogue, representing the legal system's total failure to comprehend what happened on the island without the killer's own confession. Their bafflement is the novel's final structural irony: the institution Wargrave embodied cannot solve the crime he committed.",
+      "faction_id": "law_enforcement",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Scotland Yard detectives who discuss the Indian Island case in the epilogue, baffled until the manuscript is recovered",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "vera_claythorne",
+      "type": "antagonism",
+      "label": "orchestrator / psychological final target (judged most guilty)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "dr_armstrong",
+      "type": "criminal",
+      "label": "manipulator / duped accomplice in faked death, then murder victim",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "isaac_morris",
+      "type": "criminal",
+      "label": "employer who eliminated his own agent before events began",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "vera_claythorne",
+      "to_id": "philip_lombard",
+      "type": "antagonism",
+      "label": "mutual suspicion; she shoots him believing him to be the killer",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "thomas_rogers",
+      "to_id": "ethel_rogers",
+      "type": "family",
+      "label": "husband and wife; co-conspirators in employer's death, he the dominant partner",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "william_blore",
+      "to_id": "dr_armstrong",
+      "type": "antagonism",
+      "label": "Blore accuses Armstrong of causing Mrs. Rogers's death",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "anthony_marston",
+      "type": "antagonism",
+      "label": "judge / first victim; killed first as beyond psychological torment",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "emily_brent",
+      "type": "antagonism",
+      "label": "judge targets her total absence of remorse as moral failure",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "william_blore",
+      "type": "antagonism",
+      "label": "orchestrator / victim; killed by falling statue Wargrave arranged",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "fred_narracott",
+      "to_id": "island_servants",
+      "type": "professional",
+      "label": "ferried servants and guests to the island",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "sir_thomas_legge_and_inspector_maine",
+      "to_id": "justice_wargrave",
+      "type": "antagonism",
+      "label": "investigators baffled by his crime; solve it only via his confession manuscript",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "general_macarthur",
+      "type": "antagonism",
+      "label": "judge sentences guilt-ridden general; Macarthur accepts death passively",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "vera_claythorne",
+      "to_id": "vera_claythorne",
+      "type": "antagonism",
+      "label": "self-executioner; hangs herself under compulsion of guilt and nursery rhyme",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "The analysis identifies 'U. N. Owen' explicitly as an alias for Wargrave, not a separate character, and this map follows that determination. Sir Thomas Legge and Inspector Maine are combined into a single entry as the analysis treats them as a collective epilogue function. Isaac Morris never appears on the island but is named in the Cast section and included per the analysis's coverage.",
+  "adaptation_note": "Christie's own 1943 stage adaptation rewrote the ending so that Lombard and Vera are innocent, survive, and fall in love — a 'happy ending' that became the template for most subsequent screen versions for decades. The 1945 René Clair film follows this stage ending with comic tone, while the 2015 BBC miniseries and the 1987 Soviet film are the rare adaptations to restore the novel's original bleak conclusion.",
+  "notes": "Character map generated from the verified analysis of Agatha Christie's And Then There Were None (1939). Spoiler levels reflect the novel's structural misdirection: Wargrave's identity as killer is the climax reveal (level 3), the order and manner of deaths are mid-work turns (level 2), and the guests' back-story crimes are introduced in the novel's opening act (level 1). The 'island_servants' faction_id is used for Thomas and Ethel Rogers in their servant capacity; their criminal relationship is captured in the relationship map.",
+  "creator": null,
+  "source_url": null
+}

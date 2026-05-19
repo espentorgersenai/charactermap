@@ -1,0 +1,490 @@
+{
+  "title": "Breaking Bad",
+  "subtitle": "Vince Gilligan, 2008–2013",
+  "blurb": "A New Mexico high school chemistry teacher diagnosed with terminal lung cancer transforms into a methamphetamine kingpin, destroying everything he claims to be protecting. The series tracks Walter White's five-season moral collapse from Mr. Chips to Scarface, and its collateral damage on everyone around him.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "white_family",
+      "label": "White Family",
+      "description": "Walter's domestic unit — wife Skyler, son Walt Jr., and infant Holly — who become unwitting and then coerced participants in his criminal enterprise.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "dea",
+      "label": "DEA",
+      "description": "The Drug Enforcement Administration, represented primarily by Hank Schrader and his partner Gomez, pursuing the mysterious 'Heisenberg' without realising the suspect is family.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "gus_empire",
+      "label": "Gus Fring's Operation",
+      "description": "The industrial-scale meth operation hidden behind Los Pollos Hermanos and Madrigal Electromotive, run with meticulous precision by Gustavo Fring.",
+      "color_hint": "green"
+    },
+    {
+      "id": "juarez_cartel",
+      "label": "Juárez Cartel / Salamanca Family",
+      "description": "The Mexican drug cartel headed by Don Eladio Vuente, with the Salamanca family serving as its brutal enforcement arm in the American Southwest.",
+      "color_hint": "red"
+    },
+    {
+      "id": "welker_gang",
+      "label": "Welker's Neo-Nazi Gang",
+      "description": "Jack Welker's white supremacist crew, brought in by Walt to kill prison informants and who ultimately take over the meth operation, enslaving Jesse.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "jesse_circle",
+      "label": "Jesse's Circle",
+      "description": "Jesse Pinkman's loyal street-level associates and friends, operating on the margins of the main criminal enterprise.",
+      "color_hint": "violet"
+    }
+  ],
+  "characters": [
+    {
+      "id": "walter_white",
+      "name": "Walter Hartwell White / \"Heisenberg\"",
+      "role": "Protagonist and primary antagonist; meth manufacturer and self-styled drug lord",
+      "description": "Walt's stated motive — providing for his family — is the show's central red herring; in the finale he admits he cooked meth because he enjoyed it and because it made him feel alive after a life of quiet humiliation. His alias 'Heisenberg' is a structural irony: a man who names himself after irreducible unknowability while pursuing total control, dying in his lab with a smile that erases any boundary between his 'good' and criminal selves.",
+      "faction_id": null,
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "name_evidence": "High school chemistry teacher turned methamphetamine kingpin; alias Heisenberg",
+      "actor": null
+    },
+    {
+      "id": "jesse_pinkman",
+      "name": "Jesse Bruce Pinkman",
+      "role": "Walt's partner in the meth operation; traumatized survivor",
+      "description": "Originally a small-time dealer, Jesse becomes the series' emotional center — the person who most directly absorbs the human cost of Walt's project. Every act of apparent mentorship Walt extends to Jesse is ultimately revealed as domination: Walt lets Jane die to control him, poisons Brock to manipulate him, and weaponizes Jane's death as a final cruelty.",
+      "faction_id": null,
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Walt's former student and meth-cooking partner; moral conscience of the series",
+      "actor": null
+    },
+    {
+      "id": "skyler_white",
+      "name": "Skyler White",
+      "role": "Walt's wife; money launderer under coercion",
+      "description": "Skyler is neither simple victim nor villain: she launders money, lies to the DEA, and enables Walt's operation — yet does so under coercion and genuine fear for her family. The audience's documented hostility toward her is itself a commentary on how the series' point-of-view alignment with Walt distorted viewer moral perception.",
+      "faction_id": "white_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Walter's wife and the caring mother of Walt Jr.; reluctant accomplice in money laundering",
+      "actor": null
+    },
+    {
+      "id": "walter_white_jr",
+      "name": "Walter White Jr. / \"Flynn\"",
+      "role": "Walt and Skyler's teenage son; unwitting beneficiary of Walt's criminal fortune",
+      "description": "Walt Jr. idolizes his father throughout most of the series, making his eventual rejection of Walt — when the truth is exposed — one of the show's most pointed moral verdicts. The trust fund Walt ultimately coerces Gretchen and Elliott into establishing for him is the finale's answer to whether the 'family' motive was ever real.",
+      "faction_id": "white_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Walt and Skyler's breakfast-loving teenage son; prefers to be called Flynn; has cerebral palsy",
+      "actor": null
+    },
+    {
+      "id": "hank_schrader",
+      "name": "Hank Schrader",
+      "role": "DEA agent; Walt's brother-in-law and primary law-enforcement pursuer",
+      "description": "Hank is a genuine investigator driven by real instincts, but also casually racist, physically abusive to Jesse, and motivated as much by career ambition as justice — the show refuses to make him a straightforward hero even as his execution by Jack Welker is rendered genuinely tragic. His pursuit of Heisenberg is partly law enforcement and partly a personal need to be the man who caught the great criminal.",
+      "faction_id": "dea",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Walt's brother-in-law; DEA agent pursuing Heisenberg across the full series",
+      "actor": null
+    },
+    {
+      "id": "saul_goodman",
+      "name": "Saul Goodman / James Morgan McGill",
+      "role": "Criminal attorney and fixer for Walt and Jesse",
+      "description": "Saul maintains extensive connections across the criminal underworld, serving as go-between for drug distributors, fixers, and criminals-for-hire while maintaining deniability through his storefront law practice. His real name and full backstory are explored in the prequel-sequel series Better Call Saul.",
+      "faction_id": null,
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Sleazy criminal lawyer and fixer; real name James Morgan McGill; uses alias Saul Goodman",
+      "actor": null
+    },
+    {
+      "id": "gus_fring",
+      "name": "Gustavo \"Gus\" Fring",
+      "role": "Drug kingpin operating behind a fast-food and industrial laundry front",
+      "description": "Gus presents as a model corporate citizen and charitable figure while running an industrial meth operation, making him one of television's most effective hypocrites of power. The show misdirects toward his invincibility for two seasons, then turns his greatest strength — long-game obsessive patience — into his fatal vulnerability: his hatred of Hector Salamanca is weaponized against him.",
+      "faction_id": "gus_empire",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Drug kingpin; owner of Los Pollos Hermanos fast-food chain; Walt's primary antagonist in Seasons 3–4",
+      "actor": null
+    },
+    {
+      "id": "mike_ehrmantraut",
+      "name": "Mike Ehrmantraut",
+      "role": "Fixer, enforcer, and head of security for Gus Fring; later for Walt",
+      "description": "Mike is a career criminal who justifies his work through loyalty to family — his granddaughter Kaylee — yet his professionalism and moral clarity make him one of the show's most compelling hypocrites: an ex-cop who uses his law-enforcement instincts in service of drug traffickers. He is shot by Walt in an impulsive rage, a death that underscores Walt's escalating recklessness.",
+      "faction_id": "gus_empire",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Calm and calculating fixer, enforcer, and head of security; former Philadelphia police officer",
+      "actor": null
+    },
+    {
+      "id": "hector_salamanca",
+      "name": "Hector \"Tío\" Salamanca",
+      "role": "Retired cartel patriarch; Gus Fring's sworn enemy",
+      "description": "Reduced to communicating only through a bell on his wheelchair after a stroke, Hector is both pitiable and monstrous — a man whose long history of violence includes the murder of Gus's partner and the source of Gus's decades-long obsession with revenge. His suicide bombing of Gus resolves both men's arcs simultaneously.",
+      "faction_id": "juarez_cartel",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Elderly wheelchair-bound patriarch of the Salamanca crime family; Gus's archenemy",
+      "actor": null
+    },
+    {
+      "id": "tuco_salamanca",
+      "name": "Tuco Salamanca",
+      "role": "High-level cartel distributor; Walt and Jesse's first criminal boss",
+      "description": "Tuco is the show's first demonstration that the drug trade is not a meritocracy Walt can master through chemistry and intelligence alone — his volatility and sadism introduce Walt and Jesse to a world where violence is arbitrary and ungovernable. He is killed in a shootout with Hank in Season 2.",
+      "faction_id": "juarez_cartel",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Violent unstable drug distributor; Walt and Jesse's first major criminal partner",
+      "actor": null
+    },
+    {
+      "id": "jack_welker",
+      "name": "Jack Welker",
+      "role": "Neo-Nazi gang leader; Season 5 primary antagonist",
+      "description": "Jack is the blunt instrument Walt sets in motion — hired to kill prison informants — who then metastasizes beyond Walt's control, stealing his money, killing Hank, and enslaving Jesse. Walt kills him in the finale without letting him finish a sentence, mirroring Jack's own execution of Hank.",
+      "faction_id": "welker_gang",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Leader of a white supremacist neo-Nazi gang; Season 5B primary antagonist",
+      "actor": null
+    },
+    {
+      "id": "todd_alquist",
+      "name": "Todd Alquist",
+      "role": "Jack's nephew; meth cook; sociopathic enforcer",
+      "description": "Todd's horror lies in his politeness: he murders a child witness with cheerful calm and shoots Andrea Cantillo in the head without apparent malice, yet remains courteous and eager to please. His unpredictable switches between charm and extreme violence — described as making him the most dangerous villain on the show — are strangled out of him by Jesse in the finale.",
+      "faction_id": "welker_gang",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Exterminator turned meth cook; Jack's nephew; sociopathic enforcer named 2013's best TV villain by IGN",
+      "actor": null
+    },
+    {
+      "id": "lydia_rodarte_quayle",
+      "name": "Lydia Rodarte-Quayle",
+      "role": "Madrigal executive; supply-chain coordinator for the meth operation",
+      "description": "Lydia is a corporate participant in mass drug production who hides behind anxiety and bureaucratic distance from the violence her logistics enable. She is the only character successfully killed by ricin — Walt slips it into her Stevia at a café meeting, and she dies off-screen, confirming the fate of the show's most persistent MacGuffin-poison.",
+      "faction_id": "gus_empire",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Nervous Madrigal Electromotive executive; supply-chain link for Gus's and later Walt's operation",
+      "actor": null
+    },
+    {
+      "id": "jane_margolis",
+      "name": "Jane Margolis",
+      "role": "Jesse's girlfriend; recovering addict",
+      "description": "Jane's death is the series' first fully deliberate act of murder by Walt — he chooses not to roll her onto her side as she asphyxiates, to preserve his control over Jesse. Her father's grief leads indirectly to a mid-air collision that kills hundreds, radiating the human cost of Walt's choices far beyond his immediate circle.",
+      "faction_id": null,
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Jesse's girlfriend; recovering addict and artist; chokes on vomit while Walt watches and does not intervene",
+      "actor": null
+    },
+    {
+      "id": "gale_boetticher",
+      "name": "Gale Boetticher",
+      "role": "Chemist hired by Gus Fring; Walt's lab assistant and intended replacement",
+      "description": "Gale is an idealist who genuinely loves chemistry for its own sake — he quit his doctorate because he wanted to preserve the 'magic' of being in a lab. His murder at Jesse's hand, instigated by Walt to make himself indispensable, is the show's starkest illustration of Walt sacrificing an innocent to preserve his own position.",
+      "faction_id": "gus_empire",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Idealistic chemist hired by Gus to eventually replace Walt; holds an MS in organic chemistry",
+      "actor": null
+    },
+    {
+      "id": "andrea_cantillo",
+      "name": "Andrea Cantillo",
+      "role": "Jesse's girlfriend; Brock's mother",
+      "description": "Andrea is entirely peripheral to the main power struggle yet absorbs some of its worst violence — shot in the head by Todd in front of Jesse as punishment for his escape attempt. Her death, along with her son Brock's poisoning and her brother Tomás's murder, illustrates how the drug economy destroys communities with no agency in it.",
+      "faction_id": null,
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Jesse's girlfriend; recovering addict and mother of Brock; shot by Todd as punishment for Jesse's escape attempt",
+      "actor": null
+    },
+    {
+      "id": "brock_cantillo",
+      "name": "Brock Cantillo",
+      "role": "Andrea's young son; Walt's unwitting instrument of manipulation",
+      "description": "Brock's poisoning with lily of the valley is one of Walt's most calculated acts of collateral cruelty — a child used as a chess piece to turn Jesse against Gus. Jesse correctly deduces the truth but is manipulated into doubting himself; the confirmation comes only later, cementing how far Walt's project of control extends.",
+      "faction_id": null,
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Andrea's young son; poisoned by Walt with lily of the valley to manipulate Jesse against Gus",
+      "actor": null
+    },
+    {
+      "id": "marie_schrader",
+      "name": "Marie Schrader",
+      "role": "Skyler's sister; Hank's wife; DEA family member",
+      "description": "Marie functions as the domestic mirror to the Schrader investigation, her kleptomaniac tendencies providing a small-scale echo of the show's larger theme of transgression rationalised as harmless. She is widowed by Jack Welker's gang and survives to recover Hank's body.",
+      "faction_id": "white_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Skyler's sister and Hank's wife; identified as a kleptomaniac",
+      "actor": null
+    },
+    {
+      "id": "steven_gomez",
+      "name": "Steven Gomez / \"Gomie\"",
+      "role": "Hank's DEA partner",
+      "description": "Gomez is a capable and loyal partner to Hank whose death in the desert ambush — alongside Hank — underscores how the show disposes of institutional law enforcement without ceremony once Walt's world fully collides with theirs.",
+      "faction_id": "dea",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Hank's loyal DEA partner; killed in the desert ambush by Jack Welker's gang in Ozymandias",
+      "actor": null
+    },
+    {
+      "id": "gretchen_schwartz",
+      "name": "Gretchen Schwartz",
+      "role": "Co-founder of Gray Matter Technologies; Walt's former partner and romantic interest",
+      "description": "Gretchen and Elliott represent the life Walt believes was stolen from him — the prestige, wealth, and recognition that fueled his resentment for decades before his diagnosis. In the finale Walt coerces them at gunpoint (simulated snipers) into funneling his drug money to Walt Jr., a last act that exposes the 'family' motive as always having been about ego and score-settling.",
+      "faction_id": null,
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Walt's former colleague and romantic partner; co-founder of Gray Matter Technologies",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "walter_white",
+      "to_id": "jesse_pinkman",
+      "type": "mentorship",
+      "label": "mentor / partner (domination masked as guidance)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "skyler_white",
+      "type": "family",
+      "label": "husband / wife (coercive; she launders his money under duress)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "hank_schrader",
+      "type": "antagonism",
+      "label": "fugitive / pursuer (unknowing brothers-in-law)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "gus_fring",
+      "type": "antagonism",
+      "label": "employee turned enemy; Walt engineers Gus's death",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "jack_welker",
+      "type": "criminal",
+      "label": "contractor turned uncontrollable threat; Walt kills him in finale",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "jane_margolis",
+      "type": "antagonism",
+      "label": "deliberately allowed to die to control Jesse",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "brock_cantillo",
+      "type": "antagonism",
+      "label": "poisoned with lily of the valley to manipulate Jesse",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "mike_ehrmantraut",
+      "type": "antagonism",
+      "label": "professional alliance turned lethal; Walt shoots Mike impulsively",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "lydia_rodarte_quayle",
+      "type": "criminal",
+      "label": "supply-chain partner; Walt poisons her with ricin in finale",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "gretchen_schwartz",
+      "type": "professional",
+      "label": "former partner / co-founder; source of Walt's decades-long resentment",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "hank_schrader",
+      "to_id": "steven_gomez",
+      "type": "professional",
+      "label": "DEA partners; both killed in desert ambush",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "hank_schrader",
+      "to_id": "jack_welker",
+      "type": "antagonism",
+      "label": "executed by Jack at the burial site",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "hank_schrader",
+      "to_id": "marie_schrader",
+      "type": "family",
+      "label": "husband and wife",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "skyler_white",
+      "to_id": "marie_schrader",
+      "type": "family",
+      "label": "sisters",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "gus_fring",
+      "to_id": "hector_salamanca",
+      "type": "antagonism",
+      "label": "decades-long blood feud; Hector kills Max, Gus plots revenge",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "gus_fring",
+      "to_id": "lydia_rodarte_quayle",
+      "type": "criminal",
+      "label": "drug operation partners via Madrigal supply chain",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "gus_fring",
+      "to_id": "mike_ehrmantraut",
+      "type": "professional",
+      "label": "employer / loyal fixer and head of security",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "gus_fring",
+      "to_id": "gale_boetticher",
+      "type": "professional",
+      "label": "employer / idealistic chemist hired to replace Walt",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jesse_pinkman",
+      "to_id": "jane_margolis",
+      "type": "romantic",
+      "label": "girlfriend; her death by Walt's inaction devastates him",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "jesse_pinkman",
+      "to_id": "andrea_cantillo",
+      "type": "romantic",
+      "label": "girlfriend; murdered by Todd as punishment for Jesse's escape",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jesse_pinkman",
+      "to_id": "brock_cantillo",
+      "type": "professional",
+      "label": "surrogate father figure to Andrea's son",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jesse_pinkman",
+      "to_id": "todd_alquist",
+      "type": "antagonism",
+      "label": "enslaved cook / captor; Jesse strangles Todd in finale",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jack_welker",
+      "to_id": "todd_alquist",
+      "type": "family",
+      "label": "uncle and nephew; gang co-leaders",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "tuco_salamanca",
+      "to_id": "hector_salamanca",
+      "type": "family",
+      "label": "nephew and uncle; Salamanca crime family",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "saul_goodman",
+      "to_id": "walter_white",
+      "type": "criminal",
+      "label": "criminal attorney and fixer",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "saul_goodman",
+      "to_id": "mike_ehrmantraut",
+      "type": "professional",
+      "label": "employer / fixer and investigator",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "gretchen_schwartz",
+      "to_id": "elliott_schwartz",
+      "type": "family",
+      "label": "married co-founders of Gray Matter Technologies",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "walter_white",
+      "to_id": "walter_white_jr",
+      "type": "family",
+      "label": "father and son; Jr. ultimately rejects Walt when the truth emerges",
+      "spoiler_level": 2
+    }
+  ],
+  "coverage_note": "The analysis's Cast section lists several additional named characters (Holly White, Elliott Schwartz, Badger Mayhew, Skinny Pete, Don Eladio Vuente, Juan Bolsa, Huell Babineaux, Kaylee Ehrmantraut, The Cousins, and the collective Welker gang) who were omitted from the character list to keep the output within the 20-character cap, prioritising characters with the most narrative function. Elliott Schwartz, Badger, Skinny Pete, and Huell have roles in the finale but are supporting or minor. The Cousins and Don Eladio are significant antagonists in their respective arcs but are secondary to the main map.",
+  "adaptation_note": "El Camino (2019) retroactively resolves Jesse's ambiguous escape by confirming he reaches Alaska with Ed Galbraith's help, and confirms Lydia's death via news report — making the finale more conclusive than it appeared on first broadcast. Better Call Saul (2015–2022) extensively expands the backstories of Saul Goodman and Mike Ehrmantraut as a prequel-sequel series, but does not alter Breaking Bad's events.",
+  "notes": "Character map based on the full five-season run of Breaking Bad (AMC, 2008–2013) plus El Camino (2019). Spoiler levels reflect the series' non-mystery structure: major plot turns are keyed to season-level reveals rather than a single climactic disclosure. Walt's death, Jesse's escape, and the ricin's final victim are assigned spoiler_level 3 as they constitute the climax and final resolution of 'Felina.'",
+  "creator": null,
+  "source_url": null
+}

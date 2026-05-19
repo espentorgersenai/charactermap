@@ -1,0 +1,7 @@
+[dev-analyze] search #1: The Office US TV show 2005 characters complete list
+[dev-analyze] search #2: The Office US NBC series plot summary all seasons
+[dev-analyze] search #3: The Office US series finale ending summary Jim Pam Dwight Angela Michael
+[dev-analyze] search #4: The Office US full character list Kevin Malone Oscar Martinez Angela Martin Toby Flenderson Creed Bratton Meredith Palmer
+[dev-analyze] search #5: The Office US vs UK differences ending characters adaptation comparison
+[dev-analyze] claude-sonnet-4-6 | stop=max_tokens | in=150648 out=8498 | searches=5
+Saved to /home/espen/ClaudeCode/charactermap/tuning/run-2026-05-19-full/The_Office_analysis.md

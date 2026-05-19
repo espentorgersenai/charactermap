@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     turnstile_secret_key: str = ""
 
     daily_cost_limit_usd: float = 5.00
+    # When True, the worker uses the two-stage grounded path (web_search analysis →
+    # closed-list structuring) for Anthropic models. Non-Anthropic models always
+    # use the legacy single-stage path regardless. Set ENABLE_GROUNDING=false in
+    # .env to roll back to legacy on Anthropic too.
+    enable_grounding: bool = True
     artifact_storage_path: str = "/var/lib/charactermap/artifacts"
     artifact_signing_key: str = "change-me-in-production"
     artifact_retention_days: int = 30

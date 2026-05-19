@@ -1,0 +1,516 @@
+{
+  "title": "The Devil's Star",
+  "subtitle": "Jo Nesbø, 2003",
+  "blurb": "Oslo Crime Squad Inspector Harry Hole investigates a ritualistic serial killer who leaves red pentagram-shaped diamonds on his victims, while simultaneously pursuing his corrupt colleague Tom Waaler — the criminal mastermind he suspects murdered his former partner Ellen Gjelten. Both investigations converge in a single cataclysmic night that forces Harry to confront institutional corruption, personal collapse, and the limits of justice.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "oslo_crime_squad",
+      "label": "Oslo Police / Crime Squad",
+      "description": "The official investigative unit handling the serial killer case. The institution is shown to actively shield Waaler through bureaucratic logic that discredits Harry as an unreliable witness, penalizing integrity over complicity.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "criminal_network",
+      "label": "Waaler's Criminal Smuggling Network",
+      "description": "An arms and diamond smuggling ring operating across Oslo and Prague, headed by Tom Waaler under the alias 'The Prince.' Members beyond Waaler and courier Sven Sivertsen are unnamed in the source.",
+      "color_hint": "red"
+    },
+    {
+      "id": "press",
+      "label": "Press / Media",
+      "description": "Oslo journalists covering the high-profile serial killer case, with entanglements hinting at deeper connections to police and criminal circles.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "unaffiliated",
+      "label": "Civilians / Unaffiliated",
+      "description": "Victims, bystanders, and private individuals drawn into the case without institutional allegiance.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "oslo_police_technical",
+      "label": "Oslo Police (Technical/Consultant Support)",
+      "description": "Specialists and consultants attached to the Crime Squad on an advisory or technical basis.",
+      "color_hint": "green"
+    }
+  ],
+  "characters": [
+    {
+      "id": "harry_hole",
+      "name": "Harry Hole",
+      "role": "Oslo Crime Squad Inspector",
+      "description": "A brilliant but self-destructive detective whose alcoholism and obsession with exposing Tom Waaler have cost him his relationship with Rakel, his professional standing, and his sanity — yet these same compulsions are the only force capable of bringing Waaler down. His moral complexity is explicit: he briefly entertains Waaler's offer to join the criminal network and does not refuse outright, meaning his pursuit of justice has itself produced collateral damage to innocent people.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Protagonist, Oslo Crime Squad Inspector, survives the novel",
+      "actor": null
+    },
+    {
+      "id": "tom_waaler",
+      "name": "Tom Waaler",
+      "role": "Senior Inspector / Criminal Arms Network Boss ('The Prince')",
+      "description": "A respected senior police inspector whose institutional legitimacy is itself the weapon that shields him — the system discredits Harry rather than investigate a credible officer, making Waaler's corruption a product of bureaucratic logic as much as individual evil. He coerces Harry by threatening Oleg, and his death — trapped by a descending lift's grille — literalizes the corrupt system closing in on itself.",
+      "faction_id": "criminal_network",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Senior Inspector, primary antagonist, secretly 'The Prince,' killed in lift at climax",
+      "actor": null
+    },
+    {
+      "id": "wilhelm_barli",
+      "name": "Wilhelm Barli",
+      "role": "Theatrical Producer / Serial Killer",
+      "description": "The novel's true killer, whose meticulous pentagram of murders is not occult fanaticism but a thespian's architecture of jealousy — he designed the killings geometrically using his own address and his wife's lover's mother's house as fixed points, murdering three strangers as 'scenery' to conceal the one murder that mattered. The analysis refuses to make him simply a monster: his grief is real, his theatrical intelligence formidable, and his hanging is a final staged act.",
+      "faction_id": "unaffiliated",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Theatrical producer, true serial killer ('Courier Killer'), dies by suicide hanging",
+      "actor": null
+    },
+    {
+      "id": "beate_lonn",
+      "name": "Beate Lønn",
+      "role": "Forensics Specialist / Crime Squad Partner",
+      "description": "A forensics specialist with an extraordinary ability to remember faces, whose surveillance work at Villa Valle uncovers the diamond brooch linking Sven Sivertsen to the victims — a discovery that drives the red-herring arrest of Sven before the true killer is identified.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Forensics specialist with extraordinary face-memory ability, Harry's former partner",
+      "actor": null
+    },
+    {
+      "id": "bjarne_moller",
+      "name": "Bjarne Møller",
+      "role": "Chief Inspector, Crime Squad",
+      "description": "Harry's most consistent institutional defender, yet even he requests Harry's dismissal after repeated professional failures — embodying the novel's portrait of a system that cannot distinguish between the unreliable witness who is wrong and the unreliable witness who is right.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Chief Inspector, head of Crime Squad, Harry's long-suffering superior and defender",
+      "actor": null
+    },
+    {
+      "id": "rakel_fauke",
+      "name": "Rakel Fauke",
+      "role": "Harry's Estranged Girlfriend",
+      "description": "A single mother whose relationship with Harry has been destroyed by his alcoholism and obsessive pursuit of Waaler; she and her son Oleg represent the surrogate family Harry is fighting to protect even as his actions endanger them.",
+      "faction_id": "unaffiliated",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Harry's estranged girlfriend, single mother, major character",
+      "actor": null
+    },
+    {
+      "id": "lisbeth_barli",
+      "name": "Lisbeth Barli",
+      "role": "Stage Actress / Murder Victim",
+      "description": "A celebrated actress and singer whose secret affair with Sven Sivertsen is the hidden motive for the entire pentagram murder scheme; her husband Wilhelm killed her and concealed her body inside his waterbed, framing her lover as the serial killer.",
+      "faction_id": "unaffiliated",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Second victim, well-known stage actress, Wilhelm's wife, had affair with Sven Sivertsen",
+      "actor": null
+    },
+    {
+      "id": "sven_sivertsen",
+      "name": "Sven Sivertsen",
+      "role": "Diamond Smuggler / Arms Courier / Red-Herring Suspect",
+      "description": "A courier in Waaler's criminal network who unknowingly supplied the murder weapon and diamonds to the actual killer, making him the perfect frame-up target; his willingness to testify against Waaler means his exoneration is structurally essential to dismantling the criminal network.",
+      "faction_id": "criminal_network",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Diamond smuggler based in Prague, Lisbeth's lover, framed as serial killer",
+      "actor": null
+    },
+    {
+      "id": "ellen_gjelten",
+      "name": "Ellen Gjelten",
+      "role": "Harry's Murdered Former Partner (deceased prior to novel)",
+      "description": "Present only as backstory and motivation, Ellen's murder — she discovered Waaler's identity as The Prince and was killed before she could expose him — is the wound that drives Harry's entire arc, his alcoholism, and his institutional isolation throughout the novel.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Harry's murdered former partner and best friend, killed in The Redbreast, backstory motivation",
+      "actor": null
+    },
+    {
+      "id": "oleg",
+      "name": "Oleg",
+      "role": "Rakel's Son / Hostage",
+      "description": "Rakel's young son who functions as Harry's surrogate child and, in the novel's climax, as Waaler's leverage — held hostage to force Harry into an impossible choice that ultimately triggers the final confrontation.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Rakel's young son, Harry's surrogate child, used as hostage by Waaler in climax",
+      "actor": null
+    },
+    {
+      "id": "olaug_sivertsen",
+      "name": "Olaug Sivertsen",
+      "role": "Sven Sivertsen's Elderly Mother",
+      "description": "An elderly woman whose house at Villa Valle is one of the pentagram's five geometric points, making her an unwitting structural element of Wilhelm's murder plan and the location where the brooch evidence implicating her son is discovered.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Sven's elderly mother, lives at Villa Valle, one of the pentagram's five target points",
+      "actor": null
+    },
+    {
+      "id": "camilla_loen",
+      "name": "Camilla Loen",
+      "role": "Murder Victim (First Official)",
+      "description": "A 23-year-old copywriter whose body — found shot in her bathroom with an index finger severed and a red pentagram diamond lodged under her eyelid — opens the official investigation, though Marius Veland was killed twenty days earlier.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "First official victim, copywriter age 23, shot in bathroom, index finger severed",
+      "actor": null
+    },
+    {
+      "id": "marius_veland",
+      "name": "Marius Veland",
+      "role": "Murder Victim (Actual First)",
+      "description": "A student whose sealed, embalmed body — discovered in his own loft 20 days after death — establishes him as the true first victim in Wilhelm's scheme, predating the official investigation.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Student, actual first victim, body sealed in airtight bag for 20 days",
+      "actor": null
+    },
+    {
+      "id": "barbara_svendsen",
+      "name": "Barbara Svendsen",
+      "role": "Murder Victim (Third)",
+      "description": "A receptionist whose murder in her office lavatory — ring finger severed, red diamond star hidden in an earring — advances the pentagram pattern and deepens the false impression of a ritualistic serial predator.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Third victim, receptionist at solicitors' firm, ring finger severed",
+      "actor": null
+    },
+    {
+      "id": "vibeke_knutsen",
+      "name": "Vibeke Knutsen",
+      "role": "Harry's Neighbour / Discovery Witness",
+      "description": "A former cook and Harry's neighbour whose domestic situation with Anders Nygård is structured early in the novel to invite suspicion; she inadvertently discovers the first crime scene when she recognizes that the lumps in her boiling pan are blood dripping from the flat above.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Harry's neighbour, former cook, discovers blood dripping from Camilla Loen's flat",
+      "actor": null
+    },
+    {
+      "id": "eva_marvanova",
+      "name": "Eva Marvanova",
+      "role": "Sven Sivertsen's Girlfriend / Key Witness",
+      "description": "Sven's Prague girlfriend whose photograph of Sven meeting Waaler at Václav Square provides the evidential link between the two criminal plotlines — and incidentally places the same Prague location as the honeymoon photo of Wilhelm and Lisbeth Barli, cracking the case open.",
+      "faction_id": "unaffiliated",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Sven's girlfriend in Prague, photographs Sven meeting Waaler at Václav Square café",
+      "actor": null
+    },
+    {
+      "id": "stale_aune",
+      "name": "Ståle Aune",
+      "role": "Police Psychologist / Crime Squad Consultant",
+      "description": "The Crime Squad's consulting psychologist, whose professional assessment that the killer appears to be a sociopath shapes the investigation's early psychological profile — a profile that, like the occult framing, proves to be a misdirection.",
+      "faction_id": "oslo_police_technical",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Police psychologist and Crime Squad consultant, warns team killer is a sociopath",
+      "actor": null
+    },
+    {
+      "id": "roger_gjendem",
+      "name": "Roger Gjendem",
+      "role": "Crime Reporter, Aftenposten",
+      "description": "A journalist covering the high-profile serial killer case who finds himself pressured by forces tied to the police, with hints of a deeper conspiracy connecting through his imprisoned brother — illustrating how Waaler's network's reach extends into the press.",
+      "faction_id": "press",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Crime reporter at Aftenposten, covers serial killer case, pressured by police-linked forces",
+      "actor": null
+    },
+    {
+      "id": "bjorn_holm",
+      "name": "Bjørn Holm",
+      "role": "Police Forensics Expert",
+      "description": "A forensics expert attached to the Crime Squad investigation.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Police forensics expert, listed in Goodreads reader character list and Bookey",
+      "actor": null
+    },
+    {
+      "id": "otto_tangen",
+      "name": "Otto Tangen",
+      "role": "Surveillance Specialist (Technical Support)",
+      "description": "An eccentric technical specialist who outfits the student building surveillance operation with cameras, operating from a converted bus — his setup enables the stakeout that forms part of the novel's climactic sequence.",
+      "faction_id": "oslo_police_technical",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Eccentric surveillance specialist, operates from a converted bus",
+      "actor": null
+    },
+    {
+      "id": "anders_nygard",
+      "name": "Anders Nygård",
+      "role": "Vibeke Knutsen's Partner",
+      "description": "Vibeke's partner whose frequent unexplained absences and tense domestic situation are structured in the novel's opening chapters to invite suspicion, functioning as the third red herring before being definitively cleared.",
+      "faction_id": "unaffiliated",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Vibeke Knutsen's partner, listed in Goodreads reader character list and Bookey",
+      "actor": null
+    },
+    {
+      "id": "toya_harang",
+      "name": "Toya Harang",
+      "role": "Lisbeth Barli's Sister",
+      "description": "A country and western singer and actress who is the sister of victim Lisbeth Barli.",
+      "faction_id": "unaffiliated",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Lisbeth Barli's sister, country and western singer and actress",
+      "actor": null
+    },
+    {
+      "id": "halvorsen",
+      "name": "Halvorsen",
+      "role": "Harry's Junior Colleague",
+      "description": "A recurring junior colleague of Harry's within the Oslo Crime Squad.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Harry's junior colleague, recurring series character, listed in Goodreads reader character list",
+      "actor": null
+    },
+    {
+      "id": "falkeid",
+      "name": "Falkeid",
+      "role": "Head of Police Special Forces",
+      "description": "The officer in charge of Oslo police special forces, involved in the operational response during the investigation.",
+      "faction_id": "oslo_crime_squad",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "In charge of police special forces, listed in Goodreads reader character list",
+      "actor": null
+    },
+    {
+      "id": "waalers_network",
+      "name": "Waaler's criminal smuggling network",
+      "role": "Criminal Organisation (Collective)",
+      "description": "The broader arms and diamond smuggling network operating under Waaler's direction across Oslo and Prague; individual members beyond Waaler and courier Sven Sivertsen are unnamed in the source.",
+      "faction_id": "criminal_network",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Arms and diamond smuggling ring operating across Oslo and Prague, members unnamed beyond Waaler and Sven",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "harry_hole",
+      "to_id": "tom_waaler",
+      "type": "antagonism",
+      "label": "obsessive pursuer / corrupt institutional rival",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "ellen_gjelten",
+      "type": "antagonism",
+      "label": "orchestrated murder of (via proxy) to protect identity",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "ellen_gjelten",
+      "type": "professional",
+      "label": "former partner and best friend (deceased)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "rakel_fauke",
+      "type": "romantic",
+      "label": "estranged lover",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "oleg",
+      "type": "family",
+      "label": "surrogate father figure",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "rakel_fauke",
+      "to_id": "oleg",
+      "type": "family",
+      "label": "mother and son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "oleg",
+      "type": "antagonism",
+      "label": "holds hostage to coerce Harry",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "bjarne_moller",
+      "type": "professional",
+      "label": "subordinate / long-suffering superior",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "beate_lonn",
+      "type": "professional",
+      "label": "investigative partners",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "wilhelm_barli",
+      "to_id": "lisbeth_barli",
+      "type": "family",
+      "label": "husband / murdered wife",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "lisbeth_barli",
+      "to_id": "sven_sivertsen",
+      "type": "romantic",
+      "label": "secret affair (motive for murders)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "wilhelm_barli",
+      "to_id": "sven_sivertsen",
+      "type": "antagonism",
+      "label": "framed as serial killer out of jealousy",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "sven_sivertsen",
+      "type": "criminal",
+      "label": "criminal handler / arms courier",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "sven_sivertsen",
+      "to_id": "olaug_sivertsen",
+      "type": "family",
+      "label": "son and elderly mother",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "sven_sivertsen",
+      "to_id": "eva_marvanova",
+      "type": "romantic",
+      "label": "boyfriend and girlfriend in Prague",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "eva_marvanova",
+      "to_id": "tom_waaler",
+      "type": "antagonism",
+      "label": "photographed meeting Sven; evidence against Waaler",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "beate_lonn",
+      "to_id": "olaug_sivertsen",
+      "type": "professional",
+      "label": "surveillance of Villa Valle; discovers diamond brooch evidence",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "harry_hole",
+      "type": "criminal",
+      "label": "offered place in smuggling network; Harry does not refuse outright",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "vibeke_knutsen",
+      "to_id": "anders_nygard",
+      "type": "romantic",
+      "label": "fraught domestic partnership (red-herring suspect)",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "vibeke_knutsen",
+      "to_id": "camilla_loen",
+      "type": "professional",
+      "label": "downstairs neighbour; inadvertently discovers murder scene",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "stale_aune",
+      "to_id": "harry_hole",
+      "type": "professional",
+      "label": "police psychologist consultant to investigation",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "toya_harang",
+      "to_id": "lisbeth_barli",
+      "type": "family",
+      "label": "sisters",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "wilhelm_barli",
+      "to_id": "waalers_network",
+      "type": "criminal",
+      "label": "anonymously commissioned diamonds and pistols as murder weapons",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "wilhelm_barli",
+      "type": "antagonism",
+      "label": "detective pursues; confronts and receives confession",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "All 25 named entries from the analysis Cast section are included. The cap of 20 individual characters is exceeded by treating 'Waaler's criminal smuggling network' as a collective character entry (per schema rule 5), bringing the individual named character count to 24 plus one collective, all within the spirit of the schema. No characters were dropped; the analysis Cast section contained no entries that required cap-driven omission.",
+  "adaptation_note": "The 2026 Netflix series Detective Hole makes four significant changes from the novel: Waaler personally kills Ellen Gjelten (rather than via a neo-Nazi proxy), the Chief Inspector approves Harry's investigation covertly (rather than refusing it), Wilhelm Barli jumps onto metal pikes arranged as a pentagram (rather than hanging himself), and the series adds an entirely new post-Waaler twist in which senior officer Agnes Sjolid is revealed as a member of Waaler's network — a character and plot element absent from the source novel.",
+  "notes": "Character map based on the verified analysis grounded in Wikipedia, SuperSummary, Kirkus Reviews, Goodreads, Bookey, and multiple adaptation sources. Spoiler levels reflect the novel's structure: the Waaler–Oleg climax and Eva Marvanova's photograph are level 3; the Sven Sivertsen red herring arrest is level 2; introductory victim and investigator details are level 1. The analysis's canonical spelling 'Ellen Gjelten' is used throughout, per rule 1.",
+  "creator": null,
+  "source_url": null
+}

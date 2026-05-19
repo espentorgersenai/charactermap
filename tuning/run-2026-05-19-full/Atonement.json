@@ -1,0 +1,434 @@
+{
+  "title": "Atonement",
+  "subtitle": "Ian McEwan, 2001",
+  "blurb": "In 1935 England, thirteen-year-old Briony Tallis misreads a series of charged encounters and falsely accuses the housekeeper's son, Robbie Turner, of rape. Her accusation destroys Robbie and her sister Cecilia, whose lives are further annihilated by the Second World War. Decades later, the elderly Briony — revealed as the novel's own author — confesses that her lifelong attempt to atone through fiction cannot undo what she caused, and that the redemptive ending she gave her characters was itself another act of self-serving narrative power.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "tallis_family",
+      "label": "Tallis Family",
+      "description": "Upper-middle-class English family whose Surrey estate is the site of the 1935 central catastrophe; includes Briony, Cecilia, Leon, Jack, and Emily.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "quincey_family",
+      "label": "Quincey Family",
+      "description": "Emily Tallis's sister Hermione's children and family, visiting the Tallis estate during their parents' divorce in summer 1935.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "tallis_household_staff",
+      "label": "Tallis Household Staff",
+      "description": "Working-class servants and employees of the Tallis estate, whose social position makes them structurally vulnerable to suspicion and false accusation.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "british_army",
+      "label": "British Expeditionary Force",
+      "description": "Soldiers retreating through France toward Dunkirk in 1940, including Robbie Turner and his two companions.",
+      "color_hint": "green"
+    },
+    {
+      "id": "london_hospital",
+      "label": "London Hospital (Wartime Nursing)",
+      "description": "The London teaching hospital where Briony works as a nursing trainee during the war, under strict hierarchical discipline.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "unaffiliated",
+      "label": "Unaffiliated / Independent",
+      "description": "Characters not bound to the Tallis household by family or employment, including wealthy industrialist Paul Marshall and Robbie's absent father.",
+      "color_hint": "red"
+    }
+  ],
+  "characters": [
+    {
+      "id": "briony_tallis",
+      "name": "Briony Tallis",
+      "role": "Protagonist; aspiring writer turned novelist and wartime nurse",
+      "description": "Briony's crime is not conventional malice but the tyranny of narrative: she genuinely believes the story she constructs from misread fragments, and her false accusation is an act of imaginative imposition masquerading as moral certainty. Her lifelong atonement through fiction is itself morally compromised — her 'gift' of a happy ending to Robbie and Cecilia is another exercise of the same authorial power that destroyed them, a self-serving revision of reality she can never undo.",
+      "faction_id": "tallis_family",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Protagonist; precocious 13-year-old aspiring writer who falsely accuses Robbie Turner of rape",
+      "actor": null
+    },
+    {
+      "id": "cecilia_tallis",
+      "name": "Cecilia Tallis",
+      "role": "Robbie's lover; estranged elder daughter of the Tallis family",
+      "description": "Cecilia is intelligent and restless at the novel's outset, frustrated by her own aimlessness after Cambridge and drawn into a passionate love with Robbie that the class order around her barely tolerates. Her estrangement from her family after Robbie's arrest, and her death in the Balham Underground bombing before any reconciliation occurs, constitute the irreversible human cost of Briony's falsehood.",
+      "faction_id": "tallis_family",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Briony's older sister; recently graduated Cambridge; falls in love with Robbie Turner",
+      "actor": null
+    },
+    {
+      "id": "robbie_turner",
+      "name": "Robbie Turner",
+      "role": "Wrongfully accused man; Cambridge student; soldier in the BEF",
+      "description": "Robbie is destroyed not merely because Briony misidentifies him but because the social machinery of 1935 England makes his accusation credible and his defence impossible — his working-class origin renders him a plausible predator while Paul Marshall's wealth renders him invisible. His wartime retreat toward Dunkirk, wounded and sustained only by letters from Cecilia and the fantasy of reunion, is structurally a retreat toward a life permanently foreclosed.",
+      "faction_id": "british_army",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Bright, ambitious son of the Tallis charlady; wrongfully imprisoned for rape; dies in France",
+      "actor": null
+    },
+    {
+      "id": "paul_marshall",
+      "name": "Paul Marshall",
+      "role": "True antagonist; wealthy chocolate industrialist; Lola's rapist and eventual husband",
+      "description": "Paul is the novel's true villain and its most structurally protected one: he commits rape and escapes all legal consequence, his wealth insulating him while a working-class man serves prison time for his crime. His marriage to Lola functions as a legal shield — a wife cannot be compelled to testify against her husband — and by 1999 he has become a respected philanthropist, his crime laundered into social capital.",
+      "faction_id": "unaffiliated",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Friend of Leon; rapes Lola outside the Tallis household; marries Lola; true villain of the novel",
+      "actor": null
+    },
+    {
+      "id": "lola_quincey",
+      "name": "Lola Quincey",
+      "role": "Rape victim; false witness against Robbie; Paul Marshall's wife",
+      "description": "Lola's moral position is the novel's most structurally unresolved: the narrative never enters her point of view, leaving ambiguous whether her acquiescence to Briony's identification of Robbie reflects fear, shame, or calculated self-interest. Her eventual marriage to Paul — her rapist — is implied to be both a psychological capitulation and a deliberate act of mutual complicity in Robbie's ruin, sealed by the legal protection marriage affords.",
+      "faction_id": "quincey_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Briony's 15-year-old maternal cousin; raped by Paul Marshall; later marries him",
+      "actor": null
+    },
+    {
+      "id": "emily_tallis",
+      "name": "Emily Tallis",
+      "role": "Matriarch of the Tallis household",
+      "description": "Emily's failure is willed ignorance rather than simple inattention: her acute 'tentacular awareness' of sounds in her home means she actually hears Marshall's presence in the nursery with Lola, yet her class assumptions — that a wealthy guest cannot be a predator — prevent her from acting on what she perceives. She goes along with Briony's accusation, making her complicit in Robbie's destruction through the same social logic that protects Paul Marshall.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Briony and Cecilia's mother; suffers debilitating migraines; willfully turns a blind eye to the truth",
+      "actor": null
+    },
+    {
+      "id": "jack_tallis",
+      "name": "Jack Tallis",
+      "role": "Patriarch of the Tallis family; Whitehall civil servant",
+      "description": "Jack is largely absent from the family he nominally heads, his Whitehall career leaving Emily to raise the children alone; his most consequential act is funding Robbie's education, an act of paternalistic class benevolence that paradoxically positions Robbie as a dependent insider rather than an equal, making his betrayal by the family feel sharper.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Briony, Cecilia, and Leon's father; devotes more time to Whitehall ministry than his family; funds Robbie's education",
+      "actor": null
+    },
+    {
+      "id": "leon_tallis",
+      "name": "Leon Tallis",
+      "role": "Eldest Tallis sibling; inadvertent catalyst by bringing Paul Marshall to the house",
+      "description": "Leon's narrative function is structural: he introduces Paul Marshall into the Tallis household, making him the unwitting hinge on which the catastrophe turns. He reappears as a 'doddering old man' at Briony's 1999 birthday party, a figure of ironic continuity in a family whose central tragedy he never fully understood or owned.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Oldest Tallis child; visiting home with friend Paul Marshall when Paul rapes Lola; reappears as old man at 1999 reunion",
+      "actor": null
+    },
+    {
+      "id": "grace_turner",
+      "name": "Grace Turner",
+      "role": "Tallis family charlady; Robbie's mother",
+      "description": "Grace occupies the novel's sharpest class contradiction: she is employed by the family whose false accusation destroys her son, and her unflinching belief in Robbie's innocence stands as a quiet moral counterpoint to the Tallis family's collective failure of imagination and justice.",
+      "faction_id": "tallis_household_staff",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Robbie's mother and the Tallis family's maid; never doubts her son's innocence",
+      "actor": null
+    },
+    {
+      "id": "corporal_nettle",
+      "name": "Corporal Nettle",
+      "role": "Robbie's companion on the Dunkirk retreat",
+      "description": "Nettle is one of two soldiers who accompany Robbie through the harrowing retreat to Dunkirk, and the epilogue suggests Briony used correspondence with an elderly Nettle to reconstruct Robbie's wartime experience for her novel, making him a structural link between lived events and their fictional rendering.",
+      "faction_id": "british_army",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "One of Robbie's two companions during the Dunkirk evacuation; Briony later receives letters from an 'old Mr. Nettle'",
+      "actor": null
+    },
+    {
+      "id": "corporal_mace",
+      "name": "Corporal Mace",
+      "role": "Robbie's companion on the Dunkirk retreat",
+      "description": "Mace accompanies Robbie and Nettle through northern France and performs a final act of absurd heroism — rescuing a British RAF soldier from a mob beating by faking his drowning — before disappearing from the narrative entirely, an emblem of the anonymous valor and ultimate fate-obscurity of ordinary soldiers.",
+      "faction_id": "british_army",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Second of Robbie's two companions during the Dunkirk evacuation; performs a final act of absurd heroism",
+      "actor": null
+    },
+    {
+      "id": "danny_hardman",
+      "name": "Danny Hardman",
+      "role": "Tallis estate handyman; secondary false suspect",
+      "description": "Danny functions as the novel's secondary red herring: even Robbie and Cecilia, who know Robbie is innocent, misdirect their suspicion onto him, a structural irony that underlines how class-based assumptions operate even among those who are themselves victims of them.",
+      "faction_id": "tallis_household_staff",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Handyman for the Tallis family; Robbie and Cecilia suspect him of Lola's rape until Briony corrects them",
+      "actor": null
+    },
+    {
+      "id": "jackson_quincey",
+      "name": "Jackson Quincey",
+      "role": "Lola's twin brother; runaway child",
+      "description": "Jackson is one of the twin boys who run away from the Tallis estate on the night of Lola's rape, and his being found by Robbie is one of the pieces of circumstantial evidence that places Robbie outside during the assault. The epilogue notes he died fifteen years before 1999.",
+      "faction_id": "quincey_family",
+      "importance": "minor",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "One of Lola's 9-year-old twin brothers; runs away the night of the rape; found by Robbie",
+      "actor": null
+    },
+    {
+      "id": "pierrot_quincey",
+      "name": "Pierrot Quincey",
+      "role": "Lola's twin brother; runaway child",
+      "description": "Pierrot runs away with his twin brother Jackson on the night of the rape, and unlike Jackson survives to attend Briony's 1999 birthday reunion at the old Tallis estate, now a hotel — a minor figure whose longevity quietly contrasts with the fates of those most destroyed by that night.",
+      "faction_id": "quincey_family",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "The other of Lola's twin brothers; runs away with Jackson; alive at Briony's 1999 birthday party",
+      "actor": null
+    },
+    {
+      "id": "hermione_quincey",
+      "name": "Hermione Quincey",
+      "role": "Emily's younger sister; mother of the Quincey children",
+      "description": "Hermione's flight to France with a lover and abandonment of her three children to Emily's care sets the Quincey cousins' presence at the Tallis estate in motion, making her an indirect catalyst for the catastrophe without ever appearing at its center.",
+      "faction_id": "quincey_family",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Emily Tallis's younger sister; free spirit who flees to France with a lover, leaving her children with Emily",
+      "actor": null
+    },
+    {
+      "id": "sister_drummond",
+      "name": "Sister Drummond",
+      "role": "Head ward nurse; Briony's wartime superior",
+      "description": "Sister Drummond governs the hospital ward with authoritarian discipline, demanding order and routine from her nursing trainees; she represents the institutional rigidity Briony must submit to as part of her wartime penance, a contrasting order to the narrative freedoms she exercises as a writer.",
+      "faction_id": "london_hospital",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Head nurse at London hospital where Briony trains; described as a vicious dictator feared by her staff",
+      "actor": null
+    },
+    {
+      "id": "fiona",
+      "name": "Fiona",
+      "role": "Briony's fellow nursing trainee",
+      "description": "Fiona is Briony's closest companion during her wartime nursing service, a friendship that provides Briony a measure of human connection during her years of self-imposed penance far from the family and social world she has damaged.",
+      "faction_id": "london_hospital",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "One of Briony's fellow nursing novices; from a well-to-do London family; Briony's friend",
+      "actor": null
+    },
+    {
+      "id": "betty",
+      "name": "Betty",
+      "role": "Tallis household domestic servant",
+      "description": "Betty is one of the Tallis domestic staff, noted for her disagreeable personality; her brief presence reinforces the novel's picture of the estate as a hierarchical social world in which servants occupy a background of willed invisibility.",
+      "faction_id": "tallis_household_staff",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Tallis family servant; described as 'wretched' in personality",
+      "actor": null
+    },
+    {
+      "id": "ernest_turner",
+      "name": "Ernest Turner",
+      "role": "Robbie's absent father",
+      "description": "Ernest Turner's abandonment of Grace and Robbie in Robbie's childhood is a background detail that deepens the portrait of Robbie's vulnerability: raised by a single working-class mother employed by the Tallises, he has no paternal social capital to draw on when the family he depended on turns against him.",
+      "faction_id": "unaffiliated",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Robbie's father; left Robbie and his mother Grace when Robbie was little",
+      "actor": null
+    },
+    {
+      "id": "mr_hardman",
+      "name": "Mr. (Old) Hardman",
+      "role": "Tallis family servant; Danny Hardman's father",
+      "description": "Old Hardman is a background member of the Tallis domestic staff whose main narrative function is to contextualise Danny Hardman's presence on the estate, reinforcing the novel's portrait of working-class families rendered perpetually suspect by their dependent proximity to the upper-middle-class household.",
+      "faction_id": "tallis_household_staff",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Danny Hardman's father; a Tallis family servant",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "briony_tallis",
+      "to_id": "robbie_turner",
+      "type": "antagonism",
+      "label": "false accuser / victim of lifelong narrative imposition",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "cecilia_tallis",
+      "type": "family",
+      "label": "younger sister / estranged elder sister; never reconciled",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "cecilia_tallis",
+      "to_id": "robbie_turner",
+      "type": "romantic",
+      "label": "passionate lovers separated by false accusation and war",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "grace_turner",
+      "type": "family",
+      "label": "son / mother who never doubts his innocence",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jack_tallis",
+      "to_id": "robbie_turner",
+      "type": "professional",
+      "label": "patron funding his education; later withdraws support",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "paul_marshall",
+      "to_id": "lola_quincey",
+      "type": "criminal",
+      "label": "rapist / victim turned wife; mutual complicity shields him",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "paul_marshall",
+      "to_id": "robbie_turner",
+      "type": "antagonism",
+      "label": "true guilty party whose crime Robbie is imprisoned for",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "leon_tallis",
+      "to_id": "paul_marshall",
+      "type": "alliance",
+      "label": "friend who introduces Marshall to the Tallis household",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "emily_tallis",
+      "to_id": "briony_tallis",
+      "type": "family",
+      "label": "mother who endorses daughter's false accusation through willed ignorance",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "emily_tallis",
+      "to_id": "hermione_quincey",
+      "type": "family",
+      "label": "older sister left to care for Hermione's abandoned children",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "lola_quincey",
+      "type": "family",
+      "label": "cousin whose assault Briony misattributes; Lola acquiesces",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "corporal_nettle",
+      "type": "alliance",
+      "label": "comrades on the Dunkirk retreat",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "corporal_mace",
+      "type": "alliance",
+      "label": "comrades on the Dunkirk retreat",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "corporal_nettle",
+      "type": "professional",
+      "label": "novelist who reconstructs Robbie's war via Nettle's letters",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "fiona",
+      "type": "alliance",
+      "label": "nursing companions during wartime service",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "sister_drummond",
+      "to_id": "briony_tallis",
+      "type": "professional",
+      "label": "feared superior / nursing trainee",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "danny_hardman",
+      "to_id": "robbie_turner",
+      "type": "antagonism",
+      "label": "secondary false suspect; both working-class victims of class suspicion",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "lola_quincey",
+      "to_id": "briony_tallis",
+      "type": "antagonism",
+      "label": "would sue Briony to suppress the truth while Lola lives",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "jackson_quincey",
+      "to_id": "pierrot_quincey",
+      "type": "family",
+      "label": "twin brothers who run away together on the night of the rape",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "ernest_turner",
+      "to_id": "robbie_turner",
+      "type": "family",
+      "label": "absent father who abandoned Robbie and Grace in childhood",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "All 20 named characters from the analysis's Cast section are included. The cast list is fully exhausted at exactly 20 entries, which matches the schema cap. No characters were invented or omitted.",
+  "adaptation_note": "Joe Wright's 2007 film preserves the core plot, character fates, and metafictional twist faithfully, but delivers the epilogue revelation via a television talk-show interview rather than the novel's extended written confessional, and largely replaces the novel's dense interior monologue with visual atmosphere. The Dunkirk sequence is significantly expanded into a celebrated five-minute unbroken tracking shot that achieves through immersive spectacle what the novel achieves through interiority.",
+  "notes": "Character map generated from a web-search-grounded analysis of Ian McEwan's Atonement (2001). Spoiler levels reflect the novel's layered misdirection structure: the identity of the true rapist (Paul Marshall) and the revelation that Part Three's reunion is fictional are both level-3 disclosures. Moral complexity flags on Briony, Emily, and Lola follow the analysis's Systemic & Thematic Nuance section directly.",
+  "creator": null,
+  "source_url": null
+}

@@ -34,6 +34,9 @@ class Character(BaseModel):
     is_deceased_in_work: bool
     # Optional so pipeline can detect and default missing values to 3
     spoiler_level: Optional[Literal[0, 1, 2, 3]] = None
+    # Short grounding phrase emitted by the LLM to ensure each name is tied to
+    # a specific scene or relationship in the source. Optional during rollout.
+    name_evidence: Optional[str] = None
     actor: Optional[ActorInfo] = None
 
 
@@ -59,6 +62,10 @@ class CharacterMap(BaseModel):
     characters: list[Character]
     relationships: list[Relationship]
     coverage_note: Optional[str] = None
+    # 1-2 sentence summary of substantive adaptation divergences (book vs film,
+    # original vs remake). Populated by Stage 2 structuring when the Stage 1
+    # analysis surfaces a "Key Adaptation Differences" section.
+    adaptation_note: Optional[str] = None
     notes: str
     creator: Optional[CreatorInfo] = None
     # Deep link back to the source the work was resolved from

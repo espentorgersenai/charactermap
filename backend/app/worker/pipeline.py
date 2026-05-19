@@ -35,6 +35,10 @@ REFUSAL_MESSAGES = {
         "Try a more widely-known title or pick a different model."
     ),
     "policy": "The model I chose declined to map this work. Try a different model.",
+    "grounding_failed": (
+        "We couldn't find enough authoritative character data for this work "
+        "to build a reliable map. Try a more widely-known title."
+    ),
 }
 
 
@@ -191,10 +195,20 @@ async def call_and_validate(
 
 
 _PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map.md"
+_ANALYSIS_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map_analysis.md"
+_STRUCTURING_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map_structuring.md"
 
 
 def _load_prompt_template() -> str:
     return _PROMPT_PATH.read_text()
+
+
+def _load_analysis_prompt() -> str:
+    return _ANALYSIS_PROMPT_PATH.read_text()
+
+
+def _load_structuring_prompt() -> str:
+    return _STRUCTURING_PROMPT_PATH.read_text()
 
 
 def _render_system_prompt(template: str, character_cap: int) -> str:
@@ -218,6 +232,66 @@ def _render_user_message(job: Job) -> str:
         f"</user_query>\n\n"
         f"Output a single JSON object matching the CharacterMap schema. No prose, no markdown fences."
     )
+
+
+def _render_analysis_user_message(job: Job) -> str:
+    meta = job.resolved_meta or {}
+    author_or_director = meta.get("author") or meta.get("director") or "Unknown"
+    return (
+        f"<work_metadata>\n"
+        f"title: {job.resolved_title}\n"
+        f"year: {job.resolved_year or 'Unknown'}\n"
+        f"author_or_director: {author_or_director}\n"
+        f"type: {job.work_type}\n"
+        f"</work_metadata>\n\n"
+        f"Produce the analysis as specified."
+    )
+
+
+def _render_structuring_user_message(job: Job, analysis: str) -> str:
+    meta = job.resolved_meta or {}
+    author_or_director = meta.get("author") or meta.get("director") or "Unknown"
+    return (
+        f"<work_metadata>\n"
+        f"title: {job.resolved_title}\n"
+        f"year: {job.resolved_year or 'Unknown'}\n"
+        f"author_or_director: {author_or_director}\n"
+        f"type: {job.work_type}\n"
+        f"</work_metadata>\n\n"
+        f"<analysis>\n{analysis}\n</analysis>\n\n"
+        f"Output a single JSON object matching the CharacterMap schema. "
+        f"No prose, no markdown fences."
+    )
+
+
+async def _run_grounded(
+    client: AnthropicClient, job: Job
+) -> tuple[CharacterMap, LLMResult, LLMResult]:
+    """Two-stage grounded path:
+       Stage 1: web_search-enabled analysis call → prose Cast + Resolution + nuance.
+       Stage 2: closed-list structuring call → CharacterMap JSON.
+
+    Returns (char_map, stage1_result, stage2_result). Stage 2 honors RefusalError
+    via the existing call_and_validate path (e.g. emits `grounding_failed` when
+    the analysis has too few characters).
+    """
+    analysis_system = _load_analysis_prompt()
+    analysis_user = _render_analysis_user_message(job)
+    stage1 = await client.generate_with_web_search(analysis_system, analysis_user)
+    log.info(
+        "grounded_stage1_done",
+        job_id=str(job.id),
+        analysis_chars=len(stage1.text),
+    )
+
+    structuring_system = _render_system_prompt(
+        _load_structuring_prompt(), job.character_cap
+    )
+    structuring_user = _render_structuring_user_message(job, stage1.text)
+    char_map, stage2 = await call_and_validate(
+        client, structuring_system, structuring_user
+    )
+    return char_map, stage1, stage2
 
 
 def get_llm_client(model: str) -> LLMClient:
@@ -248,14 +322,31 @@ async def run_pipeline(job_id: str) -> None:
         log.info("pipeline_started", job_id=job_id, model=job.model)
         started_at = datetime.now(tz=timezone.utc)
 
-        system_prompt = _render_system_prompt(_load_prompt_template(), job.character_cap)
-        user_message = _render_user_message(job)
         client = get_llm_client(job.model)
+        use_grounded = settings.enable_grounding and isinstance(client, AnthropicClient)
 
         try:
-            char_map, llm_result = await call_and_validate(
-                client, system_prompt, user_message
-            )
+            if use_grounded:
+                char_map, stage1, stage2 = await _run_grounded(client, job)
+                # Aggregate cost + tokens across both stages.
+                llm_result = LLMResult(
+                    text="",  # not retained — both stage outputs are discarded
+                    input_tokens=stage1.input_tokens + stage2.input_tokens,
+                    output_tokens=stage1.output_tokens + stage2.output_tokens,
+                    cost_usd=stage1.cost_usd + stage2.cost_usd,
+                )
+                log.info(
+                    "pipeline_grounded_path",
+                    job_id=job_id,
+                    stage1_cost=stage1.cost_usd,
+                    stage2_cost=stage2.cost_usd,
+                )
+            else:
+                system_prompt = _render_system_prompt(_load_prompt_template(), job.character_cap)
+                user_message = _render_user_message(job)
+                char_map, llm_result = await call_and_validate(
+                    client, system_prompt, user_message
+                )
             _sweep_spoiler_levels(char_map)
             await _enrich_with_credits(char_map, job)
             char_map.source_url = _build_source_url(job)

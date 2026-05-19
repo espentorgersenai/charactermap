@@ -1,0 +1,251 @@
+{
+  "title": "Congo",
+  "subtitle": "Michael Crichton, 1980",
+  "blurb": "A corporate expedition races into the Congo rainforest to recover rare type IIb diamonds from the ruins of a lost city, guided by a sign-language gorilla and hunted by a purpose-bred primate species. Presented as documented fact, the novel is a techno-thriller that systematically dismantles the tools of its own genre — technology, corporate ambition, and scientific ethics all fail in turn.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "erts",
+      "label": "ERTS (Earth Resources Technology Services)",
+      "description": "Houston-based resource-acquisition corporation, not a research institution, whose primary goal is extracting type IIb diamonds for semiconductor manufacturing.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "university_affiliate",
+      "label": "University / Primatology",
+      "description": "Academic affiliates, primarily U.C. Berkeley primatologists, whose scientific interests are entangled with ERTS's commercial objectives.",
+      "color_hint": "green"
+    },
+    {
+      "id": "zinj_legacy",
+      "label": "Zinj (Ancient City's Legacy)",
+      "description": "The remnant biological and archaeological legacy of the lost city of Zinj — principally the grey gorillas bred as guards by its ancient inhabitants.",
+      "color_hint": "red"
+    },
+    {
+      "id": "euro_japanese_consortium",
+      "label": "Euro-Japanese Consortium",
+      "description": "Rival corporate expedition comprising Japan, Germany, and Holland, racing ERTS to the Zinj diamond deposits.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "hired_local",
+      "label": "Hired Locals / Independent",
+      "description": "Mercenaries, guides, and porters hired to support the expedition, with no corporate loyalty.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "kigani",
+      "label": "Kigani",
+      "description": "Cannibalistic indigenous tribe at war with the Mobutu government, a persistent environmental threat throughout the expedition's journey.",
+      "color_hint": "violet"
+    }
+  ],
+  "characters": [
+    {
+      "id": "karen_ross",
+      "name": "Karen Ross",
+      "role": "ERTS Congo Project Supervisor",
+      "description": "A twenty-four-year-old mathematical prodigy whose primary motivation is career advancement within a competitive corporate resource-extraction firm, not scientific discovery. Her ambition is the direct cause of the novel's central catastrophe: the explosives she detonates for geological surveys trigger the volcanic eruption that buries Zinj, the diamonds, and everything the expedition came for.",
+      "faction_id": "erts",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Congo Project Supervisor for ERTS; expedition's technological and strategic lead",
+      "actor": null
+    },
+    {
+      "id": "peter_elliot",
+      "name": "Peter Elliot",
+      "role": "Primatologist / Primate Specialist",
+      "description": "Elliot publicly advocates for primate welfare and non-invasive study, but has kept Amy in captivity for years as a research subject and is principally motivated by the prospect of naming a new species after himself — a contradiction the novel refuses to resolve cleanly. His ethical posturing against the expedition's commercial objectives obscures his own instrumental relationship with Amy.",
+      "faction_id": "university_affiliate",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Primatologist at U.C. Berkeley; Amy's trainer and handler; expedition's primate expert",
+      "actor": null
+    },
+    {
+      "id": "amy",
+      "name": "Amy",
+      "role": "Sign-Language Gorilla / Expedition Key",
+      "description": "A gorilla raised in captivity who communicates via 620 signs and whose seemingly inexplicable drawings of a lost city turn out to have a mundane explanation: she was born near Zinj and her mother was killed by the grey gorillas, giving her direct experiential memory. Her translation of the grey gorillas' spoken language ultimately saves the expedition, and she is reintroduced to the wild where she teaches her own offspring sign language.",
+      "faction_id": "university_affiliate",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Female mountain gorilla; sign-language communicant with vocabulary of 620 signs",
+      "actor": null
+    },
+    {
+      "id": "charles_munro",
+      "name": "Captain Charles Munro",
+      "role": "Mercenary Guide / Expedition Leader in the Field",
+      "description": "A pragmatic South African mercenary with a checkered past whose skepticism of Ross's technological reliance proves consistently correct — his traditional scouting instincts are what keep the team alive when satellites fail and computers prove useless. In the epilogue, he recovers 31 carats of blue diamonds and sells them to Intel, returning comfortably to his old lifestyle while the scientists lose everything they came for.",
+      "faction_id": "hired_local",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "South African mercenary and 'white hunter'; expedition guide; inspired by Allan Quatermain",
+      "actor": null
+    },
+    {
+      "id": "rb_travis",
+      "name": "R. B. Travis",
+      "role": "Head of ERTS",
+      "description": "The corporate director of ERTS who initially refuses to let Ross lead the Congo expedition despite her having derived all the Congo database, on the grounds that 'this contract's too big.' His operating philosophy — 'the easiest way to obtain information was to steal it' — encapsulates the novel's portrait of ERTS as a resource-extraction operation that treats knowledge as a competitive asset rather than a public good.",
+      "faction_id": "erts",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Head of ERTS; Karen's boss; the corporate authority who resists sending Ross into the field",
+      "actor": null
+    },
+    {
+      "id": "kahega",
+      "name": "Kahega",
+      "role": "Head Porter / Kikuyu Leader",
+      "description": "The leader of the Kikuyu porters who serves as the practical backbone of the expedition's ground operations. He is one of the very few porters to survive the grey gorilla attacks and the volcanic eruption, escaping with the core team in the balloon.",
+      "faction_id": "hired_local",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Leader of the Kikuyu porters accompanying the expedition; one of the very few to survive",
+      "actor": null
+    },
+    {
+      "id": "jan_kruger",
+      "name": "Jan Kruger",
+      "role": "Diamond Expedition Technician (Prologue)",
+      "description": "A traveller who mans a satellite dish at the 'Place of Bones' in the novel's prologue, where he hears something wheezing in the darkness — establishing the grey gorillas as the killing force before the main narrative begins. His fate is implied by the established pattern of grey gorilla attacks.",
+      "faction_id": null,
+      "importance": "minor",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "A traveller manning a satellite dish for a diamond expedition at the novel's opening; present at the 'Place of Bones'",
+      "actor": null
+    },
+    {
+      "id": "grey_gorillas",
+      "name": "The Grey Gorillas (Gorilla elliotensis — unnamed individuals)",
+      "role": "Zinj Guard Species / Collective Antagonist",
+      "description": "Not monsters but the product of an ancient civilisation's deliberate selective breeding of gorillas as tool-using night guards — creatures with a spoken language, yellow eyes, grey fur, and stone paddles for weapons. The novel draws an explicit parallel between the ancient Zinj inhabitants who bred them as instruments and the modern scientists who train gorillas for research; they are victims of human instrumentalisation as much as they are killers.",
+      "faction_id": "zinj_legacy",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Primary antagonistic force; selectively bred primate species used as guards for Zinj's diamond mines",
+      "actor": null
+    },
+    {
+      "id": "euro_japanese_consortium",
+      "name": "The Euro-Japanese Consortium",
+      "role": "Rival Corporate Expedition (Collective)",
+      "description": "Built up throughout the novel as the primary competitive and potentially violent antagonist — jamming communications, shooting at the ERTS team, and racing ahead — only to be revealed as entirely massacred by the grey gorillas before the ERTS team arrives. Their destruction deflates the corporate-espionage thriller frame and signals that the real threat was never human.",
+      "faction_id": "euro_japanese_consortium",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Rival consortium of Japan, Germany, and Holland racing ERTS to Zinj for type IIb diamonds",
+      "actor": null
+    },
+    {
+      "id": "kigani",
+      "name": "The Kigani",
+      "role": "Hostile Indigenous Tribe (Collective)",
+      "description": "A cannibalistic tribe at war with the Mobutu government whose presence forces the expedition into constant evasion throughout its jungle traverse, culminating in the team being cornered in the consortium's crashed plane and forced to escape in a hot air balloon found in the cargo hold.",
+      "faction_id": "kigani",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Cannibalistic indigenous tribe at war with the Mobutu government; persistent environmental threat",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "karen_ross",
+      "to_id": "rb_travis",
+      "type": "professional",
+      "label": "subordinate / boss (Ross overrides Travis to lead the field expedition)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "karen_ross",
+      "to_id": "peter_elliot",
+      "type": "professional",
+      "label": "co-expedition leads (commercial vs. scientific priorities in tension)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "karen_ross",
+      "to_id": "charles_munro",
+      "type": "professional",
+      "label": "client / guide (technology vs. instinct friction)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "peter_elliot",
+      "to_id": "amy",
+      "type": "professional",
+      "label": "trainer / research subject (ethically compromised custodianship)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "amy",
+      "to_id": "grey_gorillas",
+      "type": "antagonism",
+      "label": "species translator / species enemy (mother killed by grey gorillas)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "charles_munro",
+      "to_id": "kahega",
+      "type": "professional",
+      "label": "expedition leader / head porter",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "euro_japanese_consortium",
+      "to_id": "erts",
+      "type": "antagonism",
+      "label": "corporate rivals racing to Zinj diamonds",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "grey_gorillas",
+      "to_id": "euro_japanese_consortium",
+      "type": "antagonism",
+      "label": "annihilated rival expedition before ERTS arrival",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "grey_gorillas",
+      "to_id": "karen_ross",
+      "type": "antagonism",
+      "label": "primary physical threat to ERTS expedition",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "kigani",
+      "to_id": "karen_ross",
+      "type": "antagonism",
+      "label": "cannibalistic tribe forcing balloon escape at climax",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "jan_kruger",
+      "to_id": "grey_gorillas",
+      "type": "antagonism",
+      "label": "prologue victim at the Place of Bones",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "The analysis names no individual members of the Euro-Japanese Consortium or the Kigani tribe, nor any named members of the first ERTS expedition destroyed in the prologue beyond Jan Kruger. These collectives are represented as single entries per the schema rules. Jan Kruger's local guide Misulu is named in the analysis's Cast section only incidentally and with no further narrative role; omitted to stay within the closed-list rule against padding.",
+  "adaptation_note": "The 1995 film replaces ERTS with a telecommunications company (TraviComm) and reframes the expedition as a laser-weapons-technology mission with a personal romantic motivation for Ross, entirely absent from the novel. The film adds the comic character Herkermer Homolka (Tim Curry), who has no equivalent in the book, changes Munro from a white South African to a character played by Black actor Ernie Hudson, and kills Kahega — who survives in the novel — along with all the other porters.",
+  "notes": "Character map based on the 1980 novel only, not the 1995 film. Spoiler levels reflect the novel's structure: the grey gorillas are revealed as the killers early (level 1–2) but their full origin as purpose-bred Zinj guards is a mid-novel revelation; the consortium's annihilation and Ross's role in triggering the eruption are level-2/3 plot turns. Amy's sign-language communication and the expedition's survival are level-3 resolutions per the True Final Resolution section.",
+  "creator": null,
+  "source_url": null
+}

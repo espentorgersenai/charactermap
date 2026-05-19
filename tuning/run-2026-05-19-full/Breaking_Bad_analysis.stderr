@@ -1,0 +1,7 @@
+[dev-analyze] search #1: Breaking Bad TV series characters complete list
+[dev-analyze] search #2: Breaking Bad plot summary all seasons ending
+[dev-analyze] search #3: Breaking Bad finale Felina ending Walt death Jesse escape Lydia ricin
+[dev-analyze] search #4: Breaking Bad Gus Fring Hector Salamanca Mike Ehrmantraut Tuco Jack Welker characters wiki
+[dev-analyze] search #5: Breaking Bad Jane Margolis Gale Boetticher Andrea Cantillo Jack Welker Todd Alquist characters fate
+[dev-analyze] claude-sonnet-4-6 | stop=max_tokens | in=153771 out=8506 | searches=5
+Saved to /home/espen/ClaudeCode/charactermap/tuning/run-2026-05-19-full/Breaking_Bad_analysis.md

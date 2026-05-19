@@ -1,0 +1,316 @@
+{
+  "title": "And Then There Were None",
+  "subtitle": "Agatha Christie, 1939",
+  "blurb": "Ten strangers are lured to a remote island off the Devon coast by a mysterious host known only as U. N. Owen. Accused by a disembodied voice of murders they each committed but were never punished for, they are killed one by one in accordance with a nursery rhyme — until none remain.",
+  "spoiler_mode": "full",
+  "setting_preamble": "Soldier Island is geographically sealed from the mainland — storms prevent rescue, and the locals have been instructed to ignore distress signals. This isolation means there is no external authority capable of intervening; the island functions as a self-contained courtroom in which sentence has already been handed down before the guests arrive.",
+  "factions": [
+    {
+      "id": "guests",
+      "label": "The Ten Guests",
+      "description": "Ten individuals invited to Soldier Island under false pretenses, each guilty of a killing that escaped legal punishment. They become both the accused and the jury of a trial they cannot escape.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "wargraves_instrument",
+      "label": "Wargrave's Instruments",
+      "description": "Off-island agents knowingly or unknowingly used by Wargrave to stage the island scenario: Isaac Morris arranged the setup; Dr. Armstrong was tricked into assisting the faked death.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "servants",
+      "label": "Island Servants",
+      "description": "Thomas and Ethel Rogers, hired as butler and housekeeper, who maintain the façade of domestic order even as the murders mount — and who are themselves guilty of a killing for inheritance.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "law_enforcement",
+      "label": "Scotland Yard",
+      "description": "Metropolitan Police investigators who examine the aftermath of the island deaths in the epilogue, entirely baffled until Wargrave's manuscript is recovered from the sea.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "mainland_bystanders",
+      "label": "Mainland Bystanders",
+      "description": "Local civilians on the Devon coast who interact with the island peripherally but never set foot on it during the murders.",
+      "color_hint": "green"
+    }
+  ],
+  "characters": [
+    {
+      "id": "justice_wargrave",
+      "name": "Justice Lawrence Wargrave",
+      "role": "Retired judge; true antagonist and orchestrator of all ten murders",
+      "description": "A man whose lifelong paradox — a genuine passion for justice and an equally genuine sadistic bloodlust — led him to a career in law as the only socially sanctioned outlet for both impulses. His 'justice' on the island is logically coherent and indistinguishable from sadism: he is not a hypocrite (he knows exactly what he is) but his self-awareness does not redeem him, it merely makes him more dangerous than any of his self-deceiving victims.",
+      "faction_id": "guests",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Retired judge; secretly the orchestrator of all ten murders",
+      "actor": null
+    },
+    {
+      "id": "vera_claythorne",
+      "name": "Vera Claythorne",
+      "role": "Former governess, invited as a secretary; last survivor",
+      "description": "Intelligent and capable, yet subject to hysteria and corroded by guilt over allowing a child in her care — Cyril Hamilton — to drown so her lover could inherit his estate. Her suicide is not simply Wargrave's manipulation: it is the culmination of her own psychological unraveling, making her simultaneously a murderer, a victim, and her own executioner.",
+      "faction_id": "guests",
+      "importance": "protagonist",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Former governess, de facto final survivor and closest figure to a protagonist",
+      "actor": null
+    },
+    {
+      "id": "philip_lombard",
+      "name": "Philip Lombard",
+      "role": "Mercenary soldier, hired to watch for trouble on the island",
+      "description": "Resourceful and predatory, Lombard abandoned twenty-one East African tribesmen to die in the bush to save himself — a crime he rationalizes through a colonialist framework that treats their lives as categorically lesser. The novel places him squarely among the guilty, and his role as the red-herring 'most plausible killer' in the final pages underscores how his admitted moral flexibility makes him both a genuine criminal and an unjustly condemned one.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Mercenary soldier; bold, resourceful, morally flexible",
+      "actor": null
+    },
+    {
+      "id": "dr_armstrong",
+      "name": "Dr. Edward George Armstrong",
+      "role": "Harley Street physician",
+      "description": "A recovering alcoholic who once killed a patient by operating while drunk — professionally successful yet personally weak, a combination Wargrave deliberately exploits. His medical knowledge draws constant suspicion from the other guests, but in reality he is the murderer's most useful tool, tricked into faking Wargrave's death and then drowned for his compliance.",
+      "faction_id": "wargraves_instrument",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Harley Street physician; gullible, professionally successful but personally weak",
+      "actor": null
+    },
+    {
+      "id": "william_blore",
+      "name": "William Henry Blore",
+      "role": "Former police detective, hired to spy on the guests",
+      "description": "A man who gave false testimony that sent an innocent man to his death in prison — a crime that inverts his ostensible role as an upholder of law. Christie subverts detective-fiction conventions by placing the closest thing to a detective figure among the guilty: Blore's mistrust and limited perspective are liabilities, not assets, and he fails to solve or survive the case.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Former police detective, hired to spy on the other guests",
+      "actor": null
+    },
+    {
+      "id": "emily_brent",
+      "name": "Emily Brent",
+      "role": "Retired spinster of rigid religious convictions",
+      "description": "The starkest moral case in the novel: she does not merely suppress guilt over causing her servant Beatrice Taylor's suicide — she feels none at all, convinced of her own righteousness and everyone else's sinfulness. Wargrave identifies her absolute absence of remorse as the most dangerous form of moral failure, and the novel maps her as an extreme on the spectrum of self-justification.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Rigid, self-righteous spinster; certain of her own righteousness",
+      "actor": null
+    },
+    {
+      "id": "general_macarthur",
+      "name": "General John Gordon Macarthur",
+      "role": "Retired World War I general",
+      "description": "Accused of deliberately sending Lieutenant Arthur Richmond — his wife's lover — to his death during WWI. Unlike most other guests, Macarthur is already consumed by guilt before the island killings begin; once the murders start, he becomes resigned to his own death and sits by the sea waiting for it, receiving by Wargrave's design one of the comparatively swifter ends.",
+      "faction_id": "guests",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Retired WWI general; the oldest guest",
+      "actor": null
+    },
+    {
+      "id": "thomas_rogers",
+      "name": "Thomas Rogers",
+      "role": "Butler and manservant on the island",
+      "description": "A man who delayed administering medicine to his employer Jennifer Brady so that he and his wife could more swiftly inherit her estate — performed under the cover of devoted service. He maintains his role as a proper butler even as the bodies accumulate, his professional composure itself a mask for the self-interested calculation that killed his mistress.",
+      "faction_id": "servants",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "The dignified butler; continues to be a proper servant even after bodies pile up",
+      "actor": null
+    },
+    {
+      "id": "ethel_rogers",
+      "name": "Ethel Rogers",
+      "role": "Housekeeper and cook; wife of Thomas Rogers",
+      "description": "A frail woman whom Wargrave judges to have been dominated by her husband in their shared crime against Jennifer Brady. She is the second to die, poisoned in her sleep on the first night — a death Wargrave frames as relatively merciful for the lesser of the two guilty parties.",
+      "faction_id": "servants",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Rogers's wife; a frail woman dominated by her husband",
+      "actor": null
+    },
+    {
+      "id": "anthony_marston",
+      "name": "Anthony Marston",
+      "role": "Wealthy young playboy",
+      "description": "Handsome, rich, and entirely without conscience — he killed two children through reckless driving and expressed no remorse whatsoever. Wargrave kills him first, like 'a dangerous animal,' and his death by poisoned whiskey on the opening evening establishes the nursery-rhyme pattern for all that follows.",
+      "faction_id": "guests",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Amoral, irresponsible young man given to reckless driving; first to die",
+      "actor": null
+    },
+    {
+      "id": "isaac_morris",
+      "name": "Isaac Morris",
+      "role": "Crooked lawyer and drug trafficker; off-island arranger",
+      "description": "A corrupt lawyer and drug trafficker who bought Soldier Island under the pseudonym Mr. Owen on Wargrave's behalf, arranging the entire setup. He never appears on the island — Wargrave ensured he was disposed of via a fatal overdose of sleeping pills before events begin, eliminating the one person who could link Wargrave to the scheme.",
+      "faction_id": "wargraves_instrument",
+      "importance": "minor",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Shady lawyer and drug trafficker; Wargrave's off-island agent; never appears on the island",
+      "actor": null
+    },
+    {
+      "id": "fred_narracott",
+      "name": "Fred Narracott",
+      "role": "Local boatman",
+      "description": "The Devon boatman who ferries the ten guests to Soldier Island, noting the strangeness of the party. He was instructed — as part of Wargrave's design — to ignore any distress signals from the island, believing it to be part of a game, and remains on the mainland throughout.",
+      "faction_id": "mainland_bystanders",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "The local boatman captain who ferries the guests to the island",
+      "actor": null
+    },
+    {
+      "id": "sir_thomas_legge_inspector_maine",
+      "name": "Sir Thomas Legge and Inspector Maine",
+      "role": "Scotland Yard investigators",
+      "description": "The two Metropolitan Police officers who examine the island aftermath in the epilogue and are entirely baffled — they can eliminate Blore, Lombard, and Vera as the killer but cannot explain the deaths. The mystery is only resolved when Wargrave's manuscript in a bottle is recovered, making their investigation a structural irony: official law enforcement arrives too late and solves nothing.",
+      "faction_id": "law_enforcement",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Scotland Yard detectives who discuss the Indian Island case in the epilogue",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "vera_claythorne",
+      "type": "antagonism",
+      "label": "orchestrator / final victim; psychologically manipulated into self-execution",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "philip_lombard",
+      "type": "antagonism",
+      "label": "judge / condemned; Lombard judged guilty of abandoning tribesmen",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "dr_armstrong",
+      "type": "criminal",
+      "label": "manipulator / unwitting accomplice; tricked into faking Wargrave's death, then drowned",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "william_blore",
+      "type": "antagonism",
+      "label": "judge / condemned; Blore judged guilty of perjury causing an innocent man's death",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "emily_brent",
+      "type": "antagonism",
+      "label": "judge / condemned; her remorselessness deemed the most dangerous moral failure",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "general_macarthur",
+      "type": "antagonism",
+      "label": "judge / condemned; Macarthur's guilt-ridden resignation exploited",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "anthony_marston",
+      "type": "antagonism",
+      "label": "judge / first victim; killed first as a conscienceless dangerous animal",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "thomas_rogers",
+      "type": "antagonism",
+      "label": "judge / condemned; Rogers judged mastermind of the Brady inheritance killing",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "ethel_rogers",
+      "type": "antagonism",
+      "label": "judge / condemned; judged lesser accomplice, granted swifter death",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "justice_wargrave",
+      "to_id": "isaac_morris",
+      "type": "criminal",
+      "label": "employer / eliminated agent; tricked into fatal overdose before island events",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "vera_claythorne",
+      "to_id": "philip_lombard",
+      "type": "antagonism",
+      "label": "final survivors; Vera shoots Lombard believing him the killer — she is wrong",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "thomas_rogers",
+      "to_id": "ethel_rogers",
+      "type": "family",
+      "label": "husband and wife; co-conspirators in the death of Jennifer Brady",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "william_blore",
+      "to_id": "dr_armstrong",
+      "type": "antagonism",
+      "label": "mutual suspicion; Blore accuses Armstrong of causing Mrs. Rogers's death",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "fred_narracott",
+      "to_id": "justice_wargrave",
+      "type": "criminal",
+      "label": "unknowing instrument; instructed to ignore distress signals from the island",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "sir_thomas_legge_inspector_maine",
+      "to_id": "justice_wargrave",
+      "type": "professional",
+      "label": "baffled investigators / posthumous confessor; case solved only by manuscript in a bottle",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "isaac_morris",
+      "to_id": "justice_wargrave",
+      "type": "criminal",
+      "label": "hired arranger; purchased island under alias Mr. Owen on Wargrave's behalf",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "The analysis Cast section lists 13 named entries (counting Sir Thomas Legge and Inspector Maine as one collective entry, and U. N. Owen as an alias of Wargrave rather than a separate character). All 13 are included. The cap of 20 is not approached. U. N. Owen is correctly treated as Wargrave's alias and does not appear as a separate character.",
+  "adaptation_note": "Christie's own 1943 stage adaptation — and most subsequent screen versions, including the 1945 René Clair film — reworked the ending so that Lombard and Vera survive and the killer is caught alive, judging the novel's all-dead conclusion uncommercial. The 1987 Soviet film and the 2015 BBC miniseries are rare exceptions that restore the original bleak ending, with the BBC version also darkening character motivations beyond Christie's source.",
+  "notes": "Character map based on the novel's original 1939/1940 text. Spoiler levels reflect the novel's structure: the identity of U. N. Owen (Wargrave) and the mechanism of his faked death are level-3 spoilers central to the final resolution. Deaths of minor characters (Marston, Ethel Rogers) occurring in the novel's opening movement are rated level 1–2. All names taken verbatim from the analysis Cast section.",
+  "creator": null,
+  "source_url": null
+}

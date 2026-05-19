@@ -1,0 +1,517 @@
+{
+  "title": "Pride and Prejudice",
+  "subtitle": "Jane Austen, 1813",
+  "blurb": "A novel of manners following Elizabeth Bennet and Fitzwilliam Darcy as they overcome the twin obstacles of pride and prejudice to find love. Set in rural England, it navigates the marriage market with incisive wit, exposing how class, money, and hasty judgment distort even the most intelligent observers. No character dies in the novel.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "bennet_family",
+      "label": "Bennet Family (Longbourn)",
+      "description": "The family at the centre of the novel, residing at Longbourn estate. The entail threatening their inheritance drives Mrs. Bennet's obsessive matchmaking and shapes every daughter's prospects.",
+      "color_hint": "green"
+    },
+    {
+      "id": "darcy_pemberley",
+      "label": "Darcy / Pemberley",
+      "description": "The wealthy Darcy household centred on Pemberley estate. Represents the aristocratic landed gentry whose class expectations form one of the novel's central obstacles.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "bingley_family",
+      "label": "Bingley Family",
+      "description": "The newly wealthy Bingley siblings, renting Netherfield Park. Amiable Charles pursues Jane while his sister Caroline pursues Darcy and schemes against Elizabeth.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "lucas_family",
+      "label": "Lucas Family",
+      "description": "Neighbours of the Bennets in Hertfordshire. Charlotte Lucas's pragmatic marriage to Collins illustrates the constrained options available to women without fortune.",
+      "color_hint": "slate"
+    },
+    {
+      "id": "de_bourgh_household",
+      "label": "De Bourgh / Rosings",
+      "description": "Lady Catherine de Bourgh's domain at Rosings Park, including her clergyman Collins. Represents entrenched aristocratic privilege and the pressure to marry within one's class.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "gardiner_militia",
+      "label": "Gardiners & Militia",
+      "description": "The sensible Gardiner relatives and the militia regiment stationed at Meryton, whose officers—especially Wickham—draw the younger Bennet daughters into danger.",
+      "color_hint": "red"
+    }
+  ],
+  "characters": [
+    {
+      "id": "elizabeth_bennet",
+      "name": "Elizabeth Bennet",
+      "role": "Protagonist; second-eldest Bennet daughter",
+      "description": "Witty, perceptive, and fiercely independent, Elizabeth is also dangerously confident in her own judgment—her pride in her perceptiveness is itself the novel's central form of prejudice. Her intelligence, which the novel celebrates, is simultaneously the instrument of her most serious errors, leading her to champion Wickham and condemn Darcy until Darcy's letter dismantles her settled convictions.",
+      "faction_id": "bennet_family",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Protagonist; second-eldest Bennet daughter, canonical spelling confirmed",
+      "actor": null
+    },
+    {
+      "id": "fitzwilliam_darcy",
+      "name": "Fitzwilliam Darcy",
+      "role": "Male lead; wealthy master of Pemberley estate",
+      "description": "Outwardly cold and socially arrogant, Darcy's first proposal insults Elizabeth's family while declaring love—a collision of genuine feeling with a lifetime of class conditioning, not mere personal vanity. His secret payment of Wickham's debts, warm reception of the tradesman Gardiners, and housekeeper's testimony reveal that his pride conceals genuine integrity, generosity, and a capacity for change.",
+      "faction_id": "darcy_pemberley",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Male lead; wealthy master of Pemberley, canonical spelling confirmed",
+      "actor": null
+    },
+    {
+      "id": "jane_bennet",
+      "name": "Jane Bennet",
+      "role": "Eldest Bennet daughter; Elizabeth's closest confidante",
+      "description": "Gentle, optimistic, and incapable of thinking ill of anyone, Jane is the romantic counterpart to Elizabeth's arc: her relationship with Bingley is nearly destroyed by Caroline Bingley's scheming and Darcy's interference before Bingley returns and proposes.",
+      "faction_id": "bennet_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Eldest Bennet daughter; Elizabeth's closest confidante",
+      "actor": null
+    },
+    {
+      "id": "charles_bingley",
+      "name": "Charles Bingley",
+      "role": "Wealthy gentleman renting Netherfield Park; Jane's love interest",
+      "description": "Warm and unpretentious, Bingley is everything his sister Caroline is not; his affection for Jane is genuine but he is too easily influenced by Darcy and his scheming sister to act on it, requiring Darcy's eventual encouragement to return and propose.",
+      "faction_id": "bingley_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Wealthy, amiable gentleman who rents Netherfield Park; love interest of Jane",
+      "actor": null
+    },
+    {
+      "id": "mr_bennet",
+      "name": "Mr. Bennet",
+      "role": "Patriarch of Longbourn; father of five daughters",
+      "description": "Discerning and witty, Mr. Bennet is also the novel's most morally culpable bystander: his resigned, sarcastically detached response to a bad marriage is the direct enabling condition for Lydia's unsupervised elopement with Wickham, nearly ruining all five daughters' prospects. His pleasurable ironic voice and his irresponsibility are inseparable.",
+      "faction_id": "bennet_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Patriarch of Longbourn; owner of the entailed estate",
+      "actor": null
+    },
+    {
+      "id": "mrs_bennet",
+      "name": "Mrs. Bennet",
+      "role": "Matriarch of the Bennet household",
+      "description": "Routinely mocked by the novel's ironic narrator for her nerves and matrimonial scheming, Mrs. Bennet is simultaneously making a rational response to the entail's legal violence: without advantageous marriages, she and her daughters face destitution on Mr. Bennet's death. The novel asks its readers to hold both truths at once.",
+      "faction_id": "bennet_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Matriarch; obsessively focused on marrying off her daughters, née Gardiner",
+      "actor": null
+    },
+    {
+      "id": "george_wickham",
+      "name": "George Wickham",
+      "role": "Militia officer and primary antagonist",
+      "description": "Wickham's charm makes him the novel's most dangerous deceiver: his false account of Darcy's cruelty exploits Elizabeth's existing prejudices and dominates the first half. His villainy—fabricated accusations, attempted elopement with Georgiana for her inheritance, and flight with Lydia to escape debts—is also the product of a class system that offers men without land or wealth no legitimate path to security.",
+      "faction_id": "gardiner_militia",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Militia officer; charming liar and opportunist; primary antagonist",
+      "actor": null
+    },
+    {
+      "id": "mr_william_collins",
+      "name": "Mr. William Collins",
+      "role": "Clergyman; Mr. Bennet's cousin and heir-in-entail to Longbourn",
+      "description": "Self-important and obsequious in equal measure, Collins embodies the absurdity of the entail system: the man poised to dispossess five women is simultaneously laughable and threatening. His marriage to Charlotte Lucas—after Elizabeth's refusal—makes him a symbol of the constrained choices women faced.",
+      "faction_id": "de_bourgh_household",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Pompous clergyman; Mr. Bennet's cousin and heir to Longbourn under the entail",
+      "actor": null
+    },
+    {
+      "id": "charlotte_lucas",
+      "name": "Charlotte Lucas",
+      "role": "Elizabeth's pragmatic best friend; later Mrs. Collins",
+      "description": "Charlotte's decision to marry Collins for financial security—without love—is presented by Austen not as a moral failure but as a rational response to a system that otherwise leaves her a burden to her family. Elizabeth's horror at the match is itself a form of privilege: she can afford to refuse Collins because her father is alive; Charlotte cannot.",
+      "faction_id": "lucas_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Elizabeth's pragmatic best friend; daughter of Sir William Lucas; later Charlotte Collins",
+      "actor": null
+    },
+    {
+      "id": "lady_catherine_de_bourgh",
+      "name": "Lady Catherine de Bourgh",
+      "role": "Darcy's domineering aunt; mistress of Rosings Park",
+      "description": "Imperious and accustomed to unconditional deference, Lady Catherine visits Elizabeth to forbid her from marrying Darcy—only for Elizabeth's refusal to submit to inadvertently signal to Darcy that her feelings have changed. Her attempt to control the match thus becomes the catalyst that enables it.",
+      "faction_id": "de_bourgh_household",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Darcy's domineering aunt; Collins's patroness; mistress of Rosings Park",
+      "actor": null
+    },
+    {
+      "id": "caroline_bingley",
+      "name": "Caroline Bingley",
+      "role": "Bingley's younger sister; social schemer",
+      "description": "Superficially polished and viciously condescending, Caroline schemes to separate Jane and Bingley and fabricates the lie that Bingley plans to marry Georgiana Darcy—a red herring that delays Jane's happiness while also exposing Caroline's hollow social performance.",
+      "faction_id": "bingley_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Bingley's younger sister; social climber who pursues Darcy and undermines Elizabeth",
+      "actor": null
+    },
+    {
+      "id": "lydia_bennet",
+      "name": "Lydia Bennet",
+      "role": "Youngest Bennet daughter; elopes with Wickham",
+      "description": "Impulsive and heedless of consequence, Lydia is the direct product of Mr. Bennet's failure to supervise his youngest daughters; her elopement with Wickham nearly destroys all five sisters' social prospects and forces Darcy to secretly intervene by paying Wickham's debts.",
+      "faction_id": "bennet_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Youngest, most irresponsible Bennet daughter; elopes with Wickham",
+      "actor": null
+    },
+    {
+      "id": "mrs_gardiner",
+      "name": "Mrs. Gardiner",
+      "role": "Mrs. Bennet's sister-in-law; sensible maternal figure",
+      "description": "A warm and intelligent counterweight to Mrs. Bennet, Mrs. Gardiner serves as a confidante and moral anchor for Elizabeth and Jane, and accompanies Elizabeth on the visit to Pemberley that begins Elizabeth's reassessment of Darcy.",
+      "faction_id": "gardiner_militia",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Mrs. Bennet's sister-in-law; sensible maternal figure to Elizabeth and Jane",
+      "actor": null
+    },
+    {
+      "id": "mr_edward_gardiner",
+      "name": "Mr. Edward Gardiner",
+      "role": "Mrs. Bennet's brother; merchant; negotiator in Lydia-Wickham crisis",
+      "description": "A respectable tradesman who acts with more practical wisdom and generosity than any of the novel's gentlemen during the Lydia-Wickham crisis—though the full credit is later revealed to belong to Darcy, who secretly funded the resolution.",
+      "faction_id": "gardiner_militia",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Mrs. Bennet's brother; successful merchant; instrumental in resolving the Lydia-Wickham crisis",
+      "actor": null
+    },
+    {
+      "id": "georgiana_darcy",
+      "name": "Georgiana Darcy",
+      "role": "Darcy's younger sister; former target of Wickham's scheming",
+      "description": "Shy and accomplished, Georgiana's near-elopement with Wickham (who sought her inheritance) is the hidden backstory that explains Darcy's hatred of Wickham and, once revealed, destroys Wickham's false narrative of victimhood.",
+      "faction_id": "darcy_pemberley",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Darcy's shy, younger sister; nearly eloped with Wickham before Darcy intervened",
+      "actor": null
+    },
+    {
+      "id": "colonel_fitzwilliam",
+      "name": "Colonel Fitzwilliam",
+      "role": "Darcy's cousin; co-guardian of Georgiana Darcy",
+      "description": "Affable and frank, Colonel Fitzwilliam inadvertently confirms to Elizabeth that Darcy intervened to separate Bingley from Jane—a revelation that deepens her grievances against Darcy just before his first proposal.",
+      "faction_id": "darcy_pemberley",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Darcy's cousin; co-guardian of Georgiana; younger son of an earl",
+      "actor": null
+    },
+    {
+      "id": "mary_bennet",
+      "name": "Mary Bennet",
+      "role": "Third Bennet daughter",
+      "description": "Studious and given to moralising, Mary is largely overlooked in a family whose social currency lies in beauty and vivacity; she functions as a comic foil to her sisters' romantic concerns.",
+      "faction_id": "bennet_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Third Bennet daughter; bookish and moralistic",
+      "actor": null
+    },
+    {
+      "id": "kitty_bennet",
+      "name": "Catherine \"Kitty\" Bennet",
+      "role": "Fourth Bennet daughter",
+      "description": "Kitty follows Lydia's frivolous lead in pursuing officers but is left behind when Lydia goes to Brighton, sparing her from direct involvement in the elopement scandal.",
+      "faction_id": "bennet_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Fourth Bennet daughter; follows Lydia's lead in flirting with soldiers",
+      "actor": null
+    },
+    {
+      "id": "mrs_louisa_hurst",
+      "name": "Mrs. Louisa Hurst",
+      "role": "Bingley's married sister",
+      "description": "Mrs. Hurst shares Caroline's condescension toward the Bennets but takes a more passive role in the scheming, largely deferring to her more vocal sister.",
+      "faction_id": "bingley_family",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Bingley's other sister; married; shares Caroline's snobbery",
+      "actor": null
+    },
+    {
+      "id": "sir_william_lucas",
+      "name": "Sir William Lucas",
+      "role": "Charlotte's father; local knight and neighbour",
+      "description": "A good-humoured former tradesman elevated to knighthood, Sir William is proud of his social advancement and serves primarily as a genial presence at neighbourhood gatherings.",
+      "faction_id": "lucas_family",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Charlotte's father; a local knight; neighbour of the Bennets",
+      "actor": null
+    },
+    {
+      "id": "anne_de_bourgh",
+      "name": "Anne de Bourgh",
+      "role": "Lady Catherine's daughter; intended bride for Darcy",
+      "description": "Sickly and silent, Anne is the living emblem of Lady Catherine's dynastic presumption: her mother's insistence that she is destined to marry Darcy is an ambition entirely unshared by Darcy himself.",
+      "faction_id": "de_bourgh_household",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Lady Catherine's sickly daughter; intended by her mother to marry Darcy",
+      "actor": null
+    },
+    {
+      "id": "mrs_younge",
+      "name": "Mrs. Younge",
+      "role": "Georgiana's former companion; Wickham's accomplice",
+      "description": "Mrs. Younge facilitated Wickham's access to Georgiana by posing as a trustworthy companion, making her complicit in his scheme to secure Georgiana's inheritance through a false elopement.",
+      "faction_id": "gardiner_militia",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "name_evidence": "Georgiana's former companion; complicit in Wickham's attempted elopement",
+      "actor": null
+    },
+    {
+      "id": "mrs_reynolds",
+      "name": "Mrs. Reynolds",
+      "role": "Housekeeper at Pemberley",
+      "description": "Her unprompted praise of Darcy's generosity and kindness to his tenants—offered to Elizabeth as a stranger during the Pemberley visit—constitutes the novel's most credible testimony to Darcy's true character, precisely because it is unperformed.",
+      "faction_id": "darcy_pemberley",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Darcy's housekeeper at Pemberley; speaks highly of his character to Elizabeth",
+      "actor": null
+    },
+    {
+      "id": "mr_and_mrs_phillips",
+      "name": "Mr. and Mrs. Phillips",
+      "role": "Mrs. Bennet's sister and brother-in-law in Meryton",
+      "description": "The Phillips couple provide a social hub in Meryton where the Bennet daughters mix with the militia officers, functioning as the conduit through which Wickham first enters Elizabeth's social circle.",
+      "faction_id": "bennet_family",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Mrs. Bennet's sister and brother-in-law in Meryton",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "elizabeth_bennet",
+      "to_id": "fitzwilliam_darcy",
+      "type": "romantic",
+      "label": "mutual prejudice → love; she misjudges, he proposes twice",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jane_bennet",
+      "to_id": "charles_bingley",
+      "type": "romantic",
+      "label": "mutual affection, separated by interference, reunited in proposal",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "elizabeth_bennet",
+      "to_id": "jane_bennet",
+      "type": "family",
+      "label": "closest sisters and confidantes",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "elizabeth_bennet",
+      "to_id": "george_wickham",
+      "type": "antagonism",
+      "label": "charmed by his false narrative; deceived by him",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "george_wickham",
+      "to_id": "fitzwilliam_darcy",
+      "type": "antagonism",
+      "label": "false accusations concealing Wickham's own fraud and attempted theft",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "george_wickham",
+      "to_id": "lydia_bennet",
+      "type": "romantic",
+      "label": "opportunistic elopement; married but financially dependent on Darcy",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "george_wickham",
+      "to_id": "georgiana_darcy",
+      "type": "criminal",
+      "label": "attempted false elopement to seize her inheritance",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "fitzwilliam_darcy",
+      "to_id": "georgiana_darcy",
+      "type": "family",
+      "label": "protective elder brother and guardian",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "fitzwilliam_darcy",
+      "to_id": "charles_bingley",
+      "type": "alliance",
+      "label": "close friend; initially separates Bingley from Jane, later encourages union",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "mr_william_collins",
+      "to_id": "charlotte_lucas",
+      "type": "romantic",
+      "label": "marriage of convenience accepted after Elizabeth's refusal",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "elizabeth_bennet",
+      "to_id": "charlotte_lucas",
+      "type": "alliance",
+      "label": "best friends; strained by Charlotte's pragmatic marriage",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "lady_catherine_de_bourgh",
+      "to_id": "mr_william_collins",
+      "type": "professional",
+      "label": "imperious patroness and obsequious clergyman",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "lady_catherine_de_bourgh",
+      "to_id": "fitzwilliam_darcy",
+      "type": "family",
+      "label": "aunt; attempts to control his marriage choice",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "lady_catherine_de_bourgh",
+      "to_id": "elizabeth_bennet",
+      "type": "antagonism",
+      "label": "confronts her to forbid Darcy marriage; refusal inadvertently helps Darcy",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "caroline_bingley",
+      "to_id": "jane_bennet",
+      "type": "antagonism",
+      "label": "fabricates Bingley-Georgiana match to drive Jane away",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "caroline_bingley",
+      "to_id": "fitzwilliam_darcy",
+      "type": "romantic",
+      "label": "unrequited pursuit; Darcy is indifferent",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "mr_edward_gardiner",
+      "to_id": "george_wickham",
+      "type": "professional",
+      "label": "negotiates Lydia-Wickham marriage settlement; unknowingly fronts Darcy's money",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "fitzwilliam_darcy",
+      "to_id": "george_wickham",
+      "type": "criminal",
+      "label": "secretly pays Wickham's debts to secure Lydia's marriage and protect Elizabeth",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "colonel_fitzwilliam",
+      "to_id": "fitzwilliam_darcy",
+      "type": "family",
+      "label": "cousin and co-guardian of Georgiana",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "colonel_fitzwilliam",
+      "to_id": "elizabeth_bennet",
+      "type": "professional",
+      "label": "inadvertently reveals Darcy's interference with Bingley and Jane",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "mrs_younge",
+      "to_id": "george_wickham",
+      "type": "criminal",
+      "label": "accomplice; enabled his access to Georgiana",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "mr_bennet",
+      "to_id": "lydia_bennet",
+      "type": "family",
+      "label": "detached father whose failure to supervise her enables the elopement",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "mrs_gardiner",
+      "to_id": "elizabeth_bennet",
+      "type": "mentorship",
+      "label": "sensible maternal confidante and companion on Pemberley visit",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "mrs_reynolds",
+      "to_id": "fitzwilliam_darcy",
+      "type": "professional",
+      "label": "housekeeper whose unprompted testimony reframes his character for Elizabeth",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "lady_catherine_de_bourgh",
+      "to_id": "anne_de_bourgh",
+      "type": "family",
+      "label": "mother; projects dynastic ambitions onto sickly, silent daughter",
+      "spoiler_level": 0
+    }
+  ],
+  "coverage_note": null,
+  "adaptation_note": "The 1995 BBC miniseries is a near-complete page-for-page adaptation, preserving minor characters and subplots the 2005 feature film condenses or omits. The 2005 film shifts the setting back to the 1790s, softens both Mr. and Mrs. Bennet into more sympathetic figures, and ended controversially without a wedding scene—an ending reinstated after audience complaints but removed in the British theatrical release.",
+  "notes": "Character count: 23 named entries, all taken verbatim from the analysis Cast section. The cast list contains 24 entries, but 'Mr. and Mrs. Phillips' is treated as a single collective entry as listed in the analysis. No cap-driven omissions were necessary (count is within the 20-character ceiling when 'Mr. and Mrs. Phillips' is counted as one entry). Spoiler levels reflect the novel's structure: Wickham's true villainy (level 2) is revealed via Darcy's letter mid-novel; Darcy's secret payment of Wickham's debts and Lady Catherine's unwitting role as catalyst for the second proposal are level 3 climax revelations.",
+  "creator": null,
+  "source_url": null
+}

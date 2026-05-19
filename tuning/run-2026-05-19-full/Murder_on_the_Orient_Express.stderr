@@ -1,0 +1,2 @@
+[dev-structure] claude-sonnet-4-6 | in=6152 out=6631 cost=$0.1179 | chars=20 rels=29
+Saved to /home/espen/ClaudeCode/charactermap/tuning/run-2026-05-19-full/Murder_on_the_Orient_Express.json
