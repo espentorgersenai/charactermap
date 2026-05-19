@@ -197,6 +197,7 @@ async def call_and_validate(
 _PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map.md"
 _ANALYSIS_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map_analysis.md"
 _STRUCTURING_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map_structuring.md"
+_SINGLE_STAGE_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "character_map_single_stage.md"
 
 
 def _load_prompt_template() -> str:
@@ -209,6 +210,10 @@ def _load_analysis_prompt() -> str:
 
 def _load_structuring_prompt() -> str:
     return _STRUCTURING_PROMPT_PATH.read_text()
+
+
+def _load_single_stage_prompt() -> str:
+    return _SINGLE_STAGE_PROMPT_PATH.read_text()
 
 
 def _render_system_prompt(template: str, character_cap: int) -> str:
@@ -317,6 +322,41 @@ async def _run_grounded(
     return char_map, stage1, stage2
 
 
+async def _run_grounded_single_stage(
+    session, client: AnthropicClient, job: Job
+) -> tuple[CharacterMap, LLMResult]:
+    """Single-stage grounded path: web_search-enabled LLM call emits the
+    CharacterMap JSON directly. Skips the prose Stage 1 + structuring Stage 2
+    split. Trades two-pass discipline for one call's worth of wall time and
+    cost.
+
+    No retry on invalid JSON — web_search is expensive, and a retry would
+    redo all searches. Validation errors propagate as job failures.
+    """
+    system_prompt = _render_system_prompt(
+        _load_single_stage_prompt(), job.character_cap
+    )
+    user_message = _render_analysis_user_message(job)
+    await _set_progress_stage(session, job, "searching")
+
+    raw = await client.generate_with_web_search(system_prompt, user_message)
+    text = _strip_fences(raw.text)
+    _check_refusal(text)
+
+    # Defensively extract the JSON object: even with strict instructions, the
+    # model may surround the JSON with commentary. Find the outermost braces.
+    start = text.find("{")
+    end = text.rfind("}")
+    if start == -1 or end == -1 or end < start:
+        raise ValueError(
+            f"single-stage output contained no JSON object: {text[:200]!r}"
+        )
+    json_text = text[start:end + 1]
+
+    char_map = CharacterMap.model_validate_json(json_text)
+    return char_map, raw
+
+
 def get_llm_client(model: str) -> LLMClient:
     if model.startswith("claude-"):
         return AnthropicClient(model=model, api_key=settings.anthropic_api_key)
@@ -350,19 +390,17 @@ async def run_pipeline(job_id: str) -> None:
 
         try:
             if use_grounded:
-                char_map, stage1, stage2 = await _run_grounded(session, client, job)
-                # Aggregate cost + tokens across both stages.
-                llm_result = LLMResult(
-                    text="",  # not retained — both stage outputs are discarded
-                    input_tokens=stage1.input_tokens + stage2.input_tokens,
-                    output_tokens=stage1.output_tokens + stage2.output_tokens,
-                    cost_usd=stage1.cost_usd + stage2.cost_usd,
+                # Step 4 of the Session 9 tuning ledger: single-stage. The
+                # earlier two-stage path lives at `_run_grounded` and can be
+                # reinstated with a one-line swap if single-stage regresses.
+                char_map, llm_result = await _run_grounded_single_stage(
+                    session, client, job
                 )
                 log.info(
                     "pipeline_grounded_path",
                     job_id=job_id,
-                    stage1_cost=stage1.cost_usd,
-                    stage2_cost=stage2.cost_usd,
+                    mode="single_stage",
+                    cost=llm_result.cost_usd,
                 )
             else:
                 await _set_progress_stage(session, job, "generating")
