@@ -302,13 +302,23 @@ async def _run_grounded(
         analysis_chars=len(stage1.text),
     )
 
+    # Stage 2 is pinned to Haiku 4.5 for speed/cost. Why this is safe despite
+    # the CLAUDE.md note that Haiku was removed from VALID_MODELS: that
+    # decision was for *ungrounded* generation where Haiku fabricated characters
+    # working from memory. Stage 2 here works from a closed list (the analysis
+    # Cast section); names are inputs, not predictions. Haiku is fine for
+    # structuring known data into JSON.
+    stage2_client = AnthropicClient(
+        model="claude-haiku-4-5-20251001",
+        api_key=settings.anthropic_api_key,
+    )
     structuring_system = _render_system_prompt(
         _load_structuring_prompt(), job.character_cap
     )
     structuring_user = _render_structuring_user_message(job, stage1.text)
     await _set_progress_stage(session, job, "structuring")
     char_map, stage2 = await call_and_validate(
-        client, structuring_system, structuring_user
+        stage2_client, structuring_system, structuring_user
     )
     return char_map, stage1, stage2
 
