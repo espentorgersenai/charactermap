@@ -37,13 +37,26 @@ async def _tmdb_get(path: str, params: dict = None, redis_client=None) -> dict:
         if cached:
             return json.loads(cached)
 
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        resp = await client.get(
-            f"{TMDB_BASE}{path}",
-            params={"api_key": settings.tmdb_api_key, **(params or {})},
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.get(
+                f"{TMDB_BASE}{path}",
+                params={"api_key": settings.tmdb_api_key, **(params or {})},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPStatusError as e:
+        # 4xx (malformed query, bad id) and 5xx (TMDb outage) both surface as
+        # "no results" to the user. Don't blow up the resolve route.
+        import structlog
+        structlog.get_logger().info(
+            "tmdb_request_failed", path=path, status=e.response.status_code,
         )
-        resp.raise_for_status()
-        data = resp.json()
+        return {}
+    except (httpx.RequestError, json.JSONDecodeError):
+        import structlog
+        structlog.get_logger().info("tmdb_request_error", path=path)
+        return {}
 
     if redis_client:
         await redis_client.setex(cache_key, 7 * 24 * 3600, json.dumps(data))

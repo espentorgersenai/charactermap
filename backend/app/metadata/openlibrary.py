@@ -1,16 +1,25 @@
 import json
 
 import httpx
+import structlog
 
 from app.metadata.confidence import compute_confidence, extract_year_from_query
 from app.models.api import ResolveCandidate
+
+log = structlog.get_logger()
 
 OL_SEARCH_URL = "https://openlibrary.org/search.json"
 OL_COVER_URL = "https://covers.openlibrary.org/b/id/{cover_id}-M.jpg"
 
 
 async def search_books(query: str, redis_client=None) -> list[dict]:
-    """Search Open Library, return raw result dicts. Caches in Redis for 7 days."""
+    """Search Open Library, return raw result dicts. Caches in Redis for 7 days.
+
+    Open Library returns 4xx for malformed queries (too short, special chars,
+    etc.) and 5xx during their occasional outages. Either way we treat the
+    response as 'no results' rather than propagating a 500 — the frontend's
+    empty-results UI is the right behavior.
+    """
     cache_key = f"ol:search:{query.lower()}"
 
     if redis_client:
@@ -18,10 +27,21 @@ async def search_books(query: str, redis_client=None) -> list[dict]:
         if cached:
             return json.loads(cached)
 
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        resp = await client.get(OL_SEARCH_URL, params={"q": query, "limit": 5})
-        resp.raise_for_status()
-        data = resp.json()
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.get(OL_SEARCH_URL, params={"q": query, "limit": 5})
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPStatusError as e:
+        log.info(
+            "openlibrary_search_rejected",
+            query=query,
+            status=e.response.status_code,
+        )
+        return []
+    except (httpx.RequestError, json.JSONDecodeError) as e:
+        log.warning("openlibrary_search_error", query=query, error=str(e))
+        return []
 
     results = data.get("docs", [])
 
