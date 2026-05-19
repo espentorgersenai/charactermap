@@ -13,12 +13,19 @@ MODEL_QUALITY_ORDER = [
 ]
 
 
-def _make_job(model: str, character_map: dict | None = None, deleted: bool = False) -> Job:
+def _make_job(
+    model: str,
+    character_map: dict | None = None,
+    deleted: bool = False,
+    season: int | None = None,
+    adaptation_tmdb_id: int | None = None,
+) -> Job:
     j = MagicMock(spec=Job)
     j.model = model
     j.status = "done"
     j.character_map = character_map or {"title": "Congo"}
     j.deleted_at = datetime.now(tz=timezone.utc) if deleted else None
+    j.resolved_meta = {"season": season, "adaptation_tmdb_id": adaptation_tmdb_id}
     return j
 
 
@@ -67,3 +74,48 @@ async def test_unknown_model_ranked_last():
 
     result = await find_best_cached_job(session, "OL12345W", "full", 20)
     assert result is haiku_job
+
+
+@pytest.mark.asyncio
+async def test_season_pinned_lookup_skips_aggregate_cache():
+    """A request pinned to S2 must not pull an All-Seasons cached map."""
+    all_seasons = _make_job("claude-opus-4-7", season=None)
+    s2 = _make_job("claude-sonnet-4-6", season=2)
+    session = _make_session([all_seasons, s2])
+
+    result = await find_best_cached_job(session, "61859", "full", 20, season=2)
+    assert result is s2
+
+
+@pytest.mark.asyncio
+async def test_no_season_lookup_skips_pinned_cache():
+    """An All-Seasons request must not pull a S2-pinned cached map."""
+    s2 = _make_job("claude-opus-4-7", season=2)
+    session = _make_session([s2])
+
+    result = await find_best_cached_job(session, "61859", "full", 20, season=None)
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_cleared_adaptation_skips_linked_cache():
+    """Book request with adaptation_tmdb_id=None must not reuse a cached
+    book-with-adaptation map (the maps will materially differ)."""
+    with_adaptation = _make_job("claude-opus-4-7", adaptation_tmdb_id=12345)
+    session = _make_session([with_adaptation])
+
+    result = await find_best_cached_job(
+        session, "OLBookW", "full", 20, adaptation_tmdb_id=None
+    )
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_matching_adaptation_returns_cache():
+    j = _make_job("claude-opus-4-7", adaptation_tmdb_id=12345)
+    session = _make_session([j])
+
+    result = await find_best_cached_job(
+        session, "OLBookW", "full", 20, adaptation_tmdb_id=12345
+    )
+    assert result is j

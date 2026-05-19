@@ -4,6 +4,14 @@ export interface AdaptationInfo {
   year: number | null
   rating: number | null
   poster_url: string | null
+  media_type?: 'movie' | 'tv' | null
+}
+
+export interface SeasonInfo {
+  number: number
+  name: string
+  year: number | null
+  episode_count: number | null
 }
 
 export interface ResolveCandidate {
@@ -16,6 +24,8 @@ export interface ResolveCandidate {
   cover_url: string | null
   confidence_score: number
   adaptation: AdaptationInfo | null
+  media_type?: 'movie' | 'tv' | null
+  seasons?: SeasonInfo[] | null
 }
 
 export interface ResolveResponse {
@@ -76,6 +86,7 @@ export async function createJob(body: {
   acknowledged_spoilers: true
   turnstile_token?: string
   character_cap: 10 | 20 | 30 | 40 | 50
+  season?: number | null
 }): Promise<{ job_id: string }> {
   const res = await fetch('/api/jobs', {
     method: 'POST',

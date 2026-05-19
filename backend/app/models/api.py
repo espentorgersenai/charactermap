@@ -8,6 +8,13 @@ class ResolveRequest(BaseModel):
     work_type: Literal["book", "film_tv"]
 
 
+class SeasonInfo(BaseModel):
+    number: int  # TMDB season_number; season 0 = specials, often skipped
+    name: str  # e.g. "Season 2" or named seasons
+    year: Optional[int] = None  # air_date year
+    episode_count: Optional[int] = None
+
+
 class AdaptationInfo(BaseModel):
     tmdb_id: int
     title: str
@@ -28,6 +35,8 @@ class ResolveCandidate(BaseModel):
     confidence_score: float  # 0.0 to 1.0
     adaptation: Optional[AdaptationInfo] = None
     media_type: Optional[Literal["movie", "tv"]] = None  # for film_tv source
+    # Populated only for media_type=='tv'. Excludes season 0 (specials).
+    seasons: Optional[list[SeasonInfo]] = None
 
 
 class ResolveResponse(BaseModel):

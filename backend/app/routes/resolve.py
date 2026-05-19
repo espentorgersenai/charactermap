@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.analytics import record_event
 from app.db.session import get_db
 from app.metadata.openlibrary import parse_ol_candidates, search_books
-from app.metadata.tmdb import find_adaptation_for_book, search_film_tv
+from app.metadata.tmdb import find_adaptation_for_book, get_tv_seasons, search_film_tv
 from app.models.api import ResolveRequest, ResolveResponse
 from app.security import rate_limit as rl
 
@@ -54,6 +54,17 @@ async def resolve(
 
     else:  # film_tv
         candidates = await search_film_tv(body.query, redis_client)
+        # Eager-fetch season list for TV candidates so the picker can show a
+        # season dropdown without an extra round-trip. TMDB /tv/{id} is cached
+        # in Redis (7d), so the second resolve of the same title is cheap.
+        for candidate in candidates:
+            if candidate.media_type == "tv":
+                try:
+                    seasons = await get_tv_seasons(int(candidate.id), redis_client)
+                    if seasons:
+                        candidate.seasons = seasons
+                except (TypeError, ValueError):
+                    pass
 
     log.info("resolve", query=body.query, work_type=body.work_type, count=len(candidates))
     if candidates:

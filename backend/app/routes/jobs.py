@@ -40,9 +40,14 @@ async def find_best_cached_job(
     resolved_id: str,
     spoiler_mode: str,
     character_cap: int,
+    season: Optional[int] = None,
+    adaptation_tmdb_id: Optional[int] = None,
 ) -> Optional[Job]:
     # Cap is part of the cache identity — a cap=10 map can't be served to a
     # cap=50 request and vice versa, since they're materially different maps.
+    # Season (TV) and adaptation_tmdb_id (book → linked or unlinked film/TV)
+    # are also identity-bearing: Night Manager S1 ≠ S2, and a book with
+    # adaptation cleared ≠ a book matched to its (correct or wrong) film.
     result = await session.execute(
         select(Job).where(
             Job.resolved_id == resolved_id,
@@ -54,6 +59,16 @@ async def find_best_cached_job(
         )
     )
     jobs = result.scalars().all()
+    # Filter on JSONB fields in Python (small N — typical user has <5 cached
+    # rows for the same resolved_id, and we only run the cache lookup once
+    # per create_job).
+    def _matches(j: Job) -> bool:
+        meta = j.resolved_meta or {}
+        j_season = meta.get("season")
+        j_adapt = meta.get("adaptation_tmdb_id")
+        return j_season == season and j_adapt == adaptation_tmdb_id
+
+    jobs = [j for j in jobs if _matches(j)]
     if not jobs:
         return None
     jobs.sort(
@@ -120,6 +135,14 @@ async def create_job(
 
     resolved = body.resolved
     work_type = "book" if resolved.source == "openlibrary" else "film_tv"
+    # Only honor `season` when the work (or its adaptation) is TV. For movies
+    # and book→movie linkages the field is meaningless and would pollute the
+    # cache key.
+    work_media_type = (
+        resolved.media_type
+        or (resolved.adaptation.media_type if resolved.adaptation else None)
+    )
+    effective_season = body.season if work_media_type == "tv" else None
     resolved_meta = {
         "author": resolved.author,
         "director": resolved.director,
@@ -127,15 +150,21 @@ async def create_job(
         "source": resolved.source,
         # Stored for post-LLM credits lookup (Phase 4). film_tv: from the work
         # itself; book: from the adaptation if available.
-        "media_type": (
-            resolved.media_type
-            or (resolved.adaptation.media_type if resolved.adaptation else None)
-        ),
+        "media_type": work_media_type,
         "adaptation_tmdb_id": resolved.adaptation.tmdb_id if resolved.adaptation else None,
+        "season": effective_season,
     }
 
-    # Cache check: reuse the best existing result for this work AND cap
-    cached = await find_best_cached_job(session, resolved.id, "full", body.character_cap)
+    # Cache check: reuse the best existing result for this work, cap,
+    # season, and adaptation linkage.
+    cached = await find_best_cached_job(
+        session,
+        resolved.id,
+        "full",
+        body.character_cap,
+        season=effective_season,
+        adaptation_tmdb_id=resolved.adaptation.tmdb_id if resolved.adaptation else None,
+    )
     if cached:
         cached_job = Job(
             id=uuid4(),

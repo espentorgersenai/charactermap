@@ -120,8 +120,11 @@ async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
             # aggregate_collection only matters for movies in a TMDB collection
             # (Hobbit trilogy, LOTR, Star Wars). Single-film movies and TV fall
             # back to single-cast inside fetch_collection_cast.
+            # season pins TV credits to that season only (overrides
+            # aggregate_credits union). None = aggregate as before.
+            season = meta.get("season") if media_type == "tv" else None
             cast, director_credit = await get_credits(
-                tmdb_id, media_type, aggregate_collection=True
+                tmdb_id, media_type, aggregate_collection=True, season=season,
             )
             matched = match_cast_to_characters(char_map.characters, cast)
             log.info(
@@ -131,6 +134,7 @@ async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
                 cast_size=len(cast),
                 matched=matched,
                 total_chars=len(char_map.characters),
+                season=season,
             )
             # Only film/tv creator comes from the director; books always use the author.
             if job.work_type == "film_tv":
@@ -222,6 +226,24 @@ def _render_system_prompt(template: str, character_cap: int) -> str:
     return template.replace("{CHAR_CAP}", str(character_cap))
 
 
+def _season_focus_block(job: Job) -> str:
+    """When the job pins TV generation to a specific season, prepend a clear
+    scope instruction. Empty string when no season is pinned."""
+    meta = job.resolved_meta or {}
+    season = meta.get("season")
+    if not season:
+        return ""
+    return (
+        f"<season_focus>\n"
+        f"Focus ONLY on Season {season} of this series. Characters introduced "
+        f"in earlier seasons but not present in Season {season} should be "
+        f"omitted. Characters who first appear in Season {season} are the "
+        f"primary subjects. Storylines, arcs, and relationships must reflect "
+        f"Season {season} specifically — not the show overall.\n"
+        f"</season_focus>\n\n"
+    )
+
+
 def _render_user_message(job: Job) -> str:
     meta = job.resolved_meta or {}
     author_or_director = meta.get("author") or meta.get("director") or "Unknown"
@@ -232,6 +254,7 @@ def _render_user_message(job: Job) -> str:
         f"author_or_director: {author_or_director}\n"
         f"type: {job.work_type}\n"
         f"</work_metadata>\n\n"
+        f"{_season_focus_block(job)}"
         f"<user_query>\n"
         f"{job.title_query}\n"
         f"</user_query>\n\n"
@@ -249,6 +272,7 @@ def _render_analysis_user_message(job: Job) -> str:
         f"author_or_director: {author_or_director}\n"
         f"type: {job.work_type}\n"
         f"</work_metadata>\n\n"
+        f"{_season_focus_block(job)}"
         f"Produce the analysis as specified."
     )
 
@@ -263,6 +287,7 @@ def _render_structuring_user_message(job: Job, analysis: str) -> str:
         f"author_or_director: {author_or_director}\n"
         f"type: {job.work_type}\n"
         f"</work_metadata>\n\n"
+        f"{_season_focus_block(job)}"
         f"<analysis>\n{analysis}\n</analysis>\n\n"
         f"Output a single JSON object matching the CharacterMap schema. "
         f"No prose, no markdown fences."

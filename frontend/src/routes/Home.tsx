@@ -6,6 +6,7 @@ import FormatCheckboxes from '../components/FormatCheckboxes'
 import CharacterCapDropdown from '../components/CharacterCapDropdown'
 import ResolveBanner from '../components/ResolveBanner'
 import ResolveCandidatePicker from '../components/ResolveCandidatePicker'
+import SelectedCandidateExtras from '../components/SelectedCandidateExtras'
 import HowThisWorksModal from '../components/HowThisWorksModal'
 import Turnstile from '../components/Turnstile'
 import { useResolve } from '../hooks/useResolve'
@@ -110,6 +111,7 @@ export default function Home() {
   // expectations). Backend still hard-gates on `acknowledged_spoilers: true`
   // — the field is always sent as true from this page.
   const [selectedCandidate, setSelectedCandidate]     = useState<ResolveCandidate | null>(null)
+  const [season, setSeason]                           = useState<number | null>(null)
   const [forceShowPicker, setForceShowPicker]         = useState(false)
   const [submitting, setSubmitting]   = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -154,8 +156,21 @@ export default function Home() {
     (!turnstileRequired || !!turnstileToken)
 
   function handleSearch(query: string) {
-    reset(); setSelectedCandidate(null); setForceShowPicker(false)
+    reset(); setSelectedCandidate(null); setSeason(null); setForceShowPicker(false)
     resolve(query, workType)
+  }
+
+  // Replace the selected candidate while keeping reference identity (the
+  // picker / banner key off it). Reset season any time the candidate changes
+  // identity so an S2 pin from one show doesn't bleed into another.
+  function chooseCandidate(c: ResolveCandidate | null) {
+    setSelectedCandidate(c)
+    setSeason(null)
+  }
+
+  function clearAdaptation() {
+    if (!selectedCandidate) return
+    setSelectedCandidate({ ...selectedCandidate, adaptation: null })
   }
 
   function handleTypeSelect(type: 'book' | 'film_tv') {
@@ -172,6 +187,7 @@ export default function Home() {
         model, formats, email: email || undefined,
         acknowledged_spoilers: true, character_cap: characterCap,
         turnstile_token: turnstileToken ?? undefined,
+        season,
       })
       navigate(`/job/${job_id}?${new URLSearchParams({ model, title: selectedCandidate.title })}`)
     } catch (e: unknown) {
@@ -310,7 +326,7 @@ export default function Home() {
                 <Reveal>
                   <ResolveBanner
                     candidate={topCandidate!}
-                    onNotThis={() => { setForceShowPicker(true); setSelectedCandidate(null) }}
+                    onNotThis={() => { setForceShowPicker(true); chooseCandidate(null) }}
                   />
                 </Reveal>
               )}
@@ -319,7 +335,17 @@ export default function Home() {
                   <ResolveCandidatePicker
                     candidates={candidates}
                     selected={selectedCandidate}
-                    onSelect={setSelectedCandidate}
+                    onSelect={chooseCandidate}
+                  />
+                </Reveal>
+              )}
+              {selectedCandidate && (
+                <Reveal>
+                  <SelectedCandidateExtras
+                    candidate={selectedCandidate}
+                    season={season}
+                    onSeasonChange={setSeason}
+                    onClearAdaptation={clearAdaptation}
                   />
                 </Reveal>
               )}

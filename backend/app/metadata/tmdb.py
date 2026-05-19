@@ -6,7 +6,7 @@ import httpx
 
 from app.config import settings
 from app.metadata.confidence import compute_confidence, extract_year_from_query
-from app.models.api import AdaptationInfo, ResolveCandidate
+from app.models.api import AdaptationInfo, ResolveCandidate, SeasonInfo
 
 TMDB_BASE = "https://api.themoviedb.org/3"
 TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w300"
@@ -111,6 +111,54 @@ async def search_film_tv(query: str, redis_client=None) -> list[ResolveCandidate
         )
 
     return sorted(candidates, key=lambda c: c.confidence_score, reverse=True)
+
+
+async def get_tv_seasons(tmdb_id: int, redis_client=None) -> list[SeasonInfo]:
+    """Fetch the season list for a TV series. Season 0 (specials) is excluded.
+
+    Returns [] on any TMDB failure or for non-TV ids — callers treat seasons
+    as best-effort; an empty list just means the dropdown won't appear."""
+    if not settings.tmdb_api_key:
+        return []
+    try:
+        data = await _tmdb_get(f"/tv/{tmdb_id}", None, redis_client)
+    except Exception:
+        return []
+    out: list[SeasonInfo] = []
+    for s in data.get("seasons", []) or []:
+        n = s.get("season_number")
+        if n is None or n == 0:
+            continue  # skip specials/extras
+        air = s.get("air_date") or ""
+        year = int(air[:4]) if air and len(air) >= 4 else None
+        out.append(SeasonInfo(
+            number=int(n),
+            name=s.get("name") or f"Season {n}",
+            year=year,
+            episode_count=s.get("episode_count"),
+        ))
+    out.sort(key=lambda s: s.number)
+    return out
+
+
+async def fetch_season_cast(
+    tmdb_id: int, season_number: int, redis_client=None, cast_limit: int = 80
+) -> list[CastMember]:
+    """Fetch credits for a specific TV season. Returns [] on failure.
+
+    Uses /tv/{id}/season/{n}/credits which returns the season's cast in the
+    same shape as /credits (single character per entry). Used when the user
+    pins generation to a specific season — narrows the candidate pool versus
+    aggregate_credits' union across all seasons."""
+    if not settings.tmdb_api_key:
+        return []
+    try:
+        data = await _tmdb_get(
+            f"/tv/{tmdb_id}/season/{season_number}/credits", None, redis_client
+        )
+    except Exception:
+        return []
+    return _parse_cast(data, cast_limit)
 
 
 async def find_adaptation_for_book(
@@ -299,6 +347,7 @@ async def get_credits(
     redis_client=None,
     cast_limit: int = 80,
     aggregate_collection: bool = False,
+    season: int | None = None,
 ) -> tuple[list[CastMember], Optional[DirectorCredit]]:
     """Fetch top-N cast (by billing order) and the director credit for a TMDB work.
 
@@ -318,10 +367,14 @@ async def get_credits(
     # have nearly disjoint casts, aggregate_credits returns the union across
     # all seasons + each actor's full role list. Movies don't have seasons so
     # /credits is the right call there.
-    credits_path = (
-        f"/tv/{tmdb_id}/aggregate_credits" if media_type == "tv"
-        else f"/movie/{tmdb_id}/credits"
-    )
+    # When the user pins to a specific season, /tv/{id}/season/{n}/credits is
+    # narrower than aggregate_credits — cast list = that season only.
+    if media_type == "tv" and season is not None:
+        credits_path = f"/tv/{tmdb_id}/season/{season}/credits"
+    elif media_type == "tv":
+        credits_path = f"/tv/{tmdb_id}/aggregate_credits"
+    else:
+        credits_path = f"/movie/{tmdb_id}/credits"
     try:
         data = await _tmdb_get(credits_path, None, redis_client)
     except Exception:

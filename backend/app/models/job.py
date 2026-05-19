@@ -23,6 +23,10 @@ class JobCreateRequest(BaseModel):
     acknowledged_spoilers: bool
     turnstile_token: Optional[str] = None
     character_cap: int = 20
+    # Optional TV season pin. When set, TMDB credits are pulled from
+    # /tv/{id}/season/{n}/credits and the LLM prompt scopes characters
+    # to that season only. Ignored unless the resolved work is TV.
+    season: Optional[int] = None
 
     @field_validator("model")
     @classmethod
