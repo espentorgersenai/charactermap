@@ -157,19 +157,38 @@ async def find_adaptation_for_book(
 
 
 def _parse_cast(data: dict, cast_limit: int) -> list[CastMember]:
-    """Shared cast parser used by best-effort get_credits and strict fetch_cast."""
-    cast_raw = sorted(data.get("cast", []), key=lambda c: c.get("order", 9999))[:cast_limit]
-    return [
-        CastMember(
-            name=c.get("name", ""),
-            character=c.get("character", ""),
-            tmdb_person_id=int(c["id"]),
-            profile_path=c.get("profile_path"),
-            order=int(c.get("order", 9999)),
-        )
-        for c in cast_raw
-        if c.get("id") and c.get("name")
-    ]
+    """Shared cast parser used by best-effort get_credits and strict fetch_cast.
+
+    Handles both shapes:
+      - /credits (movies + TV main-cast): each entry has a single `character`
+      - /aggregate_credits (TV, all seasons): each entry has `roles: [{character, ...}]`
+        — one actor can play multiple characters across seasons. We flatten so
+        each (actor, character) pair is a separate CastMember; fuzzy matching
+        then has each role independently scorable.
+    """
+    out: list[CastMember] = []
+    for c in sorted(data.get("cast", []), key=lambda c: c.get("order", 9999)):
+        if not (c.get("id") and c.get("name")):
+            continue
+        roles = c.get("roles")
+        if roles:
+            for r in roles:
+                out.append(CastMember(
+                    name=c.get("name", ""),
+                    character=r.get("character", ""),
+                    tmdb_person_id=int(c["id"]),
+                    profile_path=c.get("profile_path"),
+                    order=int(c.get("order", 9999)),
+                ))
+        else:
+            out.append(CastMember(
+                name=c.get("name", ""),
+                character=c.get("character", ""),
+                tmdb_person_id=int(c["id"]),
+                profile_path=c.get("profile_path"),
+                order=int(c.get("order", 9999)),
+            ))
+    return out[:cast_limit]
 
 
 async def fetch_cast_strict(
@@ -186,7 +205,12 @@ async def fetch_cast_strict(
     genuinely has no cast credits."""
     if not settings.tmdb_api_key:
         raise RuntimeError("TMDB API key not configured")
-    data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
+    # See get_credits — TV needs aggregate_credits for full-series coverage.
+    credits_path = (
+        f"/tv/{tmdb_id}/aggregate_credits" if media_type == "tv"
+        else f"/movie/{tmdb_id}/credits"
+    )
+    data = await _tmdb_get(credits_path, None, redis_client)
     return _parse_cast(data, cast_limit)
 
 
@@ -273,7 +297,7 @@ async def get_credits(
     tmdb_id: int,
     media_type: Literal["movie", "tv"],
     redis_client=None,
-    cast_limit: int = 30,
+    cast_limit: int = 80,
     aggregate_collection: bool = False,
 ) -> tuple[list[CastMember], Optional[DirectorCredit]]:
     """Fetch top-N cast (by billing order) and the director credit for a TMDB work.
@@ -289,8 +313,17 @@ async def get_credits(
     director is what matters)."""
     if not settings.tmdb_api_key:
         return [], None
+    # TV /credits only returns the current main cast (often biased toward the
+    # latest season). For shows like The Night Manager where seasons 1 and 2
+    # have nearly disjoint casts, aggregate_credits returns the union across
+    # all seasons + each actor's full role list. Movies don't have seasons so
+    # /credits is the right call there.
+    credits_path = (
+        f"/tv/{tmdb_id}/aggregate_credits" if media_type == "tv"
+        else f"/movie/{tmdb_id}/credits"
+    )
     try:
-        data = await _tmdb_get(f"/{media_type}/{tmdb_id}/credits", None, redis_client)
+        data = await _tmdb_get(credits_path, None, redis_client)
     except Exception:
         return [], None
 
