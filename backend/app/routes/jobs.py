@@ -13,10 +13,14 @@ from rq import Queue
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.analytics import record_event
 from app.config import settings
+from app.cost import get_today_cost
 from app.db.session import async_session_factory, get_db
 from app.db.tables import Job
 from app.models.job import JobCreateRequest, JobCreateResponse, JobStatusResponse
+from app.security import rate_limit as rl
+from app.security import turnstile
 from app.worker.tasks import generate_character_map_task
 
 log = structlog.get_logger()
@@ -79,6 +83,41 @@ async def create_job(
             },
         )
 
+    ip = rl.client_ip(request)
+
+    if settings.turnstile_secret_key:
+        ok = await turnstile.verify_token(
+            body.turnstile_token or "",
+            settings.turnstile_secret_key,
+            ip,
+        )
+        if not ok:
+            log.warning("turnstile_failed", ip=ip)
+            raise HTTPException(
+                status_code=403,
+                detail={
+                    "error": "Captcha verification failed. Please refresh and try again.",
+                    "code": "TURNSTILE_FAILED",
+                },
+            )
+    decision = await rl.check_and_record(rl.get_redis(), f"rl:jobs:{ip}", rl.JOBS_WINDOWS)
+    if not decision.allowed:
+        log.warning(
+            "job_rate_limited",
+            ip=ip,
+            window=decision.window_label,
+            retry_after=decision.retry_after_seconds,
+        )
+        raise HTTPException(
+            status_code=429,
+            detail={
+                "error": "You're sending requests too quickly. Try again shortly.",
+                "code": "RATE_LIMITED",
+                "window": decision.window_label,
+            },
+            headers={"Retry-After": str(decision.retry_after_seconds)},
+        )
+
     resolved = body.resolved
     work_type = "book" if resolved.source == "openlibrary" else "film_tv"
     resolved_meta = {
@@ -123,6 +162,24 @@ async def create_job(
         log.info("job_cache_hit", job_id=str(cached_job.id), source_model=cached.model)
         return JobCreateResponse(job_id=str(cached_job.id))
 
+    today_cost = await get_today_cost(session)
+    if today_cost >= Decimal(str(settings.daily_cost_limit_usd)):
+        log.warning(
+            "job_blocked_budget_exhausted",
+            today_cost_usd=str(today_cost),
+            limit_usd=settings.daily_cost_limit_usd,
+        )
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "error": (
+                    "The service has hit today's spending limit. "
+                    "Please try again tomorrow."
+                ),
+                "code": "DAILY_BUDGET_EXHAUSTED",
+            },
+        )
+
     job = Job(
         id=uuid4(),
         work_type=work_type,
@@ -141,6 +198,19 @@ async def create_job(
         user_agent=request.headers.get("user-agent"),
     )
     session.add(job)
+    await record_event(
+        session,
+        "form_submit",
+        {
+            "model": body.model,
+            "work_type": work_type,
+            "spoiler_mode": "full",
+            "formats": body.formats,
+            "has_email": bool(body.email),
+            "character_cap": body.character_cap,
+        },
+        job_id=job.id,
+    )
     await session.commit()
 
     job_id = str(job.id)

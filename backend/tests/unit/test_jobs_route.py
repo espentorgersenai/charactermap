@@ -29,6 +29,8 @@ def mock_db_session():
     # Return empty list from execute() so find_best_cached_job finds no cache hit
     execute_result = MagicMock()
     execute_result.scalars.return_value.all.return_value = []
+    # Cost guard also issues `scalar_one_or_none()`; default to "no debits today".
+    execute_result.scalar_one_or_none.return_value = None
     session.execute = AsyncMock(return_value=execute_result)
 
     async def override():

@@ -7,9 +7,12 @@ from pathlib import Path
 from uuid import UUID, uuid4
 from pydantic import ValidationError
 
+from app.analytics import record_event
 from app.config import settings
+from app.cost import record_cost
 from app.db.session import async_session_factory
 from app.db.tables import Artifact, Job
+from app.email.mailer import send_completion_email
 from app.llm.anthropic_client import AnthropicClient
 from app.llm.gemini_client import GeminiClient
 from app.llm.openai_client import OpenAIClient
@@ -243,6 +246,7 @@ async def run_pipeline(job_id: str) -> None:
         job.status = "generating"
         await session.commit()
         log.info("pipeline_started", job_id=job_id, model=job.model)
+        started_at = datetime.now(tz=timezone.utc)
 
         system_prompt = _render_system_prompt(_load_prompt_template(), job.character_cap)
         user_message = _render_user_message(job)
@@ -262,16 +266,34 @@ async def run_pipeline(job_id: str) -> None:
                 e.refusal_code, REFUSAL_MESSAGES["unknown_work"]
             )
             log.warning("pipeline_refused", job_id=job_id, code=e.refusal_code)
+            await record_event(
+                session,
+                "job_refused",
+                {"model": job.model, "error_code": e.refusal_code},
+                job_id=UUID(job_id),
+            )
         except ValidationError as e:
             job.status = "failed"
             job.error_code = "invalid_json"
             job.error_message = "LLM output failed schema validation after retry."
             log.error("pipeline_validation_failed", job_id=job_id, error=str(e))
+            await record_event(
+                session,
+                "job_failed",
+                {"model": job.model, "error_code": "invalid_json"},
+                job_id=UUID(job_id),
+            )
         except Exception as e:
             job.status = "failed"
             job.error_code = "llm_error"
             job.error_message = str(e)
             log.error("pipeline_error", job_id=job_id, error=str(e))
+            await record_event(
+                session,
+                "job_failed",
+                {"model": job.model, "error_code": "llm_error"},
+                job_id=UUID(job_id),
+            )
         else:
             job.status = "done"
             job.completed_at = datetime.now(tz=timezone.utc)
@@ -279,6 +301,24 @@ async def run_pipeline(job_id: str) -> None:
             job.llm_input_tokens = llm_result.input_tokens
             job.llm_output_tokens = llm_result.output_tokens
             job.estimated_cost_usd = Decimal(str(llm_result.cost_usd))
+            await record_cost(session, Decimal(str(llm_result.cost_usd)))
+            duration_ms = int(
+                (datetime.now(tz=timezone.utc) - started_at).total_seconds() * 1000
+            )
+            await record_event(
+                session,
+                "job_done",
+                {
+                    "model": job.model,
+                    "character_count": len(char_map.characters),
+                    "duration_ms": duration_ms,
+                    "has_adaptation": bool(
+                        job.adaptation_tmdb_id
+                        or (job.resolved_meta or {}).get("adaptation_tmdb_id")
+                    ),
+                },
+                job_id=UUID(job_id),
+            )
             log.info("pipeline_done", job_id=job_id,
                      chars=len(char_map.characters), cost_usd=llm_result.cost_usd)
 
@@ -301,6 +341,7 @@ async def run_pipeline(job_id: str) -> None:
             except Exception as e:
                 log.warning("markdown_render_failed", job_id=job_id, error=str(e))
 
+            pdf_path: Path | None = None
             if md_text is not None:
                 try:
                     pdf_path = render_pdf(md_text, job_id, artifact_dir)
@@ -314,5 +355,11 @@ async def run_pipeline(job_id: str) -> None:
                     log.info("pdf_rendered", job_id=job_id)
                 except Exception as e:
                     log.warning("pdf_render_failed", job_id=job_id, error=str(e))
+
+            if job.email:
+                try:
+                    await send_completion_email(job, settings.base_url, pdf_path)
+                except Exception as e:
+                    log.warning("email_dispatch_error", job_id=job_id, error=str(e))
 
         await session.commit()
