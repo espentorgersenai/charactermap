@@ -215,7 +215,10 @@ async def create_job(
 
     job_id = str(job.id)
     queue = get_queue()
-    queue.enqueue(generate_character_map_task, job_id)
+    # 600s timeout (RQ default is 180s): the grounded two-stage path can take
+    # 90-180s for Stage 1 web_search + 20-30s for Stage 2 structuring. Adding
+    # headroom for network jitter and large analyses (Dune-class works).
+    queue.enqueue(generate_character_map_task, job_id, job_timeout=600)
     log.info("job_created", job_id=job_id, model=body.model, work_type=work_type)
 
     return JobCreateResponse(job_id=job_id)
