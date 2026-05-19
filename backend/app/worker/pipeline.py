@@ -390,17 +390,25 @@ async def run_pipeline(job_id: str) -> None:
 
         try:
             if use_grounded:
-                # Step 4 of the Session 9 tuning ledger: single-stage. The
-                # earlier two-stage path lives at `_run_grounded` and can be
-                # reinstated with a one-line swap if single-stage regresses.
-                char_map, llm_result = await _run_grounded_single_stage(
-                    session, client, job
+                # Step 4 single-stage was reverted: catastrophic regression on
+                # Congo and Tokyo Express (real characters dropped, fabricated
+                # composite names like "Charles Travis", Yasuda missing as
+                # antagonist). The two-stage architecture's prose intermediate
+                # is load-bearing for closed-list discipline. See ledger
+                # comment in pipeline.
+                char_map, stage1, stage2 = await _run_grounded(session, client, job)
+                llm_result = LLMResult(
+                    text="",
+                    input_tokens=stage1.input_tokens + stage2.input_tokens,
+                    output_tokens=stage1.output_tokens + stage2.output_tokens,
+                    cost_usd=stage1.cost_usd + stage2.cost_usd,
                 )
                 log.info(
                     "pipeline_grounded_path",
                     job_id=job_id,
-                    mode="single_stage",
-                    cost=llm_result.cost_usd,
+                    mode="two_stage",
+                    stage1_cost=stage1.cost_usd,
+                    stage2_cost=stage2.cost_usd,
                 )
             else:
                 await _set_progress_stage(session, job, "generating")
