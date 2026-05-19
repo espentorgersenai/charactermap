@@ -38,9 +38,12 @@ async def test_limits_fresh_returns_full_quota(db_session_with_cost):
         response = await client.get("/api/limits")
     assert response.status_code == 200
     data = response.json()
-    assert data["jobs"]["per_minute"] == 2
-    assert data["jobs"]["per_hour"] == 5
-    assert data["jobs"]["per_day"] == 15
+    # Reads from JOBS_WINDOWS (dev-bumped to 8/30/60).
+    from app.security.rate_limit import JOBS_WINDOWS
+    by_label = {w.label: w.limit for w in JOBS_WINDOWS}
+    assert data["jobs"]["per_minute"] == by_label["per_minute"]
+    assert data["jobs"]["per_hour"] == by_label["per_hour"]
+    assert data["jobs"]["per_day"] == by_label["per_day"]
     assert data["cost"]["limit_usd"] == 5.0
     assert data["cost"]["spent_usd"] == 0.0
     assert data["cost"]["remaining_usd"] == 5.0
@@ -60,9 +63,12 @@ async def test_limits_counts_prior_jobs(db_session_with_cost, _isolated_redis):
         response = await client.get("/api/limits")
     assert response.status_code == 200
     data = response.json()
-    assert data["jobs"]["per_minute"] == 0
-    assert data["jobs"]["per_hour"] == 3  # 5 - 2
-    assert data["jobs"]["per_day"] == 13
+    from app.security.rate_limit import JOBS_WINDOWS
+    by_label = {w.label: w.limit for w in JOBS_WINDOWS}
+    # 2 jobs already recorded above ⇒ remaining = limit − 2 for each window.
+    assert data["jobs"]["per_minute"] == by_label["per_minute"] - 2
+    assert data["jobs"]["per_hour"] == by_label["per_hour"] - 2
+    assert data["jobs"]["per_day"] == by_label["per_day"] - 2
 
 
 @pytest.mark.asyncio

@@ -29,11 +29,13 @@ class Window:
     limit: int
 
 
-# SPEC §10.2 limits.
+# SPEC §10.2 baseline is 2/5/15 — temporarily loosened to 8/30/60 during the
+# pre-launch iteration phase so the developer doesn't get throttled while
+# testing. Tighten back before public deploy.
 JOBS_WINDOWS: tuple[Window, ...] = (
-    Window("per_minute", 60, 2),
-    Window("per_hour", 3600, 5),
-    Window("per_day", 86400, 15),
+    Window("per_minute", 60, 8),
+    Window("per_hour", 3600, 30),
+    Window("per_day", 86400, 60),
 )
 
 RESOLVE_WINDOWS: tuple[Window, ...] = (
