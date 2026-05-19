@@ -1,9 +1,20 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './routes/Home'
 import JobView from './routes/JobView'
 import Privacy from './routes/Privacy'
 import Terms from './routes/Terms'
 import AppHeader from './components/AppHeader'
+import AttributionFooter from './components/AttributionFooter'
+import CookieBanner from './components/CookieBanner'
+
+function GlobalFooter() {
+  const { pathname } = useLocation()
+  // JobView fills the viewport with the canvas; a footer would push the
+  // canvas below the fold. Attribution there lives in the markdown/PDF
+  // footer and in the TMDB hover credits on character cards.
+  if (pathname.startsWith('/job/')) return null
+  return <AttributionFooter />
+}
 
 export default function App() {
   return (
@@ -17,7 +28,9 @@ export default function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
+        <GlobalFooter />
       </div>
+      <CookieBanner />
     </div>
   )
 }

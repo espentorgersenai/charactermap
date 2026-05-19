@@ -4,10 +4,11 @@ interface Props {
   onSearch: (query: string) => void
   isLoading: boolean
   disabled?: boolean
+  initialValue?: string
 }
 
-export default function TitleSearch({ onSearch, isLoading, disabled }: Props) {
-  const [query, setQuery] = useState('')
+export default function TitleSearch({ onSearch, isLoading, disabled, initialValue }: Props) {
+  const [query, setQuery] = useState(initialValue ?? '')
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter' && query.trim()) onSearch(query.trim())

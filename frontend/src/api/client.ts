@@ -112,3 +112,36 @@ export async function getArtifacts(jobId: string): Promise<ArtifactInfo[]> {
   if (!res.ok) return []
   return res.json()
 }
+
+export interface Limits {
+  jobs: { per_minute: number; per_hour: number; per_day: number }
+  resolve: { per_minute: number; per_day: number }
+  cost: { limit_usd: number; spent_usd: number; remaining_usd: number }
+}
+
+export async function getLimits(): Promise<Limits | null> {
+  try {
+    const res = await fetch('/api/limits')
+    if (!res.ok) return null
+    return res.json()
+  } catch {
+    return null
+  }
+}
+
+export async function trackEvent(
+  eventType: string,
+  properties: Record<string, unknown> = {},
+  jobId?: string,
+): Promise<void> {
+  try {
+    await fetch('/api/analytics', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event_type: eventType, properties, job_id: jobId }),
+      keepalive: true,
+    })
+  } catch {
+    // Analytics never blocks the UI.
+  }
+}

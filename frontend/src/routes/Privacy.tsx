@@ -28,7 +28,7 @@ export default function Privacy() {
         </section>
         <section>
           <h2 className="text-base font-semibold mb-2">Where it's stored</h2>
-          <p>All data is stored on servers in Germany (EU).</p>
+          <p>All data is stored on Hetzner data centres in Germany (EU).</p>
         </section>
         <section>
           <h2 className="text-base font-semibold mb-2">How long we keep it</h2>
@@ -41,9 +41,32 @@ export default function Privacy() {
         <section>
           <h2 className="text-base font-semibold mb-2">Third parties</h2>
           <p>
-            Your title query is sent to the AI provider you chose (Anthropic, OpenAI, or Google)
-            to generate the map. Title metadata is fetched from Open Library and TMDb. Email
-            delivery uses Resend. Bot-prevention uses Cloudflare Turnstile.
+            Your title query is sent to the AI provider you chose to generate the map:
+            {' '}
+            <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Anthropic</a>,
+            {' '}
+            <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">OpenAI</a>, or
+            {' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Google</a>.
+            Title metadata is fetched from
+            {' '}
+            <a href="https://openlibrary.org/policies/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Open Library</a> and
+            {' '}
+            <a href="https://www.themoviedb.org/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">TMDb</a>.
+            Email delivery uses
+            {' '}
+            <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Resend</a>.
+            Bot-prevention uses
+            {' '}
+            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Cloudflare Turnstile</a>.
+          </p>
+        </section>
+        <section>
+          <h2 className="text-base font-semibold mb-2">No tracking or advertising</h2>
+          <p>
+            We don't run advertising, profile-building, or third-party tracking. The only
+            cookie set is by Cloudflare Turnstile for bot prevention (required for the service
+            to function).
           </p>
         </section>
         <section>

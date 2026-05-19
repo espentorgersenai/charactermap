@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { trackEvent } from '../api/client'
 
 export function ShareButton({ jobId }: { jobId: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleShare = async () => {
+    trackEvent('share_click', {}, jobId)
     try {
       await navigator.clipboard.writeText(`${window.location.origin}/job/${jobId}`)
       setCopied(true)

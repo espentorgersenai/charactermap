@@ -46,6 +46,31 @@ export default function Terms() {
             licenses.
           </p>
         </section>
+        <section>
+          <h2 className="text-base font-semibold mb-2">Attribution</h2>
+          <p>
+            This product uses the TMDB API but is not endorsed or certified by TMDB. Headshots,
+            cast credits, and adaptation data come from{' '}
+            <a
+              href="https://www.themoviedb.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              TMDb
+            </a>
+            . Book metadata comes from{' '}
+            <a
+              href="https://openlibrary.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Open Library
+            </a>
+            . The chosen AI model's name appears on the map's footer.
+          </p>
+        </section>
       </div>
     </main>
   )

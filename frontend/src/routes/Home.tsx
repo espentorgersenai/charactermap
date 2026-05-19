@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState, useRef } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import TitleSearch from '../components/TitleSearch'
 import ModelDropdown from '../components/ModelDropdown'
 import FormatCheckboxes from '../components/FormatCheckboxes'
@@ -7,11 +7,13 @@ import CharacterCapDropdown from '../components/CharacterCapDropdown'
 import ResolveBanner from '../components/ResolveBanner'
 import ResolveCandidatePicker from '../components/ResolveCandidatePicker'
 import HowThisWorksModal from '../components/HowThisWorksModal'
+import Turnstile from '../components/Turnstile'
 import { useResolve } from '../hooks/useResolve'
 import { useFormPrefill, type CharacterCap } from '../hooks/useFormPrefill'
 import { useRecentMaps } from '../hooks/useRecentMaps'
+import { useLimits } from '../hooks/useLimits'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { ResolveCandidate, createJob } from '../api/client'
+import { ResolveCandidate, createJob, trackEvent } from '../api/client'
 
 // ── Photos ────────────────────────────────────────────────────────────────────
 const HERO_PHOTO =
@@ -63,12 +65,40 @@ function StepLabel({ n, title }: { n: string; title: string }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Maps backend error codes (from FastAPI HTTPException detail.code) to
+// user-friendly copy. Falls back to a generic message for unknown codes.
+const ERROR_COPY: Record<string, string> = {
+  RATE_LIMITED: 'You\'re sending requests too quickly. Try again in a moment.',
+  DAILY_BUDGET_EXHAUSTED:
+    'The service has hit today\'s spending limit. Please try again tomorrow.',
+  TURNSTILE_FAILED:
+    'Captcha verification failed. Refresh the page and try again.',
+  SPOILERS_NOT_ACKNOWLEDGED:
+    'Please acknowledge the spoiler warning before generating.',
+}
+
+function friendlyError(raw: string): string {
+  return ERROR_COPY[raw] ?? raw
+}
+
+const MODEL_CYCLE = [
+  'claude-sonnet-4-6',
+  'claude-opus-4-7',
+  'gpt-5.5',
+  'gemini-2.5-pro',
+]
+
 export default function Home() {
   const navigate   = useNavigate()
+  const [searchParams] = useSearchParams()
   const { resolve, candidates, isLoading, error, hasSearched, reset } = useResolve()
   const { load, save } = useFormPrefill()
   const prefs = load()
   const { recentMaps } = useRecentMaps()
+  const { limits } = useLimits()
+  const dailyLeft = limits?.jobs.per_day ?? null
+  const budgetExhausted =
+    (limits?.cost.remaining_usd ?? 1) <= 0 || dailyLeft === 0
   const [showModal, setShowModal] = useState(false)
 
   const [model, setModel]               = useState(prefs.model)
@@ -81,8 +111,31 @@ export default function Home() {
   const [forceShowPicker, setForceShowPicker]         = useState(false)
   const [submitting, setSubmitting]   = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0)
+
+  // VITE_TURNSTILE_SITE_KEY is set in production (.env.production) and
+  // empty in dev. The widget is skipped entirely when unset so local dev
+  // doesn't require a key.
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined
+  const turnstileRequired = !!turnstileSiteKey
 
   const searchRef = useRef<HTMLDivElement>(null)
+
+  // Refused/failed JobView sends users back here with ?title=…&cycleModel=1
+  // to retry with the next-best model. Cycle wraps around the MODEL_CYCLE list.
+  useEffect(() => {
+    if (searchParams.get('cycleModel') !== '1') return
+    const idx = MODEL_CYCLE.indexOf(model)
+    const next = MODEL_CYCLE[(idx + 1) % MODEL_CYCLE.length]
+    setModel(next)
+    savePrefs({ model: next })
+    const titleParam = searchParams.get('title')
+    if (titleParam) handleSearch(titleParam)
+    // strip the query so reloading doesn't re-cycle
+    navigate('/', { replace: true })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const savePrefs = (updates: Partial<Parameters<typeof save>[0]>) =>
     save({ model, formats, workType, characterCap, ...updates })
@@ -92,7 +145,12 @@ export default function Home() {
 
   if (autoSkip && topCandidate && !selectedCandidate) setSelectedCandidate(topCandidate)
 
-  const canGenerate = spoilerAcknowledged && formats.length > 0 && selectedCandidate !== null
+  const canGenerate =
+    spoilerAcknowledged &&
+    formats.length > 0 &&
+    selectedCandidate !== null &&
+    !budgetExhausted &&
+    (!turnstileRequired || !!turnstileToken)
 
   function handleSearch(query: string) {
     reset(); setSelectedCandidate(null); setForceShowPicker(false)
@@ -112,11 +170,17 @@ export default function Home() {
         title_query: selectedCandidate.title, resolved: selectedCandidate,
         model, formats, email: email || undefined,
         acknowledged_spoilers: true, character_cap: characterCap,
+        turnstile_token: turnstileToken ?? undefined,
       })
       navigate(`/job/${job_id}?${new URLSearchParams({ model, title: selectedCandidate.title })}`)
     } catch (e: unknown) {
-      setSubmitError(e instanceof Error ? e.message : 'Failed to start the job')
+      const raw = e instanceof Error ? e.message : 'Failed to start the job'
+      setSubmitError(friendlyError(raw))
       setSubmitting(false)
+      // Tokens are single-use server-side. Force a fresh challenge for the
+      // retry so the next submit doesn't 403 with a stale token.
+      setTurnstileToken(null)
+      setTurnstileResetSignal((n) => n + 1)
     }
   }
 
@@ -247,7 +311,11 @@ export default function Home() {
             <Reveal><StepLabel n="Step 2" title="Find your title" /></Reveal>
 
             <Reveal delay={1}>
-              <TitleSearch onSearch={handleSearch} isLoading={isLoading} />
+              <TitleSearch
+                onSearch={handleSearch}
+                isLoading={isLoading}
+                initialValue={searchParams.get('title') ?? undefined}
+              />
             </Reveal>
 
             {error && <Reveal delay={1}><p className="text-sm text-award-crimson mt-4">{error}</p></Reveal>}
@@ -290,6 +358,7 @@ export default function Home() {
                     <Reveal key={entry.jobId} delay={Math.min(i + 1, 4) as 1|2|3|4}>
                       <a
                         href={`/job/${entry.jobId}`}
+                        onClick={() => trackEvent('recent_map_click', {}, entry.jobId)}
                         className="flex items-center gap-4 py-3 group transition-all"
                         style={{ borderBottom: '1px solid rgba(61,48,32,0.5)' }}
                       >
@@ -352,13 +421,39 @@ export default function Home() {
         </Reveal>
 
         <Reveal delay={1} className="relative">
-          {!canGenerate && (
+          {/* Daily quota hint. Hide when the user still has the full daily
+              allotment (no one wants to see '15 generations left today' on
+              first load), surface as soon as they've used at least one. */}
+          {dailyLeft !== null && dailyLeft < 15 && !budgetExhausted && (
+            <p className="text-[10px] text-award-cream-dim mb-3 tracking-wider">
+              You have <span className="text-award-cream">{dailyLeft}</span>{' '}
+              generation{dailyLeft === 1 ? '' : 's'} left today
+            </p>
+          )}
+          {budgetExhausted && (
+            <p className="text-[11px] text-award-crimson mb-3">
+              Daily limit reached. Please try again tomorrow.
+            </p>
+          )}
+          {!canGenerate && !budgetExhausted && (
             <p className="text-[10px] text-award-cream-dim mb-4 tracking-widest uppercase">
               {!spoilerAcknowledged
                 ? '— Acknowledge the spoiler warning above —'
                 : !selectedCandidate ? '— Search and select a title first —'
-                : '— Select at least one output format —'}
+                : formats.length === 0 ? '— Select at least one output format —'
+                : turnstileRequired && !turnstileToken ? '— Complete the captcha below —'
+                : ''}
             </p>
+          )}
+          {turnstileRequired && (
+            <div className="flex justify-center mb-6">
+              <Turnstile
+                siteKey={turnstileSiteKey}
+                onToken={setTurnstileToken}
+                onExpire={() => setTurnstileToken(null)}
+                resetSignal={turnstileResetSignal}
+              />
+            </div>
           )}
           <button
             onClick={handleGenerate}
