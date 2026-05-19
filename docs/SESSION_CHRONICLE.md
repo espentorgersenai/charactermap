@@ -373,3 +373,53 @@ Fixed a pre-existing silent failure: pdflatex can't render ⚠ (U+26A0). Any map
 - **186 backend unit tests passing** (was 173). 8 skipped (pdflatex-gated). New: `test_tv_aggregate_credits.py` (6 tests covering /aggregate_credits routing + role flattening), `test_pdf_character_blocks.py` (7 tests for the regex + LaTeX escape + minipage rewriter).
 - Existing rate-limit + limits-route tests updated to read from `JOBS_WINDOWS` instead of hardcoded 2/5/15.
 - **Live verified:** Night Manager re-render returned 16/16 headshots. Pillars PDF re-render: 18 headshots in side-by-side layout, no silent failure on the coverage-note ⚠.
+
+---
+
+## Session 9 — 2026-05-19
+
+### What We Built
+
+**Two-stage grounded character map pipeline** (commits 1ba31d0, 7f2adca, 8fb0e76). The session began as prompt iteration — added explicit anti-fabrication rules (name-source check, faction-padding test, antagonist/climax-reveal check, under-fill rule) to `character_map.md`, threaded `--char-cap` through `dev-generate.py` and `run_golden_set.py`, ran a four-way A/B (baseline vs v1 vs v2 vs GPT-5.5) on Congo and Devil's Star. Result: prompt iteration halved fabrication count but did not reach zero. The user-provided Congo ground-truth list (Karen Ross, Peter Elliot, Amy, Travis, Munro, Kahega, Jan Kruger, Misulu) exposed a knowledge-ceiling: no model recalled Jan Kruger or Misulu from memory regardless of prompting effort.
+
+Pivoted to web-search grounding after user feedback (*"it is disappointing that a good old google search gives you better answers"*). Considered a bespoke-scraper architecture (Wikipedia + Wikidata + Goodreads clients + orchestrator, ~700 lines of plan) — abandoned in favor of Anthropic's `web_search_20250305` tool, which collapses the same idea into one provider feature. Two-stage shape:
+
+- **Stage 1** (`character_map_analysis.md`): claude-sonnet-4-6 with `web_search` enabled produces verified Cast + True Final Resolution + Adaptation prose with cited URLs. The closed list is the Stage 1 output, not a hand-built data fetch.
+- **Stage 2** (`character_map_structuring.md`): same model converts the analysis into `CharacterMap` JSON, treating Cast section names as a closed list. Names are *inputs*, not predictions.
+
+Smoke-tested on Congo end-to-end (Jan Kruger + Misulu both present, zero fabrications, full adaptation_note). Ran the 10-work golden set: 0 closed-list violations, +50 real characters recovered vs the cap=20 ungrounded baseline. Discovered and fixed a Stage 2 over-trim bug — the bidirectional closed-list rule needed to spell out *don't drop* as explicitly as *don't add* — then re-ran cleanly. Total session run cost: ~$11.79 across 54 LLM calls.
+
+**Pipeline integration + production deploy** (commits 7f2adca, 8fb0e76). Wired the two-stage path into `run_pipeline` behind `settings.enable_grounding=True` (default). Anthropic-only for now — OpenAI/Gemini stay on the legacy single-stage path. Stage 1 prompt uses `cache_control: ephemeral` so warm-cache cost is ~$0.18/job (vs ~$0.66 cold). Added new refusal code `grounding_failed`. Extended `CharacterMap` schema with optional `adaptation_note` field (populated when Stage 1 surfaces a Key Adaptation Differences section). Hit and fixed RQ's default 180s `job_timeout` (grounded jobs run 90-200s easily) — bumped to 600s. End-to-end Tokyo Express on production verified: Yasuda correctly as antagonist, Ryōko's late-act twist at sp=3, all victims marked dead.
+
+**Live stage labels on the in-progress view** (commit 32acc76). Replaced the static "Generating your map…" with stage-aware copy that reflects what the worker is doing. Added `Job.progress_stage` column (migration `0004`) with codes `searching | structuring | enriching | rendering`. Worker updates it at each pipeline transition; SSE carries it; frontend maps to user-facing copy via `getStageLabel()`. Progress bar fill mapped per-stage (searching=25%, structuring=65%, etc.). `MODEL_ETAS` refreshed to grounded reality: Sonnet 4.6 = "90–180s (web-grounded)". Also restructured `run_pipeline` so `status='done'` flips AFTER artifact rendering completes — eliminated a latent race where the frontend could fetch artifacts before the worker wrote them.
+
+**Time-tuning ledger** (commits 95ce8c6, c06185f → b708669, ebbb604, 6cd8653 → d5a746f). User asked to cut "serious time" off the ~236s baseline. One-at-a-time protocol: change a knob, measure, KEEP if quality survives else REVERT.
+
+| Step | Change | Wall (Embassy) | Cost | Verdict |
+|---|---|---:|---:|---|
+| 1 | `max_searches: 8 → 3` | 204s | $0.18 | KEEP ✓ |
+| 2 | Stage 2 → Haiku 4.5 | 174s | $0.11 | REVERT ✗ (fabricated `JoaQuin` via WikiWord pattern-completion) |
+| 3a | Drop "Structural Metaphors" + "Systemic Nuance" sections | output -22% | $0.16 | KEEP ✓ |
+| 4 | Single-stage (eliminate Stage 2) | 102s on Embassytown | $0.085 | PROVISIONAL |
+| 5a | Single-stage validation on Congo + Tokyo Express | — | — | REVERT step 4 ✗ |
+
+Step 4 looked like a 50% win on Embassytown but Step 5a's cross-validation found catastrophic regression — single-stage on Congo missed **Munro, Kahega, Misulu** and invented **"Charles Travis"** (a Munro+Travis composite) and **"Ghost Tribe Member (Uncredited)"** (film-credits leakage). On Tokyo Express it missed **Yasuda (the actual killer), Mihara, Sayama, Ryōko** and filled with invented Japanese-sounding names. Reverted to Step 3a state. Net session win: cost down ~20% from baseline ($0.20 → $0.16), wall time ~unchanged after noise.
+
+### Key Decisions
+
+- **The closed list is the cache, not the contract.** We never built the bespoke Wikipedia/Wikidata/Goodreads scrapers from the original grounding plan (now sitting uncommitted at `docs/superpowers/plans/2026-05-19-grounding-pipeline.md`). Anthropic's `web_search_20250305` tool collapsed three custom modules + an orchestrator into one client method. The grounding plan file is preserved as a record of the road not taken; if Anthropic's tool ever stops being good enough we have the design.
+- **Two-stage is load-bearing, not just decorative.** The Step 5a regression proved this. The prose intermediate isn't there for users to read — it's there to *commit the model to a verified cast list before it structures it*. Stage 1 = retrieval (with the analyst freedom to reason about source credibility). Stage 2 = structured projection under a closed-list rule. Collapsing them produces composites (Charles Travis) and silent omissions (Yasuda) because the model has too many concurrent constraints. Don't reattempt single-stage without a different mitigation; `_run_grounded_single_stage` stays in the code as a reference implementation with a comment explaining why it isn't wired.
+- **Haiku 4.5 fabricates even under closed-list.** The JoaQuin failure on Step 2 was diagnostic. Haiku's `name_evidence` literally cited the WikiWord naming convention as evidence — pattern-completion masquerading as source-grounding. The earlier removal from `VALID_MODELS` (Session 5/6) was for ungrounded fabrication; closed-list doesn't save it. Sonnet stays on Stage 2.
+- **Never delete maps from `jobs.character_map`.** Each map is a free serving entry for `find_best_cached_job`. Memorialized in `feedback_never_delete_maps.md`. The existing `Job.deleted_at` column stays for explicit user-initiated deletion only; nothing else writes to it. The `artifact_retention_days: 30` setting in `config.py` is dead code — it referenced nothing and was *not* about map JSON, only the MD/PDF artifacts on disk.
+- **`status='done'` flips last.** Reordered `run_pipeline`'s else branch so `done` is committed AFTER markdown + PDF artifacts are on disk. Without this, the SSE stream's `done` event can fire while the worker is still rendering; the frontend then 404s on artifact fetches. Pre-existing latent bug — new progress flow made it impossible to ignore.
+- **Cost is dominated by output tokens, not search latency.** Three searches at $0.01 each = $0.03; Stage 1's 5600 output tokens at $15/M = $0.084. The wall-time win from `max_searches: 8 → 3` was 13%, not 50%, because search count was never the bottleneck — output prose was. Step 3a's `-22% output tokens` is the more durable win even if a single sample was noisy.
+- **Embassytown was a softball.** It has a clean Wikipedia article that dominates web search. Single-stage looked great on it. Congo and Tokyo Express have noisy mixed signals (film extras pages, older Japanese sources). One-work validation is insufficient — any future grounding change needs at least Congo + Tokyo Express + Embassytown as a regression triple.
+
+### Test Status
+
+- **186 backend unit tests still passing** (no test regression across the session). 8 skipped (pdflatex). Tests not yet written for the new grounded path (`_run_grounded`, `_run_grounded_single_stage`, web_search code path, progress_stage transitions) — covered live by production smoke tests but no unit harness yet. Worth filing.
+- **Production verified end-to-end** (commits deployed via `./deploy.sh`):
+  - Embassytown grounded job ran clean, all key characters present, adaptation_note empty (no adaptation), 4 minutes total.
+  - Tokyo Express grounded job: 11 characters, Yasuda as antagonist, Ryōko at sp=3, adaptation_note populated about the 1958 Toei film.
+  - Stage transitions visible in SSE: `searching → structuring → enriching → rendering → done`.
+- **Cumulative session LLM spend: ~$11.79** across 54 calls (1.95M input tokens, 351K output, 72 web_search calls). Detailed breakdown saved at `tuning/run-2026-05-19-searchcount/` (mixed Embassytown step-by-step artifacts and the full 10-work golden batch under `tuning/run-2026-05-19-full2/`).
