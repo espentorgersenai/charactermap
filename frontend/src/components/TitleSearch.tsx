@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 interface Props {
   onSearch: (query: string) => void
@@ -10,24 +10,31 @@ interface Props {
 export default function TitleSearch({ onSearch, isLoading, disabled, initialValue }: Props) {
   const [query, setQuery] = useState(initialValue ?? '')
 
-  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter' && query.trim()) onSearch(query.trim())
+  // A real <form> lets the browser save submitted values to its form-history
+  // store (autocomplete="on" + name=...). Mobile Safari and Chrome then
+  // surface previous entries as you type — no localStorage code on our side.
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const v = query.trim()
+    if (v && !isLoading && !disabled) onSearch(v)
   }
 
   return (
-    <div className="flex items-end gap-4">
+    <form onSubmit={handleSubmit} className="flex items-end gap-4">
       <input
-        type="text"
+        type="search"
+        name="character-map-title"
+        autoComplete="on"
+        enterKeyHint="search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
         placeholder="Enter a title…"
         disabled={disabled || isLoading}
         className="input-underline flex-1 text-lg disabled:opacity-40"
         aria-label="Title search"
       />
       <button
-        onClick={() => query.trim() && onSearch(query.trim())}
+        type="submit"
         disabled={!query.trim() || isLoading || disabled}
         className="btn-gold-metal px-7 py-2.5 rounded-full text-sm disabled:opacity-35 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-award-gold"
         style={
@@ -38,6 +45,6 @@ export default function TitleSearch({ onSearch, isLoading, disabled, initialValu
       >
         {isLoading ? 'Searching…' : 'Search'}
       </button>
-    </div>
+    </form>
   )
 }
