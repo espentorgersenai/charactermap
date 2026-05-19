@@ -2,7 +2,7 @@
 
 Character Map Generator · Chronological build log — appended at the end of each session.
 
-Last updated: Session 6 · 2026-05-18 (wrapup)
+Last updated: Session 7 · 2026-05-19 (wrapup)
 
 > **Backlog / open items / next steps → [kanban.torgersen.ai](https://kanban.torgersen.ai) — project: Character Map, board: Character Map.** This file is the *narrative archive* of what was built each session; no TODOs live here.
 
@@ -289,3 +289,54 @@ Full Phase 1 implementation — all 8 Planka cards moved to Completed.
 - **135 backend unit tests passing.** New additions: 8 markdown headshot/attribution tests, 5 PDF rewrite tests, 13 pipeline fence-strip tests, 8 collection-cast tests, 8 adaptations-route tests, 8 images-route tests.
 - **Live verified end-to-end through the public URL** (https://charactermap.torgersen.ai/): frontend 200, API health ok, resolve returns candidates, adaptations cast returns 30 Pulp Fiction members, image proxy HIT on both cache tiers.
 - Generation quality verified live for Congo + Pulp Fiction across all three providers (Anthropic Sonnet, OpenAI GPT-5.5, Google Gemini 2.5 Pro).
+
+---
+
+## Session 7 — 2026-05-19
+
+### What We Built
+
+**Phase 5 + 6 backend** (SPEC §16 deliverables #35–39, #42):
+- **Daily cost guard** (`app/cost/__init__.py`): `get_today_cost` / `record_cost` against `daily_costs`. `POST /api/jobs` returns 503 `DAILY_BUDGET_EXHAUSTED` when at limit. Pipeline debits after success only — Opus runs can't pre-empt the budget. Cache hits bypass the gate ($0 cost).
+- **Sliding-window rate limits** (`app/security/rate_limit.py`): per-IP sorted-set log in Redis. 2/min, 5/hr, 15/day on jobs; 30/min, 200/day on resolve. Blocked attempts not recorded so spammers can't extend their own block. 429 with `Retry-After`.
+- **`GET /api/limits`**: read-only `peek_remaining` for both endpoints plus daily-cost remaining.
+- **Turnstile** (`app/security/turnstile.py`): server-side siteverify with fail-closed behavior. Skipped in dev when `TURNSTILE_SECRET_KEY` is empty.
+- **Analytics** (`app/analytics/__init__.py`, `app/routes/analytics.py`): `POST /api/analytics` with §14.2 enum validation. Server-side emissions wired from jobs route (`form_submit`) + resolve route (`resolve_hit`/`no_results`) + pipeline (`job_done`/`failed`/`refused` with `duration_ms`).
+- **Resend email** (`app/email/mailer.py`): HTML+text body, PDF attached, share link, TMDb attribution (conditional), "what this is" honesty footer, delete-my-map mailto. Inline 600px PNG deferred (no server-side React Flow renderer).
+- Added `fakeredis` dev dep + per-test conftest fixture isolating the limiter.
+- **173 backend unit tests passing** (was 135). New suites: cost_guard, rate_limits, limits_route, turnstile, analytics_route, analytics_emissions, email, pipeline_cost, resolve_resilience.
+
+**Phase 5 + 6 frontend:**
+- `Turnstile.tsx` — vanilla CF script loader, single-use token reset on submit, dev-skipped when env key absent.
+- `useLimits` hook + "N generations left today" hint above Generate (hides at full quota, shows "Daily limit reached" at zero).
+- Friendly error copy mapping (`RATE_LIMITED` / `DAILY_BUDGET_EXHAUSTED` / `TURNSTILE_FAILED`). `cycleModel=1` retry path from refused JobView actually cycles through `MODEL_CYCLE` and re-prefills the search box via new `TitleSearch.initialValue` prop.
+- `AttributionFooter` (TMDb + Open Library) + `CookieBanner` (one-time, dismissed in localStorage). Both rendered site-wide except JobView.
+- `/privacy` + `/terms` filled to SPEC §15 — per-vendor privacy-policy links, Hetzner specificity, "no tracking/advertising" section, TMDB+OL attribution section on Terms.
+- `trackEvent` helper in `api/client.ts`. `share_click` from `ShareButton`, `recent_map_click` from the recent-maps list.
+
+**Bugs squashed in production:**
+- **Resolve route 500 on short queries.** Open Library returns 422 for "It", TMDb 5xx during outages; both propagated as 500, WebKit fetch showed "Load failed". Now `search_books` + `_tmdb_get` catch `HTTPStatusError` and return empty.
+- **VPS nginx 301 on `POST /api/jobs`.** `location /api/jobs/` (trailing slash) for SSE made nginx auto-301 `POST /api/jobs` to `/api/jobs/`; WebKit refuses to replay POST across 301 and surfaces "Load failed". Fixed by scoping SSE block to `~ ^/api/jobs/[^/]+/stream$`. Latent on all desktop browsers (they follow 301-on-POST de-facto) — iPad caught it.
+- **Vite cache-collision + Docker build-arg.** Frontend wasn't picking up `VITE_TURNSTILE_SITE_KEY` because docker-compose `build: ./frontend` had no `args:`. Wired ARG → ENV through Dockerfile and `${TURNSTILE_SITE_KEY:-}` through compose.
+
+**UX polish:**
+- Title search wrapped in real `<form>` with `autoComplete="on"` + `name` + `type="search"` + `enterKeyHint="search"` so mobile keyboards surface previously-typed titles natively.
+- Spoiler-warning checkbox hidden (WhatThisIsBanner already sets expectations); `acknowledged_spoilers: true` hardcoded in `createJob`. Backend gate kept.
+
+### Key Decisions
+
+- **Cache hits bypass the cost guard, NOT the rate limiter.** A $0 cached response is fine to serve over budget; the rate limit still protects against scrapers cycling cached titles.
+- **Guard order in `POST /api/jobs`:** rate-limit → Turnstile → spoiler-ack → cache → cost-guard → queue. A user at the daily limit who hits a cached title still gets the map; one who misses cache gets 503.
+- **Blocked rate-limit attempts are NOT recorded.** Otherwise spammers extend their own block window indefinitely.
+- **Server-side PNG render deferred.** Email ships without the inline 600px preview that §10.5 promises. Two viable paths in the follow-up card (frontend POSTs PNG to backend, or Playwright server render). Path 1 is cheaper.
+- **Turnstile is OFF in production right now.** Widget got stuck at "verifying" on iPad — root cause is `charactermap.torgersen.ai` is on Cloudflare DNS-only (grey cloud), but Turnstile requires the domain to be proxied (orange cloud) so `/cdn-cgi/*` traffic terminates at CF edge. Re-enabling requires the CF-proxy tradeoff decision. Both keys blanked in lfc `.env`.
+- **Vite content-hash collisions are real.** The no-site-key build produced the same `index-5rcX9ZZy.js` hash as a much earlier build — `--no-cache` Docker rebuild didn't change the hash because the bundle bytes were identical. Bust at the browser level (private window) when this happens.
+- **Browser-native form history beats a custom dropdown.** Wrapping the title input in a real form with `name` + `autoComplete` is one diff, zero new code, surfaces previous titles directly in the iOS/Chrome keyboard suggestion bar.
+- **iPad UX is the real test environment.** All three of today's production bugs (resolve 500, nginx 301-on-POST, Turnstile orange-cloud requirement) were invisible on desktop and only manifested on iOS WebKit. Worth running new features through an iPad before declaring done.
+- **66% TMDB-cast match rate on Pillars is normal.** 19 of 30 characters got a headshot; the 11 without are children, minor monks, and historical cameos that the 2010 miniseries didn't credit. The honest "no headshot" UI (initials) is better than a fake match.
+
+### Test Status
+
+- **173 backend unit tests passing** (was 135). 8 skipped (PDF — requires pdflatex). 19/19 frontend vitest passing. TypeScript clean, vite build clean.
+- **Live verified:** /api/health 200, /api/limits returns full structure, /api/jobs accepts POSTs returning 202 + job_id, full resolve→generate→render flow tested with Pillars of the Earth (Opus + Sonnet), iPad end-to-end working.
+- **Not verified yet:** golden-set across all 10 works, fabrication audit on *A Fire Upon the Deep*. These are #43 + #44 (manual, by the user).

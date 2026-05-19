@@ -1,57 +1,35 @@
 # Next Session — Start Prompt
 
-> Hand-off note from Session 6 wrapup. Paste the block below at the start of the next session to give the agent immediate context.
+> Hand-off note from Session 7 wrapup. Paste the block below at the start of the next session.
 
 ---
 
-Goal: ship SPEC §16 deliverables #35–45 if context window allows. That's all of Phase 5 (#35-38) plus all the Phase 6 polish (#39-45) — making charactermap.torgersen.ai actually launch-ready with three working providers.
+## Where the project is
 
-Site state at session start: live at charactermap.torgersen.ai/, all three providers verified (Sonnet 4.6, Opus 4.7, GPT-5.5, Gemini 2.5 Pro), 135 backend tests green. Frontend agent has been iterating on UI in parallel; treat `frontend/` as off-limits unless coordinating.
+charactermap.torgersen.ai is live and end-to-end working — search → resolve → generate → render → download → email. All three providers verified (Sonnet 4.6, Opus 4.7, GPT-5.5, Gemini 2.5 Pro). 173 backend unit tests + 19 frontend vitest passing. iPad tested end-to-end (the real test environment — three production bugs squashed this session were invisible on desktop and only manifested on iOS WebKit).
 
-## The 11 deliverables, grouped by ownership
+Phase 5 + 6 backend deliverables (#35–39, #42) are shipped. Phase 5/6 frontend deliverables (#35 widget, #38 hint, #40 errors, #41 privacy/terms/cookies, #42 client analytics) are shipped. Two SPEC #-items remain to fully close Phase 6: **#43 golden-set validation** and **#44 fabrication audit** — both manual, user-driven.
 
-**Backend-only (mine, ~6):**
-- **#37** Daily cost guard enforcement — highest-risk gap, financial kill-switch is currently inert
-- **#36** Redis sliding-window rate limits (2/min, 5/hr, 15/day)
-- **#38** `GET /api/limits` endpoint
-- **#35** Turnstile backend token verification (frontend half is the other agent's)
-- **#39** Resend email delivery — HTML + PDF attached + PNG preview
-- **#42** Analytics events route + persistence
+## Top of the launch-readiness list
 
-**Frontend-coordinated (only if the other agent is free):**
-- **#41** `/privacy` + `/terms` full content + cookie banner
-- **#40** Friendly error/refused/failed copy + retry buttons
-- **#35** `Turnstile.tsx` widget
+1. **Manual validation (the actual remaining blocker for v1).**
+   - **#43:** Run `scripts/run_golden_set.py` for all 10 works against Sonnet 4.6. Review each output for accuracy + spoiler-level honesty + fabrications. Iterate prompt until clean. Save passing outputs to `tuning/exemplars/`.
+   - **#44:** Fabrication audit on *A Fire Upon the Deep* + one obscure work you know intimately. Zero invented characters/relationships to pass.
+   - **#45:** Close after #43 + #44 are clean.
 
-**Manual / user-driven (not coding):**
-- **#43** Golden-set validation — run `scripts/run_golden_set.py` for all 10 works, review each output for fabrications + correctness
-- **#44** Fabrication audit on *A Fire Upon the Deep* + one obscure work
-- **#45** Workflow gate — close only after #43 and #44 are clean
+2. **Cloudflare orange-cloud decision for Turnstile.** Currently OFF in production (both keys blanked in lfc `.env`). Re-enabling requires putting the domain behind CF proxy (orange cloud) so `/cdn-cgi/*` traffic terminates at CF edge. Infrastructure wiring already done — just flip the keys back and redeploy after the proxy decision. (Cost guard + rate limits cover most of the abuse surface even without it.)
 
-## Suggested order if context permits everything
+3. **Pre-launch hygiene:** rotate `ARTIFACT_SIGNING_KEY` (still `'change-me-in-production'`), verify GPT-5.5 pricing against current OpenAI rates, audit other nginx prefix-locations for the 301-on-POST class of bug.
 
-**Block 1 — defensive, no UI dependency (~1 hr):**
-`#37` daily cost guard → `#36` rate limits → `#38` /api/limits → `#35` backend. Ship as one logical commit per piece, run unit tests between.
+## What to know before touching anything
 
-**Block 2 — delivery + observability (~45 min):**
-`#42` analytics events → `#39` Resend email (test with real Congo + email).
+- **iPad first.** Test new features on iPad before declaring done. Desktop browsers silently follow 301-on-POST; iOS WebKit doesn't. Open Library 422s on short queries. CF Turnstile requires orange-cloud. None of these were caught on desktop.
+- **Turnstile is wired but disabled.** Don't reintroduce it without addressing the orange-cloud decision first. Keys in `.env.bak.1779150643` on lfc.
+- **Spoiler banner is gone in v1.** Backend hard-gate on `acknowledged_spoilers: true` is intact (still rejects false). Frontend hardcodes true. Reintroduce the banner when shipping v1.5 spoiler-safe mode.
+- **VPS access:** `ssh espen@torgersen.ai`; `usv_nginx` is a Docker container; edit `/home/espen/ClaudeCode/UAV/usv-fleet-platform/usv-fleet/config/nginx.conf` **in-place** (single-file bind mounts pin to inode). Reload with `docker exec usv_nginx nginx -s reload` after `nginx -t`.
+- **lfc `.env` changes:** `docker compose up -d --force-recreate <service>` — `restart` alone keeps stale env.
+- **Frontend rebuilds:** Vite content-hashing can collide. If a rebuild produces the same bundle hash, the bundle bytes really are identical; check that, not the filename.
 
-**Block 3 — manual validation (~30 min interactive):**
-`#43` golden-set run + review → `#44` fabrication audit. If either fails: edit prompt, re-run, repeat. Close `#45` when clean.
+## How to start the next session
 
-**Block 4 — coordinate with frontend agent:**
-`#41` + `#40` — backend side may be near-zero work; mostly content + component scaffolding. Surface what backend needs.
-
-**Other pre-launch (existing ToDo cards, not in 35-45 list but cheap):**
-- Rotate `ARTIFACT_SIGNING_KEY` (1 min) before any block ships
-- Verify GPT-5.5 + Gemini 2.5 Pro real pricing (5 min curl)
-
-## Things to know
-
-- **VPS:** `ssh espen@torgersen.ai`; `usv_nginx` is a Docker container; edit `/home/espen/ClaudeCode/UAV/usv-fleet-platform/usv-fleet/config/nginx.conf` **in-place** (single-file bind mounts pin to inode — see [[feedback-docker-bind-mount-inode]]).
-- **lfc `.env` changes:** `docker compose up -d --force-recreate` (restart alone keeps stale env).
-- **Frontend rebuilds:** ask first.
-
-## If context runs short
-
-The must-haves before any public traffic are `#37`, `#36`, `#41`, `#35`, plus Rotate `ARTIFACT_SIGNING_KEY` and the spoiler-ack revert. Everything else can slide to a session 8.
+Read this file, scan the top 5 ToDo cards on Planka, and pick the most-impactful unblocked work. The launch-critical path is #43/#44 (manual) followed by the Turnstile orange-cloud decision. Everything else is post-launch polish.
