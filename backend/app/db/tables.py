@@ -39,6 +39,9 @@ class Job(Base):
     character_cap = Column(Integer, nullable=False, server_default="20")
 
     status = Column(Text, nullable=False, default="queued")
+    # Fine-grained sub-stage within status='generating', for UX progress display.
+    # Codes: searching | structuring | enriching | rendering | (null when not generating)
+    progress_stage = Column(Text)
     error_code = Column(Text)
     error_message = Column(Text)
     character_map = Column(JSONB)

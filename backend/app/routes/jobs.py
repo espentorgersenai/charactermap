@@ -233,6 +233,7 @@ async def get_job(job_id: str, session: AsyncSession = Depends(get_db)) -> JobSt
     return JobStatusResponse(
         job_id=str(job.id),
         status=job.status,
+        progress_stage=job.progress_stage,
         character_map=job.character_map,
         error_code=job.error_code,
         error_message=job.error_message,
@@ -245,6 +246,17 @@ _STATUS_TO_PROGRESS = {
     "done": 1.0,
     "refused": 1.0,
     "failed": 1.0,
+}
+
+# Finer-grained progress within status='generating', mapped to the bar fill.
+# Bumps the bar past the broad 'generating' tick so users see real movement
+# during the long Stage 1 (web_search) phase.
+_STAGE_TO_PROGRESS = {
+    "searching":   0.25,   # Stage 1 web_search — longest phase (60-130s)
+    "structuring": 0.65,   # Stage 2 closed-list JSON build (15-30s)
+    "generating":  0.40,   # ungrounded single LLM call
+    "enriching":   0.80,   # TMDB cast + creator fuzzy match
+    "rendering":   0.92,   # markdown + PDF render
 }
 
 
@@ -260,6 +272,7 @@ async def stream_job(job_id: str) -> StreamingResponse:
             yield f"event: error\ndata: {json.dumps({'error': 'invalid_job_id'})}\n\n"
             return
 
+        last_stage = None
         while True:
             async with async_session_factory() as session:
                 job = await session.get(Job, uid)
@@ -268,13 +281,23 @@ async def stream_job(job_id: str) -> StreamingResponse:
                 yield f"event: error\ndata: {json.dumps({'error': 'not_found'})}\n\n"
                 return
 
-            if job.status != last_status:
-                progress = _STATUS_TO_PROGRESS.get(job.status, 0.05)
-                yield (
-                    f"event: status\n"
-                    f"data: {json.dumps({'status': job.status, 'progress': progress})}\n\n"
+            stage = job.progress_stage
+            if job.status != last_status or stage != last_stage:
+                # Pick the finer-grained stage value if present; fall back to
+                # status-level progress for queued/done/refused/failed.
+                progress = (
+                    _STAGE_TO_PROGRESS.get(stage)
+                    if stage is not None
+                    else _STATUS_TO_PROGRESS.get(job.status, 0.05)
                 )
+                payload = {
+                    "status": job.status,
+                    "progress": progress,
+                    "stage": stage,
+                }
+                yield f"event: status\ndata: {json.dumps(payload)}\n\n"
                 last_status = job.status
+                last_stage = stage
 
             if job.status in ("done", "refused", "failed"):
                 if job.status == "done":

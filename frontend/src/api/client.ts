@@ -50,9 +50,18 @@ export const api = {
     }),
 }
 
+export type JobProgressStage =
+  | 'searching'
+  | 'structuring'
+  | 'generating'
+  | 'enriching'
+  | 'rendering'
+  | null
+
 export interface JobStatus {
   job_id: string
   status: 'queued' | 'generating' | 'done' | 'refused' | 'failed'
+  progress_stage?: JobProgressStage
   character_map?: Record<string, unknown> | null
   error_code?: string | null
   error_message?: string | null

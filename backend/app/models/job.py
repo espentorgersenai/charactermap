@@ -53,6 +53,10 @@ class JobCreateResponse(BaseModel):
 class JobStatusResponse(BaseModel):
     job_id: str
     status: str
+    # Fine-grained sub-stage code within status='generating'. Frontend maps
+    # the short code to user-facing copy ('searching the web', 'rendering', …).
+    # Values: searching | structuring | generating | enriching | rendering | None
+    progress_stage: Optional[str] = None
     character_map: Optional[dict] = None
     error_code: Optional[str] = None
     error_message: Optional[str] = None

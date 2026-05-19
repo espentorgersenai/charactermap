@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { useJob, getModelEta } from '../hooks/useJob'
+import { useJob, getModelEta, getStageLabel } from '../hooks/useJob'
 import { CharacterMapCanvas } from '../components/CharacterMapCanvas'
 import { DownloadList } from '../components/DownloadList'
 import type { CharacterMap } from '../types/characterMap'
@@ -117,7 +117,7 @@ export default function JobView() {
       </Link>
       <div className="space-y-5 py-6">
         <h1 className="font-serif text-3xl font-bold text-award-cream leading-tight">
-          Generating your character map…
+          {getStageLabel(job?.progress_stage ?? null, job?.status ?? 'queued')}
         </h1>
         {title && (
           <p className="text-award-cream-muted">
@@ -135,7 +135,13 @@ export default function JobView() {
         </div>
 
         <div className="flex justify-between text-sm text-award-cream-dim">
-          <span>{job?.status === 'generating' ? 'Generating…' : 'Queued…'}</span>
+          <span>
+            {job?.status === 'queued'
+              ? 'Queued…'
+              : job?.progress_stage
+                ? `Step: ${job.progress_stage}`
+                : 'Generating…'}
+          </span>
           <span>{elapsed}s elapsed · {eta}</span>
         </div>
 

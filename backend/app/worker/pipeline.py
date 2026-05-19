@@ -264,19 +264,37 @@ def _render_structuring_user_message(job: Job, analysis: str) -> str:
     )
 
 
+async def _set_progress_stage(session, job: Job, stage: str | None) -> None:
+    """Write a fine-grained sub-stage code to the job row. The SSE stream picks
+    this up on its next 1s poll and surfaces it to the frontend.
+
+    Stage codes are deliberately short and machine-readable:
+      searching     — Stage 1 web_search analysis (grounded path, the longest stage)
+      structuring   — Stage 2 closed-list JSON structuring (grounded path)
+      generating    — single-call LLM (ungrounded fallback path)
+      enriching     — post-LLM TMDB cast + creator enrichment
+      rendering     — markdown + PDF render
+    """
+    job.progress_stage = stage
+    await session.commit()
+
+
 async def _run_grounded(
-    client: AnthropicClient, job: Job
+    session, client: AnthropicClient, job: Job
 ) -> tuple[CharacterMap, LLMResult, LLMResult]:
     """Two-stage grounded path:
        Stage 1: web_search-enabled analysis call → prose Cast + Resolution + nuance.
        Stage 2: closed-list structuring call → CharacterMap JSON.
 
-    Returns (char_map, stage1_result, stage2_result). Stage 2 honors RefusalError
-    via the existing call_and_validate path (e.g. emits `grounding_failed` when
-    the analysis has too few characters).
+    Writes `progress_stage` transitions on `session` so the SSE stream surfaces
+    "searching" then "structuring" to the frontend. Returns
+    (char_map, stage1_result, stage2_result). Stage 2 honors RefusalError via
+    the existing call_and_validate path (e.g. `grounding_failed` when the
+    analysis has too few characters).
     """
     analysis_system = _load_analysis_prompt()
     analysis_user = _render_analysis_user_message(job)
+    await _set_progress_stage(session, job, "searching")
     stage1 = await client.generate_with_web_search(analysis_system, analysis_user)
     log.info(
         "grounded_stage1_done",
@@ -288,6 +306,7 @@ async def _run_grounded(
         _load_structuring_prompt(), job.character_cap
     )
     structuring_user = _render_structuring_user_message(job, stage1.text)
+    await _set_progress_stage(session, job, "structuring")
     char_map, stage2 = await call_and_validate(
         client, structuring_system, structuring_user
     )
@@ -327,7 +346,7 @@ async def run_pipeline(job_id: str) -> None:
 
         try:
             if use_grounded:
-                char_map, stage1, stage2 = await _run_grounded(client, job)
+                char_map, stage1, stage2 = await _run_grounded(session, client, job)
                 # Aggregate cost + tokens across both stages.
                 llm_result = LLMResult(
                     text="",  # not retained — both stage outputs are discarded
@@ -342,11 +361,13 @@ async def run_pipeline(job_id: str) -> None:
                     stage2_cost=stage2.cost_usd,
                 )
             else:
+                await _set_progress_stage(session, job, "generating")
                 system_prompt = _render_system_prompt(_load_prompt_template(), job.character_cap)
                 user_message = _render_user_message(job)
                 char_map, llm_result = await call_and_validate(
                     client, system_prompt, user_message
                 )
+            await _set_progress_stage(session, job, "enriching")
             _sweep_spoiler_levels(char_map)
             await _enrich_with_credits(char_map, job)
             char_map.source_url = _build_source_url(job)
@@ -386,34 +407,19 @@ async def run_pipeline(job_id: str) -> None:
                 job_id=UUID(job_id),
             )
         else:
-            job.status = "done"
-            job.completed_at = datetime.now(tz=timezone.utc)
+            # Persist the map + cost + tokens up front (so the row is consistent
+            # if rendering throws), but DELAY status='done' until after rendering
+            # completes. This way the SSE 'done' event only fires when artifacts
+            # are actually on disk — and the frontend gets 'rendering' as the
+            # progress_stage during the MD+PDF phase.
             job.character_map = char_map.model_dump()
             job.llm_input_tokens = llm_result.input_tokens
             job.llm_output_tokens = llm_result.output_tokens
             job.estimated_cost_usd = Decimal(str(llm_result.cost_usd))
             await record_cost(session, Decimal(str(llm_result.cost_usd)))
-            duration_ms = int(
-                (datetime.now(tz=timezone.utc) - started_at).total_seconds() * 1000
-            )
-            await record_event(
-                session,
-                "job_done",
-                {
-                    "model": job.model,
-                    "character_count": len(char_map.characters),
-                    "duration_ms": duration_ms,
-                    "has_adaptation": bool(
-                        job.adaptation_tmdb_id
-                        or (job.resolved_meta or {}).get("adaptation_tmdb_id")
-                    ),
-                },
-                job_id=UUID(job_id),
-            )
-            log.info("pipeline_done", job_id=job_id,
-                     chars=len(char_map.characters), cost_usd=llm_result.cost_usd)
 
             # Render Markdown + PDF artifacts
+            await _set_progress_stage(session, job, "rendering")
             artifact_dir = Path(settings.artifact_storage_path) / job_id
             artifact_dir.mkdir(parents=True, exist_ok=True)
             md_text = None
@@ -452,5 +458,30 @@ async def run_pipeline(job_id: str) -> None:
                     await send_completion_email(job, settings.base_url, pdf_path)
                 except Exception as e:
                     log.warning("email_dispatch_error", job_id=job_id, error=str(e))
+
+            # NOW the job is fully done — artifacts on disk, email dispatched.
+            # Flip status='done' last so SSE only emits 'done' once the user
+            # can actually fetch everything.
+            job.status = "done"
+            job.completed_at = datetime.now(tz=timezone.utc)
+            duration_ms = int(
+                (datetime.now(tz=timezone.utc) - started_at).total_seconds() * 1000
+            )
+            await record_event(
+                session,
+                "job_done",
+                {
+                    "model": job.model,
+                    "character_count": len(char_map.characters),
+                    "duration_ms": duration_ms,
+                    "has_adaptation": bool(
+                        job.adaptation_tmdb_id
+                        or (job.resolved_meta or {}).get("adaptation_tmdb_id")
+                    ),
+                },
+                job_id=UUID(job_id),
+            )
+            log.info("pipeline_done", job_id=job_id,
+                     chars=len(char_map.characters), cost_usd=llm_result.cost_usd)
 
         await session.commit()
