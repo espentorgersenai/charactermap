@@ -1,50 +1,58 @@
-# Next Session — Start Prompt
+# Next Session — Hand-off (Session 9 → 10)
 
-> Hand-off note from Session 8 wrapup. Paste the block below at the start of the next session.
+**Last chronicle:** Session 9 — 2026-05-19 (`docs/SESSION_CHRONICLE.md`)
 
----
+**State of `main`:**
+- Two-stage grounded pipeline live in production on lfc.
+- Final tuning state: `max_searches=3` (down from 8), Stage 1 trimmed (dropped "Structural Metaphors" + "Systemic Nuance" sections), Stage 2 unchanged. ~$0.16-0.20/job warm cache. Wall time ~200s on Embassytown-class works.
+- Step 4 single-stage was reverted after Step 5a regression on Congo + Tokyo Express. `_run_grounded_single_stage` stays in `pipeline.py` as a reference implementation — **do not rewire without rethinking the closed-list mitigation**.
+- Live progress UI shows stage-aware labels (`searching → structuring → enriching → rendering`).
+- All 186 unit tests pass.
 
-## Where the project is
+## Top ToDo (Planka, post-Session-9)
 
-charactermap.torgersen.ai is live and end-to-end working — search → resolve → generate → render → download → email. iPad tested end-to-end, including PDF export with side-by-side photo+text layout. 186 backend unit tests + 19 frontend vitest passing.
+### New cards filed this session (all `phase:7`)
+1. **Pre-generate maps for top-N popular works** (`feature`, `svc:worker`, `svc:db`) — the architectural cost lever. Curate ~100-1000 popular books/films, run worker pipeline once per (resolved_id, cap=20), $200 one-time investment → most user requests become $0 DB cache hits.
+2. **Wire web_search for OpenAI + Gemini** (`feature`, `svc:llm`) — currently only Anthropic models get grounding; GPT/Gemini fall through to legacy.
+3. **LLMResult cost tracking** (`tech-debt`, `svc:llm`) — include `cache_creation_input_tokens`, `cache_read_input_tokens`, web_search per-call cost. Current reporting under-counts by ~30%.
+4. **Decouple character_cap from full-map cache identity** (`feature`, `svc:worker`, `svc:db`) — generate at cap=50, trim to user's cap post-hoc. Makes cache hit rate ~5x better.
+5. **Bump DAILY_COST_LIMIT_USD before public launch** (`infra`, `svc:api`) — current $5 covers ~25 grounded jobs/day, too tight.
 
-Phase 5 + 6 backend deliverables (#35–39, #42) are shipped. Phase 5/6 frontend deliverables (#35 widget, #38 hint, #40 errors, #41 privacy/terms/cookies, #42 client analytics) are shipped. TV cast matching now uses `/aggregate_credits` so multi-season shows match across all seasons (Night Manager went 2/16 → 16/16 headshots).
+### Pre-existing cards still in ToDo (highest activity)
+- Phase 7: Production .env audit on lfc (#46)
+- Phase 7: GitHub Actions deploy workflow (#50)
+- Phase 7: Grafana ops + product dashboards (#51)
+- Phase 7: Prometheus Alertmanager (#52)
+- Phase 7: Retention cron jobs (#53) — *but per Session 9 policy, retention does NOT apply to the `character_map` JSONB; only to MD/PDF artifacts on disk.*
+- Verify GPT-5.5 pricing before public deploy
+- Rotate ARTIFACT_SIGNING_KEY before production launch
+- Cert renewal deploy hook
+- Cache-hit UX hint
+- iPad UX polish; Re-enable Turnstile; TV season selector; Bias LLM toward credited cast names; latent nginx-301 audit
 
-Two SPEC #-items remain to fully close Phase 6: **#43 golden-set validation** and **#44 fabrication audit** — both manual, user-driven.
+### In Progress
+- (none)
 
-## Top of the launch-readiness list
+## Open threads from Session 9 that aren't cards
 
-1. **Manual validation (the actual remaining v1 blocker).**
-   - **#43:** Run `scripts/run_golden_set.py` for all 10 works against Sonnet 4.6. Review each output for accuracy + spoiler-level honesty + fabrications. Iterate prompt until clean. Save passing outputs to `tuning/exemplars/`.
-   - **#44:** Fabrication audit on *A Fire Upon the Deep* + one obscure work you know intimately. Zero invented characters/relationships to pass.
-   - **#45:** Close after #43 + #44 are clean.
+- **The grounding plan at `docs/superpowers/plans/2026-05-19-grounding-pipeline.md` is intentionally uncommitted.** It's the abandoned bespoke-scrapers design. Either delete or leave for the record — your call.
+- **Embassytown's single-stage win was an outlier.** Any future grounding architecture change needs at minimum the Congo + Tokyo Express + Embassytown triple as a regression set. One-work validation is insufficient.
+- **Cost picture.** With current pipeline + DB cache for repeats, effective per-job cost depends entirely on cache hit rate. Open question: do you want to pre-populate the cache now (cheap, ~$200 one-time) or wait for real traffic to reveal what users actually request?
 
-2. **Pre-launch hygiene** (small, high-leverage):
-   - **Rotate `ARTIFACT_SIGNING_KEY`** — still `'change-me-in-production'` on lfc. `openssl rand -hex 32` → edit `.env` → `docker compose up -d --force-recreate api worker`.
-   - **#46 .env audit** on lfc — all keys present, no duplicates, `ENVIRONMENT=production`, `BASE_URL=https://charactermap.torgersen.ai`.
-   - **Tighten rate limits back** from dev-loosened 8/30/60 to SPEC 2/5/15 in `app/security/rate_limit.py`.
-   - **Verify GPT-5.5 pricing** in `openai_client.py::_COST_PER_MTOK`.
-   - **Re-enable Turnstile** (after Cloudflare orange-cloud decision — see below).
-   - **#32 TMDb attribution component** — legal pre-launch.
+## Suggested start for Session 10
 
-3. **Latent issues worth fixing soon:**
-   - **Cert renewal deploy hook** — Let's Encrypt cert auto-renews in ~60 days; without a hook the renewed cert won't propagate to the bind-mount.
-   - **nginx-301-on-POST audit** — fixed the SSE block in Session 7; other trailing-slash locations could have the same iPad-breaking failure mode.
+You said "i need to think" — so reasonable first move is to **just look at production** before picking the next thread. Useful commands:
 
-## What to know before touching anything
+```bash
+# Production health
+ssh lfc 'curl -sf http://127.0.0.1:8202/api/health && docker ps --filter name=charmap'
 
-- **iPad first.** Test new features on iPad before declaring done. Three production bugs in Session 7 + the headshot coverage issue in Session 8 were invisible on desktop and only manifested on iOS WebKit (or with a real adapted-from-TV work).
-- **Turnstile is wired but disabled.** Cloudflare grey-cloud (DNS-only) makes Turnstile spin forever at "verifying" because `/cdn-cgi/*` traffic can't terminate at CF edge. Re-enable requires orange-clouding the domain or accepting Turnstile-off. Both keys stashed in `.env.bak.1779150643` on lfc.
-- **Spoiler banner is gone in v1.** Backend hard-gate on `acknowledged_spoilers: true` is intact (still rejects false). Frontend hardcodes true. Reintroduce the banner when shipping v1.5 spoiler-safe mode.
-- **Rate limits are dev-loosened.** 8/min · 30/hr · 60/day in production right now. Daily cost guard ($5/day) is the actual safety net. Tighten before public traffic.
-- **PDF renderer assumes pdflatex + the regex pre-processor.** Adding new unicode chars to `markdown.py` may require adding them to `_UNICODE_FALLBACKS` in `pdf.py`. Adding new character-block markdown patterns may require updating `_CHAR_BLOCK_RE`.
-- **TV multi-season shows mix timelines in one map.** `/aggregate_credits` matches across seasons but the LLM still treats the show as a single work — see TV season-selector card for the proper fix.
-- **VPS access:** `ssh espen@torgersen.ai`; `usv_nginx` is a Docker container; edit `/home/espen/ClaudeCode/UAV/usv-fleet-platform/usv-fleet/config/nginx.conf` **in-place** (single-file bind mounts pin to inode). Reload with `docker exec usv_nginx nginx -s reload` after `nginx -t`.
-- **lfc `.env` changes:** `docker compose up -d --force-recreate <service>` — `restart` alone keeps stale env.
-- **Frontend rebuilds:** Vite content-hashing can collide. If a rebuild produces the same bundle hash, the bundle bytes really are identical; check that, not the filename.
+# Most recent jobs
+ssh lfc "docker exec charmap_postgres psql -U charactermap -d charactermap -c \
+  \"SELECT id, resolved_title, status, model, character_cap, estimated_cost_usd, created_at FROM jobs ORDER BY created_at DESC LIMIT 10;\""
 
-## How to start the next session
+# Visit a recent map in browser
+# https://charactermap.torgersen.ai/job/<id>
+```
 
-Read this file, scan the top ToDo cards on Planka, and pick the most-impactful unblocked work. The launch-critical path is #43/#44 (manual) + the small pre-launch hygiene list above. Everything beyond that is post-launch polish.
-
-The smallest meaningful v1 launch is: **#43 + #44 + ARTIFACT_SIGNING_KEY rotation + tighten rate limits + .env audit + #32 attribution + Turnstile decision.** That's the punch list.
+If the data tells you traffic is mostly popular works → start with the **Pre-generate maps** card. If you want a quick correctness win first → **LLMResult cost tracking** (one file, ~30 lines).
