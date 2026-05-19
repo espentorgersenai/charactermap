@@ -22,7 +22,13 @@ except ImportError:
     pass
 
 from app.config import settings
-from app.worker.pipeline import call_and_validate, RefusalError, _load_prompt_template, REFUSAL_MESSAGES
+from app.worker.pipeline import (
+    call_and_validate,
+    RefusalError,
+    _load_prompt_template,
+    _render_system_prompt,
+    REFUSAL_MESSAGES,
+)
 from app.llm.anthropic_client import AnthropicClient
 from app.llm.gemini_client import GeminiClient
 from app.llm.openai_client import OpenAIClient
@@ -32,9 +38,10 @@ async def _run(args) -> str:
     creator = args.author or args.director
     author_or_director = creator or "Unknown"
 
-    system_prompt = _load_prompt_template()
+    template = _load_prompt_template()
     if args.prompt_file:
-        system_prompt = Path(args.prompt_file).read_text()
+        template = Path(args.prompt_file).read_text()
+    system_prompt = _render_system_prompt(template, args.char_cap)
 
     user_message = (
         f"<work_metadata>\n"
@@ -111,6 +118,7 @@ Examples:
         ],
     )
     parser.add_argument("--prompt-file", type=Path)
+    parser.add_argument("--char-cap", type=int, default=20, help="Substituted for {CHAR_CAP} in the prompt (default 20, matches runtime default).")
     parser.add_argument("--save", type=Path)
     parser.add_argument("--temperature", type=float)
     parser.add_argument("--seed", type=int)

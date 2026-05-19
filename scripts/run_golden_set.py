@@ -27,7 +27,13 @@ except ImportError:
 import yaml
 
 from app.config import settings
-from app.worker.pipeline import call_and_validate, RefusalError, _load_prompt_template, REFUSAL_MESSAGES
+from app.worker.pipeline import (
+    call_and_validate,
+    RefusalError,
+    _load_prompt_template,
+    _render_system_prompt,
+    REFUSAL_MESSAGES,
+)
 from app.llm.anthropic_client import AnthropicClient
 
 
@@ -78,9 +84,9 @@ async def _generate_one(work: dict, model: str, system_prompt: str) -> dict:
     }
 
 
-async def _run_all(works: list[dict], model: str, save_dir: Path) -> None:
+async def _run_all(works: list[dict], model: str, save_dir: Path, char_cap: int) -> None:
     save_dir.mkdir(parents=True, exist_ok=True)
-    system_prompt = _load_prompt_template()
+    system_prompt = _render_system_prompt(_load_prompt_template(), char_cap)
 
     print(f"\nRunning golden set ({len(works)} works) with {model}\n")
     header = f"{'Title':<35} {'Chars':>5} {'Fcts':>4} {'spoiler%':>8} {'Cost':>7}  Notes"
@@ -144,11 +150,17 @@ def main():
         type=Path,
         default=Path(__file__).parent.parent / "tuning" / "golden_set.yaml",
     )
+    parser.add_argument(
+        "--char-cap",
+        type=int,
+        default=20,
+        help="Substituted for {CHAR_CAP} in the prompt (default 20, matches runtime default).",
+    )
     args = parser.parse_args()
 
     works = yaml.safe_load(args.golden_set.read_text())
     save_dir = args.save_dir or Path("tuning") / f"run-{datetime.now().strftime('%Y-%m-%d-%H-%M')}"
-    asyncio.run(_run_all(works, args.model, save_dir))
+    asyncio.run(_run_all(works, args.model, save_dir, args.char_cap))
 
 
 if __name__ == "__main__":

@@ -26,6 +26,27 @@ Three tiers of certainty:
 
 A thin, correct map is far better than a complete-looking map with subtle inventions. When the cap or this rule forces exclusions, populate `coverage_note`.
 
+#### Specific fabrication tests
+
+Before including any character, run these checks. Each one rejects a specific failure mode that has been observed in practice.
+
+- **Name-source check + required `name_evidence` field.** For every character you include, you must emit a `name_evidence` field: a 5–15 word phrase that grounds the name in the source. Concrete examples of valid evidence: *"ERTS field agent, introduced Ch. 1"*, *"helicopter pilot in the Congo scenes"*, *"Harry's partner murdered before Ch. 1, referenced throughout"*. If you cannot write a concrete grounding phrase tied to a specific scene, role, or relationship in *this work* (not in genre conventions), **omit the character entirely** — do not include them with vague evidence like "minor character" or "appears in the novel".
+  - **The "plausible-real-world-name" trap.** The most common fabrication failure mode is inventing characters with ordinary-sounding real-world names ("Geoffrey Howe", "Marty Rogers", "Dr. Seamans", "Jenny", "Hamir") because they *feel* right for the genre. If a name fits the pattern "a generic-sounding name that could plausibly appear in this kind of work, but I cannot tie it to a specific scene", that is **the strongest fabrication signal in this prompt**. Omit. Do not rationalise. The fact that the name sounds right is itself the warning sign — real character names you actually remember come bundled with specific scenes.
+  - Tier-2 ("structure clear, name uncertain → best-effort name") applies to ONE character whose existence is known but whose spelling is uncertain. It does NOT license inventing names for multiple members of a group you only know abstractly.
+
+- **Faction-padding test.** If a faction (rival corporation, criminal organisation, opposing army, secondary cult, etc.) exists in the work but its individual members are not named in canon, do NOT invent named members to populate it. Choose one:
+  1. Include the faction with a single *collective* character entry (e.g. `name: "Consortium Agents"`, `importance: supporting`, treated as a group).
+  2. Drop the faction from the map entirely.
+  3. Include only the genuinely named members (often: zero or one).
+  A faction with one collective node is correct. A faction filled with invented names is a fabrication.
+
+- **Antagonist / climax-reveal check.** When the work has a hidden killer, traitor, secret parent, or other late-act identity reveal, you must point to the *actual* reveal in the source — not a plausible-sounding reconstruction. If you cannot recall who the work names as the killer/traitor/etc., either:
+  - Include the suspected antagonist as a non-committal `supporting` character with no asserted climax role and let `coverage_note` flag the uncertainty, or
+  - Refuse with `{"refusal": "low_confidence"}` if the climax is too central to omit honestly.
+  **Never assign one character's climax role to another character.** If the work has two distinct antagonists (e.g. a corrupt cop in subplot A and a serial killer in subplot B), do not merge them. Inventing or swapping a climax reveal is the most damaging failure mode in this entire prompt.
+
+- **Prologue / inciting-incident inclusion.** Named characters in prologues, opening chapters, or framing devices whose actions or deaths set the main plot in motion ARE characters worth including (usually `supporting` or `minor`, with `spoiler_level` reflecting how early they appear). Do not skip a named character merely because they appear before the main cast.
+
 ### 3. Full-spoiler map
 Include everything you know confidently: deaths, twists, identity reveals, late-act developments, the ending. The user has explicitly acknowledged they want this.
 
@@ -42,6 +63,7 @@ Inverse test: "If this character were removed entirely, would a first-time reade
 ### 5. Stay within the character cap
 - **Maximum {CHAR_CAP} characters.** Keep all `protagonist` and `major` characters. Select `supporting` by narrative weight. If more characters exist, group the remainder into a "Named in passing" pseudo-faction with a single summary node. Populate `coverage_note` when the cap forces exclusions.
 - **Minimum 5 characters.** If the work has fewer, include all of them.
+- **Under-filling the cap is correct behaviour, not a failure.** If your confident knowledge runs out at 7 characters and the cap is 20, return 7. Empty slots are NOT a signal to keep adding. The cap is a *ceiling* on inclusion, not a *quota* to be met. Filling remaining slots with low-confidence names — even ones that sound plausible — is exactly the fabrication failure mode the rest of this prompt is designed to prevent. A 7-character correct map is a *successful* output. A 20-character map with 5 fabrications is a *failed* output, even if it looks more complete.
 
 ### 6. Use `setting_preamble` only when necessary
 Most works don't need this. Use it only when the work's cosmology, world structure, or institutional context is genuinely required before the cast makes sense (e.g., *Dune*'s Imperium, *A Fire Upon the Deep*'s Zones of Thought). Contemporary fiction and most films: omit entirely.
@@ -92,6 +114,7 @@ interface Faction {
 interface Character {
   id: string;          // snake_case, e.g. "peter_elliot"
   name: string;
+  name_evidence: string; // REQUIRED. 5-15 words grounding the name in a specific scene, role, or relationship in this work. If you cannot write one, omit the character. See §2 Name-source check.
   role: string;        // job title / function, e.g. "Primatologist"
   description: string; // 1–2 sentences
   faction_id: string | null;

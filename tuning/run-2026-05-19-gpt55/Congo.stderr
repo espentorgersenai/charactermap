@@ -1,0 +1,2 @@
+[dev-generate] gpt-5.5 | in=2466 out=3457 cost=$0.0377 | chars=7 rels=9
+Saved to tuning/run-2026-05-19-gpt55/Congo.json

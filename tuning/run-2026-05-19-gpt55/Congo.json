@@ -1,0 +1,194 @@
+{
+  "title": "Congo",
+  "subtitle": "Michael Crichton, 1980",
+  "blurb": "A corporate mineral survey in the Congo leads to a race for the lost city of Zinj and its technologically valuable blue diamonds. The expedition combines satellite-era resource intelligence, field survival, and primate research, culminating in the discovery that Zinj is guarded by hostile gray apes.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "erts",
+      "label": "Earth Resources Technology Services",
+      "description": "The Houston-based resource technology company seeking rare blue diamonds for advanced electronics.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "berkeley_primate_project",
+      "label": "Berkeley Primate Project",
+      "description": "The academic primate-language research centered on Peter Elliot and the gorilla Amy.",
+      "color_hint": "green"
+    },
+    {
+      "id": "field_expedition",
+      "label": "Congo Field Expedition",
+      "description": "The on-the-ground party moving through the Congo toward the ruins of Zinj.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "rival_zinj_seekers",
+      "label": "Rival Zinj Seekers",
+      "description": "Independent and competing interests drawn to Zinj by legend, minerals, or profit.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "zinj_guardians",
+      "label": "Zinj Guardians",
+      "description": "The engineered or trained gray apes that protect the ruined city and kill intruders.",
+      "color_hint": "red"
+    }
+  ],
+  "characters": [
+    {
+      "id": "karen_ross",
+      "name": "Karen Ross",
+      "role": "ERTS expedition leader and systems analyst",
+      "description": "Ross is the brilliant, hard-driving corporate specialist sent to salvage ERTS's Congo project. She pushes the expedition toward Zinj despite mounting evidence that the previous team was destroyed by something at the site.",
+      "faction_id": "erts",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "ERTS systems analyst sent after first Congo expedition fails",
+      "actor": null
+    },
+    {
+      "id": "peter_elliot",
+      "name": "Peter Elliot",
+      "role": "Primatologist",
+      "description": "Elliot joins the Congo mission because Amy's drawings and behavior appear connected to the lost city. His scientific concern for Amy repeatedly conflicts with the expedition's corporate urgency.",
+      "faction_id": "berkeley_primate_project",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Berkeley primatologist traveling with signing gorilla Amy",
+      "actor": null
+    },
+    {
+      "id": "amy",
+      "name": "Amy",
+      "role": "Signing gorilla and research subject",
+      "description": "Amy is a language-trained gorilla whose memories, drawings, and responses help connect the modern expedition to Zinj. She survives the expedition and is central to understanding the ape threat around the city.",
+      "faction_id": "berkeley_primate_project",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Signing gorilla whose drawings point toward ruined Zinj",
+      "actor": null
+    },
+    {
+      "id": "charles_munro",
+      "name": "Charles Munro",
+      "role": "Guide and expedition fixer",
+      "description": "Munro is the experienced field operator who helps the party cross dangerous political and physical terrain. His practical knowledge makes him essential once technology and corporate planning are no longer enough.",
+      "faction_id": "field_expedition",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Veteran Congo guide hired to lead Ross's expedition",
+      "actor": null
+    },
+    {
+      "id": "r_b_travis",
+      "name": "R. B. Travis",
+      "role": "ERTS executive",
+      "description": "Travis oversees the Congo operation from Houston, coordinating corporate strategy and technological support. He represents the business pressure behind Ross's mission to obtain the blue diamonds before competitors do.",
+      "faction_id": "erts",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "name_evidence": "Houston ERTS chief directing Ross by satellite link",
+      "actor": null
+    },
+    {
+      "id": "herkermer_homolka",
+      "name": "Herkermer Homolka",
+      "role": "Rival treasure seeker and Zinj enthusiast",
+      "description": "Homolka is drawn to Zinj by legend and personal ambition, making him an uneasy companion to the main expedition. His pursuit of the city ends fatally when the guardians of Zinj prove real.",
+      "faction_id": "rival_zinj_seekers",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Eccentric Romanian Zinj seeker accompanying the expedition upriver",
+      "actor": null
+    },
+    {
+      "id": "zinj_gray_apes",
+      "name": "Zinj gray apes",
+      "role": "Guardian ape colony",
+      "description": "The gray apes are the hidden lethal force behind the destruction of the earlier expedition. They guard Zinj until the final catastrophe destroys the city and effectively ends their threat.",
+      "faction_id": "zinj_guardians",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "name_evidence": "Aggressive gray apes guarding the lost city of Zinj",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "karen_ross",
+      "to_id": "r_b_travis",
+      "type": "professional",
+      "label": "field operative and remote corporate superior",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "karen_ross",
+      "to_id": "peter_elliot",
+      "type": "professional",
+      "label": "corporate mission partner and scientific specialist",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "peter_elliot",
+      "to_id": "amy",
+      "type": "mentorship",
+      "label": "researcher and language-trained gorilla",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "karen_ross",
+      "to_id": "charles_munro",
+      "type": "alliance",
+      "label": "expedition leader and field guide",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "charles_munro",
+      "to_id": "peter_elliot",
+      "type": "alliance",
+      "label": "survival partners during the trek to Zinj",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "herkermer_homolka",
+      "to_id": "karen_ross",
+      "type": "antagonism",
+      "label": "competing agenda for reaching and exploiting Zinj",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "zinj_gray_apes",
+      "to_id": "karen_ross",
+      "type": "antagonism",
+      "label": "guardians attacking intruders at Zinj",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "zinj_gray_apes",
+      "to_id": "peter_elliot",
+      "type": "antagonism",
+      "label": "ape threat confronting Amy's primatologist",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "zinj_gray_apes",
+      "to_id": "herkermer_homolka",
+      "type": "antagonism",
+      "label": "guardians whose attack kills him at Zinj",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "This map keeps to confidently grounded principal figures. It omits first-expedition personnel, local officials, porters, and rival-corporate figures whose exact names and structural roles are not reliable enough to include without risking fabrication.",
+  "notes": "Full-spoiler character map focused on the novel's main corporate expedition, its primate-research element, the rival Zinj pursuit, and the revealed guardian threat.",
+  "creator": null,
+  "source_url": null
+}

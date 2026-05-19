@@ -1,0 +1,441 @@
+{
+  "title": "Dune",
+  "subtitle": "Frank Herbert, 1965 · Dune Chronicles #1",
+  "blurb": "On the desert planet Arrakis — sole source of the universe's most valuable substance, the spice melange — young Paul Atreides survives the destruction of his family's rule and rises among the native Fremen to challenge imperial and religious power. Herbert's epic weaves politics, ecology, religion, and prophecy into a portrait of how messianic figures are made and what they cost.",
+  "spoiler_mode": "full",
+  "setting_preamble": "The story is set roughly 20,000 years in the future in a feudal interstellar empire called the Padishah Imperium, ruled by Emperor Shaddam IV. Noble Houses govern planets under the Landsraad council. The Bene Gesserit is an ancient sisterhood wielding covert genetic and political influence. The Spacing Guild controls all interstellar travel. Arrakis (Dune) is the only source of the spice melange, which enables prescience and Guild navigation.",
+  "factions": [
+    {
+      "id": "house_atreides",
+      "label": "House Atreides",
+      "description": "A noble house of honorable reputation assigned to govern Arrakis, walking into an imperial trap.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "house_harkonnen",
+      "label": "House Harkonnen",
+      "description": "The brutal former rulers of Arrakis, instruments of the Emperor's plot to destroy House Atreides.",
+      "color_hint": "red"
+    },
+    {
+      "id": "imperial",
+      "label": "The Imperium",
+      "description": "The Emperor and his forces, operating in shadow to preserve the balance of power against a rising House Atreides.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "bene_gesserit",
+      "label": "Bene Gesserit Sisterhood",
+      "description": "A matriarchal order of trained adepts who have spent generations manipulating bloodlines and planting religious myths across the known universe.",
+      "color_hint": "violet"
+    },
+    {
+      "id": "fremen",
+      "label": "Fremen",
+      "description": "The indigenous people of Arrakis, hardened desert survivors who harbor a prophecy of a messiah and a dream of transforming their world.",
+      "color_hint": "green"
+    },
+    {
+      "id": "guild_mentat",
+      "label": "Guild & Mentats",
+      "description": "The Spacing Guild monopolizes interstellar travel; Mentats are human computers trained to replace thinking machines.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "paul_atreides",
+      "name": "Paul Atreides",
+      "role": "Heir of House Atreides / Fremen messiah Muad'Dib",
+      "description": "Fifteen-year-old son of Duke Leto, trained by his mother in Bene Gesserit ways and by mentors in combat and statecraft. After his father's murder he survives in the desert, awakens overwhelming prescient powers, and leads the Fremen to overthrow the Emperor, claiming the throne at the novel's end.",
+      "faction_id": "house_atreides",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "lady_jessica",
+      "name": "Lady Jessica",
+      "role": "Bene Gesserit Adept / Duke's Concubine",
+      "description": "Paul's mother and Duke Leto's bound concubine, she defied Bene Gesserit orders by bearing a son rather than a daughter. Among the Fremen she becomes the Reverend Mother after surviving a potentially lethal spice agony ritual, unlocking all ancestral feminine memory.",
+      "faction_id": "bene_gesserit",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "duke_leto",
+      "name": "Duke Leto Atreides",
+      "role": "Duke of House Atreides / Governor of Arrakis",
+      "description": "Honorable and beloved ruler who accepts the poisoned gift of Arrakis. He is betrayed and killed in a Harkonnen-Imperial assault, his death setting the novel's central tragedy in motion.",
+      "faction_id": "house_atreides",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "duncan_idaho",
+      "name": "Duncan Idaho",
+      "role": "Swordmaster of House Atreides",
+      "description": "Fiercely loyal master swordsman and soldier who dies buying time for Paul and Jessica to escape into the desert after the Harkonnen attack.",
+      "faction_id": "house_atreides",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "gurney_halleck",
+      "name": "Gurney Halleck",
+      "role": "Weapons Master / Troubadour Warrior",
+      "description": "Paul's combat instructor and passionate baliset musician, deeply loyal to the Atreides. He survives the attack by escaping with spice smugglers and is reunited with Paul among the Fremen at the novel's climax.",
+      "faction_id": "house_atreides",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "thufir_hawat",
+      "name": "Thufir Hawat",
+      "role": "Master of Assassins / Mentat",
+      "description": "The Atreides' aged Mentat and head of security who is captured by the Harkonnens after the fall, manipulated into serving the Baron while secretly working against him. He dies near the novel's end after realizing the full scope of his betrayal.",
+      "faction_id": "house_atreides",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "doctor_yueh",
+      "name": "Dr. Wellington Yueh",
+      "role": "Suk Imperial Conditioner / Atreides Physician",
+      "description": "The Atreides' trusted physician, whose supposedly inviolable Imperial Conditioning is broken by Baron Harkonnen through the torture of his wife. He betrays the Duke by disabling defenses, but attempts partial atonement before being killed by the Baron.",
+      "faction_id": "house_atreides",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "baron_harkonnen",
+      "name": "Baron Vladimir Harkonnen",
+      "role": "Head of House Harkonnen",
+      "description": "Grotesquely obese and cunningly sadistic nobleman who engineers the Atreides' destruction with imperial backing. He is Paul's maternal great-uncle — a secret kept from Paul — and is killed by young Alia with a gom jabbar at the novel's climax.",
+      "faction_id": "house_harkonnen",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "feyd_rautha",
+      "name": "Feyd-Rautha Harkonnen",
+      "role": "Harkonnen Heir / Gladiator",
+      "description": "The Baron's younger, physically formidable nephew, groomed as a potential imperial consort and counterweight to Paul. He is killed by Paul in single combat at the novel's end.",
+      "faction_id": "house_harkonnen",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "glossu_rabban",
+      "name": "Glossu 'Beast' Rabban",
+      "role": "Harkonnen Military Commander / Governor of Arrakis",
+      "description": "The Baron's brutish older nephew, installed as a deliberately cruel governor of Arrakis to make the Fremen grateful when Feyd-Rautha is later sent as a seeming savior. His rule intensifies Fremen resistance.",
+      "faction_id": "house_harkonnen",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "emperor_shaddam",
+      "name": "Emperor Shaddam IV",
+      "role": "Padishah Emperor of the Known Universe",
+      "description": "The reigning emperor who conspires with the Harkonnens to destroy House Atreides, fearing its growing popularity with the Landsraad. At the novel's climax he is defeated by Paul's Fremen jihad and forced to yield his throne.",
+      "faction_id": "imperial",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "princess_irulan",
+      "name": "Princess Irulan",
+      "role": "Imperial Princess / Historian",
+      "description": "The Emperor's eldest daughter, whose chapter epigraphs frame the entire novel as historical record. At the novel's end Paul demands her as a political wife to legitimize his claim to the throne, though his heart remains with Chani.",
+      "faction_id": "imperial",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "count_fenring",
+      "name": "Count Hasimir Fenring",
+      "role": "Imperial Assassin / Emperor's Friend",
+      "description": "The Emperor's closest advisor and deadliest personal agent, a near-miss genetic product of the Bene Gesserit program. He chooses not to kill Paul when ordered, a pivotal act of restraint.",
+      "faction_id": "imperial",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "reverend_mother_mohiam",
+      "name": "Reverend Mother Gaius Helen Mohiam",
+      "role": "Bene Gesserit Truthsayer / Imperial Agent",
+      "description": "The Emperor's Truthsayer and a senior Reverend Mother who tests Paul with the gom jabbar before his departure for Arrakis. She is also Jessica's own Bene Gesserit mother, though this is not foregrounded in the novel.",
+      "faction_id": "bene_gesserit",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "stilgar",
+      "name": "Stilgar",
+      "role": "Fremen Naib (Sietch Leader)",
+      "description": "The powerful and pragmatic leader of Sietch Tabr who accepts Paul and Jessica into his tribe after their desert escape. He becomes one of Paul's most trusted lieutenants and a commander in the final assault.",
+      "faction_id": "fremen",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "chani",
+      "name": "Chani",
+      "role": "Fremen Warrior / Paul's Companion",
+      "description": "Daughter of the planetologist Liet-Kynes, first seen in Paul's prophetic visions. She becomes his Fremen partner and true love, instructing him in desert survival and fighting alongside him in the final battle.",
+      "faction_id": "fremen",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "alia",
+      "name": "Alia Atreides",
+      "role": "Pre-born Bene Gesserit Adept",
+      "description": "Jessica's daughter, born with full ancestral consciousness after Jessica underwent the Fremen spice agony while pregnant. As a small child she kills the Baron Harkonnen with a gom jabbar and is regarded by the Fremen with a mixture of awe and fear as 'St. Alia of the Knife.'",
+      "faction_id": "fremen",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "liet_kynes",
+      "name": "Liet-Kynes",
+      "role": "Imperial Planetologist / Fremen Leader",
+      "description": "The Empire's official ecologist on Arrakis who secretly leads the Fremen's generations-long project to terraform the planet. Captured after helping Paul and Jessica, he dies in the desert when Harkonnen forces abandon him amid a spice blow.",
+      "faction_id": "fremen",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "harah",
+      "name": "Harah",
+      "role": "Fremen Woman / Paul's Household",
+      "description": "Widow of Jamis, the Fremen Paul kills in ritual combat upon entering the sietch. By Fremen custom she becomes Paul's responsibility; she serves as a grounding presence in his transition to Fremen life.",
+      "faction_id": "fremen",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "piter_de_vries",
+      "name": "Piter De Vries",
+      "role": "Harkonnen Mentat / Twisted Mentat",
+      "description": "The Baron's sadistic, conditioned Mentat who helps plan the destruction of House Atreides. He is killed by Duke Leto during the Duke's failed assassination attempt on the Baron.",
+      "faction_id": "house_harkonnen",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 2,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "paul_atreides",
+      "to_id": "duke_leto",
+      "type": "family",
+      "label": "son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "lady_jessica",
+      "type": "family",
+      "label": "son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "duke_leto",
+      "to_id": "lady_jessica",
+      "type": "romantic",
+      "label": "bound concubine (devoted but unmarried)",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "gurney_halleck",
+      "type": "mentorship",
+      "label": "student of weapons and music",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "thufir_hawat",
+      "type": "mentorship",
+      "label": "student of Mentat reasoning",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "chani",
+      "type": "romantic",
+      "label": "Fremen partner and true love",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "stilgar",
+      "type": "alliance",
+      "label": "Fremen naib and adopted warrior",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "feyd_rautha",
+      "type": "antagonism",
+      "label": "kills in climactic single combat",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "emperor_shaddam",
+      "type": "antagonism",
+      "label": "defeats and deposes",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "paul_atreides",
+      "to_id": "princess_irulan",
+      "type": "romantic",
+      "label": "political marriage (without affection)",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "baron_harkonnen",
+      "to_id": "lady_jessica",
+      "type": "family",
+      "label": "secret maternal grandfather",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "baron_harkonnen",
+      "to_id": "feyd_rautha",
+      "type": "family",
+      "label": "uncle, grooming as heir",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "baron_harkonnen",
+      "to_id": "glossu_rabban",
+      "type": "family",
+      "label": "uncle, uses as brutal proxy governor",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "baron_harkonnen",
+      "to_id": "duke_leto",
+      "type": "antagonism",
+      "label": "engineers his destruction",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "baron_harkonnen",
+      "to_id": "piter_de_vries",
+      "type": "professional",
+      "label": "master and Mentat",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "alia",
+      "to_id": "baron_harkonnen",
+      "type": "antagonism",
+      "label": "kills him with a gom jabbar",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "emperor_shaddam",
+      "to_id": "baron_harkonnen",
+      "type": "alliance",
+      "label": "co-conspirators against House Atreides",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "emperor_shaddam",
+      "to_id": "count_fenring",
+      "type": "alliance",
+      "label": "closest friend and personal assassin",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "reverend_mother_mohiam",
+      "to_id": "lady_jessica",
+      "type": "mentorship",
+      "label": "Bene Gesserit trainer (and biological mother)",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "reverend_mother_mohiam",
+      "to_id": "paul_atreides",
+      "type": "professional",
+      "label": "administers gom jabbar test",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "doctor_yueh",
+      "to_id": "duke_leto",
+      "type": "antagonism",
+      "label": "betrays under coercion",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "chani",
+      "to_id": "liet_kynes",
+      "type": "family",
+      "label": "daughter",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "stilgar",
+      "to_id": "liet_kynes",
+      "type": "alliance",
+      "label": "serves the secret terraforming cause",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "thufir_hawat",
+      "to_id": "baron_harkonnen",
+      "type": "professional",
+      "label": "coerced service after Atreides fall",
+      "spoiler_level": 2
+    }
+  ],
+  "coverage_note": "The 20-character cap required omitting several named figures including Shadout Mapes (Fremen housekeeper), Jamis (Fremen warrior killed by Paul), Esmar Tuek (smuggler chief), and Otheym (Fremen warrior). The Guild Steersman and Spacing Guild are represented structurally in the setting preamble but lack a named character node.",
+  "notes": "Map covers the full text of the 1965 novel Dune (Chilton Books). Spoiler levels reflect narrative position within this volume only, not the broader Dune Chronicles. The Bene Gesserit breeding program subplot — including the revelation of Jessica's true parentage — is included at spoiler level 2 as it is disclosed within this novel.",
+  "creator": null,
+  "source_url": null
+}

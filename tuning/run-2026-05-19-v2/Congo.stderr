@@ -1,0 +1,2 @@
+[dev-generate] claude-sonnet-4-6 | in=77 out=2549 cost=$0.0385 | chars=9 rels=9
+Saved to tuning/run-2026-05-19-v2/Congo.json

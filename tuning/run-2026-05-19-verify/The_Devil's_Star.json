@@ -1,0 +1,275 @@
+{
+  "title": "The Devil's Star",
+  "subtitle": "Jo Nesbø, 2003 · Harry Hole #5",
+  "blurb": "Oslo detective Harry Hole, battling alcoholism and professional disgrace, is assigned to investigate a series of murders in which young women are killed and a tiny red diamond star is left behind. As the case deepens, Harry begins to suspect a colleague may be the killer, forcing a confrontation with loyalty, corruption, and his own self-destruction.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "oslo_police",
+      "label": "Oslo Police / Crime Squad",
+      "description": "The investigators and administrators of Oslo's criminal police, ranging from detectives on the murder case to supervisory brass.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "victims_and_witnesses",
+      "label": "Victims & Witnesses",
+      "description": "Civilians who are drawn into the murder investigation, either as victims of the killer or as people with knowledge of events.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "hole_personal",
+      "label": "Harry's Personal Circle",
+      "description": "People connected to Harry Hole outside of official police work, including his romantic and family relationships.",
+      "color_hint": "green"
+    },
+    {
+      "id": "antagonist_sphere",
+      "label": "Antagonist & Criminal Network",
+      "description": "The killer and those whose actions or secrets are intertwined with the crimes.",
+      "color_hint": "red"
+    }
+  ],
+  "characters": [
+    {
+      "id": "harry_hole",
+      "name": "Harry Hole",
+      "role": "Detective Inspector, Oslo Crime Squad",
+      "description": "The series protagonist: a brilliant but self-destructive detective whose alcoholism has placed him on the margins of the force. He is assigned the pentagram murder case almost as punishment, yet proves indispensable.",
+      "faction_id": "oslo_police",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "tom_waaler",
+      "name": "Tom Waaler",
+      "role": "Detective Inspector; covert arms dealer and serial killer",
+      "description": "Harry's loathed colleague who is outwardly a high-performing officer but is secretly the pentagram killer and the head of a corrupt arms-smuggling ring. His unmasking is the novel's central revelation.",
+      "faction_id": "antagonist_sphere",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "beate_lonn",
+      "name": "Beate Lønn",
+      "role": "Detective, Robbery Unit; facial-recognition specialist",
+      "description": "A young, socially awkward officer with an extraordinary ability to recognise and recall faces. She becomes Harry's key partner in the investigation and proves crucial in building the case.",
+      "faction_id": "oslo_police",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "bjarne_moller",
+      "name": "Bjarne Møller",
+      "role": "Police Inspector; Harry's direct superior",
+      "description": "Harry's long-suffering boss who tries to protect Harry's career while managing political pressure from above. He is a steady, decent figure caught between loyalty to Harry and institutional demands.",
+      "faction_id": "oslo_police",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "rakel_fauke",
+      "name": "Rakel Fauke",
+      "role": "Harry's partner; lawyer",
+      "description": "The woman Harry loves, whose relationship with him is strained to breaking point by his drinking and the dangers of his work. Her fate and their estrangement drive much of Harry's emotional arc.",
+      "faction_id": "hole_personal",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "oleg_fauke",
+      "name": "Oleg Fauke",
+      "role": "Rakel's young son",
+      "description": "Rakel's boy, whom Harry has come to regard almost as a stepson. Oleg's welfare is one of Harry's chief motivations and a source of emotional vulnerability.",
+      "faction_id": "hole_personal",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "ellen_gjelten",
+      "name": "Ellen Gjelten",
+      "role": "Deceased detective; Harry's former partner",
+      "description": "Harry's beloved former colleague, murdered before this novel begins. Her death — connected to Waaler's crimes — haunts Harry throughout the case and is the personal wound driving his obsession with exposing Waaler.",
+      "faction_id": "oslo_police",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "camilla_loen",
+      "name": "Camilla Loen",
+      "role": "Murder victim",
+      "description": "One of the young women killed by the pentagram murderer; her death opens the active phase of the serial-killing investigation in Oslo.",
+      "faction_id": "victims_and_witnesses",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "lisbeth_barli",
+      "name": "Lisbeth Barli",
+      "role": "Murder victim",
+      "description": "Another victim in the pentagram murder series; her killing advances the investigation and intensifies pressure on the squad.",
+      "faction_id": "victims_and_witnesses",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "barbara_svendsen",
+      "name": "Barbara Svendsen",
+      "role": "Murder victim",
+      "description": "A further victim of the pentagram killer whose death contributes to the emerging pattern Harry and Beate work to decode.",
+      "faction_id": "victims_and_witnesses",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "waaler_arms_network",
+      "name": "Waaler's Arms Network",
+      "role": "Criminal associates / arms smugglers",
+      "description": "The collective of unnamed or minor figures involved in Waaler's illegal weapons-trafficking operation, whose existence links the personal killings to broader organised crime.",
+      "faction_id": "antagonist_sphere",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "ivarsson",
+      "name": "Ivarsson",
+      "role": "Senior police official; bureaucratic antagonist",
+      "description": "A politically minded senior officer who obstructs Harry's investigation and represents the institutional inertia and ego-protection that Harry must constantly fight.",
+      "faction_id": "oslo_police",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "sis_hole",
+      "name": "Sis Hole",
+      "role": "Harry's sister",
+      "description": "Harry's mentally disabled sister, whose care is a background concern that underscores his sense of family obligation and isolation.",
+      "faction_id": "hole_personal",
+      "importance": "minor",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "harry_hole",
+      "to_id": "tom_waaler",
+      "type": "antagonism",
+      "label": "investigator vs. secret killer and arms trafficker; Harry suspects Waaler from early on",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "beate_lonn",
+      "type": "professional",
+      "label": "investigative partners on the pentagram case",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "rakel_fauke",
+      "type": "romantic",
+      "label": "estranged lovers; relationship deteriorates under strain of Harry's alcoholism",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "oleg_fauke",
+      "type": "family",
+      "label": "surrogate father figure",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "bjarne_moller",
+      "type": "professional",
+      "label": "subordinate and protective superior; Møller shields Harry from internal politics",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "ellen_gjelten",
+      "type": "professional",
+      "label": "beloved former partner; her murder drives Harry's obsession with Waaler",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "ellen_gjelten",
+      "type": "antagonism",
+      "label": "Waaler is responsible for Ellen's death",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "ivarsson",
+      "type": "antagonism",
+      "label": "bureaucratic friction; Ivarsson impedes Harry's investigation",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "sis_hole",
+      "type": "family",
+      "label": "protective older brother",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "beate_lonn",
+      "to_id": "ellen_gjelten",
+      "type": "professional",
+      "label": "Beate's father was a colleague of Ellen's generation; indirect connection to Harry's grief",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "waaler_arms_network",
+      "type": "criminal",
+      "label": "leader of the weapons-smuggling ring",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "camilla_loen",
+      "type": "antagonism",
+      "label": "killer and victim",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "lisbeth_barli",
+      "type": "antagonism",
+      "label": "killer and victim",
+      "spoiler_level": 3
+    }
+  ],
+  "coverage_note": "The novel contains several minor named figures (neighbours, forensic technicians, background officers) whose structural roles are too peripheral to map reliably without risking fabrication. Rakel's precise professional details and some secondary victim names have been included only at the level of confident recall. Beate Lønn's connection to her deceased father (a police officer) is referenced obliquely and has been noted at spoiler_level 2 rather than asserted as a firm relationship.",
+  "notes": "The Devil's Star (Marekors in Norwegian) is the fifth Harry Hole novel. It resolves the Waaler subplot seeded across earlier volumes and ends with Harry's resignation from the force — setting up the next book, The Redeemer. The pentagram (five-pointed star) is both the killer's calling-card motif and a link to the arms network's coded communications.",
+  "creator": null,
+  "source_url": null
+}

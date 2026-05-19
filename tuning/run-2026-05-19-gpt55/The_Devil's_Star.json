@@ -1,0 +1,245 @@
+{
+  "title": "The Devil's Star",
+  "subtitle": "Jo Nesbø, 2003 · Harry Hole #5",
+  "blurb": "In a summer-stifled Oslo, Harry Hole investigates a sequence of murders marked by a pentagram motif while his career and sobriety are collapsing. The case also brings to a head Harry’s long-running conflict with corrupt detective Tom Waaler.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "oslo_police",
+      "label": "Oslo Police Investigation",
+      "description": "Police officers and specialists working the Oslo murder case, formally or reluctantly.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "harrys_personal_circle",
+      "label": "Harry's Personal Circle",
+      "description": "People outside the case who anchor, challenge, or expose Harry’s private life.",
+      "color_hint": "green"
+    },
+    {
+      "id": "waaler_corruption_plot",
+      "label": "Waaler Corruption Plot",
+      "description": "The concealed criminal thread surrounding Tom Waaler and earlier police deaths.",
+      "color_hint": "red"
+    },
+    {
+      "id": "pentagram_murder_case",
+      "label": "Pentagram Murder Case",
+      "description": "The victims and staged pattern that drive the novel’s main investigation.",
+      "color_hint": "amber"
+    }
+  ],
+  "characters": [
+    {
+      "id": "harry_hole",
+      "name": "Harry Hole",
+      "role": "Detective",
+      "description": "Harry is the alcoholic but gifted Oslo detective at the center of the investigation. The novel culminates in his exposure of Tom Waaler’s corruption and a decisive break in that long-running conflict.",
+      "faction_id": "oslo_police",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "name_evidence": "Oslo detective investigating pentagram murders while facing dismissal",
+      "actor": null
+    },
+    {
+      "id": "tom_waaler",
+      "name": "Tom Waaler",
+      "role": "Detective / corrupt officer",
+      "description": "Waaler is Harry’s polished, dangerous colleague and the hidden criminal antagonist of the police-corruption arc. His confrontation with Harry brings the Waaler storyline to its resolution, and Waaler dies by the end of the novel.",
+      "faction_id": "waaler_corruption_plot",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Detective assigned as Harry's partner, later exposed as corrupt",
+      "actor": null
+    },
+    {
+      "id": "bjarne_moller",
+      "name": "Bjarne Møller",
+      "role": "Police superior",
+      "description": "Møller is Harry’s boss, caught between institutional discipline and his knowledge of Harry’s investigative value. He gives Harry limited room to work despite Harry’s worsening professional position.",
+      "faction_id": "oslo_police",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Police superior handling Harry's dismissal and murder assignment",
+      "actor": null
+    },
+    {
+      "id": "beate_lonn",
+      "name": "Beate Lønn",
+      "role": "Police specialist",
+      "description": "Beate assists the investigation with her distinctive memory and recognition abilities. She is part of the police network that helps Harry follow evidence beyond official appearances.",
+      "faction_id": "oslo_police",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Police specialist aiding the investigation with facial recognition skills",
+      "actor": null
+    },
+    {
+      "id": "rakel_fauke",
+      "name": "Rakel Fauke",
+      "role": "Harry's partner",
+      "description": "Rakel is Harry’s love interest and the person most closely tied to his hope for a stable private life. Her plans involving Oleg sharpen the emotional cost of Harry’s alcoholism and police obsession.",
+      "faction_id": "harrys_personal_circle",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Harry's lover, considering life away from Oslo with Oleg",
+      "actor": null
+    },
+    {
+      "id": "oleg_fauke",
+      "name": "Oleg Fauke",
+      "role": "Rakel's son",
+      "description": "Oleg is Rakel’s son and a child Harry deeply cares for. His bond with Harry makes the possible loss of Rakel’s household a central personal stake.",
+      "faction_id": "harrys_personal_circle",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Rakel's son, central to Harry's fragile domestic hopes",
+      "actor": null
+    },
+    {
+      "id": "ellen_gjelten",
+      "name": "Ellen Gjelten",
+      "role": "Former detective",
+      "description": "Ellen is Harry’s former police partner, already dead before the main action but still central to Harry’s pursuit of the truth. Her murder is tied to Waaler’s concealed criminal activity.",
+      "faction_id": "waaler_corruption_plot",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 3,
+      "name_evidence": "Harry's murdered former partner, tied to Waaler's hidden crimes",
+      "actor": null
+    },
+    {
+      "id": "stale_aune",
+      "name": "Ståle Aune",
+      "role": "Psychologist",
+      "description": "Aune is Harry’s psychologist friend and sounding board. He helps frame Harry’s behavior and the mental pressures surrounding the investigation.",
+      "faction_id": "harrys_personal_circle",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Psychologist friend Harry consults amid the murder investigation",
+      "actor": null
+    },
+    {
+      "id": "oystein_eikeland",
+      "name": "Øystein Eikeland",
+      "role": "Taxi driver / friend",
+      "description": "Øystein is one of Harry’s loyal civilian friends. He is part of the informal support network that keeps Harry functioning when his drinking and isolation worsen.",
+      "faction_id": "harrys_personal_circle",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "name_evidence": "Taxi-driver friend who helps Harry during alcoholic relapses",
+      "actor": null
+    },
+    {
+      "id": "pentagram_victims",
+      "name": "Pentagram murder victims",
+      "role": "Collective victim node",
+      "description": "The murdered women form the apparent pattern of the case, with pentagram imagery and staged clues pushing the investigation forward. They are grouped here to avoid misnaming individual victims.",
+      "faction_id": "pentagram_murder_case",
+      "importance": "supporting",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "name_evidence": "Women killed across Oslo in the five-point-star pattern",
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "harry_hole",
+      "to_id": "tom_waaler",
+      "type": "professional",
+      "label": "assigned partners on the murder case",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "tom_waaler",
+      "type": "antagonism",
+      "label": "Harry exposes Waaler's corruption; Waaler dies in the final conflict",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "tom_waaler",
+      "to_id": "ellen_gjelten",
+      "type": "antagonism",
+      "label": "responsible for the hidden crime surrounding her death",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "ellen_gjelten",
+      "type": "professional",
+      "label": "former partners; her murder continues to drive him",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "bjarne_moller",
+      "type": "professional",
+      "label": "troubled subordinate and reluctant superior",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "beate_lonn",
+      "type": "professional",
+      "label": "colleagues on the investigation",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "rakel_fauke",
+      "type": "romantic",
+      "label": "strained lovers",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "oleg_fauke",
+      "type": "family",
+      "label": "surrogate father bond",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "rakel_fauke",
+      "to_id": "oleg_fauke",
+      "type": "family",
+      "label": "mother and son",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "stale_aune",
+      "type": "mentorship",
+      "label": "psychological confidant and adviser",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "oystein_eikeland",
+      "type": "alliance",
+      "label": "loyal friend outside the police",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "harry_hole",
+      "to_id": "pentagram_victims",
+      "type": "professional",
+      "label": "investigates their murders",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "This map emphasizes confidently grounded recurring cast members and the Waaler corruption arc. Individual murder victims, suspects, and some case-specific names are grouped or omitted rather than risk misidentification.",
+  "notes": "Full-spoiler map where confidence is high; omissions favor accuracy over fabricated completeness.",
+  "creator": null,
+  "source_url": null
+}

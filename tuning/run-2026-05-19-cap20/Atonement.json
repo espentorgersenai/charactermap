@@ -1,0 +1,279 @@
+{
+  "title": "Atonement",
+  "subtitle": "Ian McEwan, 2001",
+  "blurb": "On a sweltering summer day in 1935, thirteen-year-old Briony Tallis makes a false accusation that destroys the lives of her sister Cecilia and the housekeeper's son Robbie Turner. The novel follows the consequences across decades — through the Second World War and into old age — as Briony seeks, and ultimately fails, to fully atone for her crime.",
+  "spoiler_mode": "full",
+  "setting_preamble": null,
+  "factions": [
+    {
+      "id": "tallis_family",
+      "label": "The Tallis Family",
+      "description": "Upper-middle-class English family at their Surrey estate, whose internal tensions and Briony's false accusation set the novel's tragedy in motion.",
+      "color_hint": "amber"
+    },
+    {
+      "id": "robbie_circle",
+      "label": "Robbie Turner & Associates",
+      "description": "Robbie Turner and those connected to him — principally Cecilia — whose lives are ruined by the false accusation and the war.",
+      "color_hint": "blue"
+    },
+    {
+      "id": "wartime_figures",
+      "label": "Wartime Figures",
+      "description": "Characters encountered during the Dunkirk retreat and wartime nursing, representing the wider catastrophe of the Second World War.",
+      "color_hint": "red"
+    },
+    {
+      "id": "narrative_frame",
+      "label": "Narrative Frame",
+      "description": "Characters who appear primarily in the metafictional coda, clarifying the novel's status as Briony's own constructed account.",
+      "color_hint": "slate"
+    }
+  ],
+  "characters": [
+    {
+      "id": "briony_tallis",
+      "name": "Briony Tallis",
+      "role": "Narrator / Aspiring and later professional writer",
+      "description": "The novel's central consciousness and, as revealed in the coda, its author. At thirteen she misidentifies Robbie as an attacker and gives false testimony, an act of self-dramatisation and misunderstanding that destroys two lives. As an adult she works as a nurse during the war and ultimately writes this novel as her act of atonement.",
+      "faction_id": "tallis_family",
+      "importance": "protagonist",
+      "is_deceased_in_work": false,
+      "spoiler_level": 0,
+      "actor": null
+    },
+    {
+      "id": "cecilia_tallis",
+      "name": "Cecilia Tallis",
+      "role": "Briony's elder sister",
+      "description": "Intelligent and restless, she has been in love with Robbie since childhood without fully acknowledging it. Her sister's accusation estranges her from her family; she becomes a nurse during the war and maintains a secret relationship with Robbie. In the coda it is revealed she died in the Balham tube station bombing in 1940.",
+      "faction_id": "robbie_circle",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "robbie_turner",
+      "name": "Robbie Turner",
+      "role": "Housekeeper's son / soldier",
+      "description": "Gifted Cambridge graduate whose promising future is annihilated by Briony's false accusation. He is imprisoned, then released into the army for the Dunkirk campaign. He loves Cecilia and survives the retreat in imagination but dies of septicaemia at Bray Dunes before evacuation in 1940, as the coda discloses.",
+      "faction_id": "robbie_circle",
+      "importance": "major",
+      "is_deceased_in_work": true,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "leon_tallis",
+      "name": "Leon Tallis",
+      "role": "Elder Tallis brother",
+      "description": "Genial, somewhat shallow eldest son who brings Paul Marshall to the estate that fateful weekend, inadvertently introducing the man who actually commits the assault.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "emily_tallis",
+      "name": "Emily Tallis",
+      "role": "Tallis matriarch",
+      "description": "The mother, largely absent from household management due to chronic migraines, whose passivity and willingness to believe Briony's account contributes to the injustice done to Robbie.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "jack_tallis",
+      "name": "Jack Tallis",
+      "role": "Tallis patriarch / civil servant",
+      "description": "The father, absent in London during much of the crisis weekend and ineffectual in preventing the injustice. His wartime role keeps him largely off-page.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "paul_marshall",
+      "name": "Paul Marshall",
+      "role": "Chocolate manufacturer / Leon's friend",
+      "description": "The actual rapist of Lola Quincey, whose crime Briony wrongly attributes to Robbie. He escapes justice by marrying Lola, effectively silencing her as a witness, and becomes enormously wealthy during the war. His guilt is only clearly stated in the coda.",
+      "faction_id": "tallis_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    },
+    {
+      "id": "lola_quincey",
+      "name": "Lola Quincey",
+      "role": "Cecilia's cousin / rape victim",
+      "description": "Teenage cousin visiting for the summer, she is assaulted by Paul Marshall. Her ambiguous testimony corroborates Briony's false identification of Robbie. She later marries Marshall, and in the coda she and her husband are still alive and prominent, their marriage a perpetual suppression of the truth.",
+      "faction_id": "tallis_family",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "grace_turner",
+      "name": "Grace Turner",
+      "role": "Tallis housekeeper / Robbie's mother",
+      "description": "Loyal servant whose son's imprisonment marks the definitive end of the Turners' relationship with the Tallis family. She maintains faith in Robbie's innocence.",
+      "faction_id": "robbie_circle",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "leon_quincey_jr",
+      "name": "Jackson Quincey",
+      "role": "Lola's younger brother (one of the twins)",
+      "description": "One of Lola's twin brothers visiting the estate; the children's disappearance on the night of the assault triggers the search that culminates in Briony's accusation.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "pierrot_quincey",
+      "name": "Pierrot Quincey",
+      "role": "Lola's younger brother (one of the twins)",
+      "description": "The other twin brother; together with Jackson his nighttime wandering precipitates the crisis evening.",
+      "faction_id": "tallis_family",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 1,
+      "actor": null
+    },
+    {
+      "id": "nettle",
+      "name": "Corporal Nettle",
+      "role": "British soldier / Robbie's companion",
+      "description": "One of the two corporals who accompany Robbie on the retreat to Dunkirk. He provides grim humour and camaraderie during the march.",
+      "faction_id": "wartime_figures",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "mace",
+      "name": "Corporal Mace",
+      "role": "British soldier / Robbie's companion",
+      "description": "The second corporal retreating with Robbie to Dunkirk; solid and pragmatic, he helps hold Robbie together during the ordeal.",
+      "faction_id": "wartime_figures",
+      "importance": "supporting",
+      "is_deceased_in_work": false,
+      "spoiler_level": 2,
+      "actor": null
+    },
+    {
+      "id": "older_briony",
+      "name": "Briony Tallis (aged 77)",
+      "role": "Novelist / narrator of the coda",
+      "description": "In the novel's final section ('London, 1999'), an elderly Briony visits her family reunion, receives a diagnosis of vascular dementia, and confesses in metafictional terms that Robbie and Cecilia's reunion and happy ending in Part Three were her invention — the real pair died in 1940. She is the author of the entire novel.",
+      "faction_id": "narrative_frame",
+      "importance": "major",
+      "is_deceased_in_work": false,
+      "spoiler_level": 3,
+      "actor": null
+    }
+  ],
+  "relationships": [
+    {
+      "from_id": "briony_tallis",
+      "to_id": "cecilia_tallis",
+      "type": "family",
+      "label": "sisters — Briony's accusation estranges them; Cecilia never fully forgives",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "robbie_turner",
+      "type": "antagonism",
+      "label": "false accuser — Briony's testimony sends Robbie to prison",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "cecilia_tallis",
+      "to_id": "robbie_turner",
+      "type": "romantic",
+      "label": "lovers — separated by imprisonment and war, reunited only in Briony's fictionalised version",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "grace_turner",
+      "type": "family",
+      "label": "son and mother",
+      "spoiler_level": 0
+    },
+    {
+      "from_id": "paul_marshall",
+      "to_id": "lola_quincey",
+      "type": "criminal",
+      "label": "rapist and victim — later husband and wife, silencing the truth",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "leon_tallis",
+      "to_id": "paul_marshall",
+      "type": "alliance",
+      "label": "friends — Leon introduces Marshall to the estate",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "briony_tallis",
+      "to_id": "lola_quincey",
+      "type": "family",
+      "label": "cousins — Lola's equivocation reinforces Briony's false account",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "nettle",
+      "type": "alliance",
+      "label": "fellow soldiers on the Dunkirk retreat",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "robbie_turner",
+      "to_id": "mace",
+      "type": "alliance",
+      "label": "fellow soldiers on the Dunkirk retreat",
+      "spoiler_level": 2
+    },
+    {
+      "from_id": "older_briony",
+      "to_id": "briony_tallis",
+      "type": "professional",
+      "label": "same person — elderly Briony is the author of the entire novel including her younger self",
+      "spoiler_level": 3
+    },
+    {
+      "from_id": "emily_tallis",
+      "to_id": "briony_tallis",
+      "type": "family",
+      "label": "mother and daughter — Emily's passivity amplifies Briony's power",
+      "spoiler_level": 1
+    },
+    {
+      "from_id": "jack_tallis",
+      "to_id": "robbie_turner",
+      "type": "professional",
+      "label": "patron who funded Robbie's Cambridge education, then failed to protect him",
+      "spoiler_level": 1
+    }
+  ],
+  "coverage_note": "The Quincey twins (Jackson and Pierrot) are included at the supporting level as their disappearance is plot-critical. Minor figures such as the various nurses and ward sisters Briony works with, and background soldiers at Dunkirk, are omitted for space.",
+  "notes": "Character map covers the full novel including the metafictional coda (Part Four / 'London, 1999'). All spoilers are present, including the revelation that Robbie and Cecilia died in 1940 and that their reunion in Part Three is Briony's literary invention.",
+  "creator": null,
+  "source_url": null
+}

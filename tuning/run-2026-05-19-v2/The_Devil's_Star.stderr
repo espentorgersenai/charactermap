@@ -1,0 +1,2 @@
+[dev-generate] claude-sonnet-4-6 | in=83 out=2751 cost=$0.0415 | chars=11 rels=9
+Saved to tuning/run-2026-05-19-v2/The_Devil's_Star.json
