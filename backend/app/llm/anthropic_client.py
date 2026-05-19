@@ -60,7 +60,7 @@ class AnthropicClient:
         system_prompt: str,
         user_message: str,
         max_tokens: int = 8192,
-        max_searches: int = 8,
+        max_searches: int = 3,
     ) -> LLMResult:
         """Call the model with the server-side web_search tool enabled and
         return the concatenated text-block content as analysis prose.
