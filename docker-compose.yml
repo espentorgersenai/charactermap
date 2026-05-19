@@ -33,7 +33,12 @@ services:
       - image_cache:/var/lib/charactermap/image_cache
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        # Public Turnstile site key — safe to embed in the bundle. The
+        # corresponding TURNSTILE_SECRET_KEY stays server-side only.
+        VITE_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
     container_name: charmap_frontend
     restart: unless-stopped
     ports:
