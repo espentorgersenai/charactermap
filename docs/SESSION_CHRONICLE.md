@@ -2,7 +2,7 @@
 
 Character Map Generator · Chronological build log — appended at the end of each session.
 
-Last updated: Session 7 · 2026-05-19 (wrapup)
+Last updated: Session 8 · 2026-05-19 (wrapup)
 
 > **Backlog / open items / next steps → [kanban.torgersen.ai](https://kanban.torgersen.ai) — project: Character Map, board: Character Map.** This file is the *narrative archive* of what was built each session; no TODOs live here.
 
@@ -340,3 +340,36 @@ Full Phase 1 implementation — all 8 Planka cards moved to Completed.
 - **173 backend unit tests passing** (was 135). 8 skipped (PDF — requires pdflatex). 19/19 frontend vitest passing. TypeScript clean, vite build clean.
 - **Live verified:** /api/health 200, /api/limits returns full structure, /api/jobs accepts POSTs returning 202 + job_id, full resolve→generate→render flow tested with Pillars of the Earth (Opus + Sonnet), iPad end-to-end working.
 - **Not verified yet:** golden-set across all 10 works, fabrication audit on *A Fire Upon the Deep*. These are #43 + #44 (manual, by the user).
+
+---
+
+## Session 8 — 2026-05-19
+
+### What We Built
+
+**TV credits use `/aggregate_credits` instead of `/credits`** (commit b78a950). User reported low headshot coverage on The Night Manager (2/16 matches — only Tom Hiddleston + Hugh Laurie, who bridge both seasons). TMDB's `/tv/{id}/credits` returns only the current main cast — for S2 (2025) of Night Manager that's a near-disjoint cast from S1, so the LLM's S1 character names (Burr, Jed, Corky, Sandy, Daniel Roper) never matched. `/aggregate_credits` returns 134 cast entries spanning all seasons, with `roles: [{character, episode_count}, ...]` per actor. `_parse_cast` now flattens per-role so each (actor, character) is independently fuzzy-matchable. cast_limit bumped 30→80 for enrichment. Result on Night Manager: 16/16 headshots.
+
+**PDF photo-left, text-right character layout** (commits d2b7123 + 5d434d5). User wanted photo+text side-by-side instead of stacked. Went through three iterations:
+1. Minipages with `\hfill` — worked but looked identical to "photo above text" because nothing forced the visual difference.
+2. `wrapfig` — true magazine-style text wrap, but threaded figures through paragraphs in a way that detached them from their heading. User saw 6 names but 4 photos with no clear pairing.
+3. Top-aligned minipages with `\hspace` — `[t]` alignment guarantees photo-top = heading-top by construction. Each character is a self-contained block with `\par\vspace{1.6em}` between. Final answer.
+
+Fixed a pre-existing silent failure: pdflatex can't render ⚠ (U+26A0). Any map with a coverage_note rendered no PDF artifact at all — only markdown landed, no error surfaced to the user. `_strip_pdf_unsafe_chars` maps ⚠ → `!` before pandoc. Also required: `header-includes=\\usepackage{graphicx}` because the character-block rewriter consumes all markdown image syntax, so pandoc no longer auto-loads graphicx.
+
+**Rate limits loosened for dev iteration** (commit 5d434d5). User hit "Sending requests too quickly" while iterating. `JOBS_WINDOWS` bumped from 2/5/15 to 8/30/60 with a comment marking it as pre-launch temporary. Tests now read the limit from `JOBS_WINDOWS` (was hardcoded), so the next change is a one-line edit.
+
+**Planka:** filed TV season selector card (the deeper feature underneath the Night Manager issue — pick S1 vs S2, pin generation to a specific season).
+
+### Key Decisions
+
+- **`/aggregate_credits` is correct, default to it for TV.** Even for single-season shows the endpoint behaves identically to `/credits`. No reason to keep the broken path around. Movies stay on `/credits` (no `aggregate_credits` equivalent for film).
+- **Top-aligned minipages beat wrapfig.** `wrapfig` threads figures through paragraph structure; it's correct LaTeX behavior for magazine-style flow but wrong for "trading card" layout. The 2-minipage pattern with `[t]` is the right tool — photo and heading-line are siblings in the same box, photo never escapes into the adjacent character's text.
+- **Don't switch to lualatex.** Considered it for full UTF-8 support; would have required `texlive-fonts-extra` + `texlive-luatex` Docker deps and lmodern OTF font setup. `_strip_pdf_unsafe_chars` is a 2-line fix for the one char we actually emit. Add to the fallback map as more cases emerge.
+- **Sanitize at the boundary, not the source.** Could have stripped ⚠ in `markdown.py` so the .md file never has it either. Chose to leave .md clean (⚠ is correct for markdown viewers) and only sanitize in the pdf.py pre-processor. Mirrors the existing `_REMOTE_IMAGE_RE` pattern (PDF-only rewrites stay in pdf.py).
+- **Dev rate limits are public-launch debt.** 8/30/60 will burn 80% of the cost cap in a single bad day if a script gets at it before launch. Acceptable for now because the daily cost guard is a hard backstop, but tighten back to 2/5/15 before opening up.
+
+### Test Status
+
+- **186 backend unit tests passing** (was 173). 8 skipped (pdflatex-gated). New: `test_tv_aggregate_credits.py` (6 tests covering /aggregate_credits routing + role flattening), `test_pdf_character_blocks.py` (7 tests for the regex + LaTeX escape + minipage rewriter).
+- Existing rate-limit + limits-route tests updated to read from `JOBS_WINDOWS` instead of hardcoded 2/5/15.
+- **Live verified:** Night Manager re-render returned 16/16 headshots. Pillars PDF re-render: 18 headshots in side-by-side layout, no silent failure on the coverage-note ⚠.
