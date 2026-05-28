@@ -85,7 +85,7 @@ export async function createJob(body: {
   email?: string
   acknowledged_spoilers: true
   turnstile_token?: string
-  character_cap: 10 | 20 | 30 | 40 | 50
+  character_cap: 10 | 20 | 30 | 40 | 50 | 100 | 150
   season?: number | null
 }): Promise<{ job_id: string }> {
   const res = await fetch('/api/jobs', {

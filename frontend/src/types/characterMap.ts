@@ -35,6 +35,7 @@ export interface Character {
   is_deceased_in_work: boolean
   spoiler_level: SpoilerLevel | null
   actor?: ActorInfo
+  home_region?: string | null
 }
 
 export interface Relationship {

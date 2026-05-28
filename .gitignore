@@ -40,3 +40,7 @@ cap-*.png
 dpi-*.png
 hobbit-*.png
 .playwright-mcp/
+
+# Personal-use map backdrops (fan-made, copyrighted)
+frontend/public/maps/*
+!frontend/public/maps/README.md

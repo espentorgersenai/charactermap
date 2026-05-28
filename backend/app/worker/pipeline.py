@@ -18,6 +18,7 @@ from app.llm.gemini_client import GeminiClient
 from app.llm.openai_client import OpenAIClient
 from app.metadata.enrichment import match_cast_to_characters, set_creator
 from app.metadata.tmdb import get_credits
+from app.metadata.wikipedia_actor import lookup_actor_via_wikipedia
 from app.renderers.markdown import render_markdown
 from app.renderers.pdf import render_pdf
 from app.llm.base import LLMClient, LLMResult
@@ -123,8 +124,13 @@ async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
             # season pins TV credits to that season only (overrides
             # aggregate_credits union). None = aggregate as before.
             season = meta.get("season") if media_type == "tv" else None
+            # Cast pool grows with the cap so 100+ character maps don't outrun
+            # TMDB's billing order — GoT aggregate credits has hundreds of
+            # named roles; the default 80 misses recurring supporting cast.
+            cast_limit = max(80, job.character_cap * 3)
             cast, director_credit = await get_credits(
                 tmdb_id, media_type, aggregate_collection=True, season=season,
+                cast_limit=cast_limit,
             )
             matched = match_cast_to_characters(char_map.characters, cast)
             log.info(
@@ -136,6 +142,20 @@ async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
                 total_chars=len(char_map.characters),
                 season=season,
             )
+            # Wikipedia fallback for the still-unmatched characters. Bounded by
+            # MAX_WIKI_LOOKUPS so a very large map can't quietly run hundreds
+            # of HTTP roundtrips. Each lookup is independently swallowed.
+            wiki_recovered = await _enrich_unmatched_via_wikipedia(
+                char_map, job, matched=matched
+            )
+            log.info(
+                "enrichment_wiki_recovered",
+                job_id=str(job.id),
+                recovered=wiki_recovered,
+                still_unmatched=sum(
+                    1 for c in char_map.characters if c.actor is None
+                ),
+            )
             # Only film/tv creator comes from the director; books always use the author.
             if job.work_type == "film_tv":
                 director = director_credit
@@ -145,6 +165,46 @@ async def _enrich_with_credits(char_map: CharacterMap, job: Job) -> None:
         log.info("enrichment_skipped_no_media_type", job_id=str(job.id))
 
     set_creator(char_map, job.work_type, author_name, director)
+
+
+# Hard ceiling on Wikipedia roundtrips per job. Each lookup hits Wikipedia once
+# and TMDB /search/person once, so 50 unmatched characters = ~100 requests.
+MAX_WIKI_LOOKUPS = 60
+
+
+async def _enrich_unmatched_via_wikipedia(
+    char_map: CharacterMap, job: Job, matched: int
+) -> int:
+    """Fallback for characters that TMDB fuzzy matching missed.
+
+    Walks unmatched characters and asks Wikipedia who portrays them, then
+    resolves the actor name back to a TMDB headshot. Best-effort and bounded
+    — never raises, capped at MAX_WIKI_LOOKUPS to avoid runaway IO on
+    100+ character maps where the long tail is structurally hard to match.
+    """
+    title_query = job.resolved_title or job.title_query or ""
+    recovered = 0
+    attempts = 0
+    for char in char_map.characters:
+        if char.actor is not None:
+            continue
+        if attempts >= MAX_WIKI_LOOKUPS:
+            break
+        attempts += 1
+        try:
+            actor = await lookup_actor_via_wikipedia(char.name, title_query)
+        except Exception as e:
+            log.warning(
+                "wiki_actor_lookup_failed",
+                job_id=str(job.id),
+                character=char.name,
+                error=str(e),
+            )
+            continue
+        if actor is not None:
+            char.actor = actor
+            recovered += 1
+    return recovered
 
 
 def _sweep_spoiler_levels(char_map: CharacterMap) -> None:
