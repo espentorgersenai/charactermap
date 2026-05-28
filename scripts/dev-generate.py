@@ -112,7 +112,7 @@ Examples:
         "--model",
         default="claude-sonnet-4-6",
         choices=[
-            "claude-sonnet-4-6", "claude-opus-4-7", "claude-haiku-4-5-20251001",
+            "claude-sonnet-4-6", "claude-opus-4-8", "claude-opus-4-7", "claude-haiku-4-5-20251001",
             "gpt-5.5", "gpt-5", "gpt-5-mini",
             "gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite",
         ],

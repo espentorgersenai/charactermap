@@ -5,7 +5,7 @@ from app.models.api import ResolveCandidate
 
 VALID_MODELS = {
     "claude-sonnet-4-6",
-    "claude-opus-4-7",
+    "claude-opus-4-8",
     "gpt-5.5",
     "gemini-2.5-pro",
 }

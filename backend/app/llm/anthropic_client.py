@@ -5,9 +5,13 @@ from app.llm.base import LLMClient, LLMResult
 
 log = structlog.get_logger()
 
-# Cost per 1M tokens (MTok), USD — update as prices change
+# Cost per 1M tokens (MTok), USD — update as prices change.
+# 4.7 rates kept for historical DB rows; 4.8 priced same pending public
+# Anthropic pricing — verify before public traffic. Daily cost guard is the
+# real safety net.
 _COST_PER_MTOK = {
     "claude-sonnet-4-6":         {"input": 3.00,  "output": 15.00},
+    "claude-opus-4-8":           {"input": 15.00, "output": 75.00},
     "claude-opus-4-7":           {"input": 15.00, "output": 75.00},
     "claude-haiku-4-5-20251001": {"input": 0.80,  "output": 4.00},
 }

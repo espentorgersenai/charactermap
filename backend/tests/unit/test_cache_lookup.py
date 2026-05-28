@@ -5,6 +5,7 @@ from app.routes.jobs import find_best_cached_job
 from app.db.tables import Job
 
 MODEL_QUALITY_ORDER = [
+    "claude-opus-4-8",
     "claude-opus-4-7",
     "claude-sonnet-4-6",
     "gpt-5.5",

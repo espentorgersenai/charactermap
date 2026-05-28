@@ -104,7 +104,7 @@ def main():
         "--model",
         default="claude-sonnet-4-6",
         choices=[
-            "claude-sonnet-4-6", "claude-opus-4-7",
+            "claude-sonnet-4-6", "claude-opus-4-8", "claude-opus-4-7",
             "gpt-5.5", "gpt-5", "gpt-5-mini",
             "gemini-2.5-pro",
         ],

@@ -137,7 +137,7 @@ def main():
     parser.add_argument(
         "--model",
         default="claude-sonnet-4-6",
-        choices=["claude-sonnet-4-6", "claude-opus-4-7", "claude-haiku-4-5-20251001", "gpt-5.5", "gemini-2.5-pro"],
+        choices=["claude-sonnet-4-6", "claude-opus-4-8", "claude-opus-4-7", "claude-haiku-4-5-20251001", "gpt-5.5", "gemini-2.5-pro"],
     )
     parser.add_argument(
         "--save-dir",

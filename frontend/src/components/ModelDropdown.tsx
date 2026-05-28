@@ -1,6 +1,6 @@
 const MODELS = [
   { id: 'claude-sonnet-4-6', label: 'Claude Sonnet 4.6' },
-  { id: 'claude-opus-4-7',   label: 'Claude Opus 4.7'   },
+  { id: 'claude-opus-4-8',   label: 'Claude Opus 4.8'   },
   { id: 'gpt-5.5',           label: 'GPT-5.5'            },
   { id: 'gemini-2.5-pro',    label: 'Gemini 2.5 Pro'     },
 ] as const
