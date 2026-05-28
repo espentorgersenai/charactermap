@@ -1,6 +1,6 @@
 const STORAGE_KEY = 'charmap_form_prefs'
 
-export const CHARACTER_CAPS = [10, 20, 30, 40, 50] as const
+export const CHARACTER_CAPS = [10, 20, 30, 40, 50, 100, 150] as const
 export type CharacterCap = typeof CHARACTER_CAPS[number]
 
 interface FormPrefs {

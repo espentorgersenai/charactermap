@@ -38,6 +38,10 @@ class Character(BaseModel):
     # a specific scene or relationship in the source. Optional during rollout.
     name_evidence: Optional[str] = None
     actor: Optional[ActorInfo] = None
+    # Coarse geographic origin (region / city / holdfast) for geographic-view
+    # rendering. Free-form string — the frontend resolves it against a per-work
+    # region→coordinate table. None for works without a defined geography.
+    home_region: Optional[str] = None
 
 
 class Relationship(BaseModel):

@@ -11,7 +11,7 @@ VALID_MODELS = {
 }
 
 VALID_FORMATS = {"interactive", "png", "svg", "json", "markdown", "pdf"}
-VALID_CHARACTER_CAPS = {10, 20, 30, 40, 50}
+VALID_CHARACTER_CAPS = {10, 20, 30, 40, 50, 100, 150}
 
 
 class JobCreateRequest(BaseModel):

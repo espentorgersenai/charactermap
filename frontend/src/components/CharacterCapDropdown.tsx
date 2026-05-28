@@ -6,6 +6,8 @@ const HINTS: Record<CharacterCap, string> = {
   30: 'denser · ~$0.08',
   40: 'rich · ~$0.10',
   50: 'maximum · ~$0.12',
+  100: 'epic · ~$0.30',
+  150: 'special · ~$0.50',
 }
 
 interface Props { value: CharacterCap; onChange: (v: CharacterCap) => void }

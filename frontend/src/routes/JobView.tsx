@@ -43,6 +43,16 @@ export default function JobView() {
               ← Home
             </Link>
           </div>
+          {charMap.characters.some((c) => c.home_region) && (
+            <div>
+              <Link
+                to={`/geo/${id}`}
+                className="text-[11px] text-award-gold hover:text-award-gold-light transition-colors"
+              >
+                Geographic view →
+              </Link>
+            </div>
+          )}
           <div>
             <p className="text-[11px] font-bold text-[#555] uppercase tracking-[0.06em] mb-2.5">
               Downloads
