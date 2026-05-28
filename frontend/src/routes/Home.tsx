@@ -84,7 +84,7 @@ function friendlyError(raw: string): string {
 
 const MODEL_CYCLE = [
   'claude-sonnet-4-6',
-  'claude-opus-4-7',
+  'claude-opus-4-8',
   'gpt-5.5',
   'gemini-2.5-pro',
 ]

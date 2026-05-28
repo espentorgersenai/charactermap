@@ -5,7 +5,7 @@ import { getJob, JobProgressStage, JobStatus } from '../api/client'
 // run the two-stage web_search path; OpenAI/Gemini still use legacy single-call.
 const MODEL_ETAS: Record<string, string> = {
   'claude-sonnet-4-6': 'Typically 90–180s (web-grounded)',
-  'claude-opus-4-7':   'Typically 120–240s (web-grounded)',
+  'claude-opus-4-8':   'Typically 120–240s (web-grounded)',
   'gpt-5.5':           'Typically 30–60s',
   'gemini-2.5-pro':    'Typically 30–60s',
 }
