@@ -15,3 +15,11 @@ def test_analysis_prompt_is_cap_aware():
     # Must contain the {CHAR_CAP} placeholder so _render_system_prompt can
     # inject the target roster size into Stage 1.
     assert "{CHAR_CAP}" in _load_analysis_prompt()
+
+
+def test_analysis_prompt_names_canonical_wiki_source():
+    assert "awoiaf" in _load_analysis_prompt().lower()
+
+
+def test_analysis_prompt_has_viewpoint_section():
+    assert "Viewpoint" in _load_analysis_prompt()

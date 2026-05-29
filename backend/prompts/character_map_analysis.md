@@ -4,7 +4,7 @@ You have access to web search — USE IT. Verify every character name against au
 
 ## Rules
 
-1. **Web-search every character name before naming it.** Issue searches like `"<title> <author> characters"` and `"<title> plot summary"` and read real source material. A name that does not appear in any source you retrieved is a fabrication risk — omit it. The dominant failure mode is the "plausible-real-world-name trap" (politicians' surnames, generic-sounding inventions like "Geoffrey Howe", "Marty Rogers", "Dr. Seamans"). If a name *feels* right for the genre but you can't find it in your retrieved sources, that feeling is the warning sign — omit it.
+1. **Web-search every character name before naming it.** Issue searches like `"<title> <author> characters"` and `"<title> plot summary"` and read real source material. A name that does not appear in any source you retrieved is a fabrication risk — omit it. The dominant failure mode is the "plausible-real-world-name trap" (politicians' surnames, generic-sounding inventions like "Geoffrey Howe", "Marty Rogers", "Dr. Seamans"). If a name *feels* right for the genre but you can't find it in your retrieved sources, that feeling is the warning sign — omit it. For works with a dedicated comprehensive fan-wiki, treat it as a primary source for the *complete* character roster — e.g. for A Song of Ice and Fire / Game of Thrones, https://awoiaf.westeros.org (and its Portal:Characters index) is authoritative.
 
 2. **The Resolution Truth.** Name the actual killer, antagonist, mastermind, traitor, or ending explicitly. If the work uses a late-act twist or double-bluff, structure your analysis to *separate* the suspect heavily suggested through the first ~80% of the work from the actual culprit revealed at the end. Do not collapse the two into one entity. Never assign one character's climax role to another character.
 
@@ -13,6 +13,8 @@ You have access to web search — USE IT. Verify every character name against au
 4. **Refuse internal flattening.** When describing characters in the Cast section, do not reduce protagonists or factions to "good vs. evil" or "noble vs. corrupt". Reference internal hypocrisies, moral ambiguities, and systemic failures *concisely* within each Cast entry's role/function field — not as a separate prose section.
 
 5. **Faction-padding is forbidden.** If a faction exists in the work (rival corporation, criminal organisation, opposing army) but its individual members are unnamed in canon, write "members unnamed in source". Do not invent named members.
+
+6. **Roster completeness — target up to {CHAR_CAP} characters.** Enumerate as close to {CHAR_CAP} *verified* characters as the work genuinely supports. "Structural importance" is NOT just the leads: for large-ensemble works (epic fantasy, sprawling sagas, big-cast films) include recurring supporting cast — household members, advisers, bodyguards, wards, named retainers, faction officers, mentors. Do not stop at the obvious 20–30 when the source names more. This never overrides rule 1: only enumerate characters you can verify via search — never invent to reach the number. The cap is a **ceiling, not a quota**: if the work only has, say, 12 verifiable named characters, return 12 — a thin accurate roster beats a padded one. Scale to the work, not to the number.
 
 ## Output structure (plain prose, no JSON, no markdown fences)
 
@@ -23,7 +25,10 @@ You have access to web search — USE IT. Verify every character name against au
 A complete enumeration. For each character, on its own line, in this exact format:
 - `Name (canonical spelling)` — role/function — faction or affiliation (or "unaffiliated") — importance (protagonist / major / supporting / minor) — fate (alive / dead / uncertain) — source(s): URL or named reference
 
-Include every named character of structural importance. If a faction's members are unnamed in source, list the faction as a single collective entry rather than inventing names.
+Include every named character the sources support, up to {CHAR_CAP}, prioritising by narrative importance when you must choose. If a faction's members are unnamed in source, list the faction as a single collective entry rather than inventing names.
+
+**Viewpoint (POV) characters**
+If the work uses named POV / viewpoint chapters or sections (e.g. A Song of Ice and Fire, where each chapter is told through one character's eyes), list those POV characters by name here, one per line, verified against the source. Do NOT infer POV from prominence — list only characters whose perspective actually narrates a chapter/section. Most works have NO formal POV structure (third-person omniscient, a single first-person narrator) — for those, "n/a" is the common and correct answer. The POV count is whatever the work genuinely has: 0, 1, 8, or more — never a fixed number. If the work has no such structure, write "n/a".
 
 **True Final Resolution / Ending**
 The actual ending, named explicitly. Who lives, who dies, who turns out to be whom. Specific details, not summaries.
