@@ -271,6 +271,16 @@ describe('buildLayout', () => {
     expect(ids).toContain('c1__c2__antagonism')
   })
 
+  it('gives each character node a fixed height equal to NODE_HEIGHT', () => {
+    const f = faction('f')
+    const c = character('c1', 'f')
+    const { nodes } = buildLayout(map({ factions: [f], characters: [c] }))
+    const charNode = nodes.find(n => n.id === 'c1')!
+    const style = charNode.style as { width: number; height: number }
+    expect(style.width).toBe(NODE_WIDTH)
+    expect(style.height).toBe(NODE_HEIGHT)
+  })
+
   it('sets a faction-group width that accommodates the character grid', () => {
     const f = faction('f')
     const chars = ['c1', 'c2'].map(id => character(id, 'f'))

@@ -29,7 +29,7 @@ export function CharacterCardNode({ data }: NodeProps) {
 
       <div
         style={{ borderColor: colour }}
-        className="flex items-center gap-3.5 bg-[#1e1e1e] rounded-[10px] border-[1.5px] px-4 py-3 cursor-grab active:cursor-grabbing hover:shadow-[0_0_0_2px_rgba(255,255,255,0.1)] transition-shadow select-none"
+        className="flex items-center gap-3.5 bg-[#1e1e1e] rounded-[10px] border-[1.5px] px-4 py-3 cursor-grab active:cursor-grabbing hover:shadow-[0_0_0_2px_rgba(255,255,255,0.1)] transition-shadow select-none h-full overflow-hidden"
       >
         {/* Avatar (headshot when actor present, initials otherwise). The
             anchor catches mousedown so React Flow doesn't initiate a drag. */}
@@ -65,8 +65,8 @@ export function CharacterCardNode({ data }: NodeProps) {
 
         {/* Name + role */}
         <div className="min-w-0">
-          <div className="text-[22px] font-bold text-white leading-snug">{c.name}</div>
-          <div className="text-[18px] text-[#9ca3af] mt-0.5">{c.role}</div>
+          <div className="text-[22px] font-bold text-white leading-snug line-clamp-2">{c.name}</div>
+          <div className="text-[18px] text-[#9ca3af] mt-0.5 line-clamp-1">{c.role}</div>
         </div>
       </div>
     </>
