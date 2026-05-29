@@ -208,6 +208,8 @@ async def test_post_jobs_cache_hit_bypasses_cost_guard():
     session.add = MagicMock()
     session.commit = AsyncMock()
 
+    from app.routes.jobs import PIPELINE_VERSION
+
     cached_job = Job(
         id=__import__("uuid").uuid4(),
         resolved_id="OL12345W",
@@ -216,6 +218,8 @@ async def test_post_jobs_cache_hit_bypasses_cost_guard():
         character_cap=20,
         spoiler_mode="full",
         status="done",
+        # Must carry the current pipeline version or the cache lookup skips it.
+        resolved_meta={"pipeline_version": PIPELINE_VERSION},
     )
 
     cache_result = MagicMock()
