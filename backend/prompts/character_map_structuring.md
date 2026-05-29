@@ -35,6 +35,8 @@ Your job: convert the analysis into a single JSON object conforming to the Chara
 
 8a. **Home region (geography-bearing works only).** If the work has a defined fictional or historical geography that the analysis references (Westeros / Essos, Middle-earth, the Imperium of Dune, the Disc, real-world Tokyo districts, etc.), populate each Character's `home_region` field with the character's primary place of origin — region name preferred over castle/city, but the most specific term the analysis uses is acceptable. Examples for ASOIAF: `"The North"`, `"The Westerlands"`, `"The Crownlands"`, `"Dragonstone"`, `"Beyond the Wall"`, `"Essos — Dothraki Sea"`. Omit the field (do not invent) when the analysis gives no geographic signal for that character or the work has no meaningful map.
 
+8b. **POV characters.** If the `<analysis>` contains a *Viewpoint (POV) characters* section listing names, set `is_pov: true` on exactly those characters (match by name) and `is_pov: false` on all others. If that section says "n/a" or is absent, set `is_pov: false` on every character. Never infer POV from `importance` — POV comes only from the analysis's Viewpoint list.
+
 9. **Refusal.** If `<analysis>` is empty, describes a different work than `<work_metadata>`, or its Cast section lists fewer than 5 characters, respond with exactly:
    `{"refusal": "grounding_failed"}`
 
@@ -82,6 +84,7 @@ interface Character {
   is_deceased_in_work: boolean;
   spoiler_level: 0 | 1 | 2 | 3;
   home_region?: string; // OPTIONAL. Geographic origin per rule 8a; omit when the work has no defined geography.
+  is_pov: boolean;     // true ONLY for narrative viewpoint characters per the analysis's Viewpoint (POV) section; false otherwise.
 }
 
 interface Relationship {

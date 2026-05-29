@@ -23,3 +23,10 @@ def test_analysis_prompt_names_canonical_wiki_source():
 
 def test_analysis_prompt_has_viewpoint_section():
     assert "Viewpoint" in _load_analysis_prompt()
+
+
+def test_structuring_prompt_documents_is_pov():
+    from app.worker.pipeline import _load_structuring_prompt
+    text = _load_structuring_prompt()
+    assert "is_pov" in text
+    assert "Viewpoint" in text
