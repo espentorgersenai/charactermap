@@ -120,7 +120,6 @@ Examples:
     parser.add_argument("--prompt-file", type=Path)
     parser.add_argument("--char-cap", type=int, default=20, help="Substituted for {CHAR_CAP} in the prompt (default 20, matches runtime default).")
     parser.add_argument("--save", type=Path)
-    parser.add_argument("--temperature", type=float)
     parser.add_argument("--seed", type=int)
     parser.add_argument("--include-actors", action="store_true")
 
