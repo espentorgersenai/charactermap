@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -82,6 +82,17 @@ interface CanvasProps { charMap: CharacterMap; jobId: string }
 function InnerCanvas({ charMap, jobId }: CanvasProps) {
   const [showEdges, setShowEdges] = useState(true)
   const [showLegend, setShowLegend] = useState(false)
+  const [fullscreen, setFullscreen] = useState(false)
+  useEffect(() => {
+    if (!fullscreen) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullscreen(false) }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [fullscreen])
   const coverageKey = `cm-coverage-dismissed-${jobId}`
   const [coverageDismissed, setCoverageDismissed] = useState(() => {
     try { return localStorage.getItem(coverageKey) === '1' } catch { return false }
@@ -149,9 +160,10 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
   }, [charMap, setNodes])
 
   return (
-    <div className="flex flex-col h-full bg-[#111]">
+    <div className={fullscreen ? 'fixed inset-0 z-50 flex flex-col bg-[#111]' : 'flex flex-col h-full bg-[#111]'}>
 
       {/* Title strip */}
+      {!fullscreen && (
       <div className="bg-[#161616] border-b border-[#222] px-6 py-3 flex-shrink-0">
         <div className="flex items-center gap-3 flex-wrap">
           <h1 className="text-xl font-bold text-white leading-tight">
@@ -185,8 +197,10 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           </p>
         )}
       </div>
+      )}
 
       {/* Top toolbar */}
+      {!fullscreen && (
       <div className="bg-[#1a1a1a] border-b border-[#2a2a2a] px-6 py-2.5 flex items-center gap-2.5 flex-shrink-0">
         <button
           onClick={() => setShowEdges(v => !v)}
@@ -213,10 +227,18 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
         >
           Reset layout
         </button>
+        <button
+          onClick={() => setFullscreen(true)}
+          title="Fullscreen map (Esc to exit)"
+          className="px-4 py-2 text-sm font-semibold text-[#e5e7eb] border-[1.5px] border-[#444] rounded-lg bg-transparent hover:border-[#666] transition-colors"
+        >
+          ⛶ Fullscreen
+        </button>
       </div>
+      )}
 
       {/* Optional banners */}
-      {charMap.coverage_note && !coverageDismissed && (
+      {!fullscreen && charMap.coverage_note && !coverageDismissed && (
         <div className="mx-4 mt-3 px-4 py-2.5 bg-amber-900/15 border border-amber-500/40 rounded-lg text-amber-300 text-sm flex items-start gap-2 flex-shrink-0">
           <span className="flex-shrink-0 mt-0.5">⚠</span>
           <span className="flex-1"><strong>Coverage note:</strong> {charMap.coverage_note}</span>
@@ -230,7 +252,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
         </div>
       )}
 
-      {charMap.setting_preamble && (
+      {!fullscreen && charMap.setting_preamble && (
         <div className="flex-shrink-0">
           <SettingPreamble text={charMap.setting_preamble} />
         </div>
@@ -260,6 +282,35 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
           />
           <Background color="#1e1e1e" variant={BackgroundVariant.Dots} gap={20} />
         </ReactFlow>
+
+        {fullscreen && (
+          <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-2">
+            <button
+              onClick={() => setShowEdges(v => !v)}
+              title="Toggle relationship lines"
+              className={`px-3 py-1.5 text-[12px] font-semibold rounded-lg border-[1.5px] transition-colors ${
+                showEdges
+                  ? 'bg-[#D4AF37] text-[#0D0B09] border-[#D4AF37]'
+                  : 'bg-[#1a1a1a] text-[#aaa] border-[#2a2a2a] hover:border-[#555]'
+              }`}
+            >
+              Connections
+            </button>
+            <button
+              onClick={resetLayout}
+              className="px-3 py-1.5 text-[12px] font-semibold text-[#e5e7eb] border-[1.5px] border-[#444] rounded-lg bg-[#1a1a1a] hover:border-[#666] transition-colors"
+            >
+              Reset layout
+            </button>
+            <button
+              onClick={() => setFullscreen(false)}
+              title="Exit fullscreen (Esc)"
+              className="px-3 py-1.5 text-[12px] font-semibold text-[#e5e7eb] border-[1.5px] border-[#444] rounded-lg bg-[#1a1a1a] hover:border-[#666] transition-colors"
+            >
+              ✕ Exit
+            </button>
+          </div>
+        )}
 
         {/* Legend toggle */}
         <div className="absolute bottom-3.5 left-3.5 z-10">
