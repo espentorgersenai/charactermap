@@ -6,6 +6,8 @@
 
 **Architecture:** Four mostly-independent changes. Backend: make the grounded Stage-1 analysis call cap-aware and scale its web-search budget, add a `Viewpoint (POV)` section to the analysis prompt and an `is_pov` field through Stage-2 structuring + the schema. Frontend: give character cards a fixed height (kills the overflow-into-next-row overlap), render a ★ on POV cards, and add a fullscreen toggle that hides all chrome.
 
+**Dynamic per work — not GoT-specific.** Nothing here hardcodes 50 characters or 8 POVs. Roster size scales to the *requested cap* and to *what each work verifiably supports* — the cap is a ceiling, never a quota, and padding is forbidden (a 12-character novella returns 12). POV stars appear *only* when a work has named viewpoint structure; the common case is zero POVs. The GoT 50-character roster and 8 POVs are **acceptance fixtures for the GoT test (Task 8)**, not values in code or prompts. Task 8 also verifies a contrasting small-cast / no-POV work to guard against padding and spurious stars.
+
 **Tech Stack:** Python 3.12 / FastAPI / Pydantic / Anthropic SDK (`web_search` tool), React 18 / TS / React Flow / Tailwind 3.4, Vitest 3, pytest.
 
 ---
@@ -302,7 +304,7 @@ For works with a dedicated comprehensive fan-wiki, treat it as a primary source 
 b) Add a new rule 6 (after the current rule 5 "Faction-padding is forbidden"):
 
 ```
-6. **Roster completeness — target up to {CHAR_CAP} characters.** Enumerate as close to {CHAR_CAP} *verified* characters as the work genuinely supports. "Structural importance" is NOT just the leads: for large-ensemble works (epic fantasy, sprawling sagas, big-cast films) include recurring supporting cast — household members, advisers, bodyguards, wards, named retainers, faction officers, mentors. Do not stop at the obvious 20–30 when the source names more. This never overrides rule 1: only enumerate characters you can verify via search — never invent to reach the number.
+6. **Roster completeness — target up to {CHAR_CAP} characters.** Enumerate as close to {CHAR_CAP} *verified* characters as the work genuinely supports. "Structural importance" is NOT just the leads: for large-ensemble works (epic fantasy, sprawling sagas, big-cast films) include recurring supporting cast — household members, advisers, bodyguards, wards, named retainers, faction officers, mentors. Do not stop at the obvious 20–30 when the source names more. This never overrides rule 1: only enumerate characters you can verify via search — never invent to reach the number. The cap is a **ceiling, not a quota**: if the work only has, say, 12 verifiable named characters, return 12 — a thin accurate roster beats a padded one. Scale to the work, not to the number.
 ```
 
 c) In the "Cast (verified via web search)" section, change the line "Include every named character of structural importance." to:
@@ -315,7 +317,7 @@ d) Add a new output section immediately after the Cast section (before "True Fin
 
 ```
 **Viewpoint (POV) characters**
-If the work uses named POV / viewpoint chapters or sections (e.g. A Song of Ice and Fire, where each chapter is told through one character's eyes), list those POV characters by name here, one per line, verified against the source. Do NOT infer POV from prominence — list only characters whose perspective actually narrates a chapter/section. If the work has no such structure, write "n/a".
+If the work uses named POV / viewpoint chapters or sections (e.g. A Song of Ice and Fire, where each chapter is told through one character's eyes), list those POV characters by name here, one per line, verified against the source. Do NOT infer POV from prominence — list only characters whose perspective actually narrates a chapter/section. Most works have NO formal POV structure (third-person omniscient, a single first-person narrator) — for those, "n/a" is the common and correct answer. The POV count is whatever the work genuinely has: 0, 1, 8, or more — never a fixed number. If the work has no such structure, write "n/a".
 ```
 
 - [ ] **Step 4: Run to verify pass**
@@ -684,6 +686,18 @@ docker cp scripts charmap_api:/app/scripts \
   && docker exec -e PYTHONPATH=/app charmap_api python scripts/run_golden_set.py --model claude-sonnet-4-6
 ```
 Expected: 100% `spoiler_level` coverage, zero flagged fabrications, no character-count regression on the other 9 works.
+
+- [ ] **Step 5b: Contrast-work check — no padding, no spurious POVs**
+
+Regenerate a small-cast, third-person (non-POV) golden work — **Congo** (Crichton) at cap=50 — and confirm the changes degrade gracefully for works unlike GoT:
+
+```bash
+docker exec charmap_postgres psql -U charactermap -d charactermap -tAc \
+ "SELECT jsonb_array_length(character_map->'characters'), \
+  (SELECT count(*) FROM jsonb_array_elements(character_map->'characters') e WHERE (e->>'is_pov')::bool) \
+  FROM jobs WHERE resolved_title ILIKE '%congo%' ORDER BY created_at DESC LIMIT 1;"
+```
+Expected: character count reflects Congo's real cast (well under 50 — **not** padded toward the cap), and **POV count = 0** (Congo has no viewpoint-chapter structure). This is the regression guard for the dynamic-scaling principle: the cap is a ceiling, and POV stars only appear when a work actually has them.
 
 - [ ] **Step 6: Open PR, merge, deploy to lfc**
 

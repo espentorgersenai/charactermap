@@ -42,6 +42,13 @@ Root causes (verified):
    minimal floating controls), exitable via ✕ or `Esc`.
 5. **No correctness regressions:** golden-set re-run keeps 100% `spoiler_level`
    coverage and zero flagged fabrications across all 10 works; 210 unit tests pass.
+6. **Dynamic per work (not GoT-specific):** the numbers above are *acceptance
+   fixtures for the GoT test only*. Roster size scales to the requested cap and
+   to what each work verifiably supports — the cap is a **ceiling, never a
+   quota**, and padding is forbidden (a 12-character novella returns 12). POV
+   stars appear **only** when a work has named viewpoint structure; zero POVs is
+   the common, correct case. Verified against a contrasting small-cast / no-POV
+   work (Congo): real cast size, not padded; POV count 0.
 
 ## 3. Non-goals (YAGNI)
 
