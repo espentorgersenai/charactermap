@@ -3,7 +3,7 @@ import type { CharacterMap, Character, Faction, Relationship, RelationshipType }
 
 // ── Visual constants ────────────────────────────────────────────────────────
 export const NODE_WIDTH = 320
-export const NODE_HEIGHT = 116
+export const NODE_HEIGHT = 120
 const COL_GAP = 32       // horizontal gap between columns within a faction
 const ROW_GAP = 24       // vertical gap between rows within a faction
 export const MAX_COLS = 3  // max columns per faction before wrapping
