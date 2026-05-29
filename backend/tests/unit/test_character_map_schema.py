@@ -1,7 +1,7 @@
 import json
 import pytest
 from pydantic import ValidationError
-from app.models.character_map import CharacterMap, RefusalResponse
+from app.models.character_map import Character, CharacterMap, RefusalResponse
 
 VALID_CHARACTER_MAP = {
     "title": "Congo",
@@ -109,7 +109,6 @@ def test_coverage_note_optional():
 
 
 def test_is_pov_defaults_false():
-    from app.models.character_map import Character
     c = Character.model_validate({
         "id": "ned", "name": "Eddard Stark", "role": "Lord",
         "description": "Warden of the North.", "faction_id": "stark",
@@ -120,7 +119,6 @@ def test_is_pov_defaults_false():
 
 
 def test_is_pov_accepts_true():
-    from app.models.character_map import Character
     c = Character.model_validate({
         "id": "ned", "name": "Eddard Stark", "role": "Lord",
         "description": "Warden of the North.", "faction_id": "stark",
