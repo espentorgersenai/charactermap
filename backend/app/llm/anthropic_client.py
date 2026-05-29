@@ -69,10 +69,11 @@ class AnthropicClient:
         rates). We don't add it to `cost_usd` here; the daily cost guard is the
         real safety net and search count is logged for accounting.
         """
+        # `temperature` was deprecated on Sonnet 4.6 / Opus 4.7 — sending it
+        # returns a 400 invalid_request_error. Use the model's native default.
         message = await self._client.messages.create(
             model=self.model,
             max_tokens=max_tokens,
-            temperature=0,
             system=[
                 {
                     "type": "text",
