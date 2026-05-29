@@ -36,6 +36,7 @@ export interface Character {
   spoiler_level: SpoilerLevel | null
   actor?: ActorInfo
   home_region?: string | null
+  is_pov?: boolean
 }
 
 export interface Relationship {

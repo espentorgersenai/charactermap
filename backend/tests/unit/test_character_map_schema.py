@@ -106,3 +106,25 @@ def test_setting_preamble_optional():
 def test_coverage_note_optional():
     result = CharacterMap.model_validate(VALID_CHARACTER_MAP)
     assert result.coverage_note is None
+
+
+def test_is_pov_defaults_false():
+    from app.models.character_map import Character
+    c = Character.model_validate({
+        "id": "ned", "name": "Eddard Stark", "role": "Lord",
+        "description": "Warden of the North.", "faction_id": "stark",
+        "importance": "protagonist", "is_deceased_in_work": False,
+        "spoiler_level": 0,
+    })
+    assert c.is_pov is False
+
+
+def test_is_pov_accepts_true():
+    from app.models.character_map import Character
+    c = Character.model_validate({
+        "id": "ned", "name": "Eddard Stark", "role": "Lord",
+        "description": "Warden of the North.", "faction_id": "stark",
+        "importance": "protagonist", "is_deceased_in_work": False,
+        "spoiler_level": 0, "is_pov": True,
+    })
+    assert c.is_pov is True

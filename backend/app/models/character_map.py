@@ -42,6 +42,10 @@ class Character(BaseModel):
     # rendering. Free-form string — the frontend resolves it against a per-work
     # region→coordinate table. None for works without a defined geography.
     home_region: Optional[str] = None
+    # True only for narrative viewpoint (POV) characters — chapters/sections
+    # told from their perspective (e.g. ASOIAF POV chapters). Populated by
+    # Stage 2 from the analysis's Viewpoint section; default False.
+    is_pov: bool = False
 
 
 class Relationship(BaseModel):
