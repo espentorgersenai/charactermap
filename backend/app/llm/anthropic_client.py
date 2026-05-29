@@ -17,6 +17,11 @@ _COST_PER_MTOK = {
 }
 _DEFAULT_COST = {"input": 3.00, "output": 15.00}
 
+# Above this max_tokens the Anthropic SDK requires streaming (a non-streaming
+# request that could exceed ~10 min is rejected). 16384 is proven safe
+# non-streaming; larger structuring budgets (cap 100/150) go through stream().
+_NONSTREAMING_MAX_TOKENS = 16384
+
 
 class AnthropicClient:
     def __init__(self, model: str, api_key: str) -> None:
@@ -29,18 +34,33 @@ class AnthropicClient:
         user_message: str,
         max_tokens: int = 16384,
     ) -> LLMResult:
-        message = await self._client.messages.create(
-            model=self.model,
-            max_tokens=max_tokens,
-            system=[
-                {
-                    "type": "text",
-                    "text": system_prompt,
-                    "cache_control": {"type": "ephemeral"},
-                }
-            ],
-            messages=[{"role": "user", "content": user_message}],
-        )
+        system = [
+            {
+                "type": "text",
+                "text": system_prompt,
+                "cache_control": {"type": "ephemeral"},
+            }
+        ]
+        messages = [{"role": "user", "content": user_message}]
+        # The Anthropic SDK refuses *non-streaming* requests whose max_tokens
+        # could take >10 min to produce (large structuring rosters, cap 100/150).
+        # Stream above the safe non-streaming ceiling; keep the simpler create()
+        # path for ordinary calls. Both accumulate to the same final Message.
+        if max_tokens > _NONSTREAMING_MAX_TOKENS:
+            async with self._client.messages.stream(
+                model=self.model,
+                max_tokens=max_tokens,
+                system=system,
+                messages=messages,
+            ) as stream:
+                message = await stream.get_final_message()
+        else:
+            message = await self._client.messages.create(
+                model=self.model,
+                max_tokens=max_tokens,
+                system=system,
+                messages=messages,
+            )
         text = message.content[0].text
         input_tokens = message.usage.input_tokens
         output_tokens = message.usage.output_tokens

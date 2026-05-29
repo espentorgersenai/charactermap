@@ -50,3 +50,29 @@ async def test_generate_passes_system_and_user(mock_message):
         # system content passed as list for prompt caching
         assert call_kwargs["system"][0]["text"] == "system"
         assert call_kwargs["messages"][0]["content"] == "user"
+
+
+@pytest.mark.asyncio
+async def test_generate_streams_when_max_tokens_large(mock_message):
+    """Large max_tokens must go through messages.stream() — the SDK rejects
+    big non-streaming requests. Small calls stay on create()."""
+    with patch("app.llm.anthropic_client.anthropic.AsyncAnthropic") as mock_cls:
+        mock_client = AsyncMock()
+        stream_cm = MagicMock()
+        stream_cm.__aenter__ = AsyncMock(return_value=stream_cm)
+        stream_cm.__aexit__ = AsyncMock(return_value=None)
+        stream_cm.get_final_message = AsyncMock(return_value=mock_message)
+        mock_client.messages.stream = MagicMock(return_value=stream_cm)
+        mock_cls.return_value = mock_client
+
+        client = AnthropicClient(model="claude-opus-4-8", api_key="sk-test")
+        result = await client.generate_character_map(
+            system_prompt="system",
+            user_message="user",
+            max_tokens=32000,
+        )
+
+    assert result.text == '{"title": "Congo"}'
+    assert result.output_tokens == 200
+    mock_client.messages.stream.assert_called_once()
+    mock_client.messages.create.assert_not_called()
