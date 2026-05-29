@@ -1,7 +1,7 @@
 import pytest
 from datetime import datetime, timezone
 from unittest.mock import AsyncMock, MagicMock
-from app.routes.jobs import find_best_cached_job
+from app.routes.jobs import find_best_cached_job, PIPELINE_VERSION
 from app.db.tables import Job
 
 MODEL_QUALITY_ORDER = [
@@ -20,13 +20,18 @@ def _make_job(
     deleted: bool = False,
     season: int | None = None,
     adaptation_tmdb_id: int | None = None,
+    pipeline_version: str | None = PIPELINE_VERSION,
 ) -> Job:
     j = MagicMock(spec=Job)
     j.model = model
     j.status = "done"
     j.character_map = character_map or {"title": "Congo"}
     j.deleted_at = datetime.now(tz=timezone.utc) if deleted else None
-    j.resolved_meta = {"season": season, "adaptation_tmdb_id": adaptation_tmdb_id}
+    j.resolved_meta = {
+        "season": season,
+        "adaptation_tmdb_id": adaptation_tmdb_id,
+        "pipeline_version": pipeline_version,
+    }
     return j
 
 
@@ -109,6 +114,29 @@ async def test_cleared_adaptation_skips_linked_cache():
         session, "OLBookW", "full", 20, adaptation_tmdb_id=None
     )
     assert result is None
+
+
+@pytest.mark.asyncio
+async def test_stale_pipeline_version_skipped():
+    """A map from an older pipeline version (or pre-versioning) must not be
+    served — the next request regenerates with the current pipeline."""
+    old = _make_job("claude-opus-4-8", pipeline_version="1")
+    none_version = _make_job("claude-opus-4-8", pipeline_version=None)
+    session = _make_session([old, none_version])
+
+    result = await find_best_cached_job(session, "OL12345W", "full", 20)
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_current_version_served_over_stale():
+    """Among mixed versions, only the current-version map is eligible."""
+    stale = _make_job("claude-opus-4-8", pipeline_version="1")
+    current = _make_job("claude-sonnet-4-6")  # defaults to current version
+    session = _make_session([stale, current])
+
+    result = await find_best_cached_job(session, "OL12345W", "full", 20)
+    assert result is current
 
 
 @pytest.mark.asyncio

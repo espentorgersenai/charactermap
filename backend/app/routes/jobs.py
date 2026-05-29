@@ -35,6 +35,15 @@ _MODEL_QUALITY_ORDER = [
     "claude-haiku-4-5-20251001",
 ]
 
+# Cache identity also includes the pipeline/prompt-schema version. Bump this
+# whenever a prompt, the output schema, or the grounding pipeline changes in a
+# way that should invalidate previously-generated maps. Maps stamped with an
+# older version (or none) won't be served from cache — the next request
+# regenerates with the current pipeline. Old rows are kept (never deleted),
+# they just stop matching. Stamped into resolved_meta (JSONB, no migration).
+# v2: GoT-scale completeness + is_pov POV stars (2026-05-29).
+PIPELINE_VERSION = "2"
+
 
 async def find_best_cached_job(
     session: AsyncSession,
@@ -67,6 +76,11 @@ async def find_best_cached_job(
         meta = j.resolved_meta or {}
         j_season = meta.get("season")
         j_adapt = meta.get("adaptation_tmdb_id")
+        # Only serve maps from the current pipeline/prompt version. Maps from an
+        # older pipeline (or pre-versioning, where the key is absent) are skipped
+        # so the next request regenerates with the current pipeline.
+        if meta.get("pipeline_version") != PIPELINE_VERSION:
+            return False
         return j_season == season and j_adapt == adaptation_tmdb_id
 
     jobs = [j for j in jobs if _matches(j)]
@@ -154,6 +168,9 @@ async def create_job(
         "media_type": work_media_type,
         "adaptation_tmdb_id": resolved.adaptation.tmdb_id if resolved.adaptation else None,
         "season": effective_season,
+        # Stamps which pipeline/prompt version produced (or will produce) this
+        # map, so a version bump auto-invalidates stale cached maps.
+        "pipeline_version": PIPELINE_VERSION,
     }
 
     # Cache check: reuse the best existing result for this work, cap,
