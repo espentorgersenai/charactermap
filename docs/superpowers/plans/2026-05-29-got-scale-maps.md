@@ -719,3 +719,24 @@ Expected: `deploy.sh` rebuilds + `alembic upgrade head` (no new migration — `i
 - **Type consistency:** `is_pov` is `bool`/`boolean` everywhere; `_searches_for_cap` / `_render_system_prompt` / `_load_analysis_prompt` / `_load_structuring_prompt` names match the existing pipeline. `NODE_HEIGHT` exported from `layout.ts` and consumed by `factionSize` + the card node box.
 - **No migration:** `is_pov` lives in the `character_map` JSONB blob (same as `home_region`).
 - **Out of scope (follow-up):** POV is wired only in the grounded (Anthropic) path; the ungrounded single-call prompt (`character_map.md`, OpenAI/Gemini) leaves `is_pov=false`. No hard `web_search` domain allowlist on by default.
+
+---
+
+## Build status (as-built, 2026-05-29) — HELD, NOT DEPLOYED
+
+All 10 tasks implemented on `feat/got-scale-maps` (Tasks 9–10 added mid-build for
+issues found during validation: Stage-2 output truncation → streaming, and cache
+staleness → versioned cache key). **221 backend + 26 frontend tests pass.**
+
+**Validated live (local, Opus 4.8):**
+- GoT cap=50 → 48 chars, fresh gen (cache-versioning confirmed), valid JSON.
+- GoT cap=100 → 83 chars via the streaming path (no truncation).
+- Congo cap=50 → 13 chars / 0 POVs (dynamic scaling confirmed — no padding).
+
+**Known gap — POV accuracy (held):** LLM web-search grounding flags the POV set
+unreliably (across two runs it missed Tyrion, false-flagged Tywin, varied on
+Catelyn/Robb/Gilly). Per the no-partial-fixes rule, POVs are NOT considered
+correct. **Decision (user, 2026-05-29):** do NOT deploy this branch yet; build the
+awoiaf per-chapter wiki-grounding feature next (deterministic POV + per-chapter
+maps), then deploy retrieval + UI + correct POVs together. Golden-set regression
++ `deploy.sh` are deferred to that combined release.
