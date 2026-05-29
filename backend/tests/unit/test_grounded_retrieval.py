@@ -5,7 +5,9 @@ def test_searches_for_cap_scales_with_cap():
     assert _searches_for_cap(10) == 4
     assert _searches_for_cap(20) == 4
     assert _searches_for_cap(50) == 4
+    assert _searches_for_cap(51) == 8   # boundary: first value above the ≤50 tier
     assert _searches_for_cap(100) == 8
+    assert _searches_for_cap(101) == 12  # boundary: first value above the ≤100 tier
     assert _searches_for_cap(150) == 12
 
 

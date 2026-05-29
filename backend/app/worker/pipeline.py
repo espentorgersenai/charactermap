@@ -440,7 +440,11 @@ async def _run_grounded_single_stage(
     user_message = _render_analysis_user_message(job)
     await _set_progress_stage(session, job, "searching")
 
-    raw = await client.generate_with_web_search(system_prompt, user_message)
+    raw = await client.generate_with_web_search(
+        system_prompt,
+        user_message,
+        max_searches=_searches_for_cap(job.character_cap),
+    )
     text = _strip_fences(raw.text)
     _check_refusal(text)
 
