@@ -44,3 +44,6 @@ hobbit-*.png
 # Personal-use map backdrops (fan-made, copyrighted)
 frontend/public/maps/*
 !frontend/public/maps/README.md
+
+# Firecrawl scrape cache
+.firecrawl/
