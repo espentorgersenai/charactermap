@@ -65,7 +65,12 @@ export function CharacterCardNode({ data }: NodeProps) {
 
         {/* Name + role */}
         <div className="min-w-0">
-          <div className="text-[22px] font-bold text-white leading-snug line-clamp-2">{c.name}</div>
+          <div className="text-[22px] font-bold text-white leading-snug line-clamp-2">
+            {c.is_pov && (
+              <span title="POV character" style={{ color: '#D4AF37' }} className="mr-1">★</span>
+            )}
+            {c.name}
+          </div>
           <div className="text-[18px] text-[#9ca3af] mt-0.5 line-clamp-1">{c.role}</div>
         </div>
       </div>

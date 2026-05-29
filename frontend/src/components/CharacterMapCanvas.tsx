@@ -49,6 +49,10 @@ function LegendPanel() {
           <span className="text-[13px] text-[#ccc]">{e.label}</span>
         </div>
       ))}
+      <div className="mt-2 pt-2 border-t border-[#2a2a2a] flex items-center gap-2">
+        <span style={{ color: '#D4AF37' }} className="text-[13px]">★</span>
+        <span className="text-[13px] text-[#ccc]">POV character</span>
+      </div>
     </div>
   )
 }
