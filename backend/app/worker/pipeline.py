@@ -369,6 +369,18 @@ async def _set_progress_stage(session, job: Job, stage: str | None) -> None:
     await session.commit()
 
 
+def _searches_for_cap(cap: int) -> int:
+    """Web-search budget scales with the requested cap. Small/default maps need
+    only a few searches; large-ensemble works (cap 100/150) need enough passes
+    to enumerate the deep cast. Stage 1 latency tracks output tokens more than
+    search count, so this stays modest."""
+    if cap <= 50:
+        return 4
+    if cap <= 100:
+        return 8
+    return 12
+
+
 async def _run_grounded(
     session, client: AnthropicClient, job: Job
 ) -> tuple[CharacterMap, LLMResult, LLMResult]:
@@ -382,10 +394,14 @@ async def _run_grounded(
     the existing call_and_validate path (e.g. `grounding_failed` when the
     analysis has too few characters).
     """
-    analysis_system = _load_analysis_prompt()
+    analysis_system = _render_system_prompt(_load_analysis_prompt(), job.character_cap)
     analysis_user = _render_analysis_user_message(job)
     await _set_progress_stage(session, job, "searching")
-    stage1 = await client.generate_with_web_search(analysis_system, analysis_user)
+    stage1 = await client.generate_with_web_search(
+        analysis_system,
+        analysis_user,
+        max_searches=_searches_for_cap(job.character_cap),
+    )
     log.info(
         "grounded_stage1_done",
         job_id=str(job.id),

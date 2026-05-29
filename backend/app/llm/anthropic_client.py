@@ -65,6 +65,7 @@ class AnthropicClient:
         user_message: str,
         max_tokens: int = 8192,
         max_searches: int = 3,
+        allowed_domains: list[str] | None = None,
     ) -> LLMResult:
         """Call the model with the server-side web_search tool enabled and
         return the concatenated text-block content as analysis prose.
@@ -75,6 +76,13 @@ class AnthropicClient:
         """
         # `temperature` was deprecated on Sonnet 4.6 / Opus 4.7 — sending it
         # returns a 400 invalid_request_error. Use the model's native default.
+        web_search_tool: dict = {
+            "type": "web_search_20250305",
+            "name": "web_search",
+            "max_uses": max_searches,
+        }
+        if allowed_domains:
+            web_search_tool["allowed_domains"] = allowed_domains
         message = await self._client.messages.create(
             model=self.model,
             max_tokens=max_tokens,
@@ -86,13 +94,7 @@ class AnthropicClient:
                 }
             ],
             messages=[{"role": "user", "content": user_message}],
-            tools=[
-                {
-                    "type": "web_search_20250305",
-                    "name": "web_search",
-                    "max_uses": max_searches,
-                }
-            ],
+            tools=[web_search_tool],
         )
         text_parts: list[str] = []
         search_count = 0
