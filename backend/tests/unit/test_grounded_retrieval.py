@@ -1,4 +1,8 @@
-from app.worker.pipeline import _searches_for_cap, _load_analysis_prompt
+from app.worker.pipeline import (
+    _searches_for_cap,
+    _max_tokens_for_cap,
+    _load_analysis_prompt,
+)
 
 
 def test_searches_for_cap_scales_with_cap():
@@ -9,6 +13,17 @@ def test_searches_for_cap_scales_with_cap():
     assert _searches_for_cap(100) == 8
     assert _searches_for_cap(101) == 12  # boundary: first value above the ≤100 tier
     assert _searches_for_cap(150) == 12
+
+
+def test_max_tokens_for_cap_scales_with_cap():
+    # Large rosters need a bigger Stage-2 output budget or the JSON truncates
+    # mid-object (invalid_json). Ceiling only — cost-neutral when unused.
+    assert _max_tokens_for_cap(20) == 16384
+    assert _max_tokens_for_cap(50) == 16384
+    assert _max_tokens_for_cap(51) == 32000   # boundary above the ≤50 tier
+    assert _max_tokens_for_cap(100) == 32000
+    assert _max_tokens_for_cap(101) == 48000  # boundary above the ≤100 tier
+    assert _max_tokens_for_cap(150) == 48000
 
 
 def test_analysis_prompt_is_cap_aware():

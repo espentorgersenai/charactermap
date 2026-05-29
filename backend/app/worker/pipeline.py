@@ -381,6 +381,20 @@ def _searches_for_cap(cap: int) -> int:
     return 12
 
 
+def _max_tokens_for_cap(cap: int) -> int:
+    """Stage-2 output budget scales with the cap. A large roster (cap 100/150)
+    serialises far more JSON — name_evidence + descriptions + relationships per
+    character — and the 16384 default truncates it mid-object, surfacing as
+    `invalid_json`. max_tokens is a ceiling (you only pay for tokens actually
+    emitted), so a generous budget is cost-neutral. Stays within Opus/Sonnet
+    4.x output limits."""
+    if cap <= 50:
+        return 16384
+    if cap <= 100:
+        return 32000
+    return 48000
+
+
 async def _run_grounded(
     session, client: AnthropicClient, job: Job
 ) -> tuple[CharacterMap, LLMResult, LLMResult]:
@@ -418,7 +432,10 @@ async def _run_grounded(
     structuring_user = _render_structuring_user_message(job, stage1.text)
     await _set_progress_stage(session, job, "structuring")
     char_map, stage2 = await call_and_validate(
-        client, structuring_system, structuring_user
+        client,
+        structuring_system,
+        structuring_user,
+        max_tokens=_max_tokens_for_cap(job.character_cap),
     )
     return char_map, stage1, stage2
 
