@@ -86,11 +86,12 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
   useEffect(() => {
     if (!fullscreen) return
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullscreen(false) }
+    const prevOverflow = document.body.style.overflow
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
     return () => {
       window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
+      document.body.style.overflow = prevOverflow
     }
   }, [fullscreen])
   const coverageKey = `cm-coverage-dismissed-${jobId}`
@@ -205,6 +206,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
         <button
           onClick={() => setShowEdges(v => !v)}
           title="Toggle relationship lines between characters"
+          aria-pressed={showEdges}
           className={`px-4 py-2 text-sm font-semibold rounded-lg border-[1.5px] transition-colors ${
             showEdges
               ? 'bg-[#D4AF37] text-[#0D0B09] border-[#D4AF37]'
@@ -288,6 +290,7 @@ function InnerCanvas({ charMap, jobId }: CanvasProps) {
             <button
               onClick={() => setShowEdges(v => !v)}
               title="Toggle relationship lines"
+              aria-pressed={showEdges}
               className={`px-3 py-1.5 text-[12px] font-semibold rounded-lg border-[1.5px] transition-colors ${
                 showEdges
                   ? 'bg-[#D4AF37] text-[#0D0B09] border-[#D4AF37]'
