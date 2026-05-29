@@ -423,3 +423,27 @@ Step 4 looked like a 50% win on Embassytown but Step 5a's cross-validation found
   - Tokyo Express grounded job: 11 characters, Yasuda as antagonist, Ryōko at sp=3, adaptation_note populated about the 1958 Toei film.
   - Stage transitions visible in SSE: `searching → structuring → enriching → rendering → done`.
 - **Cumulative session LLM spend: ~$11.79** across 54 calls (1.95M input tokens, 351K output, 72 web_search calls). Detailed breakdown saved at `tuning/run-2026-05-19-searchcount/` (mixed Embassytown step-by-step artifacts and the full 10-work golden batch under `tuning/run-2026-05-19-full2/`).
+
+## Session 10 — 2026-05-29
+
+### What We Built
+
+**Merged the web-client backlog, fixed a launch-blocking bug, built (but held) the GoT-scale map feature, and spun out a new companion app.**
+
+- **Merged two web-authored PRs to `main` + deployed to lfc.** PR #1 — drop the deprecated `temperature=` from the `web_search` call (it 400s on Sonnet 4.6 / Opus 4.7+). PR #2 (`claude/got-actor-photos`) — Claude **Opus 4.8** as the top-tier model, a GoT-scale **Westeros geographic view**, and a Wikipedia actor-photo fallback. Folded the dev-script `temperature` removal into PR #2 before merging.
+- **Fixed `JOB_CREATE_FAILED`** (systematic debugging → root cause): PR #2 widened `VALID_CHARACTER_CAPS` to `{…,100,150}` in the Pydantic validator + frontend dropdown but left the DB `ck_jobs_character_cap` CHECK at `{10..50}` with no migration, so cap=100/150 INSERTs hit `CheckViolationError`. Shipped migration `0005`, the matching `tables.py` constraint, and a regression test (`test_db_cap_constraint_matches_valid_caps`) asserting the constraint == `VALID_CHARACTER_CAPS`. Deployed (alembic at 0005).
+- **Built the GoT-scale map feature on `feat/got-scale-maps`** (brainstorm → spec → plan → subagent-driven, 10 tasks): `is_pov`; cap-aware Stage-1 retrieval (`_searches_for_cap` = 4/8/12 by cap); Stage-1 prompt roster-completeness + awoiaf source + a `Viewpoint (POV)` section; Stage-2 populates `is_pov`; fixed-height cards (overlap fix); POV ★; in-app fullscreen toggle; **streaming Stage-2** (`_max_tokens_for_cap` + `messages.stream` above 16384 — large rosters were truncating to `invalid_json`); **versioned cache key** (`PIPELINE_VERSION`).
+- **Validated live** (Opus 4.8): GoT cap=50 → 48 chars (fresh, cache-versioning confirmed); cap=100 → 83 via streaming; Congo → 13 chars / 0 POVs (dynamic scaling). **POV-via-LLM was unreliable** (missed Tyrion, false-flagged Tywin, varied run-to-run) → branch **HELD undeployed**.
+- **Spun out `../westeros-companion`** — a standalone GoT/ASOIAF companion that grounds per-chapter maps deterministically in awoiaf (exact POVs, free serving). Reuses only this app's React Flow canvas. See that repo's own chronicle.
+
+### Key Decisions
+
+- **Cap is a ceiling, not a quota; POV stars only when a work has viewpoint structure.** Roster size + POV count scale to each work — GoT's 50/8 were test fixtures, never hardcoded. Saved as a cross-session memory.
+- **Two validation-found issues drove design changes:** Stage-2 output truncation → stream the structuring call with cap-scaled `max_tokens`; cache staleness (cache keyed on work+cap, not model/prompt) → version the cache key so improvements aren't masked by stale maps. Old maps are never deleted — they just stop matching.
+- **POV accuracy belongs to deterministic wiki grounding, not the LLM.** This untangled the general app's deploy decision from POV-perfection and motivated the separate companion app.
+- **The awoiaf per-chapter idea is a different product** (no title search / LLM / cost) → new repo, reusing only the canvas.
+
+### Test Status
+
+- `feat/got-scale-maps`: **217 backend + 26 frontend tests pass**; new coverage for `is_pov`, `_searches_for_cap`/`_max_tokens_for_cap`, the streaming path, cache-versioning, and a no-overlap layout invariant. Validated live but **not deployed**.
+- `main` (deployed): cap-constraint migration `0005` + regression test green; `JOB_CREATE_FAILED` resolved in production.
