@@ -63,7 +63,7 @@ class Job(Base):
             name="ck_jobs_status",
         ),
         CheckConstraint(
-            "character_cap IN (10, 20, 30, 40, 50)",
+            "character_cap IN (10, 20, 30, 40, 50, 100, 150)",
             name="ck_jobs_character_cap",
         ),
         Index("idx_jobs_created_at", "created_at"),
