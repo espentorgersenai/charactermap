@@ -48,7 +48,6 @@ async def _run(args) -> str:
     response = await client.messages.create(
         model=args.model,
         max_tokens=8192,
-        temperature=0,
         system=system_prompt,
         messages=[{"role": "user", "content": user_message}],
         tools=[
